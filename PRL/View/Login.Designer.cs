@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             pictureBox1 = new PictureBox();
             pass = new TextBox();
             username = new TextBox();
@@ -47,7 +46,7 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Image = Properties.Resources._407bcc6b380deeb233ee431816ac8b0b;
             pictureBox1.Location = new Point(-17, -11);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(518, 642);
@@ -81,7 +80,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Image = Properties.Resources._6052028;
             pictureBox3.Location = new Point(61, 334);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(60, 60);
@@ -91,7 +90,7 @@
             // pictureBox4
             // 
             pictureBox4.BackColor = Color.Transparent;
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Image = Properties.Resources.logodomixi;
             pictureBox4.Location = new Point(61, 214);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(60, 60);
