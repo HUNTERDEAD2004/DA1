@@ -42,8 +42,9 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = SystemColors.Control;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(165, 139);
+            label1.Location = new Point(107, 139);
             label1.Name = "label1";
             label1.Size = new Size(135, 32);
             label1.TabIndex = 0;
@@ -54,7 +55,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(165, 253);
+            label2.Location = new Point(107, 207);
             label2.Name = "label2";
             label2.Size = new Size(129, 32);
             label2.TabIndex = 1;
@@ -63,7 +64,7 @@
             // 
             // txt_User
             // 
-            txt_User.Location = new Point(293, 139);
+            txt_User.Location = new Point(277, 139);
             txt_User.Margin = new Padding(3, 4, 3, 4);
             txt_User.Multiline = true;
             txt_User.Name = "txt_User";
@@ -73,7 +74,7 @@
             // 
             // txt_Password
             // 
-            txt_Password.Location = new Point(293, 253);
+            txt_Password.Location = new Point(277, 207);
             txt_Password.Margin = new Padding(3, 4, 3, 4);
             txt_Password.Multiline = true;
             txt_Password.Name = "txt_Password";
@@ -94,10 +95,10 @@
             // 
             // btn_DangNhap
             // 
-            btn_DangNhap.Location = new Point(293, 364);
+            btn_DangNhap.Location = new Point(368, 285);
             btn_DangNhap.Margin = new Padding(3, 4, 3, 4);
             btn_DangNhap.Name = "btn_DangNhap";
-            btn_DangNhap.Size = new Size(357, 31);
+            btn_DangNhap.Size = new Size(182, 31);
             btn_DangNhap.TabIndex = 5;
             btn_DangNhap.Text = "Đăng Nhập";
             btn_DangNhap.UseVisualStyleBackColor = true;
@@ -105,7 +106,7 @@
             // 
             // btn_QuenMatKhau
             // 
-            btn_QuenMatKhau.Location = new Point(475, 473);
+            btn_QuenMatKhau.Location = new Point(459, 342);
             btn_QuenMatKhau.Margin = new Padding(3, 4, 3, 4);
             btn_QuenMatKhau.Name = "btn_QuenMatKhau";
             btn_QuenMatKhau.Size = new Size(174, 31);
@@ -116,7 +117,7 @@
             // 
             // btn_DangKy
             // 
-            btn_DangKy.Location = new Point(293, 473);
+            btn_DangKy.Location = new Point(277, 342);
             btn_DangKy.Margin = new Padding(3, 4, 3, 4);
             btn_DangKy.Name = "btn_DangKy";
             btn_DangKy.Size = new Size(176, 31);
@@ -131,7 +132,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(855, 477);
             Controls.Add(btn_DangKy);
             Controls.Add(btn_QuenMatKhau);
             Controls.Add(btn_DangNhap);

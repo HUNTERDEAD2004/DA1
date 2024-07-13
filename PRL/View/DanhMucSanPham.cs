@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace PRL.View
 {
-    public partial class SanPham : Form
+    public partial class DanhMucSanPham : Form
     {
-        public SanPham()
+        public DanhMucSanPham()
         {
             InitializeComponent();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }
