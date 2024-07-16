@@ -243,12 +243,12 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(220, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(912, 88);
+            panel2.Size = new Size(1104, 88);
             panel2.TabIndex = 1;
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(801, 31);
+            btnLogout.Location = new Point(998, 31);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(94, 29);
             btnLogout.TabIndex = 4;
@@ -260,7 +260,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(656, 35);
+            label2.Location = new Point(853, 35);
             label2.Name = "label2";
             label2.Size = new Size(139, 20);
             label2.TabIndex = 3;
@@ -297,14 +297,14 @@
             panelChange.Dock = DockStyle.Fill;
             panelChange.Location = new Point(220, 88);
             panelChange.Name = "panelChange";
-            panelChange.Size = new Size(912, 691);
+            panelChange.Size = new Size(1104, 691);
             panelChange.TabIndex = 2;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1132, 779);
+            ClientSize = new Size(1324, 779);
             Controls.Add(panelChange);
             Controls.Add(panel2);
             Controls.Add(Menu);
