@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6BF6386B-B046-428A-BB35-B78A0198BD3D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RJCodeUI_M1</RootNamespace>
+    <AssemblyName>RJCodeUI_M1</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>RJCodeUI_M1.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ModernUI-M1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FontAwesome.Sharp, Version=5.15.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.5.15.3\lib\net45\FontAwesome.Sharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\SalesAnalysis.cs" />
+    <Compile Include="Models\SalesOrder.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RJControls\Design\ButtonDesign.cs" />
+    <Compile Include="RJControls\Design\ControlStyle.cs" />
+    <Compile Include="RJControls\Design\DropdownMenuColors.cs" />
+    <Compile Include="RJControls\Design\DropdownMenuPosition.cs" />
+    <Compile Include="RJControls\Design\DropdownMenuRenderer.cs" />
+    <Compile Include="RJControls\Design\LabelStyle.cs" />
+    <Compile Include="RJControls\Design\TextBoxStyle.cs" />
+    <Compile Include="RJControls\Design\TextPosition.cs" />
+    <Compile Include="RJControls\RJMenuIcon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJCircularPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJDatePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJDragControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJDropdownMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJImageColorOverlay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJMenuButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJControls\RJTrackBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJForms\Private\RJMessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RJForms\Private\RJMessageForm.designer.cs">
+      <DependentUpon>RJMessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RJForms\RJBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RJForms\RJChildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RJForms\RJMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RJForms\RJMessageBox.cs" />
+    <Compile Include="RJForms\RJPrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RJForms\RJPrintForm.designer.cs">
+      <DependentUpon>RJPrintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RJControls\RJRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RJForms\RJSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RJForms\RJSettingsForm.Designer.cs">
+      <DependentUpon>RJSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Settings\UIAppearanceSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>UIAppearanceSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\UIAppearance.cs" />
+    <Compile Include="Settings\RJColors.cs" />
+    <Compile Include="Settings\UIStyle.cs" />
+    <Compile Include="Settings\UITheme.cs" />
+    <Compile Include="TestAndDemo\FormCommonControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormCommonControls.Designer.cs">
+      <DependentUpon>FormCommonControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormComponentControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormComponentControls.Designer.cs">
+      <DependentUpon>FormComponentControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormContainerControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormContainerControls.Designer.cs">
+      <DependentUpon>FormContainerControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormCustomer.Designer.cs">
+      <DependentUpon>FormCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormCustomerMaintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormCustomerMaintenance.Designer.cs">
+      <DependentUpon>FormCustomerMaintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormDashboard.Designer.cs">
+      <DependentUpon>FormDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormDataControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormDataControls.Designer.cs">
+      <DependentUpon>FormDataControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormMenuControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormMenuControls.Designer.cs">
+      <DependentUpon>FormMenuControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormProducts.Designer.cs">
+      <DependentUpon>FormProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormRJBaseFormDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormRJBaseFormDoc.Designer.cs">
+      <DependentUpon>FormRJBaseFormDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormRJChildFormDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormRJChildFormDoc.Designer.cs">
+      <DependentUpon>FormRJChildFormDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormRJMainFormDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormRJMainFormDoc.Designer.cs">
+      <DependentUpon>FormRJMainFormDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormSalesOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormSalesOrder.Designer.cs">
+      <DependentUpon>FormSalesOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormSpecialControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormSpecialControls.Designer.cs">
+      <DependentUpon>FormSpecialControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormUserControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormUserControls.Designer.cs">
+      <DependentUpon>FormUserControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormUserProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormUserProfile.Designer.cs">
+      <DependentUpon>FormUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestAndDemo\FormProductMaintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestAndDemo\FormProductMaintenance.Designer.cs">
+      <DependentUpon>FormProductMaintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ColorEditor.cs" />
+    <Compile Include="Utils\RoundedControl.cs" />
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="RJForms\Private\RJMessageForm.resx">
+      <DependentUpon>RJMessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RJForms\RJPrintForm.resx">
+      <DependentUpon>RJPrintForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RJForms\RJSettingsForm.resx">
+      <DependentUpon>RJSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormCommonControls.resx">
+      <DependentUpon>FormCommonControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormComponentControls.resx">
+      <DependentUpon>FormComponentControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormContainerControls.resx">
+      <DependentUpon>FormContainerControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormCustomer.resx">
+      <DependentUpon>FormCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormCustomerMaintenance.resx">
+      <DependentUpon>FormCustomerMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormDashboard.resx">
+      <DependentUpon>FormDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormDataControls.resx">
+      <DependentUpon>FormDataControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormMenuControls.resx">
+      <DependentUpon>FormMenuControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormProducts.resx">
+      <DependentUpon>FormProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormRJBaseFormDoc.resx">
+      <DependentUpon>FormRJBaseFormDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormRJChildFormDoc.resx">
+      <DependentUpon>FormRJChildFormDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormRJMainFormDoc.resx">
+      <DependentUpon>FormRJMainFormDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormSalesOrder.resx">
+      <DependentUpon>FormSalesOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormSpecialControls.resx">
+      <DependentUpon>FormSpecialControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormUserControls.resx">
+      <DependentUpon>FormUserControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormUserProfile.resx">
+      <DependentUpon>FormUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestAndDemo\FormProductMaintenance.resx">
+      <DependentUpon>FormProductMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Files\Documentation.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\License.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Settings\UIAppearanceSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>UIAppearanceSettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RestoreWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RJTitleBarLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MaximizeDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MaximizeWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MinimizeDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MinimizeWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RestoreDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logoultimate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AralyProfile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\userProfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RummerProfile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RJTitleBarLogoColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModernUI-M1.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="rjLabel3.Text" xml:space="preserve">
+    <value>A component must explicitly release resources through calls to its Dispose method, or components have and must implement IContainer in their constructor that allows associating with a Container object, this is useful if you use multiple components in your application and want to dispose of all of them simultaneously. 
+In addition, when dragging a component to the form, the constructor that implements IContainer as a parameter (e.g. public Timer (IContainer container)) is automatically called and associates the Container object created by the designer of the form that ensures that the component is removed correctly, since it is not a child of the form.
+
+See the protected override void Dispose (bool disposing) method of Any Form.designer.cs
+
+More Information:</value>
+  </data>
+  <data name="rjLabel2.Text" xml:space="preserve">
+    <value>The components do not have a visual representation (with the exception of ContextMenuStrip or RJDropdownMenu since they implement the control class and component), however you can select, set properties and delete it.
+The components are located at the bottom of the form designer, for example:
+Timer, OpenFileDialog, Color Dialog, ImageList, etc.</value>
+  </data>
+  <metadata name="dmExample.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="rjDragControl1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 17</value>
+  </metadata>
+</root>
