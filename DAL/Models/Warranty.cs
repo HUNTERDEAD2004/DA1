@@ -7,20 +7,16 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class AirPod
+    public class Warranty
     {
         [Key]
-        public Guid AirPodId { get; set; }
-
-        public DateTime CreateAt { get; set; }
-
-        public DateTime UpdateAt { get; set; }
-
-        public string? CreateBy { get; set; }
-
-        public string? UpdateBy { get; set; }
-
+        public Guid WarrantyId { get; set; }
         public Guid ProductId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Terms { get; set; }
+        // Other properties
+
         public ProductApple Product { get; set; }
     }
 }

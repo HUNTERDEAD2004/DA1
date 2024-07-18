@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,8 @@ namespace DAL.Models
 {
     public class ProductApple
     {
-        public Guid ProductId { get; set; }
-        public Guid DiscountPriceID { get; set; }
-        public Guid AccessoryID { get; set; }
+        [Key]
+        public Guid ProductId { get; set; }     
         public Guid CategoryID { get; set; }
         public string? Name { get; set; }
 
@@ -53,7 +53,9 @@ namespace DAL.Models
         public DateTime CreateBy { get; set; }
 
         public DateTime UpdateBy { get; set; }
-
+        
+        public Category Category { get; set; }
+        
         public virtual ICollection<AppleWatch>? AppleWatches { get; set; }
 
         public virtual ICollection<Accessory>? Accessorys { get; set; }
@@ -64,6 +66,7 @@ namespace DAL.Models
         public virtual ICollection<Iphone> Iphones { get; set; }
         public virtual ICollection<OderDetail> OderDetails { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
-        public virtual ICollection<ProductVoucher> ProductVouchers { get; set;}
+        public virtual ICollection<ProductVoucher> ProductVouchers { get; set; }
+        public virtual ICollection<Warranty> Warranties { get; set; }
     }
 }

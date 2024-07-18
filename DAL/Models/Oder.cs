@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,10 @@ namespace DAL.Models
 {
     public class Oder
     {
+        [Key]
         public Guid OderID { get; set; }    
+        public Guid UserID { get; set; }
+        public User User { get; set; }
         public int TotalQuantity {get; set; }
         public double TotalPrice { get; set; }  
         public int Status {  get; set; }

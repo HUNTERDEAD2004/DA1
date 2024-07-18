@@ -10,7 +10,7 @@ namespace DAL.Models
 {
     public class User
     {
-        
+        [Key]
         public Guid UserID { get; set; }
         [Required]
         [StringLength (256)]
