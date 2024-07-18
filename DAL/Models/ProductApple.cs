@@ -63,5 +63,7 @@ namespace DAL.Models
         public virtual ICollection<Ipad> Ipads { get; set; }
         public virtual ICollection<Iphone> Iphones { get; set; }
         public virtual ICollection<OderDetail> OderDetails { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
+        public virtual ICollection<ProductVoucher> ProductVouchers { get; set;}
     }
 }
