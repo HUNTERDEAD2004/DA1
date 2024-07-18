@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DomainClass
+namespace DAL.Models
 {
     public class AppleWatch
     {
@@ -18,7 +18,7 @@ namespace DAL.DomainClass
 
         public DateTime UpdateBy { get; set; }
         public Guid ProductID {  get; set; }    
-        public string Display { get; set; }
+        public string? Display { get; set; }
 
     };
 }

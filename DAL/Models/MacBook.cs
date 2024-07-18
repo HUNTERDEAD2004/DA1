@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DomainClass
+namespace DAL.Models
 {
     public class MacBook
     {
@@ -18,5 +18,4 @@ namespace DAL.DomainClass
         public DateTime UpdateAt { get; set; }
     }
 
-}
 }

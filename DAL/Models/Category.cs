@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DomainClass
+namespace DAL.Models
 {
     public class Category
     {
         public Guid CategoryID { get; set; }
-        public string Type { get; set; }
+        public string? Type { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
         public string UpdateBy { get; set; }
+        public virtual ICollection<ProductApple> ProductApples { get;}
     }
 }
