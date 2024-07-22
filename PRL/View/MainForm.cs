@@ -1,13 +1,4 @@
 ﻿using FontAwesome.Sharp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PRL.View
 {
@@ -80,8 +71,9 @@ namespace PRL.View
             }
             currentForm = form;
             form.TopLevel = false;
-            form.FormBorderStyle = form.FormBorderStyle;
+            form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
+            panelChange.Controls.Clear();
             panelChange.Controls.Add(form);
             panelChange.Tag = form;
             form.BringToFront();
@@ -96,7 +88,7 @@ namespace PRL.View
         private void btnProduct_Click_1(object sender, EventArgs e)
         {
             ActivateButton(sender, hover.color1);
-            //OpenForm(new Products());
+            OpenForm(new Products());
         }
 
         private void btnAccount_Click(object sender, EventArgs e)
