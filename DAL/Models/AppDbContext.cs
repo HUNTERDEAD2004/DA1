@@ -26,6 +26,8 @@ namespace DAL.Models
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> userRoles { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<Customer> customers { get; set; }
+        public DbSet<Color> colors { get; set; }
         public AppDbContext()
         {
                 
@@ -133,6 +135,10 @@ namespace DAL.Models
                 entity.HasOne(b => b.Category)
                             .WithMany(p => p.ProductApples)
                             .HasForeignKey(b => b.CategoryID)
+                            .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(b => b.Color)
+                            .WithMany(p => p.ProductApples)
+                            .HasForeignKey(b => b.ColorID)
                             .OnDelete(DeleteBehavior.Restrict);
             });
 

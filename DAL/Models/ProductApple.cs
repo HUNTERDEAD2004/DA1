@@ -38,7 +38,7 @@ namespace DAL.Models
 
         public string? Origin { get; set; }
 
-        public string? Color { get; set; }
+        public Guid ColorID { get; set; }
 
         public int? Quantity { get; set; }
 
@@ -54,7 +54,7 @@ namespace DAL.Models
 
         public string? UpdateBy { get; set; }
         
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         
         public virtual ICollection<AppleWatch>? AppleWatches { get; set; } = new List<AppleWatch>();
         public virtual ICollection<Accessory>? Accessorys { get; set; } = new List<Accessory>();
@@ -67,5 +67,7 @@ namespace DAL.Models
         public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
         public virtual ICollection<ProductVoucher> ProductVouchers { get; set; } = new List<ProductVoucher>();
         public virtual ICollection<Warranty> Warranties { get; set; } = new List<Warranty>();
+
+        public virtual Color Color { get; set; }
     }
 }
