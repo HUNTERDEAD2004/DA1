@@ -12,10 +12,10 @@ namespace DAL.Models
         [Key]
         public Guid CategoryID { get; set; }
         public string? Type { get; set; }
-        public string CreateBy { get; set; }
+        public string? CreateBy { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public string UpdateBy { get; set; }
-        public virtual ICollection<ProductApple> ProductApples { get;}
+        public string? UpdateBy { get; set; }
+        public  virtual ICollection<ProductApple> ProductApples { get;} = new List<ProductApple>();
     }
 }

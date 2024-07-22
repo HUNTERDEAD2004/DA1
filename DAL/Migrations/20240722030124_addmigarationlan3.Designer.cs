@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240718182013_AppDbContextModelsSnapshot")]
-    partial class AppDbContextModelsSnapshot
+    [Migration("20240722030124_addmigarationlan3")]
+    partial class addmigarationlan3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,10 @@ namespace DAL.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreateAt")
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Material")
@@ -41,9 +44,6 @@ namespace DAL.Migrations
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -54,7 +54,10 @@ namespace DAL.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("UpdateAt")
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Version")
@@ -64,8 +67,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AccessoryID");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -84,9 +85,6 @@ namespace DAL.Migrations
                     b.Property<string>("CreateBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
@@ -97,8 +95,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AirPodId");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -114,14 +110,11 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreateBy")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Display")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -129,12 +122,10 @@ namespace DAL.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdateBy")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AppleWatchId");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -151,7 +142,6 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreateBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
@@ -161,12 +151,55 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("DAL.Models.Customer", b =>
+                {
+                    b.Property<Guid>("CustomerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerID");
+
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("DAL.Models.Imac", b =>
@@ -187,9 +220,6 @@ namespace DAL.Migrations
                     b.Property<string>("Display")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
@@ -203,8 +233,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ImacIMEI");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -229,9 +257,6 @@ namespace DAL.Migrations
                     b.Property<string>("Display")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
@@ -245,8 +270,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IpadIMEI");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -271,9 +294,6 @@ namespace DAL.Migrations
                     b.Property<string>("Display")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
@@ -288,8 +308,6 @@ namespace DAL.Migrations
 
                     b.HasKey("IphoneIMEI");
 
-                    b.HasIndex("ProductAppleProductId");
-
                     b.HasIndex("ProductId");
 
                     b.ToTable("Iphones");
@@ -302,7 +320,6 @@ namespace DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CameraSelfie")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateAt")
@@ -312,11 +329,7 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Display")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -328,8 +341,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MacBookIMEI");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -347,6 +358,9 @@ namespace DAL.Migrations
 
                     b.Property<string>("CreateBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CustomerID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -366,14 +380,11 @@ namespace DAL.Migrations
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UserID1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("OderID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("CustomerID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Oders");
                 });
@@ -393,14 +404,8 @@ namespace DAL.Migrations
                     b.Property<Guid>("OderID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("OderID1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -417,10 +422,6 @@ namespace DAL.Migrations
                     b.HasKey("OrderDetailsID");
 
                     b.HasIndex("OderID");
-
-                    b.HasIndex("OderID1");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -445,17 +446,14 @@ namespace DAL.Migrations
                     b.Property<Guid>("CategoryID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryID1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreateBy")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -487,8 +485,8 @@ namespace DAL.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdateBy")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
@@ -506,8 +504,6 @@ namespace DAL.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.HasIndex("CategoryID1");
-
                     b.ToTable("productApples");
                 });
 
@@ -519,6 +515,9 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Desscription")
                         .HasColumnType("nvarchar(max)");
@@ -532,18 +531,16 @@ namespace DAL.Migrations
                     b.Property<string>("ImagePath3")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ImageID");
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("ProductAppleProductId");
+                    b.HasKey("ImageID");
 
                     b.HasIndex("ProductId");
 
@@ -556,27 +553,17 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("VoucherID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("VoucherID1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ProductVoucherID");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
                     b.HasIndex("VoucherID");
-
-                    b.HasIndex("VoucherID1");
 
                     b.ToTable("productVouchers");
                 });
@@ -590,16 +577,20 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
@@ -624,6 +615,9 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -651,6 +645,9 @@ namespace DAL.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -669,24 +666,14 @@ namespace DAL.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("RoleId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserID1")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserRoleID");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("RoleId1");
-
                     b.HasIndex("UserID");
-
-                    b.HasIndex("UserID1");
 
                     b.ToTable("userRoles");
                 });
@@ -700,18 +687,22 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Percent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Percent")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("VoucherCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VoucherID");
@@ -725,11 +716,14 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ProductAppleProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -738,12 +732,18 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Terms")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WarrantyId");
-
-                    b.HasIndex("ProductAppleProductId");
 
                     b.HasIndex("ProductId");
 
@@ -752,12 +752,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Accessory", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("Accessorys")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("Accessorys")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -767,12 +763,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.AirPod", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("AirPods")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("AirPods")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -782,12 +774,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.AppleWatch", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("AppleWatches")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("AppleWatches")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -797,12 +785,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Imac", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("Imacs")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("Imacs")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -812,12 +796,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Ipad", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("Ipads")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("Ipads")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -827,12 +807,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Iphone", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("Iphones")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("Iphones")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -842,12 +818,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.MacBook", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("MacBooks")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("MacBooks")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -857,15 +829,19 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Oder", b =>
                 {
+                    b.HasOne("DAL.Models.Customer", "Customer")
+                        .WithMany("Oders")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("DAL.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Oders")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.User", null)
-                        .WithMany("Oders")
-                        .HasForeignKey("UserID1");
+                    b.Navigation("Customer");
 
                     b.Navigation("User");
                 });
@@ -873,21 +849,13 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.OderDetail", b =>
                 {
                     b.HasOne("DAL.Models.Oder", "Oder")
-                        .WithMany()
+                        .WithMany("OderDetails")
                         .HasForeignKey("OderID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.Oder", null)
-                        .WithMany("OderDetails")
-                        .HasForeignKey("OderID1");
-
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("OderDetails")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("OderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -900,26 +868,18 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.ProductApple", b =>
                 {
                     b.HasOne("DAL.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("ProductApples")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("DAL.Models.Category", null)
-                        .WithMany("ProductApples")
-                        .HasForeignKey("CategoryID1");
 
                     b.Navigation("Category");
                 });
 
             modelBuilder.Entity("DAL.Models.ProductImage", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -929,25 +889,17 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.ProductVoucher", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("ProductVouchers")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("ProductVouchers")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Voucher", "Voucher")
-                        .WithMany()
+                        .WithMany("ProductVouchers")
                         .HasForeignKey("VoucherID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("DAL.Models.Voucher", null)
-                        .WithMany("ProductVouchers")
-                        .HasForeignKey("VoucherID1");
 
                     b.Navigation("Product");
 
@@ -957,26 +909,18 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.UserRole", b =>
                 {
                     b.HasOne("DAL.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_UserRoles_Roles_RoleID");
 
-                    b.HasOne("DAL.Models.Role", null)
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1");
-
                     b.HasOne("DAL.Models.User", "User")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_UserRoles_Users_UserID");
-
-                    b.HasOne("DAL.Models.User", null)
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserID1");
 
                     b.Navigation("Role");
 
@@ -985,12 +929,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Warranty", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", null)
-                        .WithMany("Warranties")
-                        .HasForeignKey("ProductAppleProductId");
-
                     b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithMany()
+                        .WithMany("Warranties")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1001,6 +941,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Category", b =>
                 {
                     b.Navigation("ProductApples");
+                });
+
+            modelBuilder.Entity("DAL.Models.Customer", b =>
+                {
+                    b.Navigation("Oders");
                 });
 
             modelBuilder.Entity("DAL.Models.Oder", b =>

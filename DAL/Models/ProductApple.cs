@@ -50,23 +50,22 @@ namespace DAL.Models
 
         public DateTime UpdateAt { get; set; }
 
-        public DateTime CreateBy { get; set; }
+        public string? CreateBy { get; set; }
 
-        public DateTime UpdateBy { get; set; }
+        public string? UpdateBy { get; set; }
         
         public Category Category { get; set; }
         
-        public virtual ICollection<AppleWatch>? AppleWatches { get; set; }
-
-        public virtual ICollection<Accessory>? Accessorys { get; set; }
-        public virtual ICollection<AirPod>? AirPods { get; set;}
-        public virtual ICollection<Imac>? Imacs { get; set; }
-        public virtual ICollection<MacBook> MacBooks { get; set; }
-        public virtual ICollection<Ipad> Ipads { get; set; }
-        public virtual ICollection<Iphone> Iphones { get; set; }
-        public virtual ICollection<OderDetail> OderDetails { get; set; }
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
-        public virtual ICollection<ProductVoucher> ProductVouchers { get; set; }
-        public virtual ICollection<Warranty> Warranties { get; set; }
+        public virtual ICollection<AppleWatch>? AppleWatches { get; set; } = new List<AppleWatch>();
+        public virtual ICollection<Accessory>? Accessorys { get; set; } = new List<Accessory>();
+        public virtual ICollection<AirPod>? AirPods { get; set;} = new List<AirPod>();
+        public virtual ICollection<Imac>? Imacs { get; set; } = new List<Imac>();  
+        public virtual ICollection<MacBook> MacBooks { get; set; } = new List<MacBook>();
+        public virtual ICollection<Ipad> Ipads { get; set; } = new List<Ipad>();
+        public virtual ICollection<Iphone> Iphones { get; set; } = new List<Iphone>();
+        public virtual ICollection<OderDetail> OderDetails { get; set; } = new List<OderDetail>();
+        public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+        public virtual ICollection<ProductVoucher> ProductVouchers { get; set; } = new List<ProductVoucher>();
+        public virtual ICollection<Warranty> Warranties { get; set; } = new List<Warranty>();
     }
 }

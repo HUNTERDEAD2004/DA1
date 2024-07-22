@@ -19,7 +19,7 @@ namespace DAL.Models
         public DateTime UpdateAt { get; set; }
         public string? UpdateBy { get; set; }
         public string? CreateBy { get; set; }
-        public ProductApple Product { get; set; }
-        public Oder Oder { get; set; }
+        public virtual ProductApple Product { get; set; }
+        public virtual Oder Oder { get; set; }
     }
 }

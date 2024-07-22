@@ -13,7 +13,7 @@ namespace DAL.Models
         public Guid ProductVoucherID { get; set; }
         public Guid ProductId { get; set; }
         public Guid VoucherID { get; set; } 
-        public ProductApple Product {  get; set; }  
-        public Voucher Voucher { get; set; }    
+        public virtual ProductApple Product {  get; set; }  
+        public virtual Voucher Voucher { get; set; }    
     }
 }

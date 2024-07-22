@@ -12,15 +12,18 @@ namespace DAL.Models
         [Key]
         public Guid AppleWatchId { get; set; }
 
+        public Guid ProductId { get; set; }
+
+        public string? Display { get; set; }
+
         public DateTime CreateAt { get; set; }
 
         public DateTime UpdateAt { get; set; }
 
-        public DateTime CreateBy { get; set; }
+        public string? CreateBy { get; set; }
 
-        public DateTime UpdateBy { get; set; }
-        public Guid ProductId {  get; set; }    
-        public string? Display { get; set; }
+        public string? UpdateBy { get; set; }
+
         public ProductApple Product { get; set; }
     };
 }

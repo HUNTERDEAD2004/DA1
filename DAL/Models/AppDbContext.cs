@@ -40,7 +40,7 @@ namespace DAL.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source= PHUC\\SQLEXPRESS ;Database=AppleStore;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOPD-DELLIN\\SQLEXPRESS;Database=AppleStore;Trusted_Connection=True;TrustServerCertificate=True");
             }
         }
 
@@ -50,7 +50,7 @@ namespace DAL.Models
             modelBuilder.Entity<Accessory>(entity =>
             {
                 entity.HasOne( a => a.Product)
-                            .WithMany() //
+                            .WithMany(p => p.Accessorys) 
                             .HasForeignKey( a => a.ProductId )
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -58,7 +58,7 @@ namespace DAL.Models
             modelBuilder.Entity<AirPod>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() //
+                            .WithMany(p => p.AirPods) //
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -66,7 +66,7 @@ namespace DAL.Models
             modelBuilder.Entity<AppleWatch>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() //
+                            .WithMany(p => p.AppleWatches) //
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -74,7 +74,7 @@ namespace DAL.Models
             modelBuilder.Entity<Imac>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() //
+                            .WithMany(p => p.Imacs) //
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -82,7 +82,7 @@ namespace DAL.Models
             modelBuilder.Entity<Ipad>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() //
+                            .WithMany(p => p.Ipads) //
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -90,7 +90,7 @@ namespace DAL.Models
             modelBuilder.Entity<Iphone>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() //
+                            .WithMany(p => p.Iphones) //
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -98,7 +98,7 @@ namespace DAL.Models
             modelBuilder.Entity<MacBook>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() //
+                            .WithMany(p => p.MacBooks) //
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -106,20 +106,24 @@ namespace DAL.Models
             modelBuilder.Entity<Oder>(entity =>
             {
                 entity.HasOne(a => a.User)
-                            .WithMany() //
+                            .WithMany(p => p.Oders) //
                             .HasForeignKey(a => a.UserID)
+                            .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(a => a.Customer)
+                            .WithMany(p => p.Oders) //
+                            .HasForeignKey(a => a.CustomerID)
                             .OnDelete(DeleteBehavior.Restrict);
             });
             ////Fk OderDetail
             modelBuilder.Entity<OderDetail>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() 
+                            .WithMany(p => p.OderDetails) 
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(b => b.Oder)
-                            .WithMany()
+                            .WithMany(p => p.OderDetails)
                             .HasForeignKey(b => b.OderID)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -127,7 +131,7 @@ namespace DAL.Models
             modelBuilder.Entity<ProductApple>(entity =>
             {
                 entity.HasOne(b => b.Category)
-                            .WithMany()
+                            .WithMany(p => p.ProductApples)
                             .HasForeignKey(b => b.CategoryID)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -135,7 +139,7 @@ namespace DAL.Models
             modelBuilder.Entity<ProductImage>(entity =>
             {
                 entity.HasOne(b => b.Product)
-                            .WithMany()
+                            .WithMany(p => p.ProductImages)
                             .HasForeignKey(b => b.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -143,12 +147,12 @@ namespace DAL.Models
             modelBuilder.Entity<ProductVoucher>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() 
+                            .WithMany(p => p.ProductVouchers) 
                             .HasForeignKey(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(b => b.Voucher)
-                            .WithMany()
+                            .WithMany(p => p.ProductVouchers)
                             .HasForeignKey(b => b.VoucherID)
                             .OnDelete(DeleteBehavior.Restrict);
             });
@@ -156,13 +160,13 @@ namespace DAL.Models
             modelBuilder.Entity<UserRole>(entity =>
             {
                 entity.HasOne(a => a.User)
-                            .WithMany() 
+                            .WithMany(p => p.UserRoles) 
                             .HasForeignKey(a => a.UserID)
                             .HasConstraintName("FK_UserRoles_Users_UserID")
                             .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(b => b.Role)
-                            .WithMany()
+                            .WithMany(p => p.UserRoles)
                             .HasForeignKey(b => b.RoleId)
                             .HasConstraintName("FK_UserRoles_Roles_RoleID")
                             .OnDelete(DeleteBehavior.Restrict);
@@ -170,7 +174,7 @@ namespace DAL.Models
             modelBuilder.Entity<Warranty>(entity =>
             {
                 entity.HasOne(a => a.Product)
-                            .WithMany() 
+                            .WithMany(p => p.Warranties) 
                             .HasForeignKey(a => a.ProductId)
 
                             .OnDelete(DeleteBehavior.Restrict);               

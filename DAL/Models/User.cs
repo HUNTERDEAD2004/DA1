@@ -33,7 +33,10 @@ namespace DAL.Models
         public DateTime CreateAt { get; set;}
         public DateTime UpdateAt { get; set;}
 
-        public virtual ICollection<UserRole> UserRoles { get; set; }
-        public virtual ICollection<Oder> Oders { get; set; }
+        public string? CreateBy { get; set; }
+        public string? UpdateBy { get; set; }
+
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public virtual ICollection<Oder> Oders { get; set; } = new List<Oder>();
     }
 }
