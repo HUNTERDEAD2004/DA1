@@ -101,7 +101,7 @@
             btnAirpod.IconColor = Color.Black;
             btnAirpod.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnAirpod.IconSize = 16;
-            btnAirpod.Location = new Point(758, 40);
+            btnAirpod.Location = new Point(759, 40);
             btnAirpod.Name = "btnAirpod";
             btnAirpod.Size = new Size(96, 38);
             btnAirpod.TabIndex = 5;

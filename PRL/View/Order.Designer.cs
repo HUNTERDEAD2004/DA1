@@ -101,7 +101,7 @@
             // dgvHD
             // 
             dgvHD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHD.Location = new Point(6, 22);
+            dgvHD.Location = new Point(7, 22);
             dgvHD.Name = "dgvHD";
             dgvHD.RowHeadersWidth = 51;
             dgvHD.RowTemplate.Height = 25;
@@ -334,9 +334,9 @@
             panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(label7);
             panel1.ForeColor = SystemColors.ButtonHighlight;
-            panel1.Location = new Point(-2, -3);
+            panel1.Location = new Point(-2, -6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1424, 917);
+            panel1.Size = new Size(1424, 920);
             panel1.TabIndex = 70;
             // 
             // btnSearch
@@ -345,7 +345,7 @@
             btnSearch.IconColor = Color.Black;
             btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnSearch.IconSize = 17;
-            btnSearch.Location = new Point(839, 342);
+            btnSearch.Location = new Point(849, 343);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(37, 23);
             btnSearch.TabIndex = 56;

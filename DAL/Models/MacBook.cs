@@ -11,14 +11,28 @@ namespace DAL.Models
     {
         [Key]
         public Guid MacBookIMEI { get; set; }
+
         public Guid ProductId { get; set; }
+
         public string? Display { get; set; }
+
         public string? CameraSelfie { get; set; }
+
+        public string? CPU { get; set; }
+
+        public string? GPU { get; set; }
+
+        public string? RAM { get; set; }
+
         public string? CreateBy { get; set; }
+
         public string? UpdateBy { get; set; }
+
         public DateTime CreateAt { get; set; }
+
         public DateTime UpdateAt { get; set; }
-        public virtual ProductApple Product { get; set; }
+
+        public virtual ProductApple Product { get; set; } = new ProductApple();
     }
 
 }

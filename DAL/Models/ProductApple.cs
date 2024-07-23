@@ -11,20 +11,31 @@ namespace DAL.Models
     public class ProductApple
     {
         [Key]
-        public Guid ProductId { get; set; }     
+        public Guid ProductId { get; set; }   
+        
         public Guid CategoryID { get; set; }
+
+        public Guid SaleID { get; set; }
+
+        public Guid AppleWatchId { get; set; }
+
+        public Guid MacBookIMEI { get; set; }
+
+        public Guid IpadIMEI { get; set; }
+
+        public Guid AirPodId { get; set; }
+
+        public Guid IphoneIMEI { get; set; }
+
+        public Guid ImacIMEI { get; set; }
+
         public string? Name { get; set; }
 
         public double Price { get; set; }
+
         public double BuyingPrice { get; set; }
 
         public string? Description { get; set; }
-
-        public string? CPU { get; set; }
-
-        public string? GPU { get; set; }
-
-        public string? RAM { get; set; }
 
         public string? OperatingSystem { get; set; }
 
@@ -38,7 +49,7 @@ namespace DAL.Models
 
         public string? Origin { get; set; }
 
-        public Guid ColorID { get; set; }
+        public string? Color { get; set; }
 
         public int? Quantity { get; set; }
 
@@ -54,20 +65,26 @@ namespace DAL.Models
 
         public string? UpdateBy { get; set; }
         
-        public virtual Category Category { get; set; }
-        
-        public virtual ICollection<AppleWatch>? AppleWatches { get; set; } = new List<AppleWatch>();
-        public virtual ICollection<Accessory>? Accessorys { get; set; } = new List<Accessory>();
-        public virtual ICollection<AirPod>? AirPods { get; set;} = new List<AirPod>();
-        public virtual ICollection<Imac>? Imacs { get; set; } = new List<Imac>();  
-        public virtual ICollection<MacBook> MacBooks { get; set; } = new List<MacBook>();
-        public virtual ICollection<Ipad> Ipads { get; set; } = new List<Ipad>();
-        public virtual ICollection<Iphone> Iphones { get; set; } = new List<Iphone>();
-        public virtual ICollection<OderDetail> OderDetails { get; set; } = new List<OderDetail>();
-        public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
-        public virtual ICollection<ProductVoucher> ProductVouchers { get; set; } = new List<ProductVoucher>();
-        public virtual ICollection<Warranty> Warranties { get; set; } = new List<Warranty>();
+        public virtual Category Category { get; set; } = new Category();
 
-        public virtual Color Color { get; set; }
+        public virtual AppleWatch AppleWatch { get; set; } = new AppleWatch();
+
+        public virtual ICollection<Accessory>? Accessorys { get; set; } = new List<Accessory>();
+
+        public virtual AirPod AirPod { get; set; } = new AirPod();
+
+        public virtual Imac Imac { get; set; } = new Imac();
+
+        public virtual MacBook MacBook { get; set; } = new MacBook();
+
+        public virtual Ipad Ipad { get; set; } = new Ipad();
+
+        public virtual Iphone Iphone { get; set; } = new Iphone();
+
+        public virtual ICollection<OderDetail> OderDetails { get; set; } = new List<OderDetail>();
+
+        public virtual Sale Sale { get; set; } = new Sale();
+
+        public virtual ICollection<Warranty> Warranties { get; set; } = new List<Warranty>();
     }
 }

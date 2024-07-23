@@ -16,6 +16,12 @@ namespace DAL.Models
 
         public string? Display { get; set; }
 
+        public string? CPU { get; set; }
+
+        public string? GPU { get; set; }
+
+        public string? RAM { get; set; }
+
         public DateTime CreateAt { get; set; }
 
         public DateTime UpdateAt { get; set; }
@@ -24,6 +30,6 @@ namespace DAL.Models
 
         public string? UpdateBy { get; set; }
 
-        public ProductApple Product { get; set; }
+        public virtual ProductApple Product { get; set; }
     };
 }

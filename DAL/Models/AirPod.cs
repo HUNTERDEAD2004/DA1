@@ -21,6 +21,7 @@ namespace DAL.Models
         public string? UpdateBy { get; set; }
 
         public Guid ProductId { get; set; }
+
         public virtual ProductApple Product { get; set; }
     }
 }

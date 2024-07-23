@@ -12,12 +12,11 @@ namespace DAL.Models
         [Key]
         public Guid AccessoryID { get; set; }
         public Guid ProductId { get; set; }
-
-        public Guid ColorID { get; set; }
+        public string? color { get; set; }
         public virtual ProductApple Product { get; set; }
         public string? Version { get; set; }
         public string? Material { get; set; }
-        public string? Weight { get; set; }
+        public double Weight { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
         public int Status { get; set; }
@@ -25,7 +24,5 @@ namespace DAL.Models
         public DateTime UpdateAt { get; set; }
         public string? CreateBy { get; set; }
         public string? UpdateBy { get; set;}
-
-        public virtual Color Color { get; set; }
     }
 }

@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class Color
+    public class Sale
     {
         [Key]
-        public Guid ColorID { get; set; }
+        public Guid SaleID { get; set; }
 
-        public string? ColorName { get; set; }
+        public DateTime SaleStart { get; set; }
+
+        public DateTime SaleEnd { get; set; }
 
         public DateTime CreateAt { get; set; }
 
         public DateTime UpdateAt { get; set; }
 
-        public string? CreateBy { get; set; }
-
         public string? UpdateBy { get; set; }
 
-        public virtual ICollection<ProductApple> ProductApples { get; set;} = new List<ProductApple>();
+        public string? CreateBy { get; set; }
 
-        public virtual ICollection<Accessory> Accessories { get; set; } = new List<Accessory>();
+        public virtual ICollection<ProductApple> ProductApples { get; set; } = new List<ProductApple>();
     }
 }
