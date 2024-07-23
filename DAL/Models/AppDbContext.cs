@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace DAL.Models
 {
@@ -55,7 +56,12 @@ namespace DAL.Models
                             .WithMany(p => p.Accessorys) 
                             .HasForeignKey( a => a.ProductId )
                             .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(a => a.Color)
+                            .WithMany(p => p.Accessories)
+                            .HasForeignKey(a => a.ColorID)
+                            .OnDelete(DeleteBehavior.Restrict);
             });
+            //// Seed Accessorry data
             //Fk airpod
             modelBuilder.Entity<AirPod>(entity =>
             {
@@ -186,7 +192,6 @@ namespace DAL.Models
                             .OnDelete(DeleteBehavior.Restrict);               
             });
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }

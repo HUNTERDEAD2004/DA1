@@ -23,5 +23,7 @@ namespace DAL.Models
         public string? UpdateBy { get; set; }
 
         public virtual ICollection<ProductApple> ProductApples { get; set;} = new List<ProductApple>();
+
+        public virtual ICollection<Accessory> Accessories { get; set; } = new List<Accessory>();
     }
 }
