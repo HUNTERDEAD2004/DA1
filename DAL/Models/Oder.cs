@@ -32,9 +32,9 @@ namespace DAL.Models
 
         public string? UpdateBy { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; } = new Customer();
 
-        public virtual User User { get; set; }
+        public virtual User User { get; set; } = new User();
 
         public virtual ICollection<OderDetail> OderDetails { get; set; } = new List<OderDetail>();
     }

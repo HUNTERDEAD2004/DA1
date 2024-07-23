@@ -13,7 +13,7 @@ namespace DAL.Models
         public Guid AccessoryID { get; set; }
         public Guid ProductId { get; set; }
         public string? color { get; set; }
-        public virtual ProductApple Product { get; set; }
+        public virtual ProductApple Product { get; set; } = new ProductApple();
         public string? Version { get; set; }
         public string? Material { get; set; }
         public double Weight { get; set; }

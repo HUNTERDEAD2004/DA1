@@ -24,8 +24,8 @@ namespace DAL.Models
 
         public string? CreateBy { get; set; }
 
-        public virtual ProductApple Product { get; set; }
+        public virtual ProductApple Product { get; set; } = new ProductApple();
 
-        public virtual Oder Oder { get; set; }
+        public virtual Oder Oder { get; set; } = new Oder();
     }
 }

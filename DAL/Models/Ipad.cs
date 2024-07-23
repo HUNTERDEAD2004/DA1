@@ -19,6 +19,6 @@ namespace DAL.Models
         public string? UpdateBy { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public virtual ProductApple Product {  get; set; }
+        public virtual ProductApple Product { get; set; } = new ProductApple();
     }
 }

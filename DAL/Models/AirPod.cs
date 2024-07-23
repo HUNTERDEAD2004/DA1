@@ -22,6 +22,6 @@ namespace DAL.Models
 
         public Guid ProductId { get; set; }
 
-        public virtual ProductApple Product { get; set; }
+        public virtual ProductApple Product { get; set; } = new ProductApple();
     }
 }

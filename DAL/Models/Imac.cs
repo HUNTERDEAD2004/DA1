@@ -34,6 +34,6 @@ namespace DAL.Models
 
         public string? UpdateBy { get; set; }
 
-        public virtual ProductApple Product { get; set; }
+        public virtual ProductApple Product { get; set; } = new ProductApple();
     }
 }
