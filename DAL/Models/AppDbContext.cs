@@ -30,7 +30,7 @@ namespace DAL.Models
 
         public DbSet<OderDetail> oderDetails { get; set; }
 
-        public DbSet<Warranty> productApples { get; set; }
+        public DbSet<ProductApple> productApples { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 
@@ -109,7 +109,7 @@ namespace DAL.Models
                             .OnDelete(DeleteBehavior.Restrict);
             });
             //FK & Seeding Product
-            modelBuilder.Entity<Warranty>(entity =>
+            modelBuilder.Entity<ProductApple>(entity =>
             {
                 entity.HasOne(b => b.Category)
                             .WithMany(p => p.ProductApples)
@@ -144,9 +144,9 @@ namespace DAL.Models
                             .HasForeignKey<AppleWatch>(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<Warranty>().HasData(
-                new Warranty { ProductId = Guid.NewGuid(), IphoneIMEI = Guid.NewGuid(), CategoryID = Guid.NewGuid(), SaleID = Guid.NewGuid(), AppleWatchId = Guid.NewGuid(), MacBookIMEI = Guid.NewGuid(), IpadIMEI = Guid.NewGuid(), AirPodId = Guid.NewGuid(), ImacIMEI = Guid.NewGuid(), Name = "Iphone 15", Price = 20000000, BuyingPrice = 15000000, Description = "Là một sản phẩm chất lượng với cải tiến vượt bậc", OperatingSystem = "IOS", BatteryCapacity = "5000maPH", Weight = 2, YearOfManufacture = DateTime.Now, Material = "Nhựa PVC cao cấp", Origin = "EU", Color = "Đỏ", Quantity = 50, status = 1, Version = "IP.v.1.0.13", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "" }
-                );
+            //modelBuilder.Entity<ProductApple>().HasData(
+            //    new Warranty { ProductId = Guid.NewGuid(),  = Guid.NewGuid(), CategoryID = Guid.NewGuid(), SaleID = Guid.NewGuid(), AppleWatchId = Guid.NewGuid(), MacBookIMEI = Guid.NewGuid(), IpadIMEI = Guid.NewGuid(), AirPodId = Guid.NewGuid(), ImacIMEI = Guid.NewGuid(), Name = "Iphone 15", Price = 20000000, BuyingPrice = 15000000, Description = "Là một sản phẩm chất lượng với cải tiến vượt bậc", OperatingSystem = "IOS", BatteryCapacity = "5000maPH", Weight = 2, YearOfManufacture = DateTime.Now, Material = "Nhựa PVC cao cấp", Origin = "EU", Color = "Đỏ", Quantity = 50, status = 1, Version = "IP.v.1.0.13", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "" }
+            //    );
             //FK & Seeding UserRole
             modelBuilder.Entity<UserRole>(entity =>
             {
