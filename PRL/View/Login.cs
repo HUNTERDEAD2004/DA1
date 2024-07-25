@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DAL.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +15,11 @@ namespace PRL.View
 {
     public partial class Login : Form
     {
+        AppDbContext dbContext;
         public Login()
         {
             InitializeComponent();
+            dbContext = new AppDbContext();
         }
 
         private void ForgotPassword_Click(object sender, EventArgs e)
@@ -24,9 +29,28 @@ namespace PRL.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MainForm form = new MainForm();
-            this.Hide();
-            form.Show();
+            string username = textBox1.Text;
+            string pass = textBox2.Text;
+            DAL.Models.User user = GetUser(username, pass); 
+            if (user != null && Checkk(user))
+            {
+                MainForm form = new MainForm(username);
+                this.Hide();
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");
+            }
+        }
+        bool Checkk(DAL.Models.User user)
+        {
+            return user != null; // Chỉ kiểm tra xem user có null hay không
+        }
+
+        private DAL.Models.User GetUser(string username, string pass)
+        {
+            return dbContext.Users.FirstOrDefault(u => u.UserName == username && u.Password == pass);
         }
     }
 }

@@ -41,26 +41,29 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            txtNamSinh = new TextBox();
             txtDiaChi = new TextBox();
             txtEmail = new TextBox();
             txtsdt = new TextBox();
-            txtGioiTinh = new TextBox();
+            txtTen = new TextBox();
+            txtName = new Label();
+            dateTimePicker1 = new DateTimePicker();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // btn_DangKy
             // 
-            btn_DangKy.Location = new Point(410, 354);
+            btn_DangKy.Location = new Point(363, 352);
             btn_DangKy.Margin = new Padding(3, 4, 3, 4);
             btn_DangKy.Name = "btn_DangKy";
             btn_DangKy.Size = new Size(176, 31);
             btn_DangKy.TabIndex = 15;
             btn_DangKy.Text = "Đăng Ký ";
             btn_DangKy.UseVisualStyleBackColor = true;
+            btn_DangKy.Click += btn_DangKy_Click;
             // 
             // btn_QuenMatKhau
             // 
-            btn_QuenMatKhau.Location = new Point(495, 410);
+            btn_QuenMatKhau.Location = new Point(448, 408);
             btn_QuenMatKhau.Margin = new Padding(3, 4, 3, 4);
             btn_QuenMatKhau.Name = "btn_QuenMatKhau";
             btn_QuenMatKhau.Size = new Size(128, 31);
@@ -70,19 +73,20 @@
             // 
             // btn_DangNhap
             // 
-            btn_DangNhap.Location = new Point(361, 410);
+            btn_DangNhap.Location = new Point(314, 408);
             btn_DangNhap.Margin = new Padding(3, 4, 3, 4);
             btn_DangNhap.Name = "btn_DangNhap";
             btn_DangNhap.Size = new Size(128, 31);
             btn_DangNhap.TabIndex = 13;
             btn_DangNhap.Text = "Đăng Nhập";
             btn_DangNhap.UseVisualStyleBackColor = true;
+            btn_DangNhap.Click += btn_DangNhap_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(432, 19);
+            label3.Location = new Point(403, 9);
             label3.Name = "label3";
             label3.Size = new Size(103, 32);
             label3.TabIndex = 12;
@@ -91,7 +95,7 @@
             // 
             // txt_Password
             // 
-            txt_Password.Location = new Point(314, 290);
+            txt_Password.Location = new Point(286, 277);
             txt_Password.Margin = new Padding(3, 4, 3, 4);
             txt_Password.Multiline = true;
             txt_Password.Name = "txt_Password";
@@ -100,7 +104,7 @@
             // 
             // txt_User
             // 
-            txt_User.Location = new Point(314, 98);
+            txt_User.Location = new Point(286, 55);
             txt_User.Margin = new Padding(3, 4, 3, 4);
             txt_User.Multiline = true;
             txt_User.Name = "txt_User";
@@ -111,7 +115,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(186, 283);
+            label2.Location = new Point(158, 270);
             label2.Name = "label2";
             label2.Size = new Size(90, 23);
             label2.TabIndex = 9;
@@ -121,7 +125,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(186, 97);
+            label1.Location = new Point(158, 54);
             label1.Name = "label1";
             label1.Size = new Size(94, 23);
             label1.TabIndex = 8;
@@ -131,7 +135,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(186, 128);
+            label4.Location = new Point(158, 115);
             label4.Name = "label4";
             label4.Size = new Size(88, 23);
             label4.TabIndex = 16;
@@ -142,7 +146,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(186, 159);
+            label5.Location = new Point(158, 146);
             label5.Name = "label5";
             label5.Size = new Size(68, 23);
             label5.TabIndex = 17;
@@ -152,7 +156,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(186, 190);
+            label6.Location = new Point(158, 177);
             label6.Name = "label6";
             label6.Size = new Size(54, 23);
             label6.TabIndex = 18;
@@ -162,7 +166,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(186, 221);
+            label7.Location = new Point(158, 208);
             label7.Name = "label7";
             label7.Size = new Size(121, 23);
             label7.TabIndex = 19;
@@ -172,24 +176,15 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(186, 252);
+            label8.Location = new Point(158, 239);
             label8.Name = "label8";
             label8.Size = new Size(83, 23);
             label8.TabIndex = 20;
             label8.Text = "Giới Tính";
             // 
-            // txtNamSinh
-            // 
-            txtNamSinh.Location = new Point(314, 130);
-            txtNamSinh.Margin = new Padding(3, 4, 3, 4);
-            txtNamSinh.Multiline = true;
-            txtNamSinh.Name = "txtNamSinh";
-            txtNamSinh.Size = new Size(338, 22);
-            txtNamSinh.TabIndex = 21;
-            // 
             // txtDiaChi
             // 
-            txtDiaChi.Location = new Point(314, 162);
+            txtDiaChi.Location = new Point(286, 149);
             txtDiaChi.Margin = new Padding(3, 4, 3, 4);
             txtDiaChi.Multiline = true;
             txtDiaChi.Name = "txtDiaChi";
@@ -198,7 +193,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(314, 194);
+            txtEmail.Location = new Point(286, 181);
             txtEmail.Margin = new Padding(3, 4, 3, 4);
             txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
@@ -207,32 +202,60 @@
             // 
             // txtsdt
             // 
-            txtsdt.Location = new Point(314, 226);
+            txtsdt.Location = new Point(286, 213);
             txtsdt.Margin = new Padding(3, 4, 3, 4);
             txtsdt.Multiline = true;
             txtsdt.Name = "txtsdt";
             txtsdt.Size = new Size(338, 22);
             txtsdt.TabIndex = 24;
             // 
-            // txtGioiTinh
+            // txtTen
             // 
-            txtGioiTinh.Location = new Point(314, 258);
-            txtGioiTinh.Margin = new Padding(3, 4, 3, 4);
-            txtGioiTinh.Multiline = true;
-            txtGioiTinh.Name = "txtGioiTinh";
-            txtGioiTinh.Size = new Size(338, 22);
-            txtGioiTinh.TabIndex = 25;
+            txtTen.Location = new Point(286, 87);
+            txtTen.Margin = new Padding(3, 4, 3, 4);
+            txtTen.Multiline = true;
+            txtTen.Name = "txtTen";
+            txtTen.Size = new Size(338, 22);
+            txtTen.TabIndex = 27;
+            // 
+            // txtName
+            // 
+            txtName.AutoSize = true;
+            txtName.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            txtName.Location = new Point(158, 86);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(57, 23);
+            txtName.TabIndex = 26;
+            txtName.Text = "Name";
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(286, 115);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.TabIndex = 28;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Nam", "Nữ" });
+            comboBox1.Location = new Point(286, 238);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 29;
             // 
             // DangKy
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(869, 515);
-            Controls.Add(txtGioiTinh);
+            Controls.Add(comboBox1);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(txtTen);
+            Controls.Add(txtName);
             Controls.Add(txtsdt);
             Controls.Add(txtEmail);
             Controls.Add(txtDiaChi);
-            Controls.Add(txtNamSinh);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -248,6 +271,7 @@
             Controls.Add(label1);
             Name = "DangKy";
             Text = "DangKy";
+            Load += DangKy_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -267,10 +291,12 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private TextBox txtNamSinh;
         private TextBox txtDiaChi;
         private TextBox txtEmail;
         private TextBox txtsdt;
-        private TextBox txtGioiTinh;
+        private TextBox txtTen;
+        private Label txtName;
+        private DateTimePicker dateTimePicker1;
+        private ComboBox comboBox1;
     }
 }

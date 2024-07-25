@@ -58,7 +58,7 @@ namespace DAL.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOPD-DELLIN\\SQLEXPRESS;Database=AppleStore;Trusted_Connection=True;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-64M86CN;Database=appstore;Trusted_Connection=True;TrustServerCertificate=True");
             }
         }
 

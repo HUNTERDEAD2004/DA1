@@ -48,12 +48,13 @@ namespace PRL.View
                 currentBtn.ImageAlign = ContentAlignment.MiddleLeft;
             }
         }
-        public MainForm()
+        public MainForm(string name)
         {
             InitializeComponent();
             leftborderBtn = new Panel();
             leftborderBtn.Size = new Size(7, 60);
             Menu.Controls.Add(leftborderBtn);
+            label2.Text = ($"Xin Chào: {name}");
         }
         public void Reset()
         {
