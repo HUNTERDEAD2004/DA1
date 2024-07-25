@@ -64,7 +64,7 @@ namespace PRL.View
                     UserName = username,
                     Name = ten,
                     BirthOfDate = namSinh,
-                    Address = diaChi,
+                    Adress = diaChi,
                     Email = email,
                     PhoneNumber = sdt,
                     Gender = GioiTinh,
