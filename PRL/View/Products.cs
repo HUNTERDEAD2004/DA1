@@ -58,5 +58,10 @@ namespace PRL.View
             this.Hide();
             form.Show();
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
