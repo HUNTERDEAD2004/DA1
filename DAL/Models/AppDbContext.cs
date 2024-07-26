@@ -70,17 +70,54 @@ namespace DAL.Models
                             .HasForeignKey( a => a.ProductId )
                             .OnDelete(DeleteBehavior.Restrict);
             });
-
+            //Fk & Seeding airpod
+            modelBuilder.Entity<AirPod>(entity => 
+            {
+                entity.HasOne(a => a.Product)
+                            .WithOne(p => p.AirPod)
+                            .HasForeignKey<ProductApple>(a => a.ProductId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            });
             //Fk & Seeding applewatch
-
+            modelBuilder.Entity<AppleWatch>(entity =>
+            {
+                entity.HasOne(a => a.Product)
+                            .WithOne(p => p.AppleWatch)
+                            .HasForeignKey<ProductApple>(a => a.ProductId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            });
             //Fk & Seeding imac
-
+            modelBuilder.Entity<Imac>(entity =>
+            {
+                entity.HasOne(a => a.Product)
+                            .WithOne(p => p.Imac)
+                            .HasForeignKey<ProductApple>(a => a.ProductId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            });
             //FK & Seeding ipad
-
+            modelBuilder.Entity<Ipad>(entity =>
+            {
+                entity.HasOne(a => a.Product)
+                            .WithOne(p => p.Ipad)
+                            .HasForeignKey<ProductApple>(a => a.ProductId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            });
             //Fk & Seeding iphone
-
+            modelBuilder.Entity<Iphone>(entity =>
+            {
+                entity.HasOne(a => a.Product)
+                            .WithOne(p => p.Iphone)
+                            .HasForeignKey<ProductApple>(a => a.ProductId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            });
             //FK & Seeding macbook
-
+            modelBuilder.Entity<MacBook>(entity =>
+            {
+                entity.HasOne(a => a.Product)
+                            .WithOne(p => p.MacBook)
+                            .HasForeignKey<ProductApple>(a => a.ProductId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            });
             //Fk & Seeding Oder
             modelBuilder.Entity<Oder>(entity =>
             {
@@ -116,30 +153,6 @@ namespace DAL.Models
                 entity.HasOne(b => b.Sale)
                             .WithMany(p => p.ProductApples)
                             .HasForeignKey(b => b.SaleID)
-                            .OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(a => a.AirPod)
-                            .WithOne(p => p.Product) 
-                            .HasForeignKey<AirPod>(a => a.ProductId)
-                            .OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(a => a.MacBook)
-                            .WithOne(p => p.Product) 
-                            .HasForeignKey<MacBook>(a => a.ProductId)
-                            .OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(a => a.Ipad)
-                            .WithOne(p => p.Product) 
-                            .HasForeignKey<Ipad>(a => a.ProductId)
-                            .OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(a => a.Iphone)
-                            .WithOne(p => p.Product) 
-                            .HasForeignKey<Iphone>(a => a.ProductId)
-                            .OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(a => a.Imac)
-                            .WithOne(p => p.Product) 
-                            .HasForeignKey<Imac>(a => a.ProductId)
-                            .OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(a => a.AppleWatch)
-                            .WithOne(p => p.Product) 
-                            .HasForeignKey<AppleWatch>(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
             //modelBuilder.Entity<ProductApple>().HasData(
