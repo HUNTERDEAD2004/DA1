@@ -69,7 +69,7 @@ namespace DAL.Models
 
         public virtual AppleWatch AppleWatch { get; set; } = new AppleWatch();
 
-        public virtual ICollection<Accessory>? Accessorys { get; set; } = new List<Accessory>();
+        public virtual ICollection<Accessory> Accessorys { get; set; } = new List<Accessory>();
 
         public virtual AirPod AirPod { get; set; } = new AirPod();
 

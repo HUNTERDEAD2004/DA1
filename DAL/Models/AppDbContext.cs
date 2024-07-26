@@ -52,13 +52,11 @@ namespace DAL.Models
         {
         }
 
-        
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-64M86CN;Database=appstore;Trusted_Connection=True;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer("Server=DESKTOPD-DELLIN\\SQLEXPRESS;Database=appstore;Trusted_Connection=True;TrustServerCertificate=True");
             }
         }
 
@@ -144,8 +142,8 @@ namespace DAL.Models
                             .HasForeignKey<AppleWatch>(a => a.ProductId)
                             .OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<ProductApple>().HasData(
-                        new ProductApple { ProductId = Guid.NewGuid(), IphoneIMEI = Guid.NewGuid(), CategoryID = Guid.NewGuid(), SaleID = Guid.NewGuid(), AppleWatchId = Guid.NewGuid(), MacBookIMEI = Guid.NewGuid(), IpadIMEI = Guid.NewGuid(), AirPodId = Guid.NewGuid(), ImacIMEI = Guid.NewGuid(), Name = "Iphone 15", Price = 20000000, BuyingPrice = 15000000, Description = "Là một sản phẩm chất lượng với cải tiến vượt bậc", OperatingSystem = "IOS", BatteryCapacity = "5000maPH", Weight = 2, YearOfManufacture = DateTime.Now, Material = "Nhựa PVC cao cấp", Origin = "EU", Color = "Đỏ", Quantity = 50, status = 1, Version = "IP.v.1.0.13", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "" });
+            //modelBuilder.Entity<ProductApple>().HasData(
+            //            new ProductApple { ProductId = Guid.NewGuid(), IphoneIMEI = Guid.NewGuid(), CategoryID = Guid.NewGuid(), SaleID = Guid.NewGuid(), AppleWatchId = Guid.NewGuid(), MacBookIMEI = Guid.NewGuid(), IpadIMEI = Guid.NewGuid(), AirPodId = Guid.NewGuid(), ImacIMEI = Guid.NewGuid(), Name = "Iphone 15", Price = 20000000, BuyingPrice = 15000000, Description = "Là một sản phẩm chất lượng với cải tiến vượt bậc", OperatingSystem = "IOS", BatteryCapacity = "5000maPH", Weight = 2, YearOfManufacture = DateTime.Now, Material = "Nhựa PVC cao cấp", Origin = "EU", Color = "Đỏ", Quantity = 50, status = 1, Version = "IP.v.1.0.13", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "" });
             //FK & Seeding UserRole
             modelBuilder.Entity<UserRole>(entity =>
             {
@@ -170,11 +168,11 @@ namespace DAL.Models
 
                             .OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<Warranty>().HasData(
-                new Warranty { WarrantyId = Guid.NewGuid(), ProductId = Guid.NewGuid(), StartDate = DateTime.Now, EndDate = DateTime.Now, Terms = "aa", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "13" },
-                new Warranty { WarrantyId = Guid.NewGuid(), ProductId = Guid.NewGuid(), StartDate = DateTime.Now, EndDate = DateTime.Now, Terms = "aa", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "13" },
-                new Warranty { WarrantyId = Guid.NewGuid(), ProductId = Guid.NewGuid(), StartDate = DateTime.Now, EndDate = DateTime.Now, Terms = "aa", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "13" }
-                );
+            //modelBuilder.Entity<Warranty>().HasData(
+            //    new Warranty { WarrantyId = Guid.NewGuid(), ProductId = Guid.NewGuid(), StartDate = DateTime.Now, EndDate = DateTime.Now, Terms = "aa", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "13" },
+            //    new Warranty { WarrantyId = Guid.NewGuid(), ProductId = Guid.NewGuid(), StartDate = DateTime.Now, EndDate = DateTime.Now, Terms = "aa", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "13" },
+            //    new Warranty { WarrantyId = Guid.NewGuid(), ProductId = Guid.NewGuid(), StartDate = DateTime.Now, EndDate = DateTime.Now, Terms = "aa", CreateBy = "aaa", CreateAt = DateTime.Now, UpdateAt = DateTime.Now, UpdateBy = "13" }
+            //    );
             base.OnModelCreating(modelBuilder);
         }
     }

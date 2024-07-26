@@ -12,8 +12,6 @@ namespace DAL.Models
         [Key]
         public Guid MacBookIMEI { get; set; }
 
-        public Guid ProductId { get; set; }
-
         public string? Display { get; set; }
 
         public string? CameraSelfie { get; set; }

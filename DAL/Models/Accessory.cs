@@ -11,7 +11,6 @@ namespace DAL.Models
     {
         [Key]
         public Guid AccessoryID { get; set; }
-        public Guid ProductId { get; set; }
         public string? color { get; set; }
         public virtual ProductApple Product { get; set; } = new ProductApple();
         public string? Version { get; set; }
