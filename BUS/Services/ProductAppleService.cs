@@ -1,54 +1,48 @@
-﻿using DAL.Models;
-using DAL.Repositories;
+﻿using DAL.IRepository;
+using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace BUS.Services
+namespace DAL.Repositories
 {
-    public class ProductAppleService
+    public class ProductAppleRepository : IProductAppleRepository
     {
         private readonly AppDbContext _context;
-        ProductAppleRepository _res;
 
-        public ProductAppleService(AppDbContext context)
+        public ProductAppleRepository(AppDbContext context)
         {
             _context = context;
-            _res = new ProductAppleRepository(context);
         }
 
-        public async Task<Warranty> GetByIdProductApple(Guid id)
+        public async Task AddProductApple(ProductApple productApple)
         {
-            return await _res.GetByIdProductApple(id);
+            _context.productApples.Add(productApple);
+            await _context.SaveChangesAsync();
         }
 
-        //Getall
-        public async Task<IEnumerable<Warranty>> GetAllWarranty()
+        public async Task<IEnumerable<ProductApple>> GetAllProductApple()
         {
-            return await _res.GetAllWarranty();
+            return await _context.productApples.ToListAsync(); // đoạn này lỗi thì thêm using Microsoft.EntityFrameworkCore;
         }
 
-        //add
-        public async Task AddProductApplec(Warranty warranty)
+        public async Task<ProductApple> GetByIdProductApple(Guid id)
         {
-            await _res.AddProductApple(warranty);
+            return await _context.productApples.FindAsync(id);
         }
 
-        //update
-        public async Task UpdateProductApple(Warranty warranty)
+        public async Task RemoveProductApple(ProductApple productApple)
         {
-            await _res.UpdateProductApple(warranty);
+            _context.productApples.Remove(productApple);
+            await _context.SaveChangesAsync();
         }
 
-        //Remove
-
-        public async Task RemoveProductApple(Warranty warranty)
+        public async Task UpdateProductApple(ProductApple productApple)
         {
-            await _res.RemoveProductApple(warranty);
+            _context.productApples.Update(productApple);
+            await _context.SaveChangesAsync();
         }
-
-        //sử dụng await với các phương thức bất đồng bộ 
     }
 }

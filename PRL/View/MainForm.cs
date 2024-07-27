@@ -129,5 +129,10 @@ namespace PRL.View
             this.Hide();
             login.Show();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

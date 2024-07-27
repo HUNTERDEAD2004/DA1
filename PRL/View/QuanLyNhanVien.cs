@@ -16,7 +16,7 @@ namespace PRL.View
 {
     public partial class QuanLyNhanVien : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=AppST3;Trusted_Connection=True;TrustServerCertificate=True");        //SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AN16NPP\\MSSQLSERVER01;Initial Catalog=Duan1_N6_Demo3;Integrated Security=True;TrustServerCertificate=true");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=AppleStore4;Trusted_Connection=True;TrustServerCertificate=True");        //SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AN16NPP\\MSSQLSERVER01;Initial Catalog=Duan1_N6_Demo3;Integrated Security=True;TrustServerCertificate=true");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -109,7 +109,7 @@ namespace PRL.View
                 txtsdt.Text = dgvnhanvien.Rows[e.RowIndex].Cells[4].Value.ToString();
                 txtTK.Text = dgvnhanvien.Rows[e.RowIndex].Cells[5].Value.ToString();
                 txtMK.Text = dgvnhanvien.Rows[e.RowIndex].Cells[6].Value.ToString();
-                //txtL.Text = dgvnhanvien.Rows[e.RowIndex].Cells[7].Value.ToString();
+                txtL.Text = dgvnhanvien.Rows[e.RowIndex].Cells[10].Value.ToString();
                 //txtTK.Text = dgvnhanvien.Rows[e.RowIndex].Cells[8].Value.ToString();
                 dateNV.Text = dgvnhanvien.Rows[e.RowIndex].Cells[8].Value.ToString();
 
@@ -200,6 +200,7 @@ namespace PRL.View
                     string.IsNullOrWhiteSpace(txtsdt.Text) ||
                     string.IsNullOrWhiteSpace(txtTK.Text) ||
                     string.IsNullOrWhiteSpace(txtMK.Text) ||
+                    string.IsNullOrWhiteSpace(txtL.Text) ||
                     (!rbtnam.Checked && !rbtnu.Checked && !rdb_NgungHD.Checked && !rdb_HoatDong.Checked))
                 {
                     MessageBox.Show("Vui lòng điền đầy đủ thông tin và đảm bảo thông tin hợp lệ. Đập chết mợ bây giờ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -266,6 +267,7 @@ namespace PRL.View
                     Status = rdb_HoatDong.Checked ? 1 : 0,
                     BirthOfDate = dateNV.Value,
                     Gender = rbtnam.Checked ? "Male" : (rbtnu.Checked ? "Female" : "Unspecified"),
+                    Wage = Convert.ToInt32(txtL.Text),
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,
                     CreateBy = "admin", // Thay đổi thành người dùng hiện tại
@@ -362,6 +364,7 @@ namespace PRL.View
                     user.Status = rdb_HoatDong.Checked ? 1 : 0;
                     user.BirthOfDate = dateNV.Value;
                     user.Gender = rbtnam.Checked ? "Male" : (rbtnu.Checked ? "Female" : "Unspecified");
+                    user.Wage = Convert.ToInt32(txtL.Text);
                     user.UpdateAt = DateTime.Now;
                     user.UpdateBy = "admin"; // Thay đổi thành người dùng hiện tại
 
@@ -417,6 +420,7 @@ namespace PRL.View
             txtsdt.Text = "";
             txtTK.Text = "";
             txtMK.Text = "";
+            txtL.Text = "";
             dateNV.Value = DateTime.Now;
             rbtnam.Checked = false;
             rbtnu.Checked = false;

@@ -12,13 +12,11 @@ namespace DAL.Models
         [Key]
         public Guid OderID { get; set; }  
         
-        public Guid UserID { get; set; }
+        public Guid? UserID { get; set; }
 
-        public Guid CustomerID { get; set; }
+        public Guid? CustomerID { get; set; }
 
-        public int Quantity {get; set; }
-
-        public double Price { get; set; }
+        public int Quantity {get; set; } 
 
         public double TotalPrice { get; set; }  
 
@@ -32,10 +30,10 @@ namespace DAL.Models
 
         public string? UpdateBy { get; set; }
 
-        public virtual Customer Customer { get; set; } = new Customer();
+        public virtual Customer Customer { get; set; } 
 
-        public virtual User User { get; set; } = new User();
+        public virtual User User { get; set; }
 
-        public virtual ICollection<OderDetail> OderDetails { get; set; } = new List<OderDetail>();
+        public virtual ICollection<OderDetail> OderDetails { get; set; } 
     }
 }

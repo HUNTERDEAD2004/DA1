@@ -12,9 +12,19 @@ namespace DAL.Models
         [Key]
         public Guid OrderDetailsID { get; set; }
 
-        public Guid ProductId { get; set; }
+        public Guid? ProductId { get; set; }
 
-        public Guid OderID { get; set; }
+        public Guid? OderID { get; set; }
+
+        public int? Quantity {  get; set; }
+
+        public string? IMEI {  get; set; }
+
+        public string? NameSPCT {  get; set; }
+
+        public float? Price {  get; set; }
+
+        public float? PercentDiscount { get; set; }
 
         public DateTime CreateAt { get; set; }
 
@@ -24,8 +34,8 @@ namespace DAL.Models
 
         public string? CreateBy { get; set; }
 
-        public virtual ProductApple Product { get; set; } = new ProductApple();
+        public virtual ProductApple Product { get; set; } 
 
-        public virtual Oder Oder { get; set; } = new Oder();
+        public virtual Oder Oder { get; set; }
     }
 }

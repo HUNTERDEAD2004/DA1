@@ -35,20 +35,20 @@
             btnOrder = new FontAwesome.Sharp.IconButton();
             btnAccount = new FontAwesome.Sharp.IconButton();
             btnProduct = new FontAwesome.Sharp.IconButton();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            pictureBox1 = new PictureBox();
+            label1 = new Label();
             panel2 = new Panel();
             btnLogout = new Button();
             label2 = new Label();
             title = new Label();
             currentIcon = new FontAwesome.Sharp.IconPictureBox();
             panelChange = new Panel();
-            pictureBox1 = new PictureBox();
-            label1 = new Label();
-            flowLayoutPanel1 = new FlowLayoutPanel();
             Menu.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)currentIcon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // Menu
@@ -207,6 +207,40 @@
             btnProduct.UseVisualStyleBackColor = true;
             btnProduct.Click += btnProduct_Click_1;
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Controls.Add(pictureBox1);
+            flowLayoutPanel1.Controls.Add(label1);
+            flowLayoutPanel1.Dock = DockStyle.Top;
+            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(192, 85);
+            flowLayoutPanel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(3, 2);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(37, 26);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.ForeColor = Color.Gainsboro;
+            label1.Location = new Point(46, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(115, 28);
+            label1.TabIndex = 1;
+            label1.Text = "Apple Store";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
+            // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(49, 42, 81);
@@ -278,41 +312,6 @@
             panelChange.Size = new Size(966, 518);
             panelChange.TabIndex = 2;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.pb4qlde0s1k5m5lob61756r9mc_b4021e2504cdf91403ebd897c40b8925;
-            pictureBox1.Location = new Point(3, 2);
-            pictureBox1.Margin = new Padding(3, 2, 3, 2);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(37, 26);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.ForeColor = Color.Gainsboro;
-            label1.Location = new Point(46, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(115, 28);
-            label1.TabIndex = 1;
-            label1.Text = "Apple Store";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            label1.Click += label1_Click;
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.Controls.Add(pictureBox1);
-            flowLayoutPanel1.Controls.Add(label1);
-            flowLayoutPanel1.Dock = DockStyle.Top;
-            flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(192, 85);
-            flowLayoutPanel1.TabIndex = 1;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -324,13 +323,14 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             Text = "MainForm";
+            Load += MainForm_Load;
             Menu.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)currentIcon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel1.PerformLayout();
             ResumeLayout(false);
         }
 

@@ -31,18 +31,18 @@
             groupBox2 = new GroupBox();
             dgvHDCT = new DataGridView();
             groupBox1 = new GroupBox();
-            dgvHD = new DataGridView();
+            dgvSP = new DataGridView();
             label10 = new Label();
             txtMSP = new TextBox();
-            button5 = new Button();
+            bttXoa = new Button();
             label9 = new Label();
             txtHDCT = new TextBox();
             RBCTT = new RadioButton();
             RBDTT = new RadioButton();
-            button4 = new Button();
+            bttCL = new Button();
             label7 = new Label();
             txtTK = new TextBox();
-            button3 = new Button();
+            bttSua = new Button();
             button2 = new Button();
             DTPVC = new DateTimePicker();
             label6 = new Label();
@@ -56,12 +56,25 @@
             label1 = new Label();
             txtSP = new TextBox();
             panel1 = new Panel();
+            bttHDCT = new Button();
+            bttCheck = new Button();
+            dgvHD = new DataGridView();
+            txtHDHT = new TextBox();
+            bttHDT = new Button();
+            bttCHD = new Button();
+            label11 = new Label();
+            txtimei = new TextBox();
+            label8 = new Label();
             btnSearch = new FontAwesome.Sharp.IconButton();
+            txtTG = new TextBox();
+            groupBox3 = new GroupBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDCT).BeginInit();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvHD).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSP).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvHD).BeginInit();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
@@ -71,10 +84,10 @@
             groupBox2.ForeColor = SystemColors.ButtonHighlight;
             groupBox2.Location = new Point(425, 10);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(493, 321);
+            groupBox2.Size = new Size(813, 321);
             groupBox2.TabIndex = 67;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Hóa đơn";
+            groupBox2.Text = "Hóa đơn chi tiết";
             // 
             // dgvHDCT
             // 
@@ -83,30 +96,32 @@
             dgvHDCT.Name = "dgvHDCT";
             dgvHDCT.RowHeadersWidth = 51;
             dgvHDCT.RowTemplate.Height = 25;
-            dgvHDCT.Size = new Size(470, 287);
+            dgvHDCT.Size = new Size(777, 287);
             dgvHDCT.TabIndex = 1;
+            dgvHDCT.CellContentClick += dgvHDCT_CellContentClick;
             // 
             // groupBox1
             // 
             groupBox1.BackColor = Color.SlateBlue;
-            groupBox1.Controls.Add(dgvHD);
+            groupBox1.Controls.Add(dgvSP);
             groupBox1.ForeColor = SystemColors.ButtonHighlight;
-            groupBox1.Location = new Point(6, 367);
+            groupBox1.Location = new Point(8, 435);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(936, 225);
+            groupBox1.Size = new Size(679, 225);
             groupBox1.TabIndex = 66;
             groupBox1.TabStop = false;
             groupBox1.Text = "Sản phẩm";
             // 
-            // dgvHD
+            // dgvSP
             // 
-            dgvHD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHD.Location = new Point(7, 22);
-            dgvHD.Name = "dgvHD";
-            dgvHD.RowHeadersWidth = 51;
-            dgvHD.RowTemplate.Height = 25;
-            dgvHD.Size = new Size(906, 197);
-            dgvHD.TabIndex = 2;
+            dgvSP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSP.Location = new Point(7, 22);
+            dgvSP.Name = "dgvSP";
+            dgvSP.RowHeadersWidth = 51;
+            dgvSP.RowTemplate.Height = 25;
+            dgvSP.Size = new Size(656, 197);
+            dgvSP.TabIndex = 2;
+            dgvSP.CellContentClick += dgvHD_CellContentClick;
             // 
             // label10
             // 
@@ -126,14 +141,16 @@
             txtMSP.Size = new Size(298, 23);
             txtMSP.TabIndex = 62;
             // 
-            // button5
+            // bttXoa
             // 
-            button5.Location = new Point(342, 339);
-            button5.Name = "button5";
-            button5.Size = new Size(75, 23);
-            button5.TabIndex = 61;
-            button5.Text = "Xóa";
-            button5.UseVisualStyleBackColor = true;
+            bttXoa.ForeColor = SystemColors.ActiveCaptionText;
+            bttXoa.Location = new Point(324, 405);
+            bttXoa.Name = "bttXoa";
+            bttXoa.Size = new Size(75, 23);
+            bttXoa.TabIndex = 61;
+            bttXoa.Text = "Xóa";
+            bttXoa.UseVisualStyleBackColor = true;
+            bttXoa.Click += button5_Click;
             // 
             // label9
             // 
@@ -158,7 +175,7 @@
             RBCTT.AutoSize = true;
             RBCTT.BackColor = Color.SlateBlue;
             RBCTT.ForeColor = SystemColors.ButtonHighlight;
-            RBCTT.Location = new Point(255, 300);
+            RBCTT.Location = new Point(257, 369);
             RBCTT.Name = "RBCTT";
             RBCTT.Size = new Size(108, 19);
             RBCTT.TabIndex = 58;
@@ -171,7 +188,7 @@
             RBDTT.AutoSize = true;
             RBDTT.BackColor = Color.SlateBlue;
             RBDTT.ForeColor = SystemColors.ButtonHighlight;
-            RBDTT.Location = new Point(110, 300);
+            RBDTT.Location = new Point(112, 369);
             RBDTT.Name = "RBDTT";
             RBDTT.Size = new Size(100, 19);
             RBDTT.TabIndex = 57;
@@ -179,21 +196,23 @@
             RBDTT.Text = "Đã thanh toán";
             RBDTT.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // bttCL
             // 
-            button4.Location = new Point(144, 338);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 56;
-            button4.Text = "Clear";
-            button4.UseVisualStyleBackColor = true;
+            bttCL.ForeColor = SystemColors.ActiveCaptionText;
+            bttCL.Location = new Point(126, 404);
+            bttCL.Name = "bttCL";
+            bttCL.Size = new Size(75, 23);
+            bttCL.TabIndex = 56;
+            bttCL.Text = "Clear";
+            bttCL.UseVisualStyleBackColor = true;
+            bttCL.Click += bttCL_Click;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.SlateBlue;
             label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(473, 346);
+            label7.Location = new Point(421, 409);
             label7.Name = "label7";
             label7.Size = new Size(56, 15);
             label7.TabIndex = 55;
@@ -201,34 +220,38 @@
             // 
             // txtTK
             // 
-            txtTK.Location = new Point(533, 339);
+            txtTK.Location = new Point(483, 406);
             txtTK.Name = "txtTK";
-            txtTK.Size = new Size(298, 23);
+            txtTK.Size = new Size(204, 23);
             txtTK.TabIndex = 54;
             // 
-            // button3
+            // bttSua
             // 
-            button3.Location = new Point(241, 338);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 53;
-            button3.Text = "Sửa";
-            button3.UseVisualStyleBackColor = true;
+            bttSua.ForeColor = SystemColors.ActiveCaptionText;
+            bttSua.Location = new Point(223, 404);
+            bttSua.Name = "bttSua";
+            bttSua.Size = new Size(75, 23);
+            bttSua.TabIndex = 53;
+            bttSua.Text = "Sửa";
+            bttSua.UseVisualStyleBackColor = true;
+            bttSua.Click += bttSua_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(45, 338);
+            button2.ForeColor = SystemColors.ActiveCaptionText;
+            button2.Location = new Point(27, 404);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 52;
             button2.Text = "Thêm";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // DTPVC
             // 
             DTPVC.CustomFormat = "";
             DTPVC.Format = DateTimePickerFormat.Short;
-            DTPVC.Location = new Point(110, 172);
+            DTPVC.Location = new Point(112, 210);
             DTPVC.Margin = new Padding(3, 2, 3, 2);
             DTPVC.Name = "DTPVC";
             DTPVC.Size = new Size(220, 23);
@@ -239,7 +262,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.SlateBlue;
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(6, 304);
+            label6.Location = new Point(8, 373);
             label6.Name = "label6";
             label6.Size = new Size(59, 15);
             label6.TabIndex = 50;
@@ -250,7 +273,7 @@
             label5.AutoSize = true;
             label5.BackColor = Color.SlateBlue;
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(6, 261);
+            label5.Location = new Point(8, 299);
             label5.Name = "label5";
             label5.Size = new Size(24, 15);
             label5.TabIndex = 49;
@@ -258,7 +281,7 @@
             // 
             // txtGia
             // 
-            txtGia.Location = new Point(110, 253);
+            txtGia.Location = new Point(112, 291);
             txtGia.Name = "txtGia";
             txtGia.Size = new Size(298, 23);
             txtGia.TabIndex = 48;
@@ -268,7 +291,7 @@
             label4.AutoSize = true;
             label4.BackColor = Color.SlateBlue;
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(6, 220);
+            label4.Location = new Point(8, 258);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 47;
@@ -276,7 +299,7 @@
             // 
             // txtSL
             // 
-            txtSL.Location = new Point(110, 212);
+            txtSL.Location = new Point(112, 250);
             txtSL.Name = "txtSL";
             txtSL.Size = new Size(298, 23);
             txtSL.TabIndex = 46;
@@ -286,26 +309,26 @@
             label3.AutoSize = true;
             label3.BackColor = Color.SlateBlue;
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(6, 178);
+            label3.Location = new Point(8, 216);
             label3.Name = "label3";
-            label3.Size = new Size(73, 15);
+            label3.Size = new Size(78, 15);
             label3.TabIndex = 45;
-            label3.Text = "HSDVoucher";
+            label3.Text = "Hạn giảm giá";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.SlateBlue;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(6, 135);
+            label2.Location = new Point(8, 173);
             label2.Name = "label2";
-            label2.Size = new Size(98, 15);
+            label2.Size = new Size(54, 15);
             label2.TabIndex = 44;
-            label2.Text = "MenhGiaVoucher";
+            label2.Text = "Giảm giá";
             // 
             // txtSZ
             // 
-            txtSZ.Location = new Point(110, 132);
+            txtSZ.Location = new Point(112, 170);
             txtSZ.Name = "txtSZ";
             txtSZ.Size = new Size(298, 23);
             txtSZ.TabIndex = 43;
@@ -315,7 +338,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.SlateBlue;
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(6, 93);
+            label1.Location = new Point(8, 131);
             label1.Name = "label1";
             label1.Size = new Size(80, 15);
             label1.TabIndex = 42;
@@ -323,7 +346,7 @@
             // 
             // txtSP
             // 
-            txtSP.Location = new Point(110, 90);
+            txtSP.Location = new Point(112, 128);
             txtSP.Name = "txtSP";
             txtSP.Size = new Size(298, 23);
             txtSP.TabIndex = 41;
@@ -331,13 +354,133 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(groupBox3);
+            panel1.Controls.Add(bttHDCT);
+            panel1.Controls.Add(bttCheck);
+            panel1.Controls.Add(txtHDHT);
+            panel1.Controls.Add(bttHDT);
+            panel1.Controls.Add(bttCHD);
+            panel1.Controls.Add(label11);
+            panel1.Controls.Add(txtimei);
+            panel1.Controls.Add(label8);
             panel1.Controls.Add(btnSearch);
+            panel1.Controls.Add(txtTG);
+            panel1.Controls.Add(DTPVC);
+            panel1.Controls.Add(groupBox1);
+            panel1.Controls.Add(label5);
             panel1.Controls.Add(label7);
+            panel1.Controls.Add(txtGia);
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(bttXoa);
+            panel1.Controls.Add(txtSL);
+            panel1.Controls.Add(txtTK);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(RBCTT);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(bttCL);
+            panel1.Controls.Add(txtSZ);
+            panel1.Controls.Add(RBDTT);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(txtSP);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(bttSua);
             panel1.ForeColor = SystemColors.ButtonHighlight;
             panel1.Location = new Point(-2, -6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1424, 920);
+            panel1.Size = new Size(1273, 920);
             panel1.TabIndex = 70;
+            // 
+            // bttHDCT
+            // 
+            bttHDCT.ForeColor = SystemColors.ActiveCaptionText;
+            bttHDCT.Location = new Point(1167, 343);
+            bttHDCT.Name = "bttHDCT";
+            bttHDCT.Size = new Size(75, 23);
+            bttHDCT.TabIndex = 78;
+            bttHDCT.Text = "HDCT";
+            bttHDCT.UseVisualStyleBackColor = true;
+            bttHDCT.Click += bttHDCT_Click;
+            // 
+            // bttCheck
+            // 
+            bttCheck.ForeColor = SystemColors.ActiveCaptionText;
+            bttCheck.Location = new Point(444, 343);
+            bttCheck.Name = "bttCheck";
+            bttCheck.Size = new Size(75, 23);
+            bttCheck.TabIndex = 77;
+            bttCheck.Text = "Check";
+            bttCheck.UseVisualStyleBackColor = true;
+            bttCheck.Click += bttCheck_Click;
+            // 
+            // dgvHD
+            // 
+            dgvHD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvHD.Location = new Point(6, 22);
+            dgvHD.Name = "dgvHD";
+            dgvHD.RowHeadersWidth = 51;
+            dgvHD.RowTemplate.Height = 25;
+            dgvHD.Size = new Size(529, 197);
+            dgvHD.TabIndex = 2;
+            dgvHD.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // txtHDHT
+            // 
+            txtHDHT.Location = new Point(346, 210);
+            txtHDHT.Name = "txtHDHT";
+            txtHDHT.Size = new Size(64, 23);
+            txtHDHT.TabIndex = 71;
+            // 
+            // bttHDT
+            // 
+            bttHDT.ForeColor = SystemColors.ActiveCaptionText;
+            bttHDT.Location = new Point(1204, 409);
+            bttHDT.Name = "bttHDT";
+            bttHDT.Size = new Size(34, 23);
+            bttHDT.TabIndex = 76;
+            bttHDT.Text = "-";
+            bttHDT.UseVisualStyleBackColor = true;
+            bttHDT.Click += bttHDT_Click;
+            // 
+            // bttCHD
+            // 
+            bttCHD.ForeColor = SystemColors.ActiveCaptionText;
+            bttCHD.Location = new Point(1167, 409);
+            bttCHD.Name = "bttCHD";
+            bttCHD.Size = new Size(31, 23);
+            bttCHD.TabIndex = 74;
+            bttCHD.Text = "+";
+            bttCHD.UseVisualStyleBackColor = true;
+            bttCHD.Click += button1_Click;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.BackColor = Color.SlateBlue;
+            label11.ForeColor = SystemColors.ButtonHighlight;
+            label11.Location = new Point(8, 92);
+            label11.Name = "label11";
+            label11.Size = new Size(50, 15);
+            label11.TabIndex = 73;
+            label11.Text = "Mã Imei";
+            // 
+            // txtimei
+            // 
+            txtimei.Location = new Point(112, 89);
+            txtimei.Name = "txtimei";
+            txtimei.Size = new Size(298, 23);
+            txtimei.TabIndex = 71;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.SlateBlue;
+            label8.ForeColor = SystemColors.ButtonHighlight;
+            label8.Location = new Point(8, 329);
+            label8.Name = "label8";
+            label8.Size = new Size(57, 15);
+            label8.TabIndex = 72;
+            label8.Text = "Tổng tiền";
             // 
             // btnSearch
             // 
@@ -345,51 +488,53 @@
             btnSearch.IconColor = Color.Black;
             btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnSearch.IconSize = 17;
-            btnSearch.Location = new Point(849, 343);
+            btnSearch.Location = new Point(693, 406);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(37, 23);
             btnSearch.TabIndex = 56;
             btnSearch.UseVisualStyleBackColor = true;
             // 
+            // txtTG
+            // 
+            txtTG.Location = new Point(112, 329);
+            txtTG.Name = "txtTG";
+            txtTG.Size = new Size(298, 23);
+            txtTG.TabIndex = 71;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(dgvHD);
+            groupBox3.ForeColor = SystemColors.ButtonHighlight;
+            groupBox3.Location = new Point(701, 435);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(541, 225);
+            groupBox3.TabIndex = 79;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Hóa Đơn";
+            // 
             // Order
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(964, 602);
+            ClientSize = new Size(1258, 658);
             Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
             Controls.Add(label10);
             Controls.Add(txtMSP);
-            Controls.Add(button5);
             Controls.Add(label9);
             Controls.Add(txtHDCT);
-            Controls.Add(RBCTT);
-            Controls.Add(RBDTT);
-            Controls.Add(button4);
-            Controls.Add(txtTK);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(DTPVC);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(txtGia);
-            Controls.Add(label4);
-            Controls.Add(txtSL);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(txtSZ);
-            Controls.Add(label1);
-            Controls.Add(txtSP);
             Controls.Add(panel1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Order";
             Text = "Order";
+            Load += Order_Load;
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvHDCT).EndInit();
             groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvHD).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSP).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvHD).EndInit();
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -398,18 +543,18 @@
         private GroupBox groupBox2;
         private DataGridView dgvHDCT;
         private GroupBox groupBox1;
-        private DataGridView dgvHD;
+        private DataGridView dgvSP;
         private Label label10;
         private TextBox txtMSP;
-        private Button button5;
+        private Button bttXoa;
         private Label label9;
         private TextBox txtHDCT;
         private RadioButton RBCTT;
         private RadioButton RBDTT;
-        private Button button4;
+        private Button bttCL;
         private Label label7;
         private TextBox txtTK;
-        private Button button3;
+        private Button bttSua;
         private Button button2;
         private DateTimePicker DTPVC;
         private Label label6;
@@ -424,5 +569,16 @@
         private TextBox txtSP;
         private Panel panel1;
         private FontAwesome.Sharp.IconButton btnSearch;
+        private Label label8;
+        private TextBox txtTG;
+        private TextBox txtimei;
+        private Label label11;
+        private Button bttHDT;
+        private Button bttCHD;
+        private TextBox txtHDHT;
+        private DataGridView dgvHD;
+        private Button bttCheck;
+        private Button bttHDCT;
+        private GroupBox groupBox3;
     }
 }

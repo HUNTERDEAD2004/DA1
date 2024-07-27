@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class createdb : Migration
+    public partial class app : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,8 @@ namespace DAL.Migrations
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,6 +69,9 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     SaleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SaleCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SaleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PercentDiscount = table.Column<float>(type: "real", nullable: false),
                     SaleStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SaleEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -94,6 +98,7 @@ namespace DAL.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     BirthOfDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Wage = table.Column<double>(type: "float", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -111,15 +116,7 @@ namespace DAL.Migrations
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SaleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AppleWatchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MacBookIMEI = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IpadIMEI = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AirPodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IphoneIMEI = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ImacIMEI = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    BuyingPrice = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OperatingSystem = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BatteryCapacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -134,7 +131,8 @@ namespace DAL.Migrations
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    imagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -161,7 +159,6 @@ namespace DAL.Migrations
                     UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
                     TotalPrice = table.Column<double>(type: "float", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -216,7 +213,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     AccessoryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Version = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -236,30 +233,29 @@ namespace DAL.Migrations
                         name: "FK_accessories_productApples_ProductId",
                         column: x => x.ProductId,
                         principalTable: "productApples",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ProductId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "AirPods",
                 columns: table => new
                 {
-                    AirPodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AirPodIMEI = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AirPods", x => x.AirPodId);
+                    table.PrimaryKey("PK_AirPods", x => x.AirPodIMEI);
                     table.ForeignKey(
                         name: "FK_AirPods_productApples_ProductId",
                         column: x => x.ProductId,
                         principalTable: "productApples",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -285,7 +281,7 @@ namespace DAL.Migrations
                         column: x => x.ProductId,
                         principalTable: "productApples",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -313,7 +309,7 @@ namespace DAL.Migrations
                         column: x => x.ProductId,
                         principalTable: "productApples",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -338,21 +334,23 @@ namespace DAL.Migrations
                         column: x => x.ProductId,
                         principalTable: "productApples",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Iphones",
                 columns: table => new
                 {
-                    IphoneIMEI = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IphoneIMEI = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NameSP = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Display = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RearCamera = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CameraSelfie = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CPU = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GPU = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RAM = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<float>(type: "real", nullable: true),
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -366,7 +364,7 @@ namespace DAL.Migrations
                         column: x => x.ProductId,
                         principalTable: "productApples",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -374,7 +372,6 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     MacBookIMEI = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Display = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CameraSelfie = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CPU = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -383,7 +380,8 @@ namespace DAL.Migrations
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -393,7 +391,7 @@ namespace DAL.Migrations
                         column: x => x.ProductId,
                         principalTable: "productApples",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -428,6 +426,11 @@ namespace DAL.Migrations
                     OrderDetailsID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OderID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    IMEI = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NameSPCT = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<float>(type: "real", nullable: true),
+                    PercentDiscount = table.Column<float>(type: "real", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -458,38 +461,32 @@ namespace DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AirPods_ProductId",
                 table: "AirPods",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppleWatches_ProductId",
                 table: "AppleWatches",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Imacs_ProductId",
                 table: "Imacs",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ipads_ProductId",
                 table: "Ipads",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Iphones_ProductId",
                 table: "Iphones",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MacBooks_ProductId",
                 table: "MacBooks",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_oderDetails_OderID",

@@ -40,7 +40,7 @@ namespace DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -73,7 +73,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.AirPod", b =>
                 {
-                    b.Property<Guid>("AirPodId")
+                    b.Property<Guid>("AirPodIMEI")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -92,10 +92,9 @@ namespace DAL.Migrations
                     b.Property<string>("UpdateBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AirPodId");
+                    b.HasKey("AirPodIMEI");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("AirPods");
                 });
@@ -135,8 +134,7 @@ namespace DAL.Migrations
 
                     b.HasKey("AppleWatchId");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("AppleWatches");
                 });
@@ -151,6 +149,10 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdateAt")
@@ -249,8 +251,7 @@ namespace DAL.Migrations
 
                     b.HasKey("ImacIMEI");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Imacs");
                 });
@@ -287,17 +288,15 @@ namespace DAL.Migrations
 
                     b.HasKey("IpadIMEI");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Ipads");
                 });
 
             modelBuilder.Entity("DAL.Models.Iphone", b =>
                 {
-                    b.Property<Guid>("IphoneIMEI")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("IphoneIMEI")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CPU")
                         .HasColumnType("nvarchar(max)");
@@ -317,6 +316,12 @@ namespace DAL.Migrations
                     b.Property<string>("GPU")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameSP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("Price")
+                        .HasColumnType("real");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
@@ -334,8 +339,7 @@ namespace DAL.Migrations
 
                     b.HasKey("IphoneIMEI");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Iphones");
                 });
@@ -378,8 +382,7 @@ namespace DAL.Migrations
 
                     b.HasKey("MacBookIMEI");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("MacBooks");
                 });
@@ -398,9 +401,6 @@ namespace DAL.Migrations
 
                     b.Property<Guid>("CustomerID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -441,11 +441,26 @@ namespace DAL.Migrations
                     b.Property<string>("CreateBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IMEI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameSPCT")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("OderID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<float?>("PercentDiscount")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("Price")
+                        .HasColumnType("real");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
@@ -468,17 +483,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AirPodId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AppleWatchId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("BatteryCapacity")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("BuyingPrice")
-                        .HasColumnType("float");
 
                     b.Property<Guid>("CategoryID")
                         .HasColumnType("uniqueidentifier");
@@ -495,18 +501,6 @@ namespace DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ImacIMEI")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IpadIMEI")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IphoneIMEI")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MacBookIMEI")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
@@ -519,13 +513,11 @@ namespace DAL.Migrations
                     b.Property<string>("Origin")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
                     b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("SaleID")
+                    b.Property<Guid?>("SaleID")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdateAt")
@@ -542,6 +534,9 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("YearOfManufacture")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("imagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("status")
                         .HasColumnType("int");
@@ -596,8 +591,19 @@ namespace DAL.Migrations
                     b.Property<string>("CreateBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("PercentDiscount")
+                        .HasColumnType("real");
+
+                    b.Property<string>("SaleCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("SaleEnd")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("SaleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SaleStart")
                         .HasColumnType("datetime2");
@@ -665,6 +671,9 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double?>("Wage")
+                        .HasColumnType("float");
+
                     b.HasKey("UserID");
 
                     b.ToTable("Users");
@@ -730,79 +739,77 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Accessory", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", "Product")
+                    b.HasOne("DAL.Models.ProductApple", "ProductApple")
                         .WithMany("Accessorys")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductApple");
                 });
 
             modelBuilder.Entity("DAL.Models.AirPod", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithOne("AirPod")
-                        .HasForeignKey("DAL.Models.AirPod", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("DAL.Models.ProductApple", "ProductApple")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductApple");
                 });
 
             modelBuilder.Entity("DAL.Models.AppleWatch", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithOne("AppleWatch")
-                        .HasForeignKey("DAL.Models.AppleWatch", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("DAL.Models.ProductApple", "ProductApple")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductApple");
                 });
 
             modelBuilder.Entity("DAL.Models.Imac", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithOne("Imac")
-                        .HasForeignKey("DAL.Models.Imac", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("DAL.Models.ProductApple", "ProductApple")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductApple");
                 });
 
             modelBuilder.Entity("DAL.Models.Ipad", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithOne("Ipad")
-                        .HasForeignKey("DAL.Models.Ipad", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("DAL.Models.ProductApple", "ProductApple")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductApple");
                 });
 
             modelBuilder.Entity("DAL.Models.Iphone", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithOne("Iphone")
-                        .HasForeignKey("DAL.Models.Iphone", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("DAL.Models.ProductApple", "ProductApple")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductApple");
                 });
 
             modelBuilder.Entity("DAL.Models.MacBook", b =>
                 {
-                    b.HasOne("DAL.Models.ProductApple", "Product")
-                        .WithOne("MacBook")
-                        .HasForeignKey("DAL.Models.MacBook", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("DAL.Models.ProductApple", "ProductApple")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductApple");
                 });
 
             modelBuilder.Entity("DAL.Models.Oder", b =>
@@ -912,24 +919,6 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.ProductApple", b =>
                 {
                     b.Navigation("Accessorys");
-
-                    b.Navigation("AirPod")
-                        .IsRequired();
-
-                    b.Navigation("AppleWatch")
-                        .IsRequired();
-
-                    b.Navigation("Imac")
-                        .IsRequired();
-
-                    b.Navigation("Ipad")
-                        .IsRequired();
-
-                    b.Navigation("Iphone")
-                        .IsRequired();
-
-                    b.Navigation("MacBook")
-                        .IsRequired();
 
                     b.Navigation("OderDetails");
 

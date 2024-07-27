@@ -118,7 +118,6 @@
             txtRoleHT.ReadOnly = true;
             txtRoleHT.Size = new Size(155, 23);
             txtRoleHT.TabIndex = 26;
-            txtRoleHT.Visible = false;
             // 
             // txtIDHT
             // 
@@ -127,7 +126,6 @@
             txtIDHT.ReadOnly = true;
             txtIDHT.Size = new Size(187, 23);
             txtIDHT.TabIndex = 25;
-            txtIDHT.Visible = false;
             // 
             // CBHD
             // 

@@ -14,8 +14,8 @@ namespace DAL.Models
 
         public Guid RoleID { get; set; }
 
-        public virtual User User { get; set; } = new User();
+        public virtual User User { get; set; } 
 
-        public virtual Role Role { get; set; } = new Role();
+        public virtual Role Role { get; set; }
     }
 }

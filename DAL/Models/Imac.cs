@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,7 @@ namespace DAL.Models
     {
         [Key]
         public Guid ImacIMEI { get; set; }
-
         public Guid ProductId { get; set; }
-
         public string? Display {  get; set; }
 
         public string? RearCamera { get; set; }
@@ -33,7 +32,8 @@ namespace DAL.Models
         public string? CreateBy { get; set; }
 
         public string? UpdateBy { get; set; }
-
-        public virtual ProductApple Product { get; set; } = new ProductApple();
+        [ForeignKey("ProductId")]
+        public virtual ProductApple ProductApple { get; set; }
+        //public virtual ProductApple Product { get; set; } = new ProductApple();
     }
 }

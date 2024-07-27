@@ -11,7 +11,9 @@ namespace DAL.Models
     {
         [Key]
         public Guid SaleID { get; set; }
-
+        public string SaleCode { get; set; } 
+        public string SaleName { get; set; }
+        public float PercentDiscount { get; set; }
         public DateTime SaleStart { get; set; }
 
         public DateTime SaleEnd { get; set; }
@@ -24,6 +26,6 @@ namespace DAL.Models
 
         public string? CreateBy { get; set; }
 
-        public virtual ICollection<ProductApple> ProductApples { get; set; } = new List<ProductApple>();
+        public virtual ICollection<ProductApple> ProductApples { get; set; } 
     }
 }

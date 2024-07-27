@@ -19,7 +19,8 @@ namespace DAL.Models
         public DateTime UpdateAt { get; set; }
 
         public string? UpdateBy { get; set; }
+        public string Name { get; set; }
 
-        public virtual ICollection<ProductApple> ProductApples { get;} = new List<ProductApple>();
+        public virtual ICollection<ProductApple> ProductApples { get; set; } = new List<ProductApple>();
     }
 }
