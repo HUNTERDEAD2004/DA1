@@ -23,6 +23,10 @@ namespace AppData.Models
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal DiscountValue { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public string CreatedBy { get; set; }
+        public string UpdatedBy { get; set; }
 
         public Order Order { get; set; }
 

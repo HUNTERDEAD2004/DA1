@@ -20,6 +20,10 @@ namespace AppData.Models
         public Guid AccountID { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal Price { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public string CreatedBy { get; set; }
+        public string UpdatedBy { get; set; }
 
         public virtual Customer Customer { get; set; }
         public virtual Account Account { get; set; }
