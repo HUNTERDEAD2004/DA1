@@ -23,8 +23,12 @@ namespace PRL.View
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
         AppDbContext Context;
-        public Order()
+        private HDCT hdctForm;
+        public Order(HDCT hdct)
         {
+            this.hdctForm = hdct;
+            hdctForm = new HDCT();
+            hdctForm.Show();
             Context = new AppDbContext();
             InitializeComponent();
         }
@@ -339,7 +343,7 @@ namespace PRL.View
                     CustomerID = null,
                     Quantity = 0,
                     TotalPrice = 0,
-                    Status = Convert.ToInt32("1"),
+                    Status = Convert.ToInt32("0"),
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,
                     CreateBy = "admin",
@@ -443,6 +447,49 @@ namespace PRL.View
 
 
 
+        void UpdateOrderDetails()
+        {
+            try
+            {
+                // Mở kết nối đến cơ sở dữ liệu nếu nó chưa mở
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                // Truy vấn để tính tổng Quantity và TotalPrice cho mỗi Oder
+                string sqlUpdate = @"
+            UPDATE Oders
+            SET 
+                Quantity = COALESCE((
+                    SELECT COUNT(*)
+                    FROM oderDetails
+                    WHERE oderDetails.OderID = Oders.OderID
+                ), 0),
+                TotalPrice = COALESCE((
+                    SELECT SUM(Quantity * Price)
+                    FROM oderDetails
+                    WHERE oderDetails.OderID = Oders.OderID
+                ), 0)
+        ";
+
+                SqlCommand cmdUpdate = new SqlCommand(sqlUpdate, conn);
+                cmdUpdate.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi cập nhật hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Đóng kết nối cơ sở dữ liệu
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+
 
 
 
@@ -468,6 +515,7 @@ namespace PRL.View
                     conn.Open();
                 }
 
+                UpdateOrderDetails();
                 // Câu truy vấn SELECT
                 string sql5 = @"SELECT od.OrderDetailsID, od.ProductId, od.OderID, od.Quantity, od.IMEI, od.NameSPCT, od.Price, od.PercentDiscount, od.CreateAt, od.UpdateAt, od.CreateBy, od.UpdateBy,
                         o.UserID, o.CustomerID, o.Quantity AS OrderQuantity, o.TotalPrice, o.Status, o.CreateAt AS OrderCreateAt, o.UpdateAt AS OrderUpdateAt, o.CreateBy AS OrderCreateBy, o.UpdateBy AS OrderUpdateBy
@@ -611,11 +659,31 @@ namespace PRL.View
             LayDLSP();
         }
 
+        public delegate void TransferDataHandler(DataTable data);
+        public event TransferDataHandler OnDataTransfer;
+        
+
         private void bttHDCT_Click(object sender, EventArgs e)
         {
-            HDCT hdct = new HDCT();
-            this.Hide();
-            hdct.Show();
+            DataTable selectedData = new DataTable();
+            foreach (DataGridViewColumn column in dgvHD.Columns)
+            {
+                selectedData.Columns.Add(column.Name, column.ValueType);
+            }
+
+            foreach (DataGridViewRow row in dgvHD.SelectedRows)
+            {
+                DataRow dataRow = selectedData.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    dataRow[cell.OwningColumn.Name] = cell.Value;
+                }
+                selectedData.Rows.Add(dataRow);
+            }
+
+            hdctForm.ReceiveData(selectedData);
         }
+
     }
+    
 }
