@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace AppData.Models
 {
-    public class Color
+    public class Cpu
     {
         [Key]
-        public Guid ColorID { get; set; }
-        public string ColorName { get; set; }
+        public Guid CPUID { get; set; }
+        public string CPUName { get; set; }
+        public int CPUCores { get; set; }
+        public int CPUThreads { get; set; }
+        public string CPUClockSpeed { get; set; }
 
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
     }

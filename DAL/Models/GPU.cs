@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace AppData.Models
 {
-    public class Color
+    public class Gpu
     {
         [Key]
-        public Guid ColorID { get; set; }
-        public string ColorName { get; set; }
+        public Guid GPUID { get; set; }
+        public string GPUName { get; set; }
+        public string GPUMemory { get; set; }
 
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
     }

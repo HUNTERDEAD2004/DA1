@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace AppData.Models
 {
-    public class Color
+    public class Product
     {
         [Key]
-        public Guid ColorID { get; set; }
-        public string ColorName { get; set; }
+        public Guid ProductID { get; set; }
+        public string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public string Description { get; set; }
 
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
+        public virtual ICollection<Statistics> Statistics { get; set; }
     }
 }

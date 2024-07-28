@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace AppData.Models
 {
-    public class Color
+    public class Display
     {
         [Key]
-        public Guid ColorID { get; set; }
-        public string ColorName { get; set; }
+        public Guid DisplayID { get; set; }
+        public string DisplayName { get; set; }
 
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
     }
