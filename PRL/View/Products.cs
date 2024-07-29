@@ -37,38 +37,6 @@ namespace PRL.View
         {
 
         }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if (dgvData.SelectedRows.Count > 0)
-            {
-                var productId = (Guid)dgvData.SelectedRows[0].Cells["ProductID"].Value;
-                var product = context.Products.Find(productId);
-                if (product != null)
-                {
-                    var productName = txtName.Text.Trim();
-
-                    var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
-
-                    if (existingProduct != null)
-                    {
-                        MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    product.ProductName = txtName.Text;
-                    product.Description = txtDescription.Text;
-                    product.Quantity = int.Parse(txtQuantity.Text);
-                    product.UpdatedAt = DateTime.UtcNow;
-                    product.UpdatedBy = "Apple";
-
-                    context.Products.Update(product);
-                    context.SaveChanges();
-                    LoadData();
-                    ClearForm();
-                }
-                MessageBox.Show("Cập nhật sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
         private void ClearForm()
         {
             txtID.Text = "";
@@ -186,6 +154,28 @@ namespace PRL.View
             context.SaveChanges();
             LoadData();
             MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (dgvData.SelectedRows.Count > 0)
+            {
+                var productId = (Guid)dgvData.SelectedRows[0].Cells["ProductID"].Value;
+                var product = context.Products.Find(productId);
+                if (product != null)
+                {
+                    product.ProductName = txtName.Text;
+                    product.Description = txtDescription.Text;
+                    product.Quantity = int.Parse(txtQuantity.Text);
+                    product.UpdatedAt = DateTime.UtcNow;
+                    product.UpdatedBy = "Apple";
+
+                    context.Products.Update(product);
+                    context.SaveChanges();
+                    MessageBox.Show("Cập nhật sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                    ClearForm();
+                }
+            }
         }
     }
 }

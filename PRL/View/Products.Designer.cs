@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             btnClear = new GroupBox();
+            btnUpdate = new Button();
             txtQuantity = new TextBox();
             btnClean = new Button();
             dgvData = new DataGridView();
@@ -61,6 +62,7 @@
             // 
             // btnClear
             // 
+            btnClear.Controls.Add(btnUpdate);
             btnClear.Controls.Add(txtQuantity);
             btnClear.Controls.Add(btnClean);
             btnClear.Controls.Add(dgvData);
@@ -92,6 +94,21 @@
             btnClear.Text = "Product";
             btnClear.Enter += groupBox1_Enter;
             // 
+            // btnUpdate
+            // 
+            btnUpdate.BackColor = Color.SkyBlue;
+            btnUpdate.FlatAppearance.BorderColor = Color.Lavender;
+            btnUpdate.FlatAppearance.BorderSize = 2;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.ForeColor = SystemColors.ActiveCaptionText;
+            btnUpdate.Location = new Point(577, 222);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(75, 25);
+            btnUpdate.TabIndex = 79;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
             // txtQuantity
             // 
             txtQuantity.Location = new Point(128, 126);
@@ -107,7 +124,7 @@
             btnClean.FlatAppearance.BorderSize = 2;
             btnClean.FlatStyle = FlatStyle.Flat;
             btnClean.ForeColor = SystemColors.ActiveCaptionText;
-            btnClean.Location = new Point(487, 222);
+            btnClean.Location = new Point(246, 274);
             btnClean.Name = "btnClean";
             btnClean.Size = new Size(75, 25);
             btnClean.TabIndex = 76;
@@ -168,7 +185,7 @@
             btnAddProduct.FlatAppearance.BorderSize = 2;
             btnAddProduct.FlatStyle = FlatStyle.Flat;
             btnAddProduct.ForeColor = SystemColors.ActiveCaptionText;
-            btnAddProduct.Location = new Point(568, 222);
+            btnAddProduct.Location = new Point(487, 222);
             btnAddProduct.Name = "btnAddProduct";
             btnAddProduct.Size = new Size(75, 25);
             btnAddProduct.TabIndex = 62;
@@ -376,5 +393,6 @@
         private Panel panel1;
         private Button btnClean;
         private TextBox txtQuantity;
+        private Button btnUpdate;
     }
 }

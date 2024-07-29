@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,31 +28,46 @@ namespace PRL.View
         }
         private void LoadComboBoxData()
         {
-            cbRam.DataSource = context.RAMs.ToList();
+            var ramList = context.RAMs.ToList();
+            ramList.Insert(0, new Ram { RAMID = Guid.Empty, RAMSize = "-- Chọn ram --" });
+            cbRam.DataSource = ramList;
             cbRam.DisplayMember = "RAMSize";
             cbRam.ValueMember = "RAMID";
 
-            cbCpu.DataSource = context.CPUs.ToList();
+            var cpuList = context.CPUs.ToList();
+            cpuList.Insert(0, new Cpu { CPUID = Guid.Empty, CPUName = "-- Chọn CPU --" });
+            cbCpu.DataSource = cpuList;
             cbCpu.DisplayMember = "CPUName";
             cbCpu.ValueMember = "CPUID";
 
-            cbGPU.DataSource = context.GPUs.ToList();
+            var gpuList = context.GPUs.ToList();
+            gpuList.Insert(0, new Gpu { GPUID = Guid.Empty, GPUName = "-- Chọn GPU --" });
+            cbGPU.DataSource = gpuList;
             cbGPU.DisplayMember = "GPUName";
             cbGPU.ValueMember = "GPUID";
 
-            cbRom.DataSource = context.ROMs.ToList();
+            var romList = context.ROMs.ToList();
+            romList.Insert(0, new Rom { ROMID = Guid.Empty, ROMSize = "-- Chọn ROM --" });
+            cbRom.DataSource = romList;
             cbRom.DisplayMember = "ROMSize";
             cbRom.ValueMember = "ROMID";
 
-            cbColor.DataSource = context.Colours.ToList();
+            var colorList = context.Colours.ToList();
+            colorList.Insert(0, new AppData.Models.Color { ColorID = Guid.Empty, ColorName = "-- Chọn màu --" });
+            cbColor.DataSource = colorList;
             cbColor.DisplayMember = "ColorName";
             cbColor.ValueMember = "ColorID";
 
-            cbDisplay.DataSource = context.Displays.ToList();
+            var displayList = context.Displays.ToList();
+            displayList.Insert(0, new Display { DisplayID = Guid.Empty, DisplayName = "-- Chọn tấm nền --" });
+            cbDisplay.DataSource = displayList;
             cbDisplay.DisplayMember = "DisplayName";
             cbDisplay.ValueMember = "DISPLAYID";
 
-            cbSale.DataSource = context.Sales.ToList();
+            // Thêm "Chọn" vào cbSale
+            var saleList = context.Sales.ToList();
+            saleList.Insert(0, new Sales { SaleID = Guid.Empty, DiscountValue = -1 });
+            cbSale.DataSource = saleList;
             cbSale.DisplayMember = "DiscountValue";
             cbSale.ValueMember = "SaleID";
         }
@@ -112,6 +128,17 @@ namespace PRL.View
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if ((Guid)cbRam.SelectedValue == Guid.Empty ||
+                (Guid)cbCpu.SelectedValue == Guid.Empty ||
+                (Guid)cbGPU.SelectedValue == Guid.Empty ||
+                (Guid)cbRom.SelectedValue == Guid.Empty ||
+                (Guid)cbColor.SelectedValue == Guid.Empty ||
+                (Guid)cbDisplay.SelectedValue == Guid.Empty ||
+                (Guid)cbSale.SelectedValue == Guid.Empty)
+            {
+                MessageBox.Show("Vui lòng chọn tất cả các thông tin chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             var detail = new ProductDetail
             {
                 IMEI = Guid.NewGuid(),
