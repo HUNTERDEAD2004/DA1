@@ -7,7 +7,7 @@ namespace PRL.View
         private IconButton currentBtn;
         private Panel leftborderBtn;
         private Form currentForm;
-        private Order orderForm;
+        private Orderform orderForm;
         private HDCT hdctForm;
         
         public struct hover

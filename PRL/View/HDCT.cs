@@ -1,9 +1,10 @@
-﻿using DAL.Models;
+﻿using AppData.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,15 +15,15 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=AppleStore4;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
-        AppDbContext Context;
+        IphoneDbContext Context;
 
         public HDCT()
         {
-            Context = new AppDbContext();
+            Context = new IphoneDbContext();
             InitializeComponent();
             // Tắt thuộc tính AllowUserToAddRows
             dgvHDC.AllowUserToAddRows = false;
@@ -49,8 +50,16 @@ namespace PRL.View
                 dgvHDC.Rows.Add(row.ItemArray);
             }
 
-            Guid orderId = (Guid)data.Rows[0]["OderID"];
-            LoadOrderDetails(orderId);
+            try
+            {
+                Guid orderId = (Guid)data.Rows[0]["OrderID"];
+                LoadOrderDetails(orderId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Vui lòng chọn lại hóa đơn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
 
         private void LoadOrderDetails(Guid orderId)
@@ -59,9 +68,9 @@ namespace PRL.View
             {
                 conn.Open();
                 string query = @"
-                SELECT od.OrderDetailsID, od.ProductId, od.OderID, od.Quantity, od.IMEI, od.NameSPCT, od.Price, od.PercentDiscount, od.CreateAt, od.UpdateAt, od.CreateBy, od.UpdateBy
-                FROM oderDetails od
-                WHERE od.OderID = @OrderID";
+                SELECT od.OrderDetailID, od.OrderID, od.IMEI, od.ProductName, od.Quantity, od.UnitPrice, od.DiscountValue, od.CreatedAt, od.UpdatedAt, od.CreatedBy, od.UpdatedBy
+                FROM OrderDetails od
+                WHERE od.OrderID = @OrderID";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@OrderID", orderId);
@@ -107,9 +116,9 @@ namespace PRL.View
             if (dgvHDC.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 dgvHDC.CurrentRow.Selected = true;
+                txtMHD.Text = dgvHDC.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
                 txtSL.Text = dgvHDC.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
-                txtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["TotalPrice"].Value.ToString();
-                txtSL.Text = "1";
+                txtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
 
                 // Chuyển đổi txtSZ.Text và txtGia.Text thành số
                 decimal discount = Convert.ToDecimal(txtTT.Text);
@@ -135,29 +144,30 @@ namespace PRL.View
 
         private void LoadDataHD(Guid orderId)
         {
-            using (var context = new AppDbContext())
+            using (var context = new IphoneDbContext())
             {
-                var order = context.Oders
-                    .Where(o => o.OderID == orderId)
-                    .Select(u => new
-                    {
-                        u.OderID,
-                        u.UserID,
-                        u.CustomerID,
-                        u.Quantity,
-                        u.TotalPrice,
-                        u.Status,
-                        u.CreateAt,
-                        u.UpdateAt,
-                        u.UpdateBy,
-                        u.CreateBy,
-                    })
-                    .ToList();
+                var order = context.Orders
+                   .Where(o => o.OrderID == orderId)
+                   .Select(u => new
+                   {
+                       u.OrderID,
+                       u.AccountID,
+                       u.CustomerID,
+                       u.TotalAmount,
+                       u.Price,
+                       u.Status,
+                       u.CreatedAt,
+                       u.UpdatedAt,
+                       u.UpdatedBy,
+                       u.CreatedBy,
+                   })
+                   .ToList();
 
                 dgvHDC.DataSource = order;
 
+
                 // Xóa 9 cột đầu tiên
-                RemoveFirstNineColumns();
+                //RemoveFirstNineColumns();
             }
         }
 
@@ -166,57 +176,85 @@ namespace PRL.View
         {
             try
             {
-                // Lấy OrderID từ hàng được chọn trong dgvHD
+                // Kiểm tra xem có hàng nào được chọn trong dgvHDC
                 if (dgvHDC.SelectedRows.Count > 0)
                 {
-                    Guid orderId = (Guid)dgvHDC.SelectedRows[0].Cells["OderID"].Value;
-                    string sdt = txtSDT.Text.Trim();
-                    Guid? customerId = null;
+                    var selectedRow = dgvHDC.SelectedRows[0];
+                    var orderIdCell = selectedRow.Cells["OrderID"].Value;
 
-                    using (var context = new AppDbContext())
+                    // Kiểm tra giá trị OrderID có hợp lệ không
+                    if (orderIdCell != null && Guid.TryParse(orderIdCell.ToString(), out Guid orderId))
                     {
-                        // Xử lý số điện thoại khách hàng
-                        if (!string.IsNullOrWhiteSpace(sdt))
+                        string sdt = txtSDT.Text.Trim();
+                        Guid? customerId = null;
+
+                        using (var context = new IphoneDbContext())
                         {
-                            var customer = context.customers.FirstOrDefault(c => c.Number == sdt);
-                            if (customer == null)
+                            // Xử lý số điện thoại khách hàng
+                            if (!string.IsNullOrWhiteSpace(sdt))
                             {
-                                // Tạo mới khách hàng nếu không tồn tại
-                                customer = new Customer
+                                var customer = context.Customers.FirstOrDefault(c => c.PhoneNumber == sdt);
+                                if (customer == null)
                                 {
-                                    CustomerID = Guid.NewGuid(),
-                                    Name = "Khách hàng ảo",
-                                    Age = 0,
-                                    Email = "fakeemail@example.com",
-                                    Number = sdt,
-                                    Gender = "N/A",
-                                    Point = 0,
-                                    Status = 1,
-                                    CreateAt = DateTime.Now,
-                                    UpdateAt = DateTime.Now,
-                                    CreateBy = "system",
-                                    UpdateBy = "system"
-                                };
-                                context.customers.Add(customer);
-                                context.SaveChanges();
+                                    // Tạo mới khách hàng nếu không tồn tại
+                                    customer = new Customer
+                                    {
+                                        CustomerID = Guid.NewGuid(),
+                                        CustomerName = "Khách hàng ảo",
+                                        Age = 0,
+                                        Email = "fakeemail@example.com",
+                                        PhoneNumber = sdt,
+                                        Gender = "N/A",
+                                        Point = 0,
+                                        Address = "abc",
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now,
+                                        CreatedBy = "system",
+                                        UpdatedBy = "system"
+                                    };
+                                    context.Customers.Add(customer);
+                                    context.SaveChanges();
+                                }
+                                customerId = customer.CustomerID;
                             }
-                            customerId = customer.CustomerID;
-                        }
 
-                        // Cập nhật hóa đơn
-                        var order = context.Oders.FirstOrDefault(o => o.OderID == orderId);
-                        if (order != null)
-                        {
-                            order.Status = 1;
-                            order.CustomerID = customerId;
-                            order.UpdateAt = DateTime.Now;
-                            order.UpdateBy = "system";
-                            context.SaveChanges();
-                        }
+                            // Tạo câu lệnh SQL để cập nhật hóa đơn
+                            string sql = @"
+                    UPDATE Orders
+                    SET 
+                        Status = 1,
+                        CustomerID = @CustomerID,
+                        UpdatedAt = @UpdatedAt,
+                        UpdatedBy = @UpdatedBy
+                    WHERE OrderID = @OrderID";
 
-                        // Load lại dữ liệu hóa đơn cụ thể
-                        LoadDataHD(orderId);
-                        MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            using (SqlCommand cmd = new SqlCommand(sql, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@OrderID", orderId);
+                                cmd.Parameters.AddWithValue("@CustomerID", (object)customerId ?? DBNull.Value);
+                                cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now);
+                                cmd.Parameters.AddWithValue("@UpdatedBy", "system");
+
+                                conn.Open();
+                                int rowsAffected = cmd.ExecuteNonQuery();
+                                conn.Close();
+
+                                if (rowsAffected > 0)
+                                {
+                                    // Load lại dữ liệu hóa đơn cụ thể
+                                    LoadDataHD(orderId);
+                                    MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Không tìm thấy hóa đơn với OrderID: " + orderId, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("OrderID không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -224,11 +262,17 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng chọn một hóa đơn để thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Lỗi cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Thanh toán thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 
 }

@@ -1,4 +1,4 @@
-using DAL.Models;
+using AppData.Models;
 using PRL.View;
 
 namespace PRL
@@ -14,12 +14,15 @@ namespace PRL
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            HDCT hdctForm = new HDCT();
-            Order orderForm = new Order(hdctForm);
+            //HDCT hdctForm = new HDCT();
+            //Orderform orderForm = new Orderform(hdctForm);
 
-            orderForm.Show();
+            //orderForm.Show();
+            //Application.Run();
 
-            Application.Run();
+
+            ApplicationConfiguration.Initialize();
+            Application.Run(new QuanLyNhanVien());
         }
 
     }

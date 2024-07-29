@@ -1,5 +1,6 @@
-﻿using DAL.Models;
+﻿using AppData.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,26 +12,30 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PRL.View
 {
     public partial class QuanLyNhanVien : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=AppleStore4;Trusted_Connection=True;TrustServerCertificate=True");        //SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AN16NPP\\MSSQLSERVER01;Initial Catalog=Duan1_N6_Demo3;Integrated Security=True;TrustServerCertificate=true");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB;Trusted_Connection=True;TrustServerCertificate=True");        //SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AN16NPP\\MSSQLSERVER01;Initial Catalog=Duan1_N6_Demo3;Integrated Security=True;TrustServerCertificate=true");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
-        AppDbContext Context;
+        IphoneDbContext Context;
 
 
         public QuanLyNhanVien()
         {
-            Context = new AppDbContext();
+            Context = new IphoneDbContext();
             InitializeComponent();
         }
         void HienThi()
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Users", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Accounts", conn);
             SqlDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(dr);
@@ -39,8 +44,8 @@ namespace PRL.View
             dgvnhanvien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // Thiết lập màu nền và màu chữ
-            dgvnhanvien.DefaultCellStyle.ForeColor = Color.Black;
-            dgvnhanvien.DefaultCellStyle.BackColor = Color.White;
+            dgvnhanvien.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            dgvnhanvien.DefaultCellStyle.BackColor = System.Drawing.Color.White;
 
             dgvnhanvien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvnhanvien.AutoResizeColumns();
@@ -49,34 +54,38 @@ namespace PRL.View
         }
         void LayDL()
         {
-            string sql = "SELECT * FROM Users";
+            string sql = "SELECT * FROM Accounts";
             sda = new SqlDataAdapter(sql, conn);
             ds = new DataSet();
         }
 
         private void LoadData()
         {
-            using (var context = new AppDbContext())
+            using (var context = new IphoneDbContext())
             {
-                var users = context.Users.ToList();
+                var users = context.Accounts.ToList();
                 dgvnhanvien.DataSource = users.Select(u => new
                 {
-                    u.UserID,
+                    u.AccountID,
                     u.Name,
                     u.Adress,
-                    u.Email,
-                    u.PhoneNumber,
-                    u.UserName,
+                    u.Username,
                     Password = new string('*', u.Password.Length), // Hiển thị mật khẩu dưới dạng ***
                     u.Status,
-                    u.BirthOfDate,
+                    u.Roles,
+                    u.PhoneNumber,
+                    u.Email,
+                    u.BOD,
                     u.Gender,
+                    u.Wage,
                     u.CreateAt,
                     u.UpdateAt,
-                    u.CreateBy
+                    u.CreateBy,
+                    u.UpdateBy
                 }).ToList();
             }
         }
+
 
 
         private void txtid_TextChanged(object sender, EventArgs e)
@@ -102,35 +111,35 @@ namespace PRL.View
             if (dgvnhanvien.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 dgvnhanvien.CurrentRow.Selected = true;
-                txt_IdNhanVien.Text = dgvnhanvien.Rows[e.RowIndex].Cells[0].Value.ToString();
-                txtten.Text = dgvnhanvien.Rows[e.RowIndex].Cells[1].Value.ToString();
-                txtDC.Text = dgvnhanvien.Rows[e.RowIndex].Cells[2].Value.ToString();
-                txtemail.Text = dgvnhanvien.Rows[e.RowIndex].Cells[3].Value.ToString();
-                txtsdt.Text = dgvnhanvien.Rows[e.RowIndex].Cells[4].Value.ToString();
-                txtTK.Text = dgvnhanvien.Rows[e.RowIndex].Cells[5].Value.ToString();
-                txtMK.Text = dgvnhanvien.Rows[e.RowIndex].Cells[6].Value.ToString();
-                txtL.Text = dgvnhanvien.Rows[e.RowIndex].Cells[10].Value.ToString();
+                txt_IdNhanVien.Text = dgvnhanvien.Rows[e.RowIndex].Cells["AccountID"].Value.ToString();
+                txtten.Text = dgvnhanvien.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+                txtDC.Text = dgvnhanvien.Rows[e.RowIndex].Cells["Adress"].Value.ToString();
+                txtemail.Text = dgvnhanvien.Rows[e.RowIndex].Cells["Email"].Value.ToString();
+                txtsdt.Text = dgvnhanvien.Rows[e.RowIndex].Cells["PhoneNumber"].Value.ToString();
+                txtTK.Text = dgvnhanvien.Rows[e.RowIndex].Cells["Username"].Value.ToString();
+                txtMK.Text = dgvnhanvien.Rows[e.RowIndex].Cells["Password"].Value.ToString();
+                txtL.Text = dgvnhanvien.Rows[e.RowIndex].Cells["Wage"].Value.ToString();
                 //txtTK.Text = dgvnhanvien.Rows[e.RowIndex].Cells[8].Value.ToString();
-                dateNV.Text = dgvnhanvien.Rows[e.RowIndex].Cells[8].Value.ToString();
+                dateNV.Text = dgvnhanvien.Rows[e.RowIndex].Cells["BOD"].Value.ToString();
 
 
-                if (dgvnhanvien.Rows[e.RowIndex].Cells[9].Value.ToString() == "Male" || dgvnhanvien.Rows[e.RowIndex].Cells[9].Value.ToString() == "Nam")
+                if (dgvnhanvien.Rows[e.RowIndex].Cells["Gender"].Value.ToString() == "Male" || dgvnhanvien.Rows[e.RowIndex].Cells["Gender"].Value.ToString() == "Nam")
                 {
                     rbtnam.Checked = true;
                     rbtnu.Checked = false;
                 }
-                else if (dgvnhanvien.Rows[e.RowIndex].Cells[9].Value.ToString() == "Female" || dgvnhanvien.Rows[e.RowIndex].Cells[9].Value.ToString() == "Nữ")
+                else if (dgvnhanvien.Rows[e.RowIndex].Cells["Gender"].Value.ToString() == "Female" || dgvnhanvien.Rows[e.RowIndex].Cells["Gender"].Value.ToString() == "Nữ")
                 {
                     rbtnam.Checked = false;
                     rbtnu.Checked = true;
                 }
 
-                if (dgvnhanvien.Rows[e.RowIndex].Cells[7].Value.ToString() == "1")
+                if (dgvnhanvien.Rows[e.RowIndex].Cells["Status"].Value.ToString() == "1")
                 {
                     rdb_HoatDong.Checked = true;
                     rdb_NgungHD.Checked = false;
                 }
-                else if (dgvnhanvien.Rows[e.RowIndex].Cells[7].Value.ToString() == "2")
+                else if (dgvnhanvien.Rows[e.RowIndex].Cells["Status"].Value.ToString() == "2")
                 {
                     rdb_HoatDong.Checked = false;
                     rdb_NgungHD.Checked = true;
@@ -226,16 +235,16 @@ namespace PRL.View
                 }
 
                 // Kiểm tra trùng lặp email và số điện thoại
-                bool emailExists = Context.Users.Any(u => u.Email == txtemail.Text);
-                bool phoneNumberExists = Context.Users.Any(u => u.PhoneNumber == txtsdt.Text);
-                bool taikhoanExists = Context.Users.Any(u => u.UserName == txtTK.Text);
-                bool tennvExists = Context.Users.Any(u => u.Name == txtten.Text);
+                bool emailExists = Context.Accounts.Any(u => u.Email == txtemail.Text);
+                bool phoneNumberExists = Context.Accounts.Any(u => u.PhoneNumber == txtsdt.Text);
+                bool taikhoanExists = Context.Accounts.Any(u => u.Username == txtTK.Text);
+                //bool tennvExists = Context.Accounts.Any(u => u.Name == txtten.Text);
 
-                if (tennvExists)
-                {
-                    MessageBox.Show("tên đã tồn tại. Vui lòng sử dụng tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                //if (tennvExists)
+                //{
+                //    MessageBox.Show("tên đã tồn tại. Vui lòng sử dụng tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
                 if (emailExists)
                 {
                     MessageBox.Show("Email đã tồn tại. Vui lòng sử dụng email khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -255,26 +264,28 @@ namespace PRL.View
                 }
 
 
-                var user = new User
+                var user = new Account
                 {
-                    UserID = Guid.NewGuid(),
+                    AccountID = Guid.NewGuid(),
                     Name = txtten.Text,
                     Adress = txtDC.Text,
-                    Email = txtemail.Text,
-                    PhoneNumber = txtsdt.Text,
-                    UserName = txtTK.Text,
+                    Username = txtTK.Text,
                     Password = txtMK.Text,
                     Status = rdb_HoatDong.Checked ? 1 : 0,
-                    BirthOfDate = dateNV.Value,
+                    Roles = "user", // Thay đổi vai trò phù hợp
+                    PhoneNumber = txtsdt.Text,
+                    Email = txtemail.Text,
+                    BOD = dateNV.Value,
                     Gender = rbtnam.Checked ? "Male" : (rbtnu.Checked ? "Female" : "Unspecified"),
-                    Wage = Convert.ToInt32(txtL.Text),
+                    Wage = Convert.ToDecimal(txtL.Text),
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,
                     CreateBy = "admin", // Thay đổi thành người dùng hiện tại
                     UpdateBy = "admin"  // Thay đổi thành người dùng hiện tại
                 };
 
-                Context.Users.Add(user);
+
+                Context.Accounts.Add(user);
                 Context.SaveChanges();
                 LoadData();
                 bttCL_Click(sender, e);
@@ -322,15 +333,15 @@ namespace PRL.View
                 }
 
                 Guid userId = Guid.Parse(txt_IdNhanVien.Text);
-                User user = Context.Users.FirstOrDefault(u => u.UserID == userId);
+                Account user = Context.Accounts.FirstOrDefault(u => u.AccountID == userId);
 
                 if (user != null)
                 {
                     // Kiểm tra trùng lặp email và số điện thoại nhưng bỏ qua bản ghi đang sửa
-                    bool emailExists = Context.Users.Any(u => u.Email == txtemail.Text && u.UserID != userId);
-                    bool phoneNumberExists = Context.Users.Any(u => u.PhoneNumber == txtsdt.Text && u.UserID != userId);
-                    bool taikhoanExists = Context.Users.Any(u => u.UserName == txtTK.Text && u.UserID != userId);
-                    bool tennvExists = Context.Users.Any(u => u.Name == txtten.Text && u.UserID != userId);
+                    bool emailExists = Context.Accounts.Any(u => u.Email == txtemail.Text && u.AccountID != userId);
+                    bool phoneNumberExists = Context.Accounts.Any(u => u.PhoneNumber == txtsdt.Text && u.AccountID != userId);
+                    bool taikhoanExists = Context.Accounts.Any(u => u.Username == txtTK.Text && u.AccountID != userId);
+                    bool tennvExists = Context.Accounts.Any(u => u.Name == txtten.Text && u.AccountID != userId);
 
                     if (tennvExists)
                     {
@@ -355,18 +366,23 @@ namespace PRL.View
                         return;
                     }
 
+                    // Giả sử user là đối tượng Account đã tồn tại trong cơ sở dữ liệu và bạn muốn cập nhật thông tin của nó
                     user.Name = txtten.Text;
                     user.Adress = txtDC.Text;
-                    user.Email = txtemail.Text;
-                    user.PhoneNumber = txtsdt.Text;
-                    user.UserName = txtTK.Text;
+                    user.Username = txtTK.Text;
                     user.Password = txtMK.Text;
                     user.Status = rdb_HoatDong.Checked ? 1 : 0;
-                    user.BirthOfDate = dateNV.Value;
+                    user.Roles = "user"; // Thay đổi vai trò phù hợp
+                    user.PhoneNumber = txtsdt.Text;
+                    user.Email = txtemail.Text;
+                    user.BOD = dateNV.Value;
                     user.Gender = rbtnam.Checked ? "Male" : (rbtnu.Checked ? "Female" : "Unspecified");
-                    user.Wage = Convert.ToInt32(txtL.Text);
+                    user.Wage = Convert.ToDecimal(txtL.Text);
+                    user.CreateAt = DateTime.Now;
                     user.UpdateAt = DateTime.Now;
-                    user.UpdateBy = "admin"; // Thay đổi thành người dùng hiện tại
+                    user.CreateBy = "admin";
+                    user.UpdateBy = "admin";
+
 
                     Context.SaveChanges();
                     LoadData();
@@ -388,11 +404,11 @@ namespace PRL.View
             try
             {
                 Guid userId = Guid.Parse(txt_IdNhanVien.Text);
-                User user = Context.Users.FirstOrDefault(u => u.UserID == userId);
+                Account user = Context.Accounts.FirstOrDefault(u => u.AccountID == userId);
 
                 if (user != null)
                 {
-                    Context.Users.Remove(user);
+                    Context.Accounts.Remove(user);
                     Context.SaveChanges();
                     LoadData();
                     bttCL_Click(sender, e);

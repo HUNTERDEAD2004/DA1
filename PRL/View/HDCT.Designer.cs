@@ -52,6 +52,8 @@
             label6 = new Label();
             txtSDT = new TextBox();
             groupBox4 = new GroupBox();
+            lab32 = new Label();
+            txtMHD = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvKH).BeginInit();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).BeginInit();
@@ -101,7 +103,7 @@
             // ss
             // 
             ss.AutoSize = true;
-            ss.Location = new Point(750, 148);
+            ss.Location = new Point(750, 181);
             ss.Name = "ss";
             ss.Size = new Size(90, 15);
             ss.TabIndex = 83;
@@ -110,7 +112,7 @@
             // 
             // txtMKH
             // 
-            txtMKH.Location = new Point(853, 145);
+            txtMKH.Location = new Point(853, 178);
             txtMKH.Name = "txtMKH";
             txtMKH.Size = new Size(340, 23);
             txtMKH.TabIndex = 82;
@@ -118,7 +120,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(750, 30);
+            label1.Location = new Point(750, 63);
             label1.Name = "label1";
             label1.Size = new Size(82, 15);
             label1.TabIndex = 78;
@@ -126,7 +128,7 @@
             // 
             // txtMNV
             // 
-            txtMNV.Location = new Point(854, 27);
+            txtMNV.Location = new Point(854, 60);
             txtMNV.Name = "txtMNV";
             txtMNV.Size = new Size(340, 23);
             txtMNV.TabIndex = 76;
@@ -230,7 +232,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(750, 110);
+            label5.Location = new Point(750, 143);
             label5.Name = "label5";
             label5.Size = new Size(57, 15);
             label5.TabIndex = 67;
@@ -238,7 +240,7 @@
             // 
             // txtTT
             // 
-            txtTT.Location = new Point(854, 107);
+            txtTT.Location = new Point(854, 140);
             txtTT.Name = "txtTT";
             txtTT.Size = new Size(340, 23);
             txtTT.TabIndex = 66;
@@ -246,7 +248,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(750, 69);
+            label4.Location = new Point(750, 102);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 65;
@@ -254,7 +256,7 @@
             // 
             // txtSL
             // 
-            txtSL.Location = new Point(854, 66);
+            txtSL.Location = new Point(854, 99);
             txtSL.Name = "txtSL";
             txtSL.Size = new Size(340, 23);
             txtSL.TabIndex = 64;
@@ -262,7 +264,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(750, 187);
+            label6.Location = new Point(750, 220);
             label6.Name = "label6";
             label6.Size = new Size(26, 15);
             label6.TabIndex = 88;
@@ -270,7 +272,7 @@
             // 
             // txtSDT
             // 
-            txtSDT.Location = new Point(854, 184);
+            txtSDT.Location = new Point(854, 217);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(340, 23);
             txtSDT.TabIndex = 87;
@@ -285,11 +287,29 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Khách hàng";
             // 
+            // lab32
+            // 
+            lab32.AutoSize = true;
+            lab32.Location = new Point(750, 31);
+            lab32.Name = "lab32";
+            lab32.Size = new Size(74, 15);
+            lab32.TabIndex = 91;
+            lab32.Text = "Mã Hóa Đơn";
+            // 
+            // txtMHD
+            // 
+            txtMHD.Location = new Point(854, 28);
+            txtMHD.Name = "txtMHD";
+            txtMHD.Size = new Size(340, 23);
+            txtMHD.TabIndex = 90;
+            // 
             // HDCT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1263, 659);
+            Controls.Add(lab32);
+            Controls.Add(txtMHD);
             Controls.Add(groupBox4);
             Controls.Add(label6);
             Controls.Add(txtSDT);
@@ -349,5 +369,7 @@
         private TextBox txtSDT;
         private GroupBox groupBox3;
         private GroupBox groupBox4;
+        private Label lab32;
+        private TextBox txtMHD;
     }
 }
