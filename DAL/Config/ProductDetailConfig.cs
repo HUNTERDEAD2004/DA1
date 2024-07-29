@@ -17,10 +17,6 @@ namespace AppData.Config
             builder.Property(x => x.Price)
                    .HasColumnType("decimal(10, 2)");
 
-
-            builder.Property(x => x.Warranty)
-                   .HasMaxLength(50);
-
             builder.HasOne(x => x.Product)
                    .WithMany(p => p.ProductDetails)
                    .HasForeignKey(x => x.ProductID);

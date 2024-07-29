@@ -20,10 +20,6 @@ namespace AppData.Config
 
             builder.Property(x => x.WarrantyEndDate)
                    .IsRequired();
-
-            builder.HasOne(x => x.ProductDetail)
-                   .WithOne(p => p.warranty)
-                   .HasForeignKey<Warranty>(x => x.IMEI);
         }
     }
 }

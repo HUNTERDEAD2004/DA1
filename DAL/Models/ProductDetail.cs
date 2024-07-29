@@ -12,7 +12,6 @@ namespace AppData.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public Guid ColorID { get; set; }
-        public string Warranty { get; set; }
         public Guid RAMID { get; set; }
         public Guid CPUID { get; set; }
         public Guid GPUID { get; set; }
@@ -30,6 +29,5 @@ namespace AppData.Models
         public Sales Sale { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
-        public Warranty warranty { get; set; }
     }
 }

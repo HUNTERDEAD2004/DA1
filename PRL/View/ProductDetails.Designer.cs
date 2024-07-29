@@ -33,7 +33,6 @@
             txtProductID = new TextBox();
             label2 = new Label();
             label4 = new Label();
-            label3 = new Label();
             txtName = new TextBox();
             label6 = new Label();
             txtPrice = new TextBox();
@@ -55,7 +54,6 @@
             cbGPU = new ComboBox();
             cbCpu = new ComboBox();
             cbRam = new ComboBox();
-            cbWarranty = new ComboBox();
             cbColor = new ComboBox();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -64,6 +62,7 @@
             // 
             txtImei.Location = new Point(109, 45);
             txtImei.Name = "txtImei";
+            txtImei.ReadOnly = true;
             txtImei.Size = new Size(163, 23);
             txtImei.TabIndex = 0;
             // 
@@ -103,16 +102,6 @@
             label4.Size = new Size(36, 15);
             label4.TabIndex = 5;
             label4.Text = "Color";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(36, 298);
-            label3.Name = "label3";
-            label3.Size = new Size(55, 15);
-            label3.TabIndex = 7;
-            label3.Text = "Warranty";
             // 
             // txtName
             // 
@@ -191,7 +180,7 @@
             // 
             label10.AutoSize = true;
             label10.ForeColor = SystemColors.ButtonHighlight;
-            label10.Location = new Point(342, 303);
+            label10.Location = new Point(36, 298);
             label10.Name = "label10";
             label10.Size = new Size(28, 15);
             label10.TabIndex = 20;
@@ -225,6 +214,7 @@
             btnAdd.TabIndex = 25;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnUpdate
             // 
@@ -253,7 +243,6 @@
             panel1.Controls.Add(cbGPU);
             panel1.Controls.Add(cbCpu);
             panel1.Controls.Add(cbRam);
-            panel1.Controls.Add(cbWarranty);
             panel1.Controls.Add(cbColor);
             panel1.Controls.Add(btnDel);
             panel1.Controls.Add(btnUpdate);
@@ -269,7 +258,6 @@
             panel1.Controls.Add(txtPrice);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(txtName);
-            panel1.Controls.Add(label3);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(txtProductID);
@@ -283,7 +271,7 @@
             // cbSale
             // 
             cbSale.FormattingEnabled = true;
-            cbSale.Location = new Point(394, 298);
+            cbSale.Location = new Point(109, 295);
             cbSale.Name = "cbSale";
             cbSale.Size = new Size(163, 23);
             cbSale.TabIndex = 35;
@@ -328,14 +316,6 @@
             cbRam.Size = new Size(163, 23);
             cbRam.TabIndex = 30;
             // 
-            // cbWarranty
-            // 
-            cbWarranty.FormattingEnabled = true;
-            cbWarranty.Location = new Point(109, 295);
-            cbWarranty.Name = "cbWarranty";
-            cbWarranty.Size = new Size(163, 23);
-            cbWarranty.TabIndex = 29;
-            // 
             // cbColor
             // 
             cbColor.FormattingEnabled = true;
@@ -364,7 +344,6 @@
         private TextBox txtProductID;
         private Label label2;
         private Label label4;
-        private Label label3;
         private TextBox txtName;
         private Label label6;
         private TextBox txtPrice;
@@ -386,7 +365,6 @@
         private ComboBox cbGPU;
         private ComboBox cbCpu;
         private ComboBox cbRam;
-        private ComboBox cbWarranty;
         private ComboBox cbColor;
     }
 }

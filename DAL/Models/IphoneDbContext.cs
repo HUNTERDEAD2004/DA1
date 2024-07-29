@@ -33,6 +33,7 @@ namespace AppData.Models
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Warranty> Warranties { get; set; }
         public DbSet<Sales> Sales { get; set; }
+        public DbSet<Color> Colours { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=datlee;Initial Catalog=IphoneDB;Integrated Security=True;Trust Server Certificate=True");

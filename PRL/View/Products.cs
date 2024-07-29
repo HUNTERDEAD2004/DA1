@@ -15,7 +15,6 @@ namespace PRL.View
     public partial class Products : Form
     {
         IphoneDbContext context;
-        private Guid? _productId;
         public Products()
         {
             InitializeComponent();
@@ -28,11 +27,6 @@ namespace PRL.View
             var products = context.Products.ToList();
             dgvData.DataSource = products;
             dgvData.Columns["ProductID"].Visible = false;
-            _productId = productId;
-            if (_productId.HasValue)
-            {
-                LoadData();
-            }
         }
         private void groupBox1_Enter(object sender, EventArgs e)
         {
