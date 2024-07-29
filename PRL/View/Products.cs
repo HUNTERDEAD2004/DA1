@@ -20,7 +20,7 @@ namespace PRL.View
             InitializeComponent();
             context = new IphoneDbContext();
             LoadData();
-            LoadDetails();
+            //LoadDetails();
         }
         private void LoadData(Guid? productId = null)
         {
@@ -124,24 +124,36 @@ namespace PRL.View
 
         private void btnDetails_Click(object sender, EventArgs e)
         {
-            if (Guid.TryParse(txtID.Text, out var productID))
+            if (dgvData.SelectedRows.Count > 0)
             {
-                var detailsForm = new ProductDetails(productID);
-                detailsForm.ShowDialog();
+                var productIdCellValue = dgvData.SelectedRows[0].Cells["ProductID"].Value;
+
+                if (productIdCellValue != null)
+                {
+                    if (Guid.TryParse(productIdCellValue.ToString(), out var productId))
+                    {
+                        var detailsForm = new ProductDetails(productId);
+                        detailsForm.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ProductID không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("ProductID không có giá trị", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("ID sản phẩm không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng chọn một sản phẩm để xem chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void dgvDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-        }
-        private void LoadDetails()
-        {
-            dgvDetails.DataSource = context.ProductDetails.ToList();
         }
 
         private void btnClean_Click(object sender, EventArgs e)
@@ -165,7 +177,6 @@ namespace PRL.View
                 ProductID = Guid.NewGuid(),
                 ProductName = txtName.Text,
                 Description = txtDescription.Text,
-                Quantity = int.Parse(txtQuantity.Text),
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 CreatedBy = "Apple",
@@ -176,17 +187,5 @@ namespace PRL.View
             LoadData();
             MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        //private void LoadProductDetailsDataGridView()
-        //{
-        //    using (var context = new IphoneDbContext())
-        //    {
-        //        var productDetailsList = context.ProductDetails
-        //                                        .Where(pd => pd.ProductID == )
-        //                                        .ToList();
-
-        //        dgvDetails.DataSource = productDetailsList;
-        //    }
-        //}
-
     }
 }

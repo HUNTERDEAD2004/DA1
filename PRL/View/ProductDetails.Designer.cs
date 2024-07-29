@@ -48,6 +48,7 @@
             btnUpdate = new Button();
             btnDel = new Button();
             panel1 = new Panel();
+            dgvDetails = new DataGridView();
             cbSale = new ComboBox();
             cbDisplay = new ComboBox();
             cbRom = new ComboBox();
@@ -56,6 +57,7 @@
             cbRam = new ComboBox();
             cbColor = new ComboBox();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDetails).BeginInit();
             SuspendLayout();
             // 
             // txtImei
@@ -80,6 +82,7 @@
             // 
             txtProductID.Location = new Point(109, 95);
             txtProductID.Name = "txtProductID";
+            txtProductID.ReadOnly = true;
             txtProductID.Size = new Size(163, 23);
             txtProductID.TabIndex = 2;
             // 
@@ -208,7 +211,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(398, 390);
+            btnAdd.Location = new Point(790, 290);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 25;
@@ -218,25 +221,28 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(482, 390);
+            btnUpdate.Location = new Point(874, 290);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 26;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDel
             // 
-            btnDel.Location = new Point(566, 390);
+            btnDel.Location = new Point(958, 290);
             btnDel.Name = "btnDel";
             btnDel.Size = new Size(75, 23);
             btnDel.TabIndex = 27;
             btnDel.Text = "Delete";
             btnDel.UseVisualStyleBackColor = true;
+            btnDel.Click += btnDel_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(dgvDetails);
             panel1.Controls.Add(cbSale);
             panel1.Controls.Add(cbDisplay);
             panel1.Controls.Add(cbRom);
@@ -265,8 +271,18 @@
             panel1.Controls.Add(txtImei);
             panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(651, 434);
+            panel1.Size = new Size(1069, 434);
             panel1.TabIndex = 0;
+            // 
+            // dgvDetails
+            // 
+            dgvDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDetails.Location = new Point(591, 45);
+            dgvDetails.Name = "dgvDetails";
+            dgvDetails.RowTemplate.Height = 25;
+            dgvDetails.Size = new Size(440, 226);
+            dgvDetails.TabIndex = 36;
+            dgvDetails.CellContentClick += dgvDetails_CellContentClick;
             // 
             // cbSale
             // 
@@ -328,12 +344,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(647, 425);
+            ClientSize = new Size(1070, 425);
             Controls.Add(panel1);
             Name = "ProductDetails";
             Text = "ProductDetails";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDetails).EndInit();
             ResumeLayout(false);
         }
 
@@ -366,5 +383,6 @@
         private ComboBox cbCpu;
         private ComboBox cbRam;
         private ComboBox cbColor;
+        private DataGridView dgvDetails;
     }
 }

@@ -31,12 +31,9 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             btnClear = new GroupBox();
+            txtQuantity = new TextBox();
             btnClean = new Button();
-            dgvDetails = new DataGridView();
             dgvData = new DataGridView();
             btnDetails = new Button();
             btnAddProduct = new Button();
@@ -49,7 +46,6 @@
             txtCreatBy = new TextBox();
             label5 = new Label();
             txtDescription = new RichTextBox();
-            txtQuantity = new NumericUpDown();
             label7 = new Label();
             btnBack = new FontAwesome.Sharp.IconButton();
             label3 = new Label();
@@ -59,16 +55,14 @@
             txtID = new TextBox();
             panel1 = new Panel();
             btnClear.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvDetails).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtQuantity).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // btnClear
             // 
+            btnClear.Controls.Add(txtQuantity);
             btnClear.Controls.Add(btnClean);
-            btnClear.Controls.Add(dgvDetails);
             btnClear.Controls.Add(dgvData);
             btnClear.Controls.Add(btnDetails);
             btnClear.Controls.Add(btnAddProduct);
@@ -81,7 +75,6 @@
             btnClear.Controls.Add(txtCreatBy);
             btnClear.Controls.Add(label5);
             btnClear.Controls.Add(txtDescription);
-            btnClear.Controls.Add(txtQuantity);
             btnClear.Controls.Add(label7);
             btnClear.Controls.Add(btnBack);
             btnClear.Controls.Add(label3);
@@ -99,6 +92,14 @@
             btnClear.Text = "Product";
             btnClear.Enter += groupBox1_Enter;
             // 
+            // txtQuantity
+            // 
+            txtQuantity.Location = new Point(128, 126);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.ReadOnly = true;
+            txtQuantity.Size = new Size(193, 23);
+            txtQuantity.TabIndex = 78;
+            // 
             // btnClean
             // 
             btnClean.BackColor = Color.SkyBlue;
@@ -114,7 +115,7 @@
             btnClean.UseVisualStyleBackColor = false;
             btnClean.Click += btnClean_Click;
             // 
-            // dgvDetails
+            // dgvData
             // 
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -123,8 +124,8 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -132,9 +133,9 @@
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvDetails.DefaultCellStyle = dataGridViewCellStyle2;
-            dgvDetails.Location = new Point(39, 302);
-            dgvDetails.Name = "dgvDetails";
+            dgvData.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvData.Location = new Point(658, 37);
+            dgvData.Name = "dgvData";
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Control;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -142,41 +143,7 @@
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dgvDetails.RowTemplate.Height = 25;
-            dgvDetails.Size = new Size(1051, 151);
-            dgvDetails.TabIndex = 75;
-            dgvDetails.CellContentClick += dgvDetails_CellContentClick;
-            // 
-            // dgvData
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvData.DefaultCellStyle = dataGridViewCellStyle5;
-            dgvData.Location = new Point(658, 37);
-            dgvData.Name = "dgvData";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvData.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dgvData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvData.RowTemplate.Height = 25;
             dgvData.Size = new Size(432, 210);
             dgvData.TabIndex = 69;
@@ -287,15 +254,6 @@
             txtDescription.TabIndex = 63;
             txtDescription.Text = "";
             // 
-            // txtQuantity
-            // 
-            txtQuantity.Location = new Point(128, 127);
-            txtQuantity.Margin = new Padding(3, 2, 3, 2);
-            txtQuantity.Name = "txtQuantity";
-            txtQuantity.ReadOnly = true;
-            txtQuantity.Size = new Size(193, 23);
-            txtQuantity.TabIndex = 58;
-            // 
             // label7
             // 
             label7.AutoSize = true;
@@ -388,9 +346,7 @@
             Text = "Products";
             btnClear.ResumeLayout(false);
             btnClear.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvDetails).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtQuantity).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -398,7 +354,6 @@
         #endregion
 
         private GroupBox btnClear;
-        private DataGridView dgvDetails;
         private DataGridView dgvData;
         private Button btnDetails;
         private Button btnAddProduct;
@@ -411,7 +366,6 @@
         private TextBox txtCreatBy;
         private Label label5;
         private RichTextBox txtDescription;
-        private NumericUpDown txtQuantity;
         private Label label7;
         private FontAwesome.Sharp.IconButton btnBack;
         private Label label3;
@@ -421,5 +375,6 @@
         private TextBox txtID;
         private Panel panel1;
         private Button btnClean;
+        private TextBox txtQuantity;
     }
 }
