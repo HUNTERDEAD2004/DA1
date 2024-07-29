@@ -35,30 +35,7 @@ namespace PRL.View
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var productName = txtName.Text.Trim();
 
-            var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
-
-            if (existingProduct != null)
-            {
-                MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            var product = new Product
-            {
-                ProductID = Guid.NewGuid(),
-                ProductName = txtName.Text,
-                Description = txtDescription.Text,
-                Quantity = int.Parse(txtQuantity.Text),
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                CreatedBy = "Apple",
-                UpdatedBy = "Apple"
-            };
-            context.Products.Add(product);
-            context.SaveChanges();
-            LoadData();
-            MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -164,19 +141,52 @@ namespace PRL.View
         }
         private void LoadDetails()
         {
-            dgvDetails.DataSource = context.ProductDetails
-             .Include(pd => pd.RAM)
-             .Include(pd => pd.CPU)
-             .Include(pd => pd.GPU)
-             .Include(pd => pd.ROM)
-             .Include(pd => pd.Display)
-             .Include(pd => pd.Sale)
-             .ToList();
+            dgvDetails.DataSource = context.ProductDetails.ToList();
         }
 
         private void btnClean_Click(object sender, EventArgs e)
         {
             ClearForm();
         }
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            var productName = txtName.Text.Trim();
+
+            var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
+
+            if (existingProduct != null)
+            {
+                MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var product = new Product
+            {
+                ProductID = Guid.NewGuid(),
+                ProductName = txtName.Text,
+                Description = txtDescription.Text,
+                Quantity = int.Parse(txtQuantity.Text),
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                CreatedBy = "Apple",
+                UpdatedBy = "Apple"
+            };
+            context.Products.Add(product);
+            context.SaveChanges();
+            LoadData();
+            MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        //private void LoadProductDetailsDataGridView()
+        //{
+        //    using (var context = new IphoneDbContext())
+        //    {
+        //        var productDetailsList = context.ProductDetails
+        //                                        .Where(pd => pd.ProductID == )
+        //                                        .ToList();
+
+        //        dgvDetails.DataSource = productDetailsList;
+        //    }
+        //}
+
     }
 }

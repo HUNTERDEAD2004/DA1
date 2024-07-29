@@ -28,22 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             btnClear = new GroupBox();
+            btnClean = new Button();
             dgvDetails = new DataGridView();
             dgvData = new DataGridView();
             btnDetails = new Button();
-            groupBox2 = new GroupBox();
-            btnSearch = new FontAwesome.Sharp.IconButton();
-            txtSearch = new TextBox();
-            btnDelete = new Button();
-            btnAdd = new Button();
-            btnUpdate = new Button();
             btnAddProduct = new Button();
             txtUpdateAt = new DateTimePicker();
             txtCreatAt = new DateTimePicker();
@@ -63,11 +58,9 @@
             label1 = new Label();
             txtID = new TextBox();
             panel1 = new Panel();
-            btnClean = new Button();
             btnClear.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetails).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
-            groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtQuantity).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -78,7 +71,6 @@
             btnClear.Controls.Add(dgvDetails);
             btnClear.Controls.Add(dgvData);
             btnClear.Controls.Add(btnDetails);
-            btnClear.Controls.Add(groupBox2);
             btnClear.Controls.Add(btnAddProduct);
             btnClear.Controls.Add(txtUpdateAt);
             btnClear.Controls.Add(txtCreatAt);
@@ -107,69 +99,84 @@
             btnClear.Text = "Product";
             btnClear.Enter += groupBox1_Enter;
             // 
+            // btnClean
+            // 
+            btnClean.BackColor = Color.SkyBlue;
+            btnClean.FlatAppearance.BorderColor = Color.Lavender;
+            btnClean.FlatAppearance.BorderSize = 2;
+            btnClean.FlatStyle = FlatStyle.Flat;
+            btnClean.ForeColor = SystemColors.ActiveCaptionText;
+            btnClean.Location = new Point(487, 222);
+            btnClean.Name = "btnClean";
+            btnClean.Size = new Size(75, 25);
+            btnClean.TabIndex = 76;
+            btnClean.Text = "Clear";
+            btnClean.UseVisualStyleBackColor = false;
+            btnClean.Click += btnClean_Click;
+            // 
             // dgvDetails
             // 
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgvDetails.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvDetails.DefaultCellStyle = dataGridViewCellStyle2;
             dgvDetails.Location = new Point(39, 302);
             dgvDetails.Name = "dgvDetails";
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Control;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgvDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvDetails.RowTemplate.Height = 25;
-            dgvDetails.Size = new Size(732, 151);
+            dgvDetails.Size = new Size(1051, 151);
             dgvDetails.TabIndex = 75;
             dgvDetails.CellContentClick += dgvDetails_CellContentClick;
             // 
             // dgvData
             // 
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = SystemColors.Control;
-            dataGridViewCellStyle10.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle10.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
-            dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = SystemColors.Window;
-            dataGridViewCellStyle11.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle11.ForeColor = SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle11.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.False;
-            dgvData.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvData.DefaultCellStyle = dataGridViewCellStyle5;
             dgvData.Location = new Point(658, 37);
             dgvData.Name = "dgvData";
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = SystemColors.Control;
-            dataGridViewCellStyle12.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle12.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            dgvData.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvData.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvData.RowTemplate.Height = 25;
             dgvData.Size = new Size(432, 210);
             dgvData.TabIndex = 69;
@@ -187,94 +194,6 @@
             btnDetails.UseVisualStyleBackColor = false;
             btnDetails.Click += btnDetails_Click;
             // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(btnSearch);
-            groupBox2.Controls.Add(txtSearch);
-            groupBox2.Controls.Add(btnDelete);
-            groupBox2.Controls.Add(btnAdd);
-            groupBox2.Controls.Add(btnUpdate);
-            groupBox2.ForeColor = SystemColors.ButtonHighlight;
-            groupBox2.Location = new Point(785, 302);
-            groupBox2.Margin = new Padding(3, 2, 3, 2);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(305, 151);
-            groupBox2.TabIndex = 62;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Actions";
-            // 
-            // btnSearch
-            // 
-            btnSearch.BackColor = SystemColors.ControlDark;
-            btnSearch.FlatAppearance.BorderSize = 0;
-            btnSearch.FlatStyle = FlatStyle.Flat;
-            btnSearch.ForeColor = SystemColors.ActiveCaptionText;
-            btnSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            btnSearch.IconColor = Color.Black;
-            btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnSearch.IconSize = 15;
-            btnSearch.Location = new Point(232, 37);
-            btnSearch.Margin = new Padding(3, 2, 3, 2);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(45, 20);
-            btnSearch.TabIndex = 61;
-            btnSearch.UseVisualStyleBackColor = false;
-            // 
-            // txtSearch
-            // 
-            txtSearch.BackColor = SystemColors.ControlDark;
-            txtSearch.Location = new Point(19, 34);
-            txtSearch.Margin = new Padding(3, 2, 3, 2);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(206, 23);
-            txtSearch.TabIndex = 60;
-            // 
-            // btnDelete
-            // 
-            btnDelete.BackColor = Color.SkyBlue;
-            btnDelete.FlatAppearance.BorderColor = Color.Lavender;
-            btnDelete.FlatAppearance.BorderSize = 2;
-            btnDelete.FlatStyle = FlatStyle.Flat;
-            btnDelete.ForeColor = SystemColors.ActiveCaptionText;
-            btnDelete.Location = new Point(202, 79);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(75, 25);
-            btnDelete.TabIndex = 13;
-            btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = false;
-            btnDelete.Click += btnDelete_Click;
-            // 
-            // btnAdd
-            // 
-            btnAdd.BackColor = Color.SkyBlue;
-            btnAdd.FlatAppearance.BorderColor = Color.Lavender;
-            btnAdd.FlatAppearance.BorderSize = 2;
-            btnAdd.FlatStyle = FlatStyle.Flat;
-            btnAdd.ForeColor = SystemColors.ActiveCaptionText;
-            btnAdd.Location = new Point(22, 79);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 25);
-            btnAdd.TabIndex = 11;
-            btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = false;
-            btnAdd.Click += btnAdd_Click;
-            // 
-            // btnUpdate
-            // 
-            btnUpdate.BackColor = Color.SkyBlue;
-            btnUpdate.FlatAppearance.BorderColor = Color.Lavender;
-            btnUpdate.FlatAppearance.BorderSize = 2;
-            btnUpdate.FlatStyle = FlatStyle.Flat;
-            btnUpdate.ForeColor = SystemColors.ActiveCaptionText;
-            btnUpdate.Location = new Point(112, 79);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(75, 25);
-            btnUpdate.TabIndex = 12;
-            btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = false;
-            btnUpdate.Click += btnUpdate_Click;
-            // 
             // btnAddProduct
             // 
             btnAddProduct.BackColor = Color.SkyBlue;
@@ -288,6 +207,7 @@
             btnAddProduct.TabIndex = 62;
             btnAddProduct.Text = "Add";
             btnAddProduct.UseVisualStyleBackColor = false;
+            btnAddProduct.Click += btnAddProduct_Click;
             // 
             // txtUpdateAt
             // 
@@ -457,21 +377,6 @@
             panel1.Size = new Size(1186, 502);
             panel1.TabIndex = 0;
             // 
-            // btnClean
-            // 
-            btnClean.BackColor = Color.SkyBlue;
-            btnClean.FlatAppearance.BorderColor = Color.Lavender;
-            btnClean.FlatAppearance.BorderSize = 2;
-            btnClean.FlatStyle = FlatStyle.Flat;
-            btnClean.ForeColor = SystemColors.ActiveCaptionText;
-            btnClean.Location = new Point(487, 222);
-            btnClean.Name = "btnClean";
-            btnClean.Size = new Size(75, 25);
-            btnClean.TabIndex = 76;
-            btnClean.Text = "Clear";
-            btnClean.UseVisualStyleBackColor = false;
-            btnClean.Click += btnClean_Click;
-            // 
             // Products
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -485,8 +390,6 @@
             btnClear.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetails).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)txtQuantity).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
@@ -498,12 +401,6 @@
         private DataGridView dgvDetails;
         private DataGridView dgvData;
         private Button btnDetails;
-        private GroupBox groupBox2;
-        private FontAwesome.Sharp.IconButton btnSearch;
-        private TextBox txtSearch;
-        private Button btnDelete;
-        private Button btnAdd;
-        private Button btnUpdate;
         private Button btnAddProduct;
         private DateTimePicker txtUpdateAt;
         private DateTimePicker txtCreatAt;
