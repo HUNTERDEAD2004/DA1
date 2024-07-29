@@ -21,11 +21,13 @@ namespace PRL.View
             InitializeComponent();
             context = new IphoneDbContext();
             LoadData();
+            LoadDetails();
         }
         private void LoadData(Guid? productId = null)
         {
             var products = context.Products.ToList();
             dgvData.DataSource = products;
+            dgvData.Columns["ProductID"].Visible = false;
             _productId = productId;
             if (_productId.HasValue)
             {
@@ -39,6 +41,15 @@ namespace PRL.View
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            var productName = txtName.Text.Trim();
+
+            var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
+
+            if (existingProduct != null)
+            {
+                MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             var product = new Product
             {
                 ProductID = Guid.NewGuid(),
@@ -50,20 +61,29 @@ namespace PRL.View
                 CreatedBy = "Apple",
                 UpdatedBy = "Apple"
             };
-
             context.Products.Add(product);
             context.SaveChanges();
             LoadData();
+            MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (dgvData.SelectedRows.Count > 0 && ValidateForm())
+            if (dgvData.SelectedRows.Count > 0)
             {
                 var productId = (Guid)dgvData.SelectedRows[0].Cells["ProductID"].Value;
                 var product = context.Products.Find(productId);
                 if (product != null)
                 {
+                    var productName = txtName.Text.Trim();
+
+                    var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
+
+                    if (existingProduct != null)
+                    {
+                        MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     product.ProductName = txtName.Text;
                     product.Description = txtDescription.Text;
                     product.Quantity = int.Parse(txtQuantity.Text);
@@ -75,6 +95,7 @@ namespace PRL.View
                     LoadData();
                     ClearForm();
                 }
+                MessageBox.Show("Cập nhật sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private void ClearForm()
@@ -97,16 +118,15 @@ namespace PRL.View
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = dgvData.Rows[e.RowIndex];
-                txtID.Text = row.Cells["ProductID"].Value.ToString();
-                txtName.Text = row.Cells["ProductName"].Value.ToString();
-                txtDescription.Text = row.Cells["Description"].Value.ToString();
-                txtQuantity.Text = row.Cells["Quantity"].Value.ToString();
-                txtCreatAt.Text = row.Cells["CreatedAt"].Value.ToString();
-                txtUpdateAt.Text = row.Cells["UpdatedAt"].Value.ToString();
-                txtCreatBy.Text = row.Cells["CreatedBy"].Value.ToString();
-                txtUpdateBy.Text = row.Cells["UpdatedBy"].Value.ToString();
-
+                var selectedRow = dgvData.Rows[e.RowIndex];
+                txtID.Text = selectedRow.Cells["ProductID"].Value.ToString();
+                txtName.Text = selectedRow.Cells["ProductName"].Value.ToString();
+                txtQuantity.Text = selectedRow.Cells["Quantity"].Value.ToString();
+                txtDescription.Text = selectedRow.Cells["Description"].Value.ToString();
+                txtCreatAt.Text = selectedRow.Cells["CreatedAt"].Value.ToString();
+                txtUpdateAt.Text = selectedRow.Cells["UpdatedAt"].Value.ToString();
+                txtCreatBy.Text = selectedRow.Cells["CreatedBy"].Value.ToString();
+                txtUpdateBy.Text = selectedRow.Cells["UpdatedBy"].Value.ToString();
             }
         }
 
@@ -129,6 +149,40 @@ namespace PRL.View
                     ClearForm();
                 }
             }
+        }
+
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+            if (Guid.TryParse(txtID.Text, out var productID))
+            {
+                var detailsForm = new ProductDetails(productID);
+                detailsForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("ID sản phẩm không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void LoadDetails()
+        {
+            dgvDetails.DataSource = context.ProductDetails
+             .Include(pd => pd.RAM)
+             .Include(pd => pd.CPU)
+             .Include(pd => pd.GPU)
+             .Include(pd => pd.ROM)
+             .Include(pd => pd.Display)
+             .Include(pd => pd.Sale)
+             .ToList();
+        }
+
+        private void btnClean_Click(object sender, EventArgs e)
+        {
+            ClearForm();
         }
     }
 }
