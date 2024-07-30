@@ -414,8 +414,7 @@ namespace DAL.Migrations
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    VoucherIDVoucher = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -433,11 +432,10 @@ namespace DAL.Migrations
                         principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Vouchers_VoucherIDVoucher",
-                        column: x => x.VoucherIDVoucher,
+                        name: "FK_Orders_Vouchers_IDVoucher",
+                        column: x => x.IDVoucher,
                         principalTable: "Vouchers",
-                        principalColumn: "IDVoucher",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IDVoucher");
                 });
 
             migrationBuilder.CreateTable(
@@ -447,6 +445,7 @@ namespace DAL.Migrations
                     IMEI = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProductID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WarrantyID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IDVoucher = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     importPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -457,11 +456,10 @@ namespace DAL.Migrations
                     ROMID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DisplayID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SaleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VoucherIDVoucher = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OperatingSystemOSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BatteryCapacityBatteryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BatteryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WeightID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    YearOfManufactureYearID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    YearID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MaterialID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OriginID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VersionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -472,11 +470,10 @@ namespace DAL.Migrations
                 {
                     table.PrimaryKey("PK_ProductDetails", x => x.IMEI);
                     table.ForeignKey(
-                        name: "FK_ProductDetails_BatteryCapacities_BatteryCapacityBatteryID",
-                        column: x => x.BatteryCapacityBatteryID,
+                        name: "FK_ProductDetails_BatteryCapacities_BatteryID",
+                        column: x => x.BatteryID,
                         principalTable: "BatteryCapacities",
-                        principalColumn: "BatteryID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "BatteryID");
                     table.ForeignKey(
                         name: "FK_ProductDetails_CameraSelfies_CameraSelfieID",
                         column: x => x.CameraSelfieID,
@@ -510,11 +507,10 @@ namespace DAL.Migrations
                         principalColumn: "MaterialID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductDetails_OperatingSystems_OperatingSystemOSID",
-                        column: x => x.OperatingSystemOSID,
+                        name: "FK_ProductDetails_OperatingSystems_OSID",
+                        column: x => x.OSID,
                         principalTable: "OperatingSystems",
-                        principalColumn: "OSID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "OSID");
                     table.ForeignKey(
                         name: "FK_ProductDetails_Origins_OriginID",
                         column: x => x.OriginID,
@@ -554,11 +550,10 @@ namespace DAL.Migrations
                         principalColumn: "VersionID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductDetails_Vouchers_VoucherIDVoucher",
-                        column: x => x.VoucherIDVoucher,
+                        name: "FK_ProductDetails_Vouchers_IDVoucher",
+                        column: x => x.IDVoucher,
                         principalTable: "Vouchers",
-                        principalColumn: "IDVoucher",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IDVoucher");
                     table.ForeignKey(
                         name: "FK_ProductDetails_Warranties_WarrantyID",
                         column: x => x.WarrantyID,
@@ -572,11 +567,10 @@ namespace DAL.Migrations
                         principalColumn: "WeightID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductDetails_YearsOfManufacture_YearOfManufactureYearID",
-                        column: x => x.YearOfManufactureYearID,
+                        name: "FK_ProductDetails_YearsOfManufacture_YearID",
+                        column: x => x.YearID,
                         principalTable: "YearsOfManufacture",
-                        principalColumn: "YearID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "YearID");
                 });
 
             migrationBuilder.CreateTable(
@@ -644,14 +638,14 @@ namespace DAL.Migrations
                 column: "CustomerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_VoucherIDVoucher",
+                name: "IX_Orders_IDVoucher",
                 table: "Orders",
-                column: "VoucherIDVoucher");
+                column: "IDVoucher");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_BatteryCapacityBatteryID",
+                name: "IX_ProductDetails_BatteryID",
                 table: "ProductDetails",
-                column: "BatteryCapacityBatteryID");
+                column: "BatteryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_CameraSelfieID",
@@ -679,19 +673,24 @@ namespace DAL.Migrations
                 column: "GPUID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductDetails_IDVoucher",
+                table: "ProductDetails",
+                column: "IDVoucher");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_MaterialID",
                 table: "ProductDetails",
                 column: "MaterialID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_OperatingSystemOSID",
-                table: "ProductDetails",
-                column: "OperatingSystemOSID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_OriginID",
                 table: "ProductDetails",
                 column: "OriginID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductDetails_OSID",
+                table: "ProductDetails",
+                column: "OSID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_ProductID",
@@ -724,11 +723,6 @@ namespace DAL.Migrations
                 column: "VersionID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_VoucherIDVoucher",
-                table: "ProductDetails",
-                column: "VoucherIDVoucher");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_WarrantyID",
                 table: "ProductDetails",
                 column: "WarrantyID");
@@ -739,9 +733,9 @@ namespace DAL.Migrations
                 column: "WeightID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_YearOfManufactureYearID",
+                name: "IX_ProductDetails_YearID",
                 table: "ProductDetails",
-                column: "YearOfManufactureYearID");
+                column: "YearID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Statistics_ProductID",

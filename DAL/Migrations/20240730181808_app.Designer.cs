@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(IphoneDbContext))]
-    [Migration("20240730174318_app")]
+    [Migration("20240730181808_app")]
     partial class app
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -330,16 +330,13 @@ namespace DAL.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("VoucherIDVoucher")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("OrderID");
 
                     b.HasIndex("AccountID");
 
                     b.HasIndex("CustomerID");
 
-                    b.HasIndex("VoucherIDVoucher");
+                    b.HasIndex("IDVoucher");
 
                     b.ToTable("Orders");
                 });
@@ -437,7 +434,7 @@ namespace DAL.Migrations
                     b.Property<string>("IMEI")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("BatteryCapacityBatteryID")
+                    b.Property<Guid>("BatteryID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CPUID")
@@ -455,6 +452,9 @@ namespace DAL.Migrations
                     b.Property<Guid>("GPUID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("IDVoucher")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("MaterialID")
                         .HasColumnType("uniqueidentifier");
 
@@ -463,7 +463,7 @@ namespace DAL.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<Guid>("OperatingSystemOSID")
+                    b.Property<Guid>("OSID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("OriginID")
@@ -490,16 +490,13 @@ namespace DAL.Migrations
                     b.Property<Guid>("VersionID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("VoucherIDVoucher")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("WarrantyID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("WeightID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("YearOfManufactureYearID")
+                    b.Property<Guid>("YearID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("importPrice")
@@ -507,7 +504,7 @@ namespace DAL.Migrations
 
                     b.HasKey("IMEI");
 
-                    b.HasIndex("BatteryCapacityBatteryID");
+                    b.HasIndex("BatteryID");
 
                     b.HasIndex("CPUID");
 
@@ -519,9 +516,11 @@ namespace DAL.Migrations
 
                     b.HasIndex("GPUID");
 
+                    b.HasIndex("IDVoucher");
+
                     b.HasIndex("MaterialID");
 
-                    b.HasIndex("OperatingSystemOSID");
+                    b.HasIndex("OSID");
 
                     b.HasIndex("OriginID");
 
@@ -537,13 +536,11 @@ namespace DAL.Migrations
 
                     b.HasIndex("VersionID");
 
-                    b.HasIndex("VoucherIDVoucher");
-
                     b.HasIndex("WarrantyID");
 
                     b.HasIndex("WeightID");
 
-                    b.HasIndex("YearOfManufactureYearID");
+                    b.HasIndex("YearID");
 
                     b.ToTable("ProductDetails");
                 });
@@ -1052,9 +1049,8 @@ namespace DAL.Migrations
 
                     b.HasOne("DAL.Models.Voucher", "Voucher")
                         .WithMany("Orders")
-                        .HasForeignKey("VoucherIDVoucher")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IDVoucher")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Account");
 
@@ -1086,8 +1082,8 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.BatteryCapacity", "BatteryCapacity")
                         .WithMany("ProductDetails")
-                        .HasForeignKey("BatteryCapacityBatteryID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("BatteryID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("AppData.Models.Cpu", "CPU")
@@ -1120,6 +1116,11 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("DAL.Models.Voucher", "Voucher")
+                        .WithMany("ProductDetails")
+                        .HasForeignKey("IDVoucher")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("DAL.Models.Material", "Material")
                         .WithMany("ProductDetails")
                         .HasForeignKey("MaterialID")
@@ -1128,8 +1129,8 @@ namespace DAL.Migrations
 
                     b.HasOne("DAL.Models.OperatingSystems", "OperatingSystem")
                         .WithMany("ProductDetails")
-                        .HasForeignKey("OperatingSystemOSID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("OSID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Origin", "Origin")
@@ -1174,12 +1175,6 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.Voucher", "Voucher")
-                        .WithMany()
-                        .HasForeignKey("VoucherIDVoucher")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AppData.Models.Warranty", "Warranty")
                         .WithMany("ProductDetails")
                         .HasForeignKey("WarrantyID")
@@ -1194,8 +1189,8 @@ namespace DAL.Migrations
 
                     b.HasOne("DAL.Models.YearOfManufacture", "YearOfManufacture")
                         .WithMany("ProductDetails")
-                        .HasForeignKey("YearOfManufactureYearID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("YearID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("BatteryCapacity");
@@ -1343,6 +1338,8 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Voucher", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("ProductDetails");
                 });
 
             modelBuilder.Entity("DAL.Models.Weight", b =>

@@ -14,8 +14,6 @@ namespace DAL.Config
         public void Configure(EntityTypeBuilder<BatteryCapacity> builder)
         {
             builder.HasKey(x => x.BatteryID);
-
-            
         }
     }
 }
