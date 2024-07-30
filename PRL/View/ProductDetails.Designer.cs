@@ -348,6 +348,7 @@
             Controls.Add(panel1);
             Name = "ProductDetails";
             Text = "ProductDetails";
+            Load += ProductDetails_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetails).EndInit();

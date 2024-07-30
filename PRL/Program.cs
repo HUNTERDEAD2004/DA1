@@ -14,15 +14,15 @@ namespace PRL
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //HDCT hdctForm = new HDCT();
-            //Orderform orderForm = new Orderform(hdctForm);
+            //HDCT hdctform = new HDCT();
+            //Orderform orderform = new Orderform(hdctform);
 
-            //orderForm.Show();
+            //orderform.Show();
             //Application.Run();
 
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new QuanLyNhanVien());
+            Application.Run(new MainForm());
         }
 
     }

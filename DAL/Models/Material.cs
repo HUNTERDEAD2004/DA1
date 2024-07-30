@@ -1,23 +1,23 @@
-﻿using System;
+﻿using AppData.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppData.Models
+namespace DAL.Models
 {
-    public class Warranty
+    public class Material
     {
-        public Guid WarrantyID { get; set; }
-        public DateTime WarrantyStartDate { get; set; }
-        public DateTime WarrantyEndDate { get; set; }
+        [Key]
+        public Guid MaterialID { get; set; }
+        public string MaterialName { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-
-        [ForeignKey("IMEI")]
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
+
     }
 }

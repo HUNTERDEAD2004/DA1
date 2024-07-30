@@ -104,8 +104,11 @@ namespace PRL.View
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
-            //ActivateButton(sender, hover.color3);
-            //OpenForm(new Order());
+            HDCT hdctform = new HDCT();
+            Orderform orderform = new Orderform(hdctform);
+
+            OpenForm(orderform);
+            
         }
 
         private void btnCustomer_Click(object sender, EventArgs e)

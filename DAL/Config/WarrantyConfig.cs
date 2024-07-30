@@ -1,11 +1,6 @@
 ﻿using AppData.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppData.Config
 {
@@ -20,6 +15,11 @@ namespace AppData.Config
 
             builder.Property(x => x.WarrantyEndDate)
                    .IsRequired();
+
+            builder.HasMany(x => x.ProductDetails)
+                   .WithOne(x => x.Warranty)
+                   .HasForeignKey(x => x.WarrantyID);
         }
     }
+
 }

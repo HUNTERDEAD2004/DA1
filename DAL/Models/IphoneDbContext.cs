@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AppData.Config;
+using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,14 +36,26 @@ namespace AppData.Models
         public DbSet<Warranty> Warranties { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<Color> Colours { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<OperatingSystems> OperatingSystems { get; set; }
+        public DbSet<BatteryCapacity> BatteryCapacities { get; set; }
+        public DbSet<Weight> Weights { get; set; }
+        public DbSet<YearOfManufacture> YearsOfManufacture { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<Origin> Origins { get; set; }
+        public DbSet<Versions> Versions { get; set; }
+        public DbSet<RearCamera> RearCameras { get; set; }
+        public DbSet<CameraSelfie> CameraSelfies { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-PMB8531\\SQLEXPRESS;Initial Catalog=IphoneDB;Integrated Security=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-PMB8531\\SQLEXPRESS;Initial Catalog=IphoneDB3;Integrated Security=True;Trust Server Certificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+
     }
 }

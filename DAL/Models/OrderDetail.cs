@@ -11,7 +11,7 @@ namespace AppData.Models
 
         public Guid OrderID { get; set; }
 
-        public Guid IMEI { get; set; }
+        public string IMEI { get; set; }
 
         [StringLength(255)]
         public string ProductName { get; set; }

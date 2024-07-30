@@ -311,7 +311,7 @@ namespace PRL.View
                 {
                     OrderDetailID = Guid.NewGuid(),
                     OrderID = Guid.Parse(txtHDHT.Text),
-                    IMEI = Guid.Parse(txtimei.Text),
+                    IMEI = txtimei.Text,
                     ProductName = txtSP.Text,
                     Quantity = Convert.ToInt32("1"),
                     UnitPrice = decimal.Parse(txtTG.Text),
@@ -691,7 +691,7 @@ namespace PRL.View
                 {
 
                     oderItem.OrderDetailID = Guid.NewGuid();
-                    oderItem.IMEI = Guid.Parse(txtMSP.Text);
+                    oderItem.IMEI = txtMSP.Text;
                     oderItem.OrderID = Guid.Parse(txtHDCT.Text);
                     oderItem.Quantity = Convert.ToInt32("1");
                     oderItem.ProductName = txtSP.Text;
