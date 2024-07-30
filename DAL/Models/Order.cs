@@ -18,7 +18,6 @@ namespace AppData.Models
         public Guid CustomerID { get; set; }
         [ForeignKey("AccountID")]
         public Guid AccountID { get; set; }
-        public Guid ProductID { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal Price { get; set; }
         public DateTime CreatedAt { get; set; }
