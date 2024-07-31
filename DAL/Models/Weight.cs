@@ -12,7 +12,7 @@ namespace DAL.Models
     {
         [Key]
         public Guid WeightID { get; set; }
-        public float WeightValue { get; set; } // in grams
+        public float WeightValue { get; set; } 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string CreatedBy { get; set; }

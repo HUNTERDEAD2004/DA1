@@ -77,9 +77,7 @@ namespace AppData.Config
                   .HasForeignKey(x => x.YearID)
                   .OnDelete(DeleteBehavior.NoAction); // Thay đổi hành vi xóa     
 
-            builder.HasOne(x => x.Warranty) // Cấu hình quan hệ với Warranty
-                   .WithMany(w => w.ProductDetails)
-                   .HasForeignKey(x => x.WarrantyID);
+           
         }
     }
 

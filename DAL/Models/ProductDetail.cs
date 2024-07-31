@@ -10,7 +10,6 @@ namespace AppData.Models
         [Key]
         public string IMEI { get; set; }
         public Guid ProductID { get; set; }
-        public Guid WarrantyID { get; set; }
         public Guid? IDVoucher { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
@@ -49,10 +48,10 @@ namespace AppData.Models
         public Material Material { get; set; }
         public Origin Origin { get; set; }
         public Versions Version { get; set; }
-        public Warranty Warranty { get; set; }
         public RearCamera RearCamera { get; set; }
         public CameraSelfie CameraSelfie { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        public ICollection<Warranty> Warranties { get; set; }
     }
 }
