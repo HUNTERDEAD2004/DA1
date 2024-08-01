@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DAL/Models/IphoneDbContext.cs
+/DAL/Migrations/IphoneDbContextModelSnapshot.cs
+/DAL/Migrations/20240730063549_iphonedbtest1.Designer.cs
+/DAL/Migrations/20240730063549_iphonedbtest1.cs
+/DAL/Models/IphoneDbContext.cs
+/.gitignore
