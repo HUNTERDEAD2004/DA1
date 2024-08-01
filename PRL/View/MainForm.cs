@@ -1,4 +1,8 @@
-﻿using FontAwesome.Sharp;
+﻿using AppData.Models;
+using FontAwesome.Sharp;
+using System.Security.Principal;
+using System.Xml.Linq;
+using Color = System.Drawing.Color;
 
 namespace PRL.View
 {
@@ -7,6 +11,7 @@ namespace PRL.View
         private IconButton currentBtn;
         private Panel leftborderBtn;
         private Form currentForm;
+
         public struct hover
         {
             public static Color color1 = Color.FromArgb(172, 126, 241);
@@ -48,12 +53,18 @@ namespace PRL.View
                 currentBtn.ImageAlign = ContentAlignment.MiddleLeft;
             }
         }
-        public MainForm()
+        IphoneDbContext _dbContext;
+        public MainForm(string name)
         {
             InitializeComponent();
             leftborderBtn = new Panel();
             leftborderBtn.Size = new Size(7, 60);
             Menu.Controls.Add(leftborderBtn);
+            label2.Text = ($"Xin Chào: {name}");
+        }
+        public MainForm()
+        {
+            _dbContext = new IphoneDbContext();
         }
         public void Reset()
         {
@@ -84,17 +95,24 @@ namespace PRL.View
         {
 
         }
-
+       
         private void btnProduct_Click_1(object sender, EventArgs e)
         {
             ActivateButton(sender, hover.color1);
             OpenForm(new Products());
         }
-
         private void btnAccount_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, hover.color2);
-            OpenForm(new QuanLyNhanVien());
+            Account currentUser = this.Tag as Account;
+            if (currentUser != null && currentUser.Roles.Contains("admin"))
+            {
+                QuanLyNhanVien empForm = new QuanLyNhanVien();
+                empForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Không có quyền vào đây làm gì?");
+            }
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
@@ -128,6 +146,11 @@ namespace PRL.View
             Login login = new Login();
             this.Hide();
             login.Show();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

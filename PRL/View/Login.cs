@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AppData.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +15,11 @@ namespace PRL.View
 {
     public partial class Login : Form
     {
+        IphoneDbContext dbContext;
         public Login()
         {
             InitializeComponent();
+            dbContext = new IphoneDbContext();
         }
 
         private void ForgotPassword_Click(object sender, EventArgs e)
@@ -24,9 +29,40 @@ namespace PRL.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MainForm form = new MainForm();
-            this.Hide();
-            form.Show();
+
+            string username = textBox1.Text;
+            string pass = textBox2.Text;
+            try
+            {
+                Account us = GetUser(username, pass);
+                if (us != null && CheckUser(us))
+                {
+                    MainForm form = new MainForm(username);
+
+                    form.Tag = us; // Lưu trữ thông tin người dùng trong Tag
+
+                    this.Hide();
+                    form.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+            }
+        }
+
+        bool CheckUser(Account user)
+        {
+            return user != null; // Chỉ kiểm tra xem user có null hay không
+        }
+
+        private Account GetUser(string username, string pass)
+        {
+            return dbContext.Accounts.FirstOrDefault(u => u.Username == username && u.Password == pass);
         }
     }
 }
