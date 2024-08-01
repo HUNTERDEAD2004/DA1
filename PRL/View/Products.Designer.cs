@@ -86,7 +86,7 @@
             btnClear.Controls.Add(txtID);
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnClear.ForeColor = SystemColors.ActiveCaptionText;
-            btnClear.Location = new Point(9, 8);
+            btnClear.Location = new Point(3, 3);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(1261, 556);
             btnClear.TabIndex = 2;
