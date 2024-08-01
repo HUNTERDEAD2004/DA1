@@ -36,33 +36,41 @@
             groupBox2 = new GroupBox();
             dgvnhanvien = new DataGridView();
             groupBox1 = new GroupBox();
+            panel2 = new Panel();
+            label7 = new Label();
+            rbtnu = new RadioButton();
             radioButton1 = new RadioButton();
+            rbtnam = new RadioButton();
+            dateNV = new DateTimePicker();
+            txtDC = new TextBox();
+            lable22 = new Label();
+            textRL = new TextBox();
+            label12 = new Label();
             rdb_NgungHD = new RadioButton();
             rdb_HoatDong = new RadioButton();
             label10 = new Label();
             label9 = new Label();
             txt_IdNhanVien = new TextBox();
             label4 = new Label();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            txtMK = new TextBox();
+            txtTK = new TextBox();
+            txtL = new TextBox();
             txtsdt = new TextBox();
-            rbtnam = new RadioButton();
-            rbtnu = new RadioButton();
-            txtngaysinh = new DateTimePicker();
             txtemail = new TextBox();
             txtten = new TextBox();
             label8 = new Label();
-            label7 = new Label();
             label6 = new Label();
             label5 = new Label();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             panel1 = new Panel();
+            bttRL = new Button();
+            bttCL = new Button();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvnhanvien).BeginInit();
             groupBox1.SuspendLayout();
+            panel2.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,6 +84,7 @@
             btntimkiem.TabIndex = 19;
             btntimkiem.Text = "Tìm Kiếm";
             btntimkiem.UseVisualStyleBackColor = true;
+            btntimkiem.Click += btntimkiem_Click;
             // 
             // txttimkiem
             // 
@@ -87,33 +96,36 @@
             // 
             // btnxoa
             // 
-            btnxoa.Location = new Point(927, 221);
+            btnxoa.Location = new Point(824, 333);
             btnxoa.Margin = new Padding(3, 2, 3, 2);
             btnxoa.Name = "btnxoa";
             btnxoa.Size = new Size(82, 22);
             btnxoa.TabIndex = 17;
             btnxoa.Text = "Xóa";
             btnxoa.UseVisualStyleBackColor = true;
+            btnxoa.Click += btnxoa_Click;
             // 
             // btnsua
             // 
-            btnsua.Location = new Point(809, 221);
+            btnsua.Location = new Point(723, 333);
             btnsua.Margin = new Padding(3, 2, 3, 2);
             btnsua.Name = "btnsua";
             btnsua.Size = new Size(82, 22);
             btnsua.TabIndex = 16;
             btnsua.Text = "Sửa";
             btnsua.UseVisualStyleBackColor = true;
+            btnsua.Click += btnsua_Click;
             // 
             // btnthem
             // 
-            btnthem.Location = new Point(684, 220);
+            btnthem.Location = new Point(626, 333);
             btnthem.Margin = new Padding(3, 2, 3, 2);
             btnthem.Name = "btnthem";
             btnthem.Size = new Size(82, 22);
             btnthem.TabIndex = 15;
             btnthem.Text = "Thêm";
             btnthem.UseVisualStyleBackColor = true;
+            btnthem.Click += btnthem_Click;
             // 
             // groupBox2
             // 
@@ -122,7 +134,7 @@
             groupBox2.Controls.Add(txttimkiem);
             groupBox2.Controls.Add(dgvnhanvien);
             groupBox2.ForeColor = SystemColors.ButtonHighlight;
-            groupBox2.Location = new Point(79, 243);
+            groupBox2.Location = new Point(84, 355);
             groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
@@ -136,6 +148,7 @@
             dgvnhanvien.AllowUserToAddRows = false;
             dgvnhanvien.AllowUserToDeleteRows = false;
             dgvnhanvien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvnhanvien.GridColor = SystemColors.ActiveCaptionText;
             dgvnhanvien.Location = new Point(6, 50);
             dgvnhanvien.Margin = new Padding(3, 2, 3, 2);
             dgvnhanvien.Name = "dgvnhanvien";
@@ -144,28 +157,31 @@
             dgvnhanvien.RowTemplate.Height = 29;
             dgvnhanvien.Size = new Size(924, 195);
             dgvnhanvien.TabIndex = 0;
+            dgvnhanvien.CellContentClick += dgvnhanvien_CellContentClick;
+            dgvnhanvien.CellFormatting += dgvnhanvien_CellFormatting;
             // 
             // groupBox1
             // 
             groupBox1.BackColor = Color.SlateBlue;
-            groupBox1.Controls.Add(radioButton1);
+            groupBox1.Controls.Add(panel2);
+            groupBox1.Controls.Add(dateNV);
+            groupBox1.Controls.Add(txtDC);
+            groupBox1.Controls.Add(lable22);
+            groupBox1.Controls.Add(textRL);
+            groupBox1.Controls.Add(label12);
             groupBox1.Controls.Add(rdb_NgungHD);
             groupBox1.Controls.Add(rdb_HoatDong);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(label9);
             groupBox1.Controls.Add(txt_IdNhanVien);
             groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(textBox3);
-            groupBox1.Controls.Add(textBox2);
-            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(txtMK);
+            groupBox1.Controls.Add(txtTK);
+            groupBox1.Controls.Add(txtL);
             groupBox1.Controls.Add(txtsdt);
-            groupBox1.Controls.Add(rbtnam);
-            groupBox1.Controls.Add(rbtnu);
-            groupBox1.Controls.Add(txtngaysinh);
             groupBox1.Controls.Add(txtemail);
             groupBox1.Controls.Add(txtten);
             groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label1);
@@ -176,15 +192,47 @@
             groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(930, 195);
+            groupBox1.Size = new Size(945, 280);
             groupBox1.TabIndex = 13;
             groupBox1.TabStop = false;
             groupBox1.Text = "Quản lý nhân viên";
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(rbtnu);
+            panel2.Controls.Add(radioButton1);
+            panel2.Controls.Add(rbtnam);
+            panel2.Location = new Point(458, 190);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(477, 57);
+            panel2.TabIndex = 18;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(7, 22);
+            label7.Name = "label7";
+            label7.Size = new Size(52, 15);
+            label7.TabIndex = 6;
+            label7.Text = "Giới tính";
+            // 
+            // rbtnu
+            // 
+            rbtnu.AutoSize = true;
+            rbtnu.Location = new Point(116, 20);
+            rbtnu.Margin = new Padding(3, 2, 3, 2);
+            rbtnu.Name = "rbtnu";
+            rbtnu.Size = new Size(41, 19);
+            rbtnu.TabIndex = 10;
+            rbtnu.TabStop = true;
+            rbtnu.Text = "Nữ";
+            rbtnu.UseVisualStyleBackColor = true;
+            // 
             // radioButton1
             // 
             radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(811, 166);
+            radioButton1.Location = new Point(355, 20);
             radioButton1.Margin = new Padding(3, 2, 3, 2);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(108, 19);
@@ -193,10 +241,64 @@
             radioButton1.Text = "Không xác định";
             radioButton1.UseVisualStyleBackColor = true;
             // 
+            // rbtnam
+            // 
+            rbtnam.AutoSize = true;
+            rbtnam.Location = new Point(231, 20);
+            rbtnam.Margin = new Padding(3, 2, 3, 2);
+            rbtnam.Name = "rbtnam";
+            rbtnam.Size = new Size(51, 19);
+            rbtnam.TabIndex = 10;
+            rbtnam.TabStop = true;
+            rbtnam.Text = "Nam";
+            rbtnam.UseVisualStyleBackColor = true;
+            // 
+            // dateNV
+            // 
+            dateNV.Location = new Point(106, 131);
+            dateNV.Name = "dateNV";
+            dateNV.Size = new Size(311, 23);
+            dateNV.TabIndex = 24;
+            // 
+            // txtDC
+            // 
+            txtDC.Location = new Point(106, 95);
+            txtDC.Margin = new Padding(3, 2, 3, 2);
+            txtDC.Name = "txtDC";
+            txtDC.Size = new Size(312, 23);
+            txtDC.TabIndex = 23;
+            // 
+            // lable22
+            // 
+            lable22.AutoSize = true;
+            lable22.Location = new Point(16, 97);
+            lable22.Name = "lable22";
+            lable22.Size = new Size(43, 15);
+            lable22.TabIndex = 22;
+            lable22.Text = "Địa chỉ";
+            lable22.Click += label11_Click;
+            // 
+            // textRL
+            // 
+            textRL.Location = new Point(572, 58);
+            textRL.Margin = new Padding(3, 2, 3, 2);
+            textRL.Name = "textRL";
+            textRL.Size = new Size(347, 23);
+            textRL.TabIndex = 21;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(463, 60);
+            label12.Name = "label12";
+            label12.Size = new Size(42, 15);
+            label12.TabIndex = 20;
+            label12.Text = "Quyền";
+            // 
             // rdb_NgungHD
             // 
             rdb_NgungHD.AutoSize = true;
-            rdb_NgungHD.Location = new Point(297, 165);
+            rdb_NgungHD.Location = new Point(297, 212);
             rdb_NgungHD.Margin = new Padding(3, 2, 3, 2);
             rdb_NgungHD.Name = "rdb_NgungHD";
             rdb_NgungHD.Size = new Size(120, 19);
@@ -208,7 +310,7 @@
             // rdb_HoatDong
             // 
             rdb_HoatDong.AutoSize = true;
-            rdb_HoatDong.Location = new Point(105, 165);
+            rdb_HoatDong.Location = new Point(105, 212);
             rdb_HoatDong.Margin = new Padding(3, 2, 3, 2);
             rdb_HoatDong.Name = "rdb_HoatDong";
             rdb_HoatDong.Size = new Size(82, 19);
@@ -221,7 +323,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(15, 167);
+            label10.Location = new Point(15, 214);
             label10.Name = "label10";
             label10.Size = new Size(61, 15);
             label10.TabIndex = 16;
@@ -230,7 +332,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(463, 134);
+            label9.Location = new Point(463, 166);
             label9.Name = "label9";
             label9.Size = new Size(57, 15);
             label9.TabIndex = 14;
@@ -238,9 +340,10 @@
             // 
             // txt_IdNhanVien
             // 
-            txt_IdNhanVien.Location = new Point(105, 26);
+            txt_IdNhanVien.Location = new Point(106, 25);
             txt_IdNhanVien.Margin = new Padding(3, 2, 3, 2);
             txt_IdNhanVien.Name = "txt_IdNhanVien";
+            txt_IdNhanVien.ReadOnly = true;
             txt_IdNhanVien.Size = new Size(312, 23);
             txt_IdNhanVien.TabIndex = 13;
             txt_IdNhanVien.TextChanged += txtid_TextChanged;
@@ -254,29 +357,30 @@
             label4.TabIndex = 12;
             label4.Text = "ID";
             // 
-            // textBox3
+            // txtMK
             // 
-            textBox3.Location = new Point(572, 130);
-            textBox3.Margin = new Padding(3, 2, 3, 2);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(347, 23);
-            textBox3.TabIndex = 11;
+            txtMK.Location = new Point(572, 162);
+            txtMK.Margin = new Padding(3, 2, 3, 2);
+            txtMK.Name = "txtMK";
+            txtMK.PasswordChar = '*';
+            txtMK.Size = new Size(347, 23);
+            txtMK.TabIndex = 11;
             // 
-            // textBox2
+            // txtTK
             // 
-            textBox2.Location = new Point(572, 95);
-            textBox2.Margin = new Padding(3, 2, 3, 2);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(347, 23);
-            textBox2.TabIndex = 11;
+            txtTK.Location = new Point(572, 127);
+            txtTK.Margin = new Padding(3, 2, 3, 2);
+            txtTK.Name = "txtTK";
+            txtTK.Size = new Size(347, 23);
+            txtTK.TabIndex = 11;
             // 
-            // textBox1
+            // txtL
             // 
-            textBox1.Location = new Point(572, 60);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(347, 23);
-            textBox1.TabIndex = 11;
+            txtL.Location = new Point(572, 92);
+            txtL.Margin = new Padding(3, 2, 3, 2);
+            txtL.Name = "txtL";
+            txtL.Size = new Size(347, 23);
+            txtL.TabIndex = 11;
             // 
             // txtsdt
             // 
@@ -286,43 +390,9 @@
             txtsdt.Size = new Size(347, 23);
             txtsdt.TabIndex = 11;
             // 
-            // rbtnam
-            // 
-            rbtnam.AutoSize = true;
-            rbtnam.Location = new Point(687, 166);
-            rbtnam.Margin = new Padding(3, 2, 3, 2);
-            rbtnam.Name = "rbtnam";
-            rbtnam.Size = new Size(51, 19);
-            rbtnam.TabIndex = 10;
-            rbtnam.TabStop = true;
-            rbtnam.Text = "Nam";
-            rbtnam.UseVisualStyleBackColor = true;
-            // 
-            // rbtnu
-            // 
-            rbtnu.AutoSize = true;
-            rbtnu.Location = new Point(572, 166);
-            rbtnu.Margin = new Padding(3, 2, 3, 2);
-            rbtnu.Name = "rbtnu";
-            rbtnu.Size = new Size(41, 19);
-            rbtnu.TabIndex = 10;
-            rbtnu.TabStop = true;
-            rbtnu.Text = "Nữ";
-            rbtnu.UseVisualStyleBackColor = true;
-            // 
-            // txtngaysinh
-            // 
-            txtngaysinh.CustomFormat = "";
-            txtngaysinh.Format = DateTimePickerFormat.Short;
-            txtngaysinh.Location = new Point(106, 95);
-            txtngaysinh.Margin = new Padding(3, 2, 3, 2);
-            txtngaysinh.Name = "txtngaysinh";
-            txtngaysinh.Size = new Size(311, 23);
-            txtngaysinh.TabIndex = 9;
-            // 
             // txtemail
             // 
-            txtemail.Location = new Point(106, 132);
+            txtemail.Location = new Point(106, 164);
             txtemail.Margin = new Padding(3, 2, 3, 2);
             txtemail.Name = "txtemail";
             txtemail.Size = new Size(311, 23);
@@ -330,34 +400,26 @@
             // 
             // txtten
             // 
-            txtten.Location = new Point(106, 60);
+            txtten.Location = new Point(106, 59);
             txtten.Margin = new Padding(3, 2, 3, 2);
             txtten.Name = "txtten";
             txtten.Size = new Size(311, 23);
             txtten.TabIndex = 8;
+            txtten.TextChanged += txtten_TextChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(463, 63);
+            label8.Location = new Point(463, 95);
             label8.Name = "label8";
             label8.Size = new Size(41, 15);
             label8.TabIndex = 7;
             label8.Text = "Lương";
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(463, 168);
-            label7.Name = "label7";
-            label7.Size = new Size(52, 15);
-            label7.TabIndex = 6;
-            label7.Text = "Giới tính";
-            // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(463, 99);
+            label6.Location = new Point(463, 131);
             label6.Name = "label6";
             label6.Size = new Size(58, 15);
             label6.TabIndex = 5;
@@ -366,7 +428,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(14, 136);
+            label5.Location = new Point(14, 168);
             label5.Name = "label5";
             label5.Size = new Size(36, 15);
             label5.TabIndex = 4;
@@ -375,7 +437,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(14, 63);
+            label1.Location = new Point(13, 63);
             label1.Name = "label1";
             label1.Size = new Size(80, 15);
             label1.TabIndex = 0;
@@ -384,7 +446,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(15, 99);
+            label2.Location = new Point(15, 131);
             label2.Name = "label2";
             label2.Size = new Size(60, 15);
             label2.TabIndex = 1;
@@ -402,6 +464,8 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(bttRL);
+            panel1.Controls.Add(bttCL);
             panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(groupBox2);
             panel1.Controls.Add(btnxoa);
@@ -411,6 +475,29 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1157, 654);
             panel1.TabIndex = 20;
+            panel1.Paint += panel1_Paint;
+            // 
+            // bttRL
+            // 
+            bttRL.Location = new Point(1030, 379);
+            bttRL.Margin = new Padding(3, 2, 3, 2);
+            bttRL.Name = "bttRL";
+            bttRL.Size = new Size(47, 22);
+            bttRL.TabIndex = 19;
+            bttRL.Text = "RL";
+            bttRL.UseVisualStyleBackColor = true;
+            bttRL.Click += bttRL_Click;
+            // 
+            // bttCL
+            // 
+            bttCL.Location = new Point(918, 333);
+            bttCL.Margin = new Padding(3, 2, 3, 2);
+            bttCL.Name = "bttCL";
+            bttCL.Size = new Size(82, 22);
+            bttCL.TabIndex = 18;
+            bttCL.Text = "clear";
+            bttCL.UseVisualStyleBackColor = true;
+            bttCL.Click += bttCL_Click;
             // 
             // QuanLyNhanVien
             // 
@@ -421,11 +508,14 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "QuanLyNhanVien";
             Text = "QuanLyNhanVien";
+            Load += QuanLyNhanVien_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvnhanvien).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -445,7 +535,6 @@
         private TextBox txtsdt;
         private RadioButton rbtnam;
         private RadioButton rbtnu;
-        private DateTimePicker txtngaysinh;
         private TextBox txtemail;
         private TextBox txtten;
         private Label label8;
@@ -461,8 +550,16 @@
         private Label label10;
         private Panel panel1;
         private RadioButton radioButton1;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox txtMK;
+        private TextBox txtTK;
+        private TextBox txtL;
+        private TextBox txtDC;
+        private Label lable22;
+        private TextBox textRL;
+        private Label label12;
+        private DateTimePicker dateNV;
+        private Panel panel2;
+        private Button bttCL;
+        private Button bttRL;
     }
 }

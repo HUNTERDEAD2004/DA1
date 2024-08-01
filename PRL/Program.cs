@@ -1,3 +1,4 @@
+using AppData.Models;
 using PRL.View;
 
 namespace PRL
@@ -10,10 +11,19 @@ namespace PRL
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            //HDCT hdctForm = new HDCT();
+            //Orderform orderForm = new Orderform(hdctForm);
+
+            //orderForm.Show();
+            //Application.Run();
+
+
             ApplicationConfiguration.Initialize();
-            Application.Run(new Login());
+            Application.Run(new QuanLyNhanVien());
         }
+
     }
 }

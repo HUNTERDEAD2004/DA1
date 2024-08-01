@@ -139,11 +139,23 @@ namespace PRL.View
                 MessageBox.Show("Vui lòng chọn tất cả các thông tin chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            // Lấy giá trị từ các combobox
+            string color = cbColor.Text;
+            string ram = cbRam.Text;
+            string cpu = cbCpu.Text;
+            string gpu = cbGPU.Text;
+            string rom = cbRom.Text;
+            string display = cbDisplay.Text;
+
+            // Tạo tên sản phẩm mới bằng cách kết hợp các giá trị combobox
+            string newName = $"{txtName.Text} {color} {ram} {cpu} {gpu} {rom} {display}";
+
             var detail = new ProductDetail
             {
                 IMEI = Guid.NewGuid(),
                 ProductID = _productID,
-                Name = txtName.Text,
+                Name = newName, // Sử dụng tên mới
                 ColorID = (Guid)cbColor.SelectedValue,
                 RAMID = (Guid)cbRam.SelectedValue,
                 Price = decimal.Parse(txtPrice.Text),
@@ -153,12 +165,14 @@ namespace PRL.View
                 DisplayID = (Guid)cbDisplay.SelectedValue,
                 SaleID = (Guid)cbSale.SelectedValue,
             };
+
             context.ProductDetails.Add(detail);
             context.SaveChanges();
             UpdateProductQuantity(_productID);
             MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (Guid.TryParse(txtImei.Text, out Guid imei))

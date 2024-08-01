@@ -220,7 +220,6 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.pb4qlde0s1k5m5lob61756r9mc_b4021e2504cdf91403ebd897c40b8925;
             pictureBox1.Location = new Point(3, 2);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
@@ -324,6 +323,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             Text = "MainForm";
+            Load += MainForm_Load;
             Menu.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();

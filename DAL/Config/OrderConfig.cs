@@ -15,9 +15,6 @@ namespace AppData.Config
         {
             builder.HasKey(x => x.OrderID);
 
-            builder.Property(x => x.OrderDate)
-                   .IsRequired();
-
             builder.Property(x => x.TotalAmount)
                    .HasColumnType("decimal(18, 2)");
 
