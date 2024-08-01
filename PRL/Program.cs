@@ -1,5 +1,6 @@
-using AppData.Models;
+﻿using AppData.Models;
 using PRL.View;
+using System.Globalization;
 
 namespace PRL
 {
@@ -11,6 +12,10 @@ namespace PRL
         [STAThread]
         static void Main()
         {
+            // Đặt văn hóa mặc định thành tiếng Việt
+            CultureInfo culture = new CultureInfo("vi-VN");
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -22,7 +27,7 @@ namespace PRL
 
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            Application.Run(new FrmThongKe());
         }
 
     }
