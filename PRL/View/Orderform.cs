@@ -19,7 +19,7 @@ namespace PRL.View
 {
     public partial class Orderform : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB3;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -311,7 +311,7 @@ namespace PRL.View
                 {
                     OrderDetailID = Guid.NewGuid(),
                     OrderID = Guid.Parse(txtHDHT.Text),
-                    IMEI = Guid.Parse(txtimei.Text),
+                    IMEI = txtimei.Text,
                     ProductName = txtSP.Text,
                     Quantity = Convert.ToInt32("1"),
                     UnitPrice = decimal.Parse(txtTG.Text),
@@ -691,7 +691,7 @@ namespace PRL.View
                 {
 
                     oderItem.OrderDetailID = Guid.NewGuid();
-                    oderItem.IMEI = Guid.Parse(txtMSP.Text);
+                    oderItem.IMEI = txtMSP.Text;
                     oderItem.OrderID = Guid.Parse(txtHDCT.Text);
                     oderItem.Quantity = Convert.ToInt32("1");
                     oderItem.ProductName = txtSP.Text;
@@ -723,11 +723,10 @@ namespace PRL.View
             {
                 dgvHDCT.CurrentRow.Selected = true;
                 txtimei.Text = dgvHDCT.Rows[e.RowIndex].Cells["IMEI"].Value.ToString();
-                txtHDCT.Text = dgvHDCT.Rows[e.RowIndex].Cells["OrderDetailsID"].Value.ToString();
-                txtMSP.Text = dgvHDCT.Rows[e.RowIndex].Cells["ProductId"].Value.ToString();
-                txtSP.Text = dgvHDCT.Rows[e.RowIndex].Cells["NameSPCT"].Value.ToString();
-                txtSZ.Text = dgvHDCT.Rows[e.RowIndex].Cells["PercentDiscount"].Value.ToString();
-                txtGia.Text = dgvHDCT.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                txtHDCT.Text = dgvHDCT.Rows[e.RowIndex].Cells["OrderDetailID"].Value.ToString();
+                txtSP.Text = dgvHDCT.Rows[e.RowIndex].Cells["ProductName"].Value.ToString();
+                txtSZ.Text = dgvHDCT.Rows[e.RowIndex].Cells["DiscountValue"].Value.ToString();
+                txtGia.Text = dgvHDCT.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString();
                 txtSL.Text = "1";
 
                 // Chuyển đổi txtSZ.Text và txtGia.Text thành số

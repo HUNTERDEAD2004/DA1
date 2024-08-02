@@ -400,7 +400,7 @@
             panel1.ForeColor = SystemColors.ButtonHighlight;
             panel1.Location = new Point(-2, -6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1273, 920);
+            panel1.Size = new Size(1663, 920);
             panel1.TabIndex = 70;
             // 
             // bttRL
@@ -557,7 +557,7 @@
             txtTG.Size = new Size(298, 23);
             txtTG.TabIndex = 71;
             // 
-            // Order
+            // Orderform
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -569,7 +569,7 @@
             Controls.Add(txtHDCT);
             Controls.Add(panel1);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "Order";
+            Name = "Orderform";
             Text = "Order";
             Load += Order_Load;
             groupBox2.ResumeLayout(false);

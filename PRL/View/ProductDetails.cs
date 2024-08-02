@@ -153,7 +153,7 @@ namespace PRL.View
 
             var detail = new ProductDetail
             {
-                IMEI = Guid.NewGuid(),
+                IMEI = "hhhhhh",
                 ProductID = _productID,
                 Name = newName, // Sử dụng tên mới
                 ColorID = (Guid)cbColor.SelectedValue,
@@ -175,105 +175,105 @@ namespace PRL.View
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (Guid.TryParse(txtImei.Text, out Guid imei))
-            {
-                var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
-                if (detail != null)
-                {
-                    // Cập nhật các thuộc tính của chi tiết sản phẩm
-                    detail.Name = txtName.Text;
-                    detail.ColorID = (Guid)cbColor.SelectedValue;
-                    detail.RAMID = (Guid)cbRam.SelectedValue;
-                    detail.Price = decimal.Parse(txtPrice.Text);
-                    detail.CPUID = (Guid)cbCpu.SelectedValue;
-                    detail.GPUID = (Guid)cbGPU.SelectedValue;
-                    detail.ROMID = (Guid)cbRom.SelectedValue;
-                    detail.DisplayID = (Guid)cbDisplay.SelectedValue;
-                    detail.SaleID = (Guid)cbSale.SelectedValue;
+            //if (Guid.TryParse(txtImei.Text, out Guid imei))
+            //{
+            //    var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
+            //    if (detail != null)
+            //    {
+            //        // Cập nhật các thuộc tính của chi tiết sản phẩm
+            //        detail.Name = txtName.Text;
+            //        detail.ColorID = (Guid)cbColor.SelectedValue;
+            //        detail.RAMID = (Guid)cbRam.SelectedValue;
+            //        detail.Price = decimal.Parse(txtPrice.Text);
+            //        detail.CPUID = (Guid)cbCpu.SelectedValue;
+            //        detail.GPUID = (Guid)cbGPU.SelectedValue;
+            //        detail.ROMID = (Guid)cbRom.SelectedValue;
+            //        detail.DisplayID = (Guid)cbDisplay.SelectedValue;
+            //        detail.SaleID = (Guid)cbSale.SelectedValue;
 
-                    context.ProductDetails.Update(detail);
-                    context.SaveChanges();
-                    MessageBox.Show("Cập nhật chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        context.ProductDetails.Update(detail);
+            //        context.SaveChanges();
+            //        MessageBox.Show("Cập nhật chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    LoadDetails();
-                }
-                else
-                {
-                    MessageBox.Show("Chi tiết sản phẩm không tìm thấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("IMEI không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //        LoadDetails();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Chi tiết sản phẩm không tìm thấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("IMEI không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void dgvDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Kiểm tra nếu người dùng nhấp vào một hàng hợp lệ
-            if (e.RowIndex >= 0)
-            {
-                // Lấy giá trị IMEI từ ô được nhấp
-                var imeiCell = dgvDetails.Rows[e.RowIndex].Cells["IMEI"].Value;
+            //// Kiểm tra nếu người dùng nhấp vào một hàng hợp lệ
+            //if (e.RowIndex >= 0)
+            //{
+            //    // Lấy giá trị IMEI từ ô được nhấp
+            //    var imeiCell = dgvDetails.Rows[e.RowIndex].Cells["IMEI"].Value;
 
-                if (imeiCell != null && Guid.TryParse(imeiCell.ToString(), out var imei))
-                {
-                    // Tìm chi tiết sản phẩm dựa trên IMEI
-                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
+            //    if (imeiCell != null && Guid.TryParse(imeiCell.ToString(), out var imei))
+            //    {
+            //        // Tìm chi tiết sản phẩm dựa trên IMEI
+            //        var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
 
-                    if (productDetail != null)
-                    {
-                        // Hiển thị thông tin chi tiết của sản phẩm trong các điều khiển của form
-                        txtImei.Text = productDetail.IMEI.ToString();
-                        cbColor.SelectedValue = productDetail.ColorID;
-                        cbRam.SelectedValue = productDetail.RAMID;
-                        txtPrice.Text = productDetail.Price.ToString("0.00");
-                        cbCpu.SelectedValue = productDetail.CPUID;
-                        cbGPU.SelectedValue = productDetail.GPUID;
-                        cbRom.SelectedValue = productDetail.ROMID;
-                        cbDisplay.SelectedValue = productDetail.DisplayID;
-                        cbSale.SelectedValue = productDetail.SaleID;
-                        txtName.Text = productDetail.Name;
+            //        if (productDetail != null)
+            //        {
+            //            // Hiển thị thông tin chi tiết của sản phẩm trong các điều khiển của form
+            //            txtImei.Text = productDetail.IMEI.ToString();
+            //            cbColor.SelectedValue = productDetail.ColorID;
+            //            cbRam.SelectedValue = productDetail.RAMID;
+            //            txtPrice.Text = productDetail.Price.ToString("0.00");
+            //            cbCpu.SelectedValue = productDetail.CPUID;
+            //            cbGPU.SelectedValue = productDetail.GPUID;
+            //            cbRom.SelectedValue = productDetail.ROMID;
+            //            cbDisplay.SelectedValue = productDetail.DisplayID;
+            //            cbSale.SelectedValue = productDetail.SaleID;
+            //            txtName.Text = productDetail.Name;
 
-                        // Có thể cập nhật các trường khác tùy thuộc vào yêu cầu
-                    }
-                    else
-                    {
-                        MessageBox.Show("Chi tiết sản phẩm không tìm thấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("IMEI không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            //            // Có thể cập nhật các trường khác tùy thuộc vào yêu cầu
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Chi tiết sản phẩm không tìm thấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("IMEI không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (Guid.TryParse(txtImei.Text, out var imei))
-            {
-                var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
-                if (detail != null)
-                {
-                    var productId = detail.ProductID;
+            //if (Guid.TryParse(txtImei.Text, out var imei))
+            //{
+            //    var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
+            //    if (detail != null)
+            //    {
+            //        var productId = detail.ProductID;
 
-                    context.ProductDetails.Remove(detail);
-                    context.SaveChanges();
-                    UpdateProductQuantity(productId);
-                    MessageBox.Show("Xóa chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadDetails();
-                    ClearForm();
-                }
-                else
-                {
-                    MessageBox.Show("Chi tiết sản phẩm không tìm thấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("IMEI không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //        context.ProductDetails.Remove(detail);
+            //        context.SaveChanges();
+            //        UpdateProductQuantity(productId);
+            //        MessageBox.Show("Xóa chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        LoadDetails();
+            //        ClearForm();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Chi tiết sản phẩm không tìm thấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("IMEI không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
         private void ClearForm()
         {
@@ -289,5 +289,9 @@ namespace PRL.View
             cbSale.SelectedIndex = -1;
         }
 
+        private void ProductDetails_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

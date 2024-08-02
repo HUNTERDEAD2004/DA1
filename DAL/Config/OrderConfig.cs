@@ -28,6 +28,11 @@ namespace AppData.Config
             builder.HasOne(x => x.Account)
                    .WithMany()
                    .HasForeignKey(x => x.AccountID);
+
+            builder.HasOne(x => x.Voucher)
+                   .WithMany(s => s.Orders)
+                   .HasForeignKey(x => x.IDVoucher)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

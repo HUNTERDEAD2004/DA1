@@ -1,22 +1,24 @@
-﻿using System;
+﻿using AppData.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppData.Models
+namespace DAL.Models
 {
-    public class Color
+    public class Voucher
     {
-        [Key]
-        public Guid ColorID { get; set; }
-        public string ColorName { get; set; }
+        public Guid IDVoucher { get; set; }
+        public decimal Discount { get; set; }     
+        public DateTime Expired_Date { get; set; }
+        public decimal Minium_Total { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
+
     }
 }

@@ -66,7 +66,7 @@
             Menu.Location = new Point(0, 0);
             Menu.Margin = new Padding(3, 2, 3, 2);
             Menu.Name = "Menu";
-            Menu.Size = new Size(192, 584);
+            Menu.Size = new Size(192, 815);
             Menu.TabIndex = 0;
             // 
             // btnSetting
@@ -252,7 +252,7 @@
             panel2.Location = new Point(192, 0);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1194, 66);
+            panel2.Size = new Size(1336, 66);
             panel2.TabIndex = 1;
             // 
             // btnLogout
@@ -309,14 +309,14 @@
             panelChange.Location = new Point(192, 66);
             panelChange.Margin = new Padding(3, 2, 3, 2);
             panelChange.Name = "panelChange";
-            panelChange.Size = new Size(1194, 518);
+            panelChange.Size = new Size(1336, 749);
             panelChange.TabIndex = 2;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1386, 584);
+            ClientSize = new Size(1528, 815);
             Controls.Add(panelChange);
             Controls.Add(panel2);
             Controls.Add(Menu);

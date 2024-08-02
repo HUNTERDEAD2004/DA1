@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace AppData.Models
         public Guid? CustomerID { get; set; }
         [ForeignKey("AccountID")]
         public Guid? AccountID { get; set; }
+        public Guid? IDVoucher { get; set; }
         public decimal? TotalAmount { get; set; }
         public decimal? Price { get; set; }
         public int? Status { get; set; }
@@ -27,6 +29,7 @@ namespace AppData.Models
         public string? UpdatedBy { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Account Account { get; set; }
+        public virtual Voucher Voucher { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
