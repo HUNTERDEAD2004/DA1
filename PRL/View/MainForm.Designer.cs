@@ -65,7 +65,7 @@
             Menu.ForeColor = SystemColors.ControlDarkDark;
             Menu.Location = new Point(0, 0);
             Menu.Name = "Menu";
-            Menu.Size = new Size(219, 779);
+            Menu.Size = new Size(192, 815);
             Menu.TabIndex = 0;
             // 
             // btnSetting
@@ -206,16 +206,17 @@
             flowLayoutPanel1.Controls.Add(label1);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(219, 113);
+            flowLayoutPanel1.Size = new Size(192, 85);
             flowLayoutPanel1.TabIndex = 1;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.pb4qlde0s1k5m5lob61756r9mc_b4021e2504cdf91403ebd897c40b8925;
-            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Location = new Point(3, 2);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(42, 35);
+            pictureBox1.Size = new Size(37, 26);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -225,9 +226,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.Gainsboro;
-            label1.Location = new Point(51, 0);
+            label1.Location = new Point(46, 0);
             label1.Name = "label1";
-            label1.Size = new Size(144, 35);
+            label1.Size = new Size(115, 28);
             label1.TabIndex = 1;
             label1.Text = "Apple Store";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -243,7 +244,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(219, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1365, 88);
+            panel2.Size = new Size(1336, 66);
             panel2.TabIndex = 1;
             // 
             // btnLogout
@@ -297,14 +298,14 @@
             panelChange.Dock = DockStyle.Fill;
             panelChange.Location = new Point(219, 88);
             panelChange.Name = "panelChange";
-            panelChange.Size = new Size(1365, 691);
+            panelChange.Size = new Size(1336, 749);
             panelChange.TabIndex = 2;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1584, 779);
+            ClientSize = new Size(1528, 815);
             Controls.Add(panelChange);
             Controls.Add(panel2);
             Controls.Add(Menu);

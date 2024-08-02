@@ -64,5 +64,19 @@ namespace PRL.View
         {
             return dbContext.Accounts.FirstOrDefault(u => u.Username == username && u.Password == pass);
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (textBox2.PasswordChar == '*')
+            {
+                checkBox1.BringToFront();
+                textBox2.PasswordChar = '\0';
+            }
+            else
+            {
+                checkBox1.BringToFront();
+                textBox2.PasswordChar = '*';
+            }
+        }
     }
 }

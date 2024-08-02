@@ -11,7 +11,9 @@ namespace PRL.View
         private IconButton currentBtn;
         private Panel leftborderBtn;
         private Form currentForm;
-
+        private Orderform orderForm;
+        private HDCT hdctForm;
+        
         public struct hover
         {
             public static Color color1 = Color.FromArgb(172, 126, 241);
@@ -56,6 +58,8 @@ namespace PRL.View
         IphoneDbContext _dbContext;
         public MainForm(string name)
         {
+            
+
             InitializeComponent();
             leftborderBtn = new Panel();
             leftborderBtn.Size = new Size(7, 60);
@@ -117,8 +121,11 @@ namespace PRL.View
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, hover.color3);
-            OpenForm(new Order());
+            HDCT hdctform = new HDCT();
+            Orderform orderform = new Orderform(hdctform);
+
+            OpenForm(orderform);
+            
         }
 
         private void btnCustomer_Click(object sender, EventArgs e)

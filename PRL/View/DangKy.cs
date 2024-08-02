@@ -37,7 +37,12 @@ namespace PRL.View
             {
                 string username = txt_User.Text;
                 string ten = txtTen.Text;
-                string namSinh = namsinh.Text;
+                DateTime namSinh;
+                if (!DateTime.TryParse(namsinh.Text, out namSinh))
+                {
+                    MessageBox.Show("Định dạng diem không hợp lệ. Vui lòng nhập một số hợp lệ.");
+                    return;
+                }
                 string email = txtEmail.Text;
                 string sdt = txtsdt.Text;
                 string GioiTinh = comboBox1.Text;

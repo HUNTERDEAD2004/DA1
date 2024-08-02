@@ -37,6 +37,7 @@
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             button1 = new Button();
             ForgotPassword = new Button();
+            checkBox1 = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -128,7 +129,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
-            button1.Location = new Point(580, 272);
+            button1.Location = new Point(580, 285);
             button1.Name = "button1";
             button1.Size = new Size(206, 30);
             button1.TabIndex = 6;
@@ -142,7 +143,7 @@
             ForgotPassword.FlatAppearance.BorderSize = 0;
             ForgotPassword.FlatStyle = FlatStyle.Flat;
             ForgotPassword.ForeColor = Color.Red;
-            ForgotPassword.Location = new Point(661, 319);
+            ForgotPassword.Location = new Point(661, 332);
             ForgotPassword.Name = "ForgotPassword";
             ForgotPassword.Size = new Size(138, 29);
             ForgotPassword.TabIndex = 7;
@@ -150,11 +151,23 @@
             ForgotPassword.UseVisualStyleBackColor = false;
             ForgotPassword.Click += ForgotPassword_Click;
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(580, 249);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(124, 24);
+            checkBox1.TabIndex = 8;
+            checkBox1.Text = "hiện mật khẩu";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(833, 533);
+            Controls.Add(checkBox1);
             Controls.Add(ForgotPassword);
             Controls.Add(button1);
             Controls.Add(iconPictureBox2);
@@ -184,5 +197,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         private Button button1;
         private Button ForgotPassword;
+        private CheckBox checkBox1;
     }
 }

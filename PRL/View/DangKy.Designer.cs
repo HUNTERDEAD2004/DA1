@@ -99,6 +99,7 @@
             txt_Password.Margin = new Padding(3, 4, 3, 4);
             txt_Password.Multiline = true;
             txt_Password.Name = "txt_Password";
+            txt_Password.PasswordChar = '*';
             txt_Password.Size = new Size(338, 22);
             txt_Password.TabIndex = 11;
             // 
