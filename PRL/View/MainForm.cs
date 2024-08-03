@@ -1,4 +1,6 @@
 ﻿using FontAwesome.Sharp;
+using Microsoft.Win32;
+using System.Xml.Linq;
 
 namespace PRL.View
 {
@@ -140,6 +142,13 @@ namespace PRL.View
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var name = key.GetValue("Username").ToString();
+                label2.Text = ($"Xin Chào: {name}");
+                key.Close();
+            }
 
         }
     }

@@ -71,6 +71,7 @@
             label8 = new Label();
             btnSearch = new FontAwesome.Sharp.IconButton();
             txtTG = new TextBox();
+            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDCT).BeginInit();
             groupBox1.SuspendLayout();
@@ -397,7 +398,7 @@
             panel1.Controls.Add(txtSP);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(bttSua);
-            panel1.ForeColor = SystemColors.ButtonHighlight;
+            panel1.ForeColor = SystemColors.ActiveCaptionText;
             panel1.Location = new Point(-2, -6);
             panel1.Name = "panel1";
             panel1.Size = new Size(1663, 920);
@@ -557,6 +558,13 @@
             txtTG.Size = new Size(298, 23);
             txtTG.TabIndex = 71;
             // 
+            // sqlCommand1
+            // 
+            sqlCommand1.CommandTimeout = 30;
+            sqlCommand1.Connection = null;
+            sqlCommand1.Notification = null;
+            sqlCommand1.Transaction = null;
+            // 
             // Orderform
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -628,5 +636,6 @@
         private Button bttRL;
         private FontAwesome.Sharp.IconButton iconButton1;
         private TextBox textBox1;
+        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
     }
 }

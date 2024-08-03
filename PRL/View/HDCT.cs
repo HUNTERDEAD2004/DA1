@@ -1,5 +1,6 @@
 ﻿using AppData.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,7 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -103,8 +104,42 @@ namespace PRL.View
 
         private void HDCT_Load(object sender, EventArgs e)
         {
-            // Sự kiện load form
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var tk = key.GetValue("Username").ToString();
+                string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+
+               
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Username", tk);
+
+                try
+                {
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string accountId = reader["AccountID"].ToString();
+                        txtMNV.Text = accountId; // Gán AccountID vào TextBox
+                    }
+                    else
+                    {
+                        txtMNV.Text = "Không tìm thấy tài khoản";
+                    }
+                    reader.Close();
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
+                
+
+                key.Close();
+            }
         }
+
 
         private void ss_Click(object sender, EventArgs e)
         {
@@ -118,11 +153,15 @@ namespace PRL.View
                 dgvHDC.CurrentRow.Selected = true;
                 txtMHD.Text = dgvHDC.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
                 txtSL.Text = dgvHDC.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
-                txtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                TxtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                VC();
 
-                // Chuyển đổi txtSZ.Text và txtGia.Text thành số
-                decimal discount = Convert.ToDecimal(txtTT.Text);
-                int quantity = Convert.ToInt32(txtSL.Text);
+                decimal discount = Convert.ToDecimal(txtVCG.Text);
+                decimal price = decimal.Parse(TxtTT.Text);
+
+                decimal totalPrice = price * (1 - (discount / 100));
+
+                txtTTVC.Text = totalPrice.ToString("F2");
             }
         }
 
@@ -167,8 +206,33 @@ namespace PRL.View
 
 
                 // Xóa 9 cột đầu tiên
-                //RemoveFirstNineColumns();
+                RemoveFirstNineColumns();
             }
+        }
+
+        private void VC()
+        {
+            // Kiểm tra và xác định IDVoucher
+            decimal totalAmount = decimal.Parse(TxtTT.Text);
+            var vouchers = Context.Vouchers.OrderByDescending(v => v.Minium_Total).ToList();
+            Guid selectedVoucherId = new Guid("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"); // Mặc định
+            decimal discountValue = 0m; // Mặc định giá trị Discount
+
+            foreach (var voucher in vouchers)
+            {
+                if (totalAmount >= voucher.Minium_Total)
+                {
+                    selectedVoucherId = voucher.IDVoucher;
+                    discountValue = voucher.Discount; // Lấy giá trị Discount
+                    break;
+                }
+            }
+
+            // Gán IDVoucher vào txtVC
+            txtVC.Text = selectedVoucherId.ToString();
+
+            // Gán Discount vào txtVCG
+            txtVCG.Text = discountValue.ToString();
         }
 
 
@@ -187,6 +251,7 @@ namespace PRL.View
                     {
                         string sdt = txtSDT.Text.Trim();
                         Guid? customerId = null;
+                        int totalPoints = int.Parse(txtSL.Text); // Số lượng của hóa đơn được sử dụng làm điểm cộng
 
                         using (var context = new IphoneDbContext())
                         {
@@ -205,7 +270,7 @@ namespace PRL.View
                                         Email = "fakeemail@example.com",
                                         PhoneNumber = sdt,
                                         Gender = "N/A",
-                                        Point = 0,
+                                        Point = totalPoints, // Điểm khởi tạo bằng số lượng của hóa đơn
                                         Address = "abc",
                                         CreatedAt = DateTime.Now,
                                         UpdatedAt = DateTime.Now,
@@ -213,6 +278,12 @@ namespace PRL.View
                                         UpdatedBy = "system"
                                     };
                                     context.Customers.Add(customer);
+                                    context.SaveChanges();
+                                }
+                                else
+                                {
+                                    // Cộng điểm cho khách hàng hiện có
+                                    customer.Point += totalPoints;
                                     context.SaveChanges();
                                 }
                                 customerId = customer.CustomerID;
@@ -224,20 +295,36 @@ namespace PRL.View
                     SET 
                         Status = 1,
                         CustomerID = @CustomerID,
+                        AccountID = @AccountID,
+                        IDVoucher = @IDVoucher,
+                        Price = @Price,
+                        TotalAmount = @TotalAmount,
                         UpdatedAt = @UpdatedAt,
                         UpdatedBy = @UpdatedBy
                     WHERE OrderID = @OrderID";
 
-                            using (SqlCommand cmd = new SqlCommand(sql, conn))
+                            using (SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True"))
                             {
+                                SqlCommand cmd = new SqlCommand(sql, conn);
                                 cmd.Parameters.AddWithValue("@OrderID", orderId);
                                 cmd.Parameters.AddWithValue("@CustomerID", (object)customerId ?? DBNull.Value);
+                                cmd.Parameters.AddWithValue("@AccountID", txtMNV.Text);
+                                cmd.Parameters.AddWithValue("@IDVoucher", txtVC.Text);
+                                cmd.Parameters.AddWithValue("@Price", decimal.Parse(txtTTVC.Text));
+                                cmd.Parameters.AddWithValue("@TotalAmount", decimal.Parse(txtSL.Text));
                                 cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now);
                                 cmd.Parameters.AddWithValue("@UpdatedBy", "system");
 
-                                conn.Open();
+                                if (conn.State == ConnectionState.Closed)
+                                {
+                                    conn.Open();
+                                }
+
                                 int rowsAffected = cmd.ExecuteNonQuery();
-                                conn.Close();
+                                if (conn.State == ConnectionState.Open)
+                                {
+                                    conn.Close();
+                                }
 
                                 if (rowsAffected > 0)
                                 {

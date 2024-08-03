@@ -16,12 +16,13 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows.Media;
 
 namespace PRL.View
 {
     public partial class QuanLyNhanVien : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB;Trusted_Connection=True;TrustServerCertificate=True");        //SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AN16NPP\\MSSQLSERVER01;Initial Catalog=Duan1_N6_Demo3;Integrated Security=True;TrustServerCertificate=true");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");        //SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AN16NPP\\MSSQLSERVER01;Initial Catalog=Duan1_N6_Demo3;Integrated Security=True;TrustServerCertificate=true");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -104,6 +105,8 @@ namespace PRL.View
             HienThi();
             LayDL();
         }
+
+        
 
         private void dgvnhanvien_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -210,9 +213,26 @@ namespace PRL.View
                     string.IsNullOrWhiteSpace(txtTK.Text) ||
                     string.IsNullOrWhiteSpace(txtMK.Text) ||
                     string.IsNullOrWhiteSpace(txtL.Text) ||
+                    string.IsNullOrWhiteSpace(cbQuyen.Text) ||
                     (!rbtnam.Checked && !rbtnu.Checked && !rdb_NgungHD.Checked && !rdb_HoatDong.Checked))
                 {
                     MessageBox.Show("Vui lòng điền đầy đủ thông tin và đảm bảo thông tin hợp lệ. Đập chết mợ bây giờ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (cbQuyen.Text == "-- Chọn Quyền --")
+                {
+                    MessageBox.Show("Vui lòng chọn quyền. Lẹ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (Convert.ToDecimal(txtL.Text) <= 1000)
+                {
+                    MessageBox.Show("Vui lòng nhập đúng Lương. Nhập láo là zo nhà đá nhá.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                } else if (Convert.ToDecimal(txtL.Text) > 100000000)
+                {
+                    MessageBox.Show("Có nhập nhầm lương không đấy. Hơi bị chát đấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -272,7 +292,7 @@ namespace PRL.View
                     Username = txtTK.Text,
                     Password = txtMK.Text,
                     Status = rdb_HoatDong.Checked ? 1 : 0,
-                    Roles = "user", // Thay đổi vai trò phù hợp
+                    Roles = cbQuyen.Text, 
                     PhoneNumber = txtsdt.Text,
                     Email = txtemail.Text,
                     BOD = dateNV.Value,
@@ -455,6 +475,11 @@ namespace PRL.View
         }
 
         private void btntimkiem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textRL_TextChanged(object sender, EventArgs e)
         {
 
         }

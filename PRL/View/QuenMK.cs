@@ -16,5 +16,12 @@ namespace PRL.View
         {
             InitializeComponent();
         }
+
+        private void bttBack_Click(object sender, EventArgs e)
+        {
+            Login form = new Login();
+            this.Hide();
+            form.Show();
+        }
     }
 }

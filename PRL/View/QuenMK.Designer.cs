@@ -30,7 +30,7 @@
         {
             panel1 = new Panel();
             button3 = new Button();
-            button2 = new Button();
+            bttBack = new Button();
             txtNhapLai = new TextBox();
             txtPassMoi = new TextBox();
             btnXacNhan = new Button();
@@ -45,7 +45,7 @@
             // panel1
             // 
             panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
+            panel1.Controls.Add(bttBack);
             panel1.Controls.Add(txtNhapLai);
             panel1.Controls.Add(txtPassMoi);
             panel1.Controls.Add(btnXacNhan);
@@ -54,40 +54,47 @@
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtIDSua);
             panel1.Controls.Add(label3);
-            panel1.Location = new Point(-31, -10);
+            panel1.Location = new Point(-27, -8);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(863, 470);
+            panel1.Size = new Size(755, 352);
             panel1.TabIndex = 58;
             // 
             // button3
             // 
-            button3.Location = new Point(582, 103);
+            button3.Location = new Point(509, 77);
+            button3.Margin = new Padding(3, 2, 3, 2);
             button3.Name = "button3";
-            button3.Size = new Size(88, 29);
+            button3.Size = new Size(77, 22);
             button3.TabIndex = 58;
             button3.Text = "Gửi mã";
             button3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // bttBack
             // 
-            button2.Location = new Point(376, 337);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 57;
-            button2.UseVisualStyleBackColor = true;
+            bttBack.Location = new Point(329, 253);
+            bttBack.Margin = new Padding(3, 2, 3, 2);
+            bttBack.Name = "bttBack";
+            bttBack.Size = new Size(82, 22);
+            bttBack.TabIndex = 57;
+            bttBack.Text = "Back";
+            bttBack.UseVisualStyleBackColor = true;
+            bttBack.Click += bttBack_Click;
             // 
             // txtNhapLai
             // 
-            txtNhapLai.Location = new Point(253, 257);
+            txtNhapLai.Location = new Point(221, 193);
+            txtNhapLai.Margin = new Padding(3, 2, 3, 2);
             txtNhapLai.Name = "txtNhapLai";
-            txtNhapLai.Size = new Size(323, 27);
+            txtNhapLai.Size = new Size(283, 23);
             txtNhapLai.TabIndex = 55;
             // 
             // txtPassMoi
             // 
-            txtPassMoi.Location = new Point(253, 177);
+            txtPassMoi.Location = new Point(221, 133);
+            txtPassMoi.Margin = new Padding(3, 2, 3, 2);
             txtPassMoi.Name = "txtPassMoi";
-            txtPassMoi.Size = new Size(323, 27);
+            txtPassMoi.Size = new Size(283, 23);
             txtPassMoi.TabIndex = 55;
             // 
             // btnXacNhan
@@ -95,9 +102,10 @@
             btnXacNhan.BackColor = Color.Red;
             btnXacNhan.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             btnXacNhan.ForeColor = Color.White;
-            btnXacNhan.Location = new Point(334, 290);
+            btnXacNhan.Location = new Point(292, 218);
+            btnXacNhan.Margin = new Padding(3, 2, 3, 2);
             btnXacNhan.Name = "btnXacNhan";
-            btnXacNhan.Size = new Size(172, 41);
+            btnXacNhan.Size = new Size(150, 31);
             btnXacNhan.TabIndex = 56;
             btnXacNhan.Text = "Xác Nhận";
             btnXacNhan.UseVisualStyleBackColor = false;
@@ -107,52 +115,54 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Red;
-            label1.Location = new Point(302, 14);
+            label1.Location = new Point(264, 10);
             label1.Name = "label1";
-            label1.Size = new Size(269, 46);
+            label1.Size = new Size(215, 37);
             label1.TabIndex = 51;
             label1.Text = "Quên Mật Khẩu";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(253, 71);
+            label2.Location = new Point(221, 53);
             label2.Name = "label2";
-            label2.Size = new Size(137, 20);
+            label2.Size = new Size(111, 15);
             label2.TabIndex = 52;
             label2.Text = "Nhập mã nhân viên";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(253, 225);
+            label4.Location = new Point(221, 169);
             label4.Name = "label4";
-            label4.Size = new Size(160, 20);
+            label4.Size = new Size(128, 15);
             label4.TabIndex = 53;
             label4.Text = "Nhập lại mật khẩu mới";
             // 
             // txtIDSua
             // 
-            txtIDSua.Location = new Point(253, 103);
+            txtIDSua.Location = new Point(221, 77);
+            txtIDSua.Margin = new Padding(3, 2, 3, 2);
             txtIDSua.Name = "txtIDSua";
-            txtIDSua.Size = new Size(323, 27);
+            txtIDSua.Size = new Size(283, 23);
             txtIDSua.TabIndex = 54;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(253, 145);
+            label3.Location = new Point(221, 109);
             label3.Name = "label3";
-            label3.Size = new Size(140, 20);
+            label3.Size = new Size(113, 15);
             label3.TabIndex = 53;
             label3.Text = "Nhập mật khẩu mới";
             // 
             // QuenMK
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(960, 523);
+            ClientSize = new Size(840, 392);
             Controls.Add(panel1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "QuenMK";
             Text = "QuenMK";
             panel1.ResumeLayout(false);
@@ -164,7 +174,7 @@
 
         private Panel panel1;
         private Button button3;
-        private Button button2;
+        private Button bttBack;
         private TextBox txtNhapLai;
         private TextBox txtPassMoi;
         private Button btnXacNhan;

@@ -19,7 +19,7 @@ namespace PRL.View
 {
     public partial class Orderform : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB3;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -40,12 +40,12 @@ namespace PRL.View
             {
 
                 //Load Users
-                SqlCommand cmd = new SqlCommand("SELECT * FROM OrderDetails", conn);
-                SqlDataReader dr = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(dr);
-                dr.Close();
-                dgvHDCT.DataSource = dt;
+                //SqlCommand cmd = new SqlCommand("SELECT * FROM OrderDetails", conn);
+                //SqlDataReader dr = cmd.ExecuteReader();
+                //DataTable dt = new DataTable();
+                //dt.Load(dr);
+                //dr.Close();
+                //dgvHDCT.DataSource = dt;
                 dgvHDCT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvHDCT.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
                 dgvHDCT.DefaultCellStyle.BackColor = System.Drawing.Color.White;
@@ -53,7 +53,7 @@ namespace PRL.View
                 dgvHDCT.AutoResizeColumns();
 
                 // Load userRoles
-                SqlCommand cmd2 = new SqlCommand("SELECT \r\n    pd.IMEI, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    p.Quantity, \r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID;", conn);
+                SqlCommand cmd2 = new SqlCommand("SELECT \r\n    pd.IMEI, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    p.Quantity, \r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nWHERE \r\n    pd.Status = 1;", conn);
                 SqlDataReader dr2 = cmd2.ExecuteReader();
                 DataTable dt2 = new DataTable();
                 dt2.Load(dr2);
@@ -100,6 +100,7 @@ namespace PRL.View
                                     o.OrderID, 
                                     o.AccountID, 
                                     o.CustomerID, 
+                                    o.IDVoucher, 
                                     COUNT(od.OrderDetailID) AS Quantity, 
                                     SUM(od.Quantity * od.UnitPrice) AS Price, 
                                     CASE 
@@ -120,6 +121,7 @@ namespace PRL.View
                                     o.OrderID, 
                                     o.AccountID, 
                                     o.CustomerID, 
+                                    o.IDVoucher, 
                                     o.Status, 
                                     o.CreatedAt, 
                                     o.UpdatedAt, 
@@ -142,7 +144,7 @@ namespace PRL.View
 
         void LayDLSP()
         {
-            string sql2 = "SELECT \r\n    pd.IMEI, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    p.Quantity, \r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID;";
+            string sql2 = "\r\nSELECT \r\n    pd.IMEI, \r\n    pd.Name AS ProductName, \r\n    pd.importPrice,\r\n    pd.Price,\r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    ro.ROMSize AS ROM, \r\n    co.ColorName AS Color, \r\n    o.OriginName AS Origin,\r\n    y.Year AS YearOfManufacture,\r\n    m.MaterialName AS Material,\r\n    v.VersionName AS Version,\r\n    rc.RearCameraDetails AS RearCamera,\r\n    cs.CameraSelfieDetails AS CameraSelfie,\r\n    os.OSName AS OperatingSystem,\r\n    b.Capacity AS BatteryCapacity,\r\n    w.WeightValue AS Weight,\r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    ROMs ro ON pd.ROMID = ro.ROMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nINNER JOIN \r\n    Origins o ON pd.OriginID = o.OriginID\r\nINNER JOIN \r\n    YearsOfManufacture y ON pd.YearID = y.YearID\r\nINNER JOIN \r\n    Materials m ON pd.MaterialID = m.MaterialID\r\nINNER JOIN \r\n    Versions v ON pd.VersionID = v.VersionID\r\nINNER JOIN \r\n    RearCameras rc ON pd.RearCameraID = rc.RearCameraID\r\nINNER JOIN \r\n    CameraSelfies cs ON pd.CameraSelfieID = cs.CameraSelfieID\r\nINNER JOIN \r\n    OperatingSystems os ON pd.OSID = os.OSID\r\nINNER JOIN \r\n    BatteryCapacities b ON pd.BatteryID = b.BatteryID\r\nINNER JOIN \r\n    Weights w ON pd.WeightID = w.WeightID\r\n";
 
             sda = new SqlDataAdapter(sql2, conn);
             ds = new DataSet();
@@ -198,22 +200,23 @@ namespace PRL.View
                            join g in context.GPUs on iph.GPUID equals g.GPUID
                            join r in context.RAMs on iph.RAMID equals r.RAMID
                            join s in context.Sales on iph.SaleID equals s.SaleID
+                           where iph.Status == 1 // Điều kiện == 1
                            select new
                            {
                                iph.IMEI,
                                iph.ProductID,
-                               ProductDetailName = iph.Name, // Đổi tên thuộc tính để tránh trùng lặp
+                               ProductDetailName = iph.Name,
                                d.DisplayName,
                                CPU = c.CPUName,
                                GPU = g.GPUName,
                                RAM = r.RAMSize,
                                iph.Price,
-                               ProductName = p.ProductName, // Đổi tên thuộc tính để tránh trùng lặp
+                               ProductName = p.ProductName,
                                p.Description,
                                Color = co.ColorName,
                                p.Quantity,
-                               SaleCode = s.SaleDescription, // Đổi tên thuộc tính để tránh trùng lặp
-                               SaleDescription = s.SaleDescription, // Đổi tên thuộc tính để tránh trùng lặp
+                               SaleCode = s.SaleDescription,
+                               SaleDescription = s.SaleDescription,
                                PercentDiscount = s.DiscountValue,
                                SaleStart = s.StartDate,
                                SaleEnd = s.EndDate
@@ -222,6 +225,7 @@ namespace PRL.View
                 dgvSP.DataSource = data.ToList();
             }
         }
+
 
 
 
@@ -237,6 +241,7 @@ namespace PRL.View
                     u.OrderID,
                     u.AccountID,
                     u.CustomerID,
+                    u.IDVoucher,
                     u.TotalAmount,
                     u.Price,
                     Status = u.Status == 0 ? "Chưa thanh toán" : "Đã thanh toán",
@@ -293,49 +298,63 @@ namespace PRL.View
             {
                 Guid productId, orderId;
 
-                // Kiểm tra GUID hợp lệ cho ProductId
+                // Check ProductId
                 if (!Guid.TryParse(txtMSP.Text, out productId))
                 {
                     MessageBox.Show("Mã sản phẩm không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Kiểm tra GUID hợp lệ cho OderID
+                // Check OrderID
                 if (!Guid.TryParse(txtHDHT.Text, out orderId))
                 {
                     MessageBox.Show("Mã hóa đơn không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                var hdtc = new OrderDetail
+                using (var context = new IphoneDbContext())
                 {
-                    OrderDetailID = Guid.NewGuid(),
-                    OrderID = Guid.Parse(txtHDHT.Text),
-                    IMEI = txtimei.Text,
-                    ProductName = txtSP.Text,
-                    Quantity = Convert.ToInt32("1"),
-                    UnitPrice = decimal.Parse(txtTG.Text),
-                    DiscountValue = decimal.Parse(txtSZ.Text),
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    CreatedBy = "admin",
-                    UpdatedBy = "admin"
-                };
+                    // Tìm sản phẩm bằng IMEI
+                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductID == productId || pd.IMEI == txtimei.Text);
+                    if (productDetail == null)
+                    {
+                        MessageBox.Show("Không tìm thấy sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
-                Context.OrderDetails.Add(hdtc);
-                Context.SaveChanges();
+                    productDetail.Status = 0;
 
-                LoadData();
-                LoadDataHDCT();
-                LayDLHD();
-                MessageBox.Show("Thêm thành công!, toẹt zời hehehe", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var hdtc = new OrderDetail
+                    {
+                        OrderDetailID = Guid.NewGuid(),
+                        OrderID = orderId,
+                        IMEI = txtimei.Text,
+                        ProductName = txtSP.Text,
+                        Quantity = 1,
+                        UnitPrice = decimal.Parse(txtTG.Text),
+                        DiscountValue = decimal.Parse(txtSZ.Text),
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = "admin",
+                        UpdatedBy = "admin"
+                    };
+
+                    context.OrderDetails.Add(hdtc);
+                    context.SaveChanges();
+
+                    LoadData();
+                    LoadDataHDCT();
+                    LayDLHD();
+
+                    MessageBox.Show("Thêm thành công!, toẹt zời hehehe", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Thêm thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private int currentOrderIndex = 0;
         private List<Guid> orderIds = new List<Guid>();
@@ -406,8 +425,9 @@ namespace PRL.View
                 var newOrder = new Order
                 {
                     OrderID = Guid.NewGuid(),
-                    CustomerID = null,
-                    AccountID = null,
+                    CustomerID = Guid.Parse("41c71f03-a71d-4434-b97d-6570c344901c"),
+                    AccountID = Guid.Parse("94f5180e-ab9c-4843-a743-800cfa3ba75b"),
+                    IDVoucher = Guid.Parse("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
                     TotalAmount = 0,
                     Price = 0,
                     Status = 0,
@@ -428,37 +448,6 @@ namespace PRL.View
             }
         }
 
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        var newOrderCT = new OderDetail
-        //        {
-        //            OrderDetailsID = Guid.NewGuid(),
-        //            ProductId = Guid.Parse(txtMSP.Text),
-        //            OderID = Guid.Parse(txtHDHT.Text),
-        //            Quantity = 1,
-        //            IpadIMEI = txtimei.Text,
-        //            NameSPCT = txtSP.Text,
-        //            Price = Convert.ToInt32(txtTG.Text),
-        //            PercentDiscount = Convert.ToInt32(txtSZ.Text),
-        //            CreateAt = DateTime.Now,
-        //            UpdateAt = DateTime.Now,
-        //            CreateBy = "admin",
-        //            UpdateBy = "admin"
-        //        };
-
-        //        Context.OrderDetails.Add(newOrderCT);
-        //        Context.SaveChanges();
-        //        LoadDataHD();
-        //        MessageBox.Show("Thêm sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Thêm sản phẩm thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
 
         private void bttHDT_Click(object sender, EventArgs e)
         {
@@ -641,17 +630,35 @@ namespace PRL.View
         {
             try
             {
-                Guid oderCT = Guid.Parse(txtHDCT.Text);
-                OrderDetail oderitem = Context.OrderDetails.FirstOrDefault(u => u.OrderDetailID == oderCT);
-
-                if (oderitem != null)
+                Guid orderCT;
+                // Kiểm tra GUID hợp lệ cho OrderDetailID
+                if (!Guid.TryParse(txtHDCT.Text, out orderCT))
                 {
-                    Context.OrderDetails.Remove(oderitem);
+                    MessageBox.Show("Mã hóa đơn chi tiết không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Tìm OrderDetail bằng OrderDetailID
+                OrderDetail orderItem = Context.OrderDetails.FirstOrDefault(u => u.OrderDetailID == orderCT);
+
+                if (orderItem != null)
+                {
+                    // Tìm sản phẩm bằng IMEI hoặc ProductID từ OrderDetail
+                    var productDetail = Context.ProductDetails.FirstOrDefault(pd => pd.IMEI == orderItem.IMEI);
+
+                    if (productDetail != null)
+                    {
+                        productDetail.Status = 1;
+                    }
+
+                    Context.OrderDetails.Remove(orderItem);
                     Context.SaveChanges();
+
                     LoadData();
                     LoadDataHDCT();
                     LayDLHD();
                     bttCL_Click(sender, e);
+
                     MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -661,11 +668,10 @@ namespace PRL.View
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Xóa thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
 
         private void bttCL_Click(object sender, EventArgs e)
         {
@@ -783,13 +789,21 @@ namespace PRL.View
             
         }
 
+        private void ClearDataGridView()
+        {
+            // Cách 1: Đặt DataSource về null
+            dgvHDCT.DataSource = null;
+
+            // Cách 2: Xóa tất cả các hàng trong DataGridView
+            dgvHDCT.Rows.Clear();
+        }
         private void bttRL_Click_1(object sender, EventArgs e)
         {
             try
             {
                 LoadData();
                 LayDLHD();
-                LoadDataHDCT();
+                ClearDataGridView();
             }
             catch (Exception ex)
             {
