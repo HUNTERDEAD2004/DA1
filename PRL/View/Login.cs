@@ -32,7 +32,6 @@ namespace PRL.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             string username = textBox1.Text;
             string pass = textBox2.Text;
             try
@@ -44,6 +43,7 @@ namespace PRL.View
 
                     RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\MyApp");
                     key.SetValue("Username", username);
+                    key.SetValue("Role", us.Roles);
                     key.Close();
 
                     this.Hide();
@@ -62,13 +62,28 @@ namespace PRL.View
 
         bool CheckUser(Account user)
         {
-            return user != null; // Chỉ kiểm tra xem user có null hay không
+            return user != null; 
         }
+
 
         private Account GetUser(string username, string pass)
         {
-            return dbContext.Accounts.FirstOrDefault(u => u.Username == username && u.Password == pass);
+            var user = dbContext.Accounts.FirstOrDefault(u => u.Username == username && u.Password == pass);
+            if (user != null)
+            {
+                user.Roles = GetRole(username); 
+            }
+            return user;
         }
+
+
+        private string GetRole(string username)
+        {
+            var role = dbContext.Accounts.Where(r => r.Username == username).Select(r => r.Roles).FirstOrDefault();
+            return role;
+        }
+
+
 
         private void Login_Load(object sender, EventArgs e)
         {

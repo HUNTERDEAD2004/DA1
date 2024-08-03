@@ -22,7 +22,7 @@ namespace PRL
 
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new BaoHanh());
+            Application.Run(new Login());
         }
 
     }
