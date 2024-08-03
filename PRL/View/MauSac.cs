@@ -33,7 +33,7 @@ namespace PRL.View
             var CreateColor = MessageBox.Show("Bạn có muốn tạo thêm Color không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateColor == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text))
+                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -43,6 +43,10 @@ namespace PRL.View
                 {
                     ColorID = Guid.NewGuid(), // Tạo ID mới
                     ColorName = ColorNameTxt.Text,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = CBTxt.Text,
+                    UpdatedAt = DateTime.Now,
+                    UpdatedBy = UBTxt.Text
                 };
 
                 // Thêm vào cơ sở dữ liệu
@@ -62,7 +66,7 @@ namespace PRL.View
             var updateColor = MessageBox.Show("Bạn có muốn Sửa Color không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (updateColor == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text))
+                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -79,6 +83,10 @@ namespace PRL.View
                 if (existingColor != null)
                 {
                     existingColor.ColorName = ColorNameTxt.Text;
+                    existingColor.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingColor.CreatedBy = CBTxt.Text;
+                    existingColor.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingColor.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();
 
@@ -135,11 +143,19 @@ namespace PRL.View
             var searchTerm = SearchingTxt.Text.ToLower();
 
             var filteredData = _db.Colours.ToList().Where(c =>
-                c.ColorName.ToLower().Contains(searchTerm)
+                c.ColorName.ToLower().Contains(searchTerm) ||
+                c.CreatedAt.ToString().Contains(searchTerm) ||
+                c.CreatedBy.ToLower().Contains(searchTerm) ||
+                c.UpdatedAt.ToString().Contains(searchTerm) ||
+                c.UpdatedBy.ToLower().Contains(searchTerm)
             ).Select(c => new
             {
                 c.ColorID,
-                c.ColorName
+                c.ColorName,
+                c.CreatedAt,
+                c.CreatedBy,
+                c.UpdatedAt,
+                c.UpdatedBy,
             }).ToList();
 
             DgvColorShow.DataSource = filteredData;
@@ -156,7 +172,11 @@ namespace PRL.View
                 var ColorData = _db.Colours.ToList().Select(c => new
                 {
                     c.ColorID,
-                    c.ColorName
+                    c.ColorName,
+                    c.CreatedAt,
+                    c.CreatedBy,
+                    c.UpdatedAt,
+                    c.UpdatedBy,
                 }).ToList();
 
                 if (ColorData.Any())
@@ -191,6 +211,10 @@ namespace PRL.View
                 // Gán dữ liệu từ các ô vào các TextBox tương ứng
                 ColorId.Text = row.Cells["ColorID"].Value.ToString();
                 ColorNameTxt.Text = row.Cells["ColorName"].Value.ToString();
+                CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
+                CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
+                UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
+                UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
     }

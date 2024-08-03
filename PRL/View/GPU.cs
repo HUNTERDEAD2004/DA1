@@ -42,7 +42,11 @@ namespace PRL.View
                 {
                     c.GPUID,
                     c.GPUName,
-                    c.GPUMemory
+                    c.GPUMemory,
+                    c.CreatedAt,
+                    c.CreatedBy,
+                    c.UpdatedAt, 
+                    c.UpdatedBy,
                 }).ToList();
 
                 if (GPUData.Any())
@@ -78,15 +82,19 @@ namespace PRL.View
                 GpuIdTxt.Text = row.Cells["GPUID"].Value.ToString();
                 GpuNameTxt.Text = row.Cells["GPUName"].Value.ToString();
                 GpuMemoryTxt.Text = row.Cells["GPUMemory"].Value.ToString();
+                CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
+                CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
+                UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
+                UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            var CreateGPU = MessageBox.Show("Bạn có muốn tạo thêm ROM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var CreateGPU = MessageBox.Show("Bạn có muốn tạo thêm GPU không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateGPU == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(GpuNameTxt.Text) || string.IsNullOrWhiteSpace(GpuMemoryTxt.Text))
+                if (string.IsNullOrWhiteSpace(GpuNameTxt.Text) || string.IsNullOrWhiteSpace(GpuMemoryTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -97,6 +105,10 @@ namespace PRL.View
                     GPUID = Guid.NewGuid(), // Tạo ID mới
                     GPUName = GpuNameTxt.Text,
                     GPUMemory = GpuMemoryTxt.Text,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = CBTxt.Text,
+                    UpdatedAt = DateTime.Now,
+                    UpdatedBy = UBTxt.Text
                 };
 
                 // Thêm vào cơ sở dữ liệu
@@ -147,7 +159,7 @@ namespace PRL.View
             var UpdateGPU = MessageBox.Show("Bạn có muốn sửa GPU không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (UpdateGPU == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(GpuNameTxt.Text) || string.IsNullOrWhiteSpace(GpuMemoryTxt.Text))
+                if (string.IsNullOrWhiteSpace(GpuNameTxt.Text) || string.IsNullOrWhiteSpace(GpuMemoryTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -165,6 +177,10 @@ namespace PRL.View
                 {
                     ExitingGPU.GPUName = GpuNameTxt.Text;
                     ExitingGPU.GPUMemory = GpuMemoryTxt.Text;
+                    ExitingGPU.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingGPU.CreatedBy = CBTxt.Text;
+                    ExitingGPU.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingGPU.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();
                     MessageBox.Show("Sửa Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -187,12 +203,20 @@ namespace PRL.View
 
             var filteredData = _db.GPUs.ToList().Where(c =>
                 c.GPUName.ToLower().Contains(searchTerm) ||
-                c.GPUMemory.ToLower().Contains(searchTerm)
+                c.GPUMemory.ToLower().Contains(searchTerm) ||
+                c.CreatedAt.ToString().Contains(searchTerm) ||
+                c.CreatedBy.ToLower().Contains(searchTerm) ||
+                c.UpdatedAt.ToString().Contains(searchTerm) ||
+                c.UpdatedBy.ToLower().Contains(searchTerm)
             ).Select(c => new
             {
                 c.GPUID,
                 c.GPUName,
-                c.GPUMemory
+                c.GPUMemory,
+                c.CreatedAt,
+                c.CreatedBy,
+                c.UpdatedAt,
+                c.UpdatedBy,
             }).ToList();
 
             DgvGPUShow.DataSource = filteredData;

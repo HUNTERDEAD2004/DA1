@@ -39,7 +39,11 @@ namespace PRL.View
                 var ROMData = _db.ROMs.ToList().Select(c => new
                 {
                     c.ROMID,
-                    c.ROMSize
+                    c.ROMSize,
+                    c.CreatedAt,
+                    c.CreatedBy,
+                    c.UpdatedAt,
+                    c.UpdatedBy,
                 }).ToList();
 
                 if (ROMData.Any())
@@ -74,6 +78,10 @@ namespace PRL.View
                 // Gán dữ liệu từ các ô vào các TextBox tương ứng
                 ROMIDTxt.Text = row.Cells["ROMID"].Value.ToString();
                 ROMSizeTxt.Text = row.Cells["ROMSize"].Value.ToString();
+                CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
+                CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
+                UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
+                UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
 
@@ -82,7 +90,7 @@ namespace PRL.View
             var CreateROM = MessageBox.Show("Bạn có muốn tạo thêm ROM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateROM == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(ROMSizeTxt.Text))
+                if (string.IsNullOrWhiteSpace(ROMSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -92,6 +100,10 @@ namespace PRL.View
                 {
                     ROMID = Guid.NewGuid(), // Tạo ID mới
                     ROMSize = ROMSizeTxt.Text,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = CBTxt.Text,
+                    UpdatedAt = DateTime.Now,
+                    UpdatedBy = UBTxt.Text
                 };
 
                 // Thêm vào cơ sở dữ liệu
@@ -111,7 +123,7 @@ namespace PRL.View
             var UpdateROM = MessageBox.Show("Bạn có muốn sửa ROM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (UpdateROM == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(ROMSizeTxt.Text))
+                if (string.IsNullOrWhiteSpace(ROMSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -128,6 +140,10 @@ namespace PRL.View
                 if (ExitingRom != null)
                 {
                     ExitingRom.ROMSize = ROMSizeTxt.Text;
+                    ExitingRom.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingRom.CreatedBy = CBTxt.Text;
+                    ExitingRom.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingRom.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();
                     MessageBox.Show("Sửa Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -146,7 +162,7 @@ namespace PRL.View
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            var DeleteROM = MessageBox.Show("Bạn có muốn XOa ROM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var DeleteROM = MessageBox.Show("Bạn có muốn Xóa ROM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (DeleteROM == DialogResult.Yes)
             {
                 if (string.IsNullOrWhiteSpace(ROMIDTxt.Text) || !Guid.TryParse(ROMIDTxt.Text, out Guid RomId))
@@ -180,11 +196,19 @@ namespace PRL.View
             var searchTerm = SearchingTxt.Text.ToLower();
 
             var filteredData = _db.ROMs.ToList().Where(c =>
-                c.ROMSize.ToLower().Contains(searchTerm) 
+                c.ROMSize.ToLower().Contains(searchTerm) ||
+                c.CreatedAt.ToString().Contains(searchTerm) ||
+                c.CreatedBy.ToLower().Contains(searchTerm) ||
+                c.UpdatedAt.ToString().Contains(searchTerm) ||
+                c.UpdatedBy.ToLower().Contains(searchTerm)
             ).Select(c => new
             {
                 c.ROMID,
-                c.ROMSize
+                c.ROMSize,
+                c.CreatedAt,
+                c.CreatedBy,
+                c.UpdatedAt,
+                c.UpdatedBy,
             }).ToList();
 
             DgvROMShow.DataSource = filteredData;

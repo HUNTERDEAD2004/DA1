@@ -367,3 +367,5 @@ FodyWeavers.xsd
 /DAL/Migrations/20240730063549_iphonedbtest1.cs
 /DAL/Models/IphoneDbContext.cs
 /.gitignore
+/DAL/Migrations/20240802191430_IphoneDbTestZero2.cs
+/DAL/Migrations/20240802191430_IphoneDbTestZero2.Designer.cs

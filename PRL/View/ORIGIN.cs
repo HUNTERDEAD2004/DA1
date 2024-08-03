@@ -1,4 +1,5 @@
 ﻿using AppData.Models;
+using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,22 +12,22 @@ using System.Windows.Forms;
 
 namespace PRL.View
 {
-    public partial class RAM : Form
+    public partial class ORIGIN : Form
     {
         IphoneDbContext _db;
 
-        public RAM()
+        public ORIGIN()
         {
             _db = new IphoneDbContext();
             InitializeComponent();
         }
 
-        private void RAM_Load(object sender, EventArgs e)
+        private void ORIGIN_Load(object sender, EventArgs e)
         {
             LoadData();
 
             // Điều chỉnh kích thước các cột tự động theo nội dung
-            DgvRAMShow.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DgvOriginShow.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         public void LoadData()
@@ -34,30 +35,29 @@ namespace PRL.View
             try
             {
                 // Đảm bảo rằng AutoGenerateColumns được đặt thành true
-                DgvRAMShow.AutoGenerateColumns = true;
+                DgvOriginShow.AutoGenerateColumns = true;
 
                 // Lấy dữ liệu từ cơ sở dữ liệu và chọn các cột cần thiết
-                var RamData = _db.RAMs.ToList().Select(c => new
+                var OriginData = _db.Origins.ToList().Select(c => new
                 {
-                    c.RAMID,
-                    c.RAMType,
-                    c.RAMSize,
+                    c.OriginID,
+                    c.OriginName,
                     c.CreatedAt,
                     c.CreatedBy,
                     c.UpdatedAt,
-                    c.UpdatedBy,
+                    c.UpdatedBy
                 }).ToList();
 
-                if (RamData.Any())
+                if (OriginData.Any())
                 {
                     // Gán dữ liệu cho DataGridView
-                    DgvRAMShow.DataSource = RamData;
+                    DgvOriginShow.DataSource = OriginData;
 
                     // Điều chỉnh kích thước các cột tự động theo nội dung
-                    DgvRAMShow.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    DgvOriginShow.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                     // Gán sự kiện CellClick cho DataGridView
-                    DgvRAMShow.CellClick += DgvRAMShow_CellContentClick;
+                    DgvOriginShow.CellClick += DgvOriginShow_CellContentClick;
                 }
                 else
                 {
@@ -70,17 +70,16 @@ namespace PRL.View
             }
         }
 
-        private void DgvRAMShow_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvOriginShow_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 // Lấy hàng được chọn
-                DataGridViewRow row = DgvRAMShow.Rows[e.RowIndex];
+                DataGridViewRow row = DgvOriginShow.Rows[e.RowIndex];
 
                 // Gán dữ liệu từ các ô vào các TextBox tương ứng
-                RamIdTxt.Text = row.Cells["RAMID"].Value.ToString();
-                RamTypeTxt.Text = row.Cells["RAMType"].Value.ToString();
-                RamSizeTxt.Text = row.Cells["RAMSize"].Value.ToString();
+                OriIdTxt.Text = row.Cells["OriginID"].Value.ToString();
+                OriNameTxt.Text = row.Cells["OriginName"].Value.ToString();
                 CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
                 CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
                 UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
@@ -90,20 +89,19 @@ namespace PRL.View
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            var CreateRam = MessageBox.Show("Bạn có muốn tạo thêm RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (CreateRam == DialogResult.Yes)
+            var CreateVersion = MessageBox.Show("Bạn có muốn tạo thêm Origin không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (CreateVersion == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(RamTypeTxt.Text) || string.IsNullOrWhiteSpace(RamSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(OriNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
 
-                var newRam = new Ram
+                var newOrigin = new Origin
                 {
-                    RAMID = Guid.NewGuid(), // Tạo ID mới
-                    RAMSize = RamSizeTxt.Text,
-                    RAMType = RamTypeTxt.Text,
+                    OriginID = Guid.NewGuid(), // Tạo ID mới
+                    OriginName = OriNameTxt.Text,
                     CreatedAt = DateTime.Now,
                     CreatedBy = CBTxt.Text,
                     UpdatedAt = DateTime.Now,
@@ -111,7 +109,7 @@ namespace PRL.View
                 };
 
                 // Thêm vào cơ sở dữ liệu
-                _db.RAMs.Add(newRam);
+                _db.Origins.Add(newOrigin);
                 _db.SaveChanges();
                 MessageBox.Show("Tạo Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadData();
@@ -124,66 +122,64 @@ namespace PRL.View
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            var updateRam = MessageBox.Show("Bạn có muốn Sửa RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (updateRam == DialogResult.Yes)
+            var UpdateVersion = MessageBox.Show("Bạn có muốn cập nhật Origin không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (UpdateVersion == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(RamTypeTxt.Text) || string.IsNullOrWhiteSpace(RamSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(OriNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
 
-                if (string.IsNullOrWhiteSpace(RamIdTxt.Text) || !Guid.TryParse(RamIdTxt.Text, out Guid RamID))
+                if (string.IsNullOrWhiteSpace(OriIdTxt.Text) || !Guid.TryParse(OriIdTxt.Text, out Guid ORiID))
                 {
-                    MessageBox.Show("Vui lòng nhập ID RAM hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng nhập ID Origin hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu ID không hợp lệ
                 }
 
-                var existingRam = _db.RAMs.FirstOrDefault(c => c.RAMID == RamID);
+                var existingOrigin = _db.Origins.FirstOrDefault(c => c.OriginID == ORiID);
 
-                if (existingRam != null)
+                if (existingOrigin != null)
                 {
-                    existingRam.RAMType = RamTypeTxt.Text;
-                    existingRam.RAMSize = RamSizeTxt.Text;
-                    existingRam.CreatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingRam.CreatedBy = CBTxt.Text;
-                    existingRam.UpdatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingRam.UpdatedBy = UBTxt.Text;
+                    existingOrigin.OriginName = OriNameTxt.Text;
+                    existingOrigin.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingOrigin.CreatedBy = CBTxt.Text;
+                    existingOrigin.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingOrigin.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();
 
-                    MessageBox.Show("Sửa Thành Công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cập nhật Thành Công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     LoadData();
                 }
                 else
                 {
-                    MessageBox.Show("Không tìm thấy RAM!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy Origin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Sửa Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Hủy bỏ cập nhật sản phẩm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            var deleteRam = MessageBox.Show("Bạn có muốn Xóa RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (deleteRam == DialogResult.Yes)
+            var DeleteWeight = MessageBox.Show("Bạn có muốn xóa Origin không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DeleteWeight == DialogResult.Yes)
             {
-
-                if (string.IsNullOrWhiteSpace(RamIdTxt.Text) || !Guid.TryParse(RamIdTxt.Text, out Guid RamID))
+                if (string.IsNullOrWhiteSpace(OriIdTxt.Text) || !Guid.TryParse(OriIdTxt.Text, out Guid ORiID))
                 {
-                    MessageBox.Show("Vui lòng nhập ID RAM hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng nhập ID Origin hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu ID không hợp lệ
                 }
 
-                var existingRam = _db.RAMs.FirstOrDefault(c => c.RAMID == RamID);
+                var existingOrigin = _db.Origins.FirstOrDefault(c => c.OriginID == ORiID);
 
-                if (existingRam != null)
+                if (existingOrigin != null)
                 {
-                    _db.RAMs.Remove(existingRam);
+                    _db.Origins.Remove(existingOrigin);
                     _db.SaveChanges();
 
                     MessageBox.Show("Xóa Thành Công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -192,12 +188,12 @@ namespace PRL.View
                 }
                 else
                 {
-                    MessageBox.Show("Không tìm thấy RAM!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy Origin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Xpá Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Hủy bỏ xóa sản phẩm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -205,25 +201,23 @@ namespace PRL.View
         {
             var searchTerm = SearchingTxt.Text.ToLower();
 
-            var filteredData = _db.RAMs.ToList().Where(c =>
-                c.RAMSize.ToLower().Contains(searchTerm) ||
-                c.RAMType.ToLower().Contains(searchTerm) ||
+            var filteredData = _db.Origins.ToList().Where(c =>
+                c.OriginName.ToLower().Contains(searchTerm) ||
                 c.CreatedAt.ToString().Contains(searchTerm) ||
-                c.CreatedBy.ToLower().Contains(searchTerm) ||
+                c.CreatedBy.ToString().Contains(searchTerm) ||
                 c.UpdatedAt.ToString().Contains(searchTerm) ||
-                c.UpdatedBy.ToLower().Contains(searchTerm)
+                c.UpdatedBy.ToString().Contains(searchTerm)
             ).Select(c => new
             {
-                c.RAMID,
-                c.RAMSize,
-                c.RAMType,
+                c.OriginID,
+                c.OriginName,
                 c.CreatedAt,
                 c.CreatedBy,
                 c.UpdatedAt,
-                c.UpdatedBy,
+                c.UpdatedBy
             }).ToList();
 
-            DgvRAMShow.DataSource = filteredData;
+            DgvOriginShow.DataSource = filteredData;
         }
     }
 }

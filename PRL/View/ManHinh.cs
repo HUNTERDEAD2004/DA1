@@ -40,7 +40,12 @@ namespace PRL.View
                 var DisplayData = _db.Displays.ToList().Select(c => new
                 {
                     c.DisplayID,
-                    c.DisplayName
+                    c.DisplayName,
+                    c.CreatedAt,
+                    c.CreatedBy,
+                    c.UpdatedAt,
+                    c.UpdatedBy,
+
                 }).ToList();
 
                 if (DisplayData.Any())
@@ -75,6 +80,10 @@ namespace PRL.View
                 // Gán dữ liệu từ các ô vào các TextBox tương ứng
                 DisPlayId.Text = row.Cells["DisplayID"].Value.ToString();
                 DisPlayName.Text = row.Cells["DisplayName"].Value.ToString();
+                CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
+                CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
+                UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
+                UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
 
@@ -83,7 +92,7 @@ namespace PRL.View
             var CreateDisplay = MessageBox.Show("Bạn có muốn tạo thêm Display không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateDisplay == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(DisPlayName.Text))
+                if (string.IsNullOrWhiteSpace(DisPlayName.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -93,6 +102,10 @@ namespace PRL.View
                 {
                     DisplayID = Guid.NewGuid(), // Tạo ID mới
                     DisplayName = DisPlayName.Text,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = CBTxt.Text,
+                    UpdatedAt = DateTime.Now,
+                    UpdatedBy = UBTxt.Text
                 };
 
                 // Thêm vào cơ sở dữ liệu
@@ -145,11 +158,20 @@ namespace PRL.View
             var searchTerm = SearchingTxt.Text.ToLower();
 
             var filteredData = _db.Displays.ToList().Where(c =>
-                c.DisplayName.ToLower().Contains(searchTerm) 
+                c.DisplayName.ToLower().Contains(searchTerm) ||
+                c.CreatedAt.ToString().Contains(searchTerm) ||
+                c.CreatedBy.ToLower().Contains(searchTerm) ||
+                c.UpdatedAt.ToString().Contains(searchTerm) ||
+                c.UpdatedBy.ToLower().Contains(searchTerm)
             ).Select(c => new
             {
                 c.DisplayID,
-                c.DisplayName
+                c.DisplayName,
+                c.CreatedAt,
+                c.CreatedBy,
+                c.UpdatedAt,
+                c.UpdatedBy,
+
             }).ToList();
 
             DgvDIsPlayShow.DataSource = filteredData;
@@ -160,7 +182,7 @@ namespace PRL.View
             var updateDisplay = MessageBox.Show("Bạn có muốn Sửa Display không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (updateDisplay == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(DisPlayName.Text))
+                if (string.IsNullOrWhiteSpace(DisPlayName.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -177,6 +199,10 @@ namespace PRL.View
                 if (existingDisplay != null)
                 {
                     existingDisplay.DisplayName = DisPlayName.Text;
+                    existingDisplay.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingDisplay.CreatedBy = CBTxt.Text;
+                    existingDisplay.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingDisplay.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();
 
