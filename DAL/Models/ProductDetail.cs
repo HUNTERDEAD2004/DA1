@@ -21,7 +21,7 @@ namespace AppData.Models
         public Guid GPUID { get; set; }
         public Guid ROMID { get; set; }
         public Guid DisplayID { get; set; }
-        public Guid SaleID { get; set; }
+        public Guid? SaleID { get; set; }
         public Guid OSID { get; set; }
         public Guid BatteryID { get; set; }
         public Guid WeightID { get; set; }

@@ -62,6 +62,10 @@ namespace PRL.View
             leftborderBtn = new Panel();
             leftborderBtn.Size = new Size(7, 60);
             Menu.Controls.Add(leftborderBtn);
+            btnLogout.Anchor = AnchorStyles.Right;
+            label2.Anchor = AnchorStyles.Right;
+            panelChange.Dock = DockStyle.Fill;
+            panelChange.Anchor = AnchorStyles.Left;
         }
         public void Reset()
         {
@@ -81,6 +85,7 @@ namespace PRL.View
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
+            panelChange.Dock = DockStyle.Fill;
             panelChange.Controls.Clear();
             panelChange.Controls.Add(form);
             panelChange.Tag = form;

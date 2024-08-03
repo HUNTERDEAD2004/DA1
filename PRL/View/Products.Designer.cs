@@ -361,6 +361,7 @@
             Controls.Add(panel1);
             Name = "Products";
             Text = "Products";
+            Load += Products_Load;
             btnClear.ResumeLayout(false);
             btnClear.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();

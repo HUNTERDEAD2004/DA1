@@ -20,6 +20,7 @@ namespace PRL.View
             InitializeComponent();
             context = new IphoneDbContext();
             LoadData();
+            panel1.Dock = DockStyle.Fill;
             //LoadDetails();
         }
         private void LoadData(Guid? productId = null)
@@ -176,6 +177,11 @@ namespace PRL.View
                     ClearForm();
                 }
             }
+        }
+
+        private void Products_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
