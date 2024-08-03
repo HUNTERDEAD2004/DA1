@@ -24,7 +24,7 @@ public class OrderDetailConfig : IEntityTypeConfiguration<OrderDetail>
 
         builder.HasOne(x => x.ProductDetail)
                .WithMany(p => p.OrderDetails)
-               .HasForeignKey(x => x.IMEI)
+               .HasForeignKey(x => x.ProductDetailID)
                .OnDelete(DeleteBehavior.NoAction);  // Thêm dòng này để không cho phép cascade delete/update
     }
 }

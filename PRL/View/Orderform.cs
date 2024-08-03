@@ -203,7 +203,7 @@ namespace PRL.View
                            where iph.Status == 1 // Điều kiện == 1
                            select new
                            {
-                               iph.IMEI,
+                               iph.Imeis,
                                iph.ProductID,
                                ProductDetailName = iph.Name,
                                d.DisplayName,
@@ -264,7 +264,7 @@ namespace PRL.View
                 {
                     u.OrderDetailID,
                     u.OrderID,
-                    u.IMEI,
+                    u.ProductDetailID,
                     u.ProductName,
                     u.Quantity,
                     u.UnitPrice,
@@ -315,7 +315,7 @@ namespace PRL.View
                 using (var context = new IphoneDbContext())
                 {
                     // Tìm sản phẩm bằng IMEI
-                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductID == productId || pd.IMEI == txtimei.Text);
+                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductID == productId || pd.ProductDetailID == Guid.Parse(txtimei.Text));
                     if (productDetail == null)
                     {
                         MessageBox.Show("Không tìm thấy sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -328,7 +328,7 @@ namespace PRL.View
                     {
                         OrderDetailID = Guid.NewGuid(),
                         OrderID = orderId,
-                        IMEI = txtimei.Text,
+                        ProductDetailID = Guid.Parse(txtimei.Text),
                         ProductName = txtSP.Text,
                         Quantity = 1,
                         UnitPrice = decimal.Parse(txtTG.Text),
@@ -644,7 +644,7 @@ namespace PRL.View
                 if (orderItem != null)
                 {
                     // Tìm sản phẩm bằng IMEI hoặc ProductID từ OrderDetail
-                    var productDetail = Context.ProductDetails.FirstOrDefault(pd => pd.IMEI == orderItem.IMEI);
+                    var productDetail = Context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == orderItem.ProductDetailID);
 
                     if (productDetail != null)
                     {
@@ -697,7 +697,7 @@ namespace PRL.View
                 {
 
                     oderItem.OrderDetailID = Guid.NewGuid();
-                    oderItem.IMEI = txtMSP.Text;
+                    oderItem.ProductDetailID = Guid.Parse(txtMSP.Text);
                     oderItem.OrderID = Guid.Parse(txtHDCT.Text);
                     oderItem.Quantity = Convert.ToInt32("1");
                     oderItem.ProductName = txtSP.Text;

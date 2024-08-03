@@ -84,17 +84,7 @@ namespace PRL.View
             cbSystem.DisplayMember = "OSName";
             cbSystem.ValueMember = "OSID";
 
-            var weight = context.Weights.ToList();
-            weight.Insert(0, new Weight { WeightID = Guid.Empty, WeightValue = -1 });
-            cbWeight.DataSource = weight;
-            cbWeight.DisplayMember = "WeightValue";
-            cbWeight.ValueMember = "WeightID";
 
-            var year = context.YearsOfManufacture.ToList();
-            year.Insert(0, new YearOfManufacture { YearID = Guid.Empty, Year = -1 });
-            cbYOM.DataSource = year;
-            cbYOM.DisplayMember = "Year";
-            cbYOM.ValueMember = "YearID";
 
             var m = context.Materials.ToList();
             m.Insert(0, new Material { MaterialID = Guid.Empty, MaterialName = "-- Chọn chất liệu --" });
@@ -156,7 +146,7 @@ namespace PRL.View
                     .Where(pd => pd.ProductID == _productID)
                     .Select(pd => new
                     {
-                        pd.IMEI,
+                        pd.ProductDetailID,
                         pd.Name,
                         Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                         RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
@@ -165,7 +155,7 @@ namespace PRL.View
                         GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID).GPUName,
                         ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID).ROMSize,
                         Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID).DisplayName,
-                        Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
+                        Weight = "",
                         Version = context.Versions.FirstOrDefault(s => s.VersionID == pd.VersionID).VersionName,
                         Rear = context.RearCameras.FirstOrDefault(s => s.RearCameraID == pd.RearCameraID).RearCameraDetails,
                         Camera_Selfie = context.CameraSelfies.FirstOrDefault(s => s.CameraSelfieID == pd.CameraSelfieID).CameraSelfieDetails,
@@ -173,7 +163,7 @@ namespace PRL.View
                         Battery = context.BatteryCapacities.FirstOrDefault(s => s.BatteryID == pd.BatteryID).Capacity,
                         Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                         Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
-                        Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
+                        Year_Of_Manufacture = "",
                         Sale = context.Sales.FirstOrDefault(s => s.SaleID == pd.SaleID).DiscountValue + "%"
                     })
                     .ToList();  
@@ -223,7 +213,7 @@ namespace PRL.View
 
             var detail = new ProductDetail
             {
-                IMEI = txtImei.Text,
+                ProductDetailID = Guid.Parse(txtImei.Text),
                 ProductID = _productID,
                 Name = txtName.Text, 
                 ColorID = (Guid)cbColor.SelectedValue,
@@ -238,11 +228,11 @@ namespace PRL.View
                 RearCameraID = (Guid)cbRear.SelectedValue,
                 VersionID = (Guid)cbVersion.SelectedValue,
                 OSID = (Guid)cbSystem.SelectedValue,
-                WeightID = (Guid)cbWeight.SelectedValue,
+                Weight = 0,
                 BatteryID = (Guid)cbBattery.SelectedValue,
                 OriginID = (Guid)cbOrigin.SelectedValue,
                 MaterialID = (Guid)cbMaterial.SelectedValue,
-                YearID = (Guid)cbYOM.SelectedValue,
+                Year = 2000,
             };
 
             context.ProductDetails.Add(detail);
@@ -260,7 +250,7 @@ namespace PRL.View
                 var imei = txtImei.Text;
 
                 // Tìm chi tiết sản phẩm dựa trên IMEI
-                var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
+                var detail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imei));
 
                 if (detail != null)
                 {
@@ -277,16 +267,16 @@ namespace PRL.View
                     var saleId = cbSale.SelectedValue != null ? (Guid)cbSale.SelectedValue : Guid.Empty;
                     var saleExists = context.Sales.Any(s => s.SaleID == saleId);
 
-                    detail.SaleID = saleExists ? saleId : new Guid("fda777df-d952-48c9-a916-ef6b90547878");
-                    detail.CameraSelfieID = (Guid)cbSelfie.SelectedValue;
-                    detail.RearCameraID = (Guid)cbRear.SelectedValue;
-                    detail.VersionID = (Guid)cbVersion.SelectedValue;
-                    detail.OSID = (Guid)cbSystem.SelectedValue;
-                    detail.WeightID = (Guid)cbWeight.SelectedValue;
-                    detail.BatteryID = (Guid)cbBattery.SelectedValue;
-                    detail.OriginID = (Guid)cbOrigin.SelectedValue;
-                    detail.MaterialID = (Guid)cbMaterial.SelectedValue;
-                    detail.YearID = (Guid)cbYOM.SelectedValue;
+                    //detail.SaleID = saleExists ? saleId : new Guid("fda777df-d952-48c9-a916-ef6b90547878");
+                    //detail.CameraSelfieID = (Guid)cbSelfie.SelectedValue;
+                    //detail.RearCameraID = (Guid)cbRear.SelectedValue;
+                    //detail.VersionID = (Guid)cbVersion.SelectedValue;
+                    //detail.OSID = (Guid)cbSystem.SelectedValue;
+                    //detail.WeightID = (Guid)cbWeight.SelectedValue;
+                    //detail.BatteryID = (Guid)cbBattery.SelectedValue;
+                    //detail.OriginID = (Guid)cbOrigin.SelectedValue;
+                    //detail.MaterialID = (Guid)cbMaterial.SelectedValue;
+                    //detail.YearID = (Guid)cbYOM.SelectedValue;
 
                     // Cập nhật chi tiết sản phẩm trong cơ sở dữ liệu
                     context.ProductDetails.Update(detail);
@@ -321,7 +311,7 @@ namespace PRL.View
                 if (!string.IsNullOrEmpty(imeiCell))
                 {
                     // Tìm chi tiết sản phẩm dựa trên IMEI
-                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imeiCell);
+                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imeiCell));
 
                     if (productDetail != null)
                     {
@@ -332,7 +322,7 @@ namespace PRL.View
                             context.ProductDetails.Update(productDetail);
                             context.SaveChanges();
                         }
-                        txtImei.Text = productDetail.IMEI;
+                        //txtImei.Text = productDetail.ProductDetailID;
                         txtImport.Text = productDetail.importPrice.ToString("0.00");
                         cbColor.SelectedValue = productDetail.ColorID;
                         cbRam.SelectedValue = productDetail.RAMID;
@@ -343,8 +333,8 @@ namespace PRL.View
                         cbRear.SelectedValue = productDetail.RearCameraID;
                         cbSelfie.SelectedValue = productDetail.CameraSelfieID;
                         cbVersion.SelectedValue = productDetail.VersionID;
-                        cbYOM.SelectedValue = productDetail.YearID;
-                        cbWeight.SelectedValue = productDetail.WeightID;
+                        //cbYOM.SelectedValue = productDetail.YearID;
+                        //cbWeight.SelectedValue = productDetail.WeightID;
                         cbOrigin.SelectedValue = productDetail.OriginID;
                         cbBattery.SelectedValue = productDetail.BatteryID;
                         cbDisplay.SelectedValue = productDetail.DisplayID;
@@ -373,7 +363,7 @@ namespace PRL.View
                 var imei = txtImei.Text;
 
                 // Tìm chi tiết sản phẩm dựa trên IMEI
-                var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
+                var detail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imei));
 
                 if (detail != null)
                 {
