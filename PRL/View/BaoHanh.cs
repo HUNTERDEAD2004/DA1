@@ -36,6 +36,8 @@ namespace PRL.View
             dgvbaohanh.Columns.Add("[IMEI]", "imei");
             dgvbaohanh.Columns.Add("[WarrantyStartDate]", "bắt đầu");
             dgvbaohanh.Columns.Add("[WarrantyEndDate]", "Kết thúc");
+            dgvbaohanh.Columns.Add("[CreatedBy ]", "Người thêm");
+            dgvbaohanh.Columns.Add("[UpdatedBy ]", "Người sửa");
 
             // Lấy dữ liệu từ cơ sở dữ liệu
             var baohanh = _dbContext.Warranties.ToList();
@@ -46,10 +48,10 @@ namespace PRL.View
             // Thêm dữ liệu vào DataGridView
             foreach (var bh in baohanh)
             {
-                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.IMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
+                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.IMEI, bh.WarrantyStartDate, bh.WarrantyEndDate, bh.CreatedBy, bh.UpdatedBy);
             }
         }
-        
+
         private void dgvbaohanh_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -60,9 +62,12 @@ namespace PRL.View
                 string imei = row.Cells[1].Value.ToString();
                 DateTime createAt = DateTime.Parse(row.Cells[2].Value.ToString());
                 DateTime updateAt = DateTime.Parse(row.Cells[3].Value.ToString());
-
+                string them = row.Cells[4].Value.ToString();
+                string sua = row.Cells[5].Value.ToString();
                 txtID.Text = id;
                 ime.Text = imei;
+                txtnguoithem.Text = them;
+                txtnguoisua.Text = sua;
             }
         }
         private void add_Click_1(object sender, EventArgs e)
@@ -78,12 +83,16 @@ namespace PRL.View
             {
                 return;
             }
+            string them = txtnguoithem.Text;
+            string sua = txtnguoisua.Text;
             Warranty bh = new Warranty()
             {
                 WarrantyID = Guid.NewGuid(),
                 IMEI = imei,
                 WarrantyStartDate = ngaytao,
                 WarrantyEndDate = ngaysua,
+                CreatedBy = them,
+                UpdatedBy = sua
             };
             _dbContext.Warranties.Add(bh);
             _dbContext.SaveChanges();
@@ -102,11 +111,16 @@ namespace PRL.View
                 }
 
                 Guid id = Guid.Parse(txtID.Text);
+                //Guid sp = Guid.Parse(idsp.Text);
                 Warranty bh = _dbContext.Warranties.FirstOrDefault(a => a.WarrantyID == id);
                 bh.IMEI = ime.Text;
                 bh.WarrantyStartDate = DateTime.Now;
                 bh.WarrantyEndDate = DateTime.Now;
-
+                bh.CreatedBy = txtnguoithem.Text;
+                bh.UpdatedBy = txtnguoisua.Text;
+                //ProductDetail pr = _dbContext.ProductDetails.FirstOrDefault(a => a.ProductID == sp);
+                //pr.Name = tensp.Text;
+                //pr.Status = radioButton1.Checked ? 0 : 1;
                 _dbContext.SaveChanges();
                 LoadData();
                 MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

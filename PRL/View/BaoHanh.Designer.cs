@@ -35,6 +35,9 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             btnClear = new GroupBox();
+            txtnguoithem = new TextBox();
+            label3 = new Label();
+            radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
             tensp = new TextBox();
             label7 = new Label();
@@ -58,7 +61,8 @@
             label1 = new Label();
             txtID = new TextBox();
             panel1 = new Panel();
-            radioButton2 = new RadioButton();
+            txtnguoisua = new TextBox();
+            label9 = new Label();
             btnClear.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvsanpham).BeginInit();
@@ -69,6 +73,10 @@
             // 
             // btnClear
             // 
+            btnClear.Controls.Add(txtnguoisua);
+            btnClear.Controls.Add(label9);
+            btnClear.Controls.Add(txtnguoithem);
+            btnClear.Controls.Add(label3);
             btnClear.Controls.Add(radioButton2);
             btnClear.Controls.Add(radioButton1);
             btnClear.Controls.Add(tensp);
@@ -100,10 +108,39 @@
             btnClear.TabIndex = 2;
             btnClear.TabStop = false;
             // 
+            // txtnguoithem
+            // 
+            txtnguoithem.Location = new Point(514, 157);
+            txtnguoithem.Margin = new Padding(3, 4, 3, 4);
+            txtnguoithem.Name = "txtnguoithem";
+            txtnguoithem.Size = new Size(220, 27);
+            txtnguoithem.TabIndex = 93;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Location = new Point(386, 162);
+            label3.Name = "label3";
+            label3.Size = new Size(89, 20);
+            label3.TabIndex = 92;
+            label3.Text = "Người thêm";
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(656, 116);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(117, 24);
+            radioButton2.TabIndex = 91;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "hết bảo hành";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
             // radioButton1
             // 
             radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(514, 164);
+            radioButton1.Location = new Point(516, 116);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(120, 24);
             radioButton1.TabIndex = 90;
@@ -152,7 +189,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(386, 162);
+            label6.Location = new Point(388, 114);
             label6.Name = "label6";
             label6.Size = new Size(75, 20);
             label6.TabIndex = 83;
@@ -301,7 +338,7 @@
             // ngaykt
             // 
             ngaykt.Format = DateTimePickerFormat.Short;
-            ngaykt.Location = new Point(514, 111);
+            ngaykt.Location = new Point(896, 57);
             ngaykt.Margin = new Padding(3, 4, 3, 4);
             ngaykt.Name = "ngaykt";
             ngaykt.Size = new Size(220, 27);
@@ -320,7 +357,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(386, 116);
+            label4.Location = new Point(768, 62);
             label4.Name = "label4";
             label4.Size = new Size(100, 20);
             label4.TabIndex = 67;
@@ -399,16 +436,23 @@
             panel1.Size = new Size(1477, 813);
             panel1.TabIndex = 1;
             // 
-            // radioButton2
+            // txtnguoisua
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(654, 164);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(117, 24);
-            radioButton2.TabIndex = 91;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "hết bảo hành";
-            radioButton2.UseVisualStyleBackColor = true;
+            txtnguoisua.Location = new Point(896, 157);
+            txtnguoisua.Margin = new Padding(3, 4, 3, 4);
+            txtnguoisua.Name = "txtnguoisua";
+            txtnguoisua.Size = new Size(220, 27);
+            txtnguoisua.TabIndex = 95;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.ForeColor = SystemColors.ButtonHighlight;
+            label9.Location = new Point(768, 162);
+            label9.Name = "label9";
+            label9.Size = new Size(78, 20);
+            label9.TabIndex = 94;
+            label9.Text = "Người sửa";
             // 
             // BaoHanh
             // 
@@ -456,5 +500,9 @@
         private Label label1;
         private RadioButton radioButton1;
         private RadioButton radioButton2;
+        private TextBox txtnguoithem;
+        private Label label3;
+        private TextBox txtnguoisua;
+        private Label label9;
     }
 }
