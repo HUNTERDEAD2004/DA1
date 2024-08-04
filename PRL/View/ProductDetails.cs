@@ -136,7 +136,7 @@ namespace PRL.View
             var product = context.Products.FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                product.Quantity = context.ProductDetails.Count(pd => pd.ProductID == productId);
+                product.Total = context.ProductDetails.Count(pd => pd.ProductID == productId);
                 context.SaveChanges();
             }
         }

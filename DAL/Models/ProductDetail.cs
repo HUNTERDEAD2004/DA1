@@ -14,6 +14,7 @@ namespace AppData.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal importPrice { get; set; }
+        public int Quantity { get; set; }
         public int Status { get; set; }
         public Guid ColorID { get; set; }
         public Guid RAMID { get; set; }

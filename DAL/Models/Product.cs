@@ -12,7 +12,7 @@ namespace AppData.Models
         [Key]
         public Guid ProductID { get; set; }
         public string ProductName { get; set; }
-        public int Quantity { get; set; }
+        public int Total { get; set; }
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

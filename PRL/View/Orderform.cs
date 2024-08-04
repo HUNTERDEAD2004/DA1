@@ -214,7 +214,7 @@ namespace PRL.View
                                ProductName = p.ProductName,
                                p.Description,
                                Color = co.ColorName,
-                               p.Quantity,
+                               p.Total,
                                SaleCode = s.SaleDescription,
                                SaleDescription = s.SaleDescription,
                                PercentDiscount = s.DiscountValue,
