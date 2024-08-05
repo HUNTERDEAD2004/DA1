@@ -14,6 +14,7 @@ namespace AppData.Models
     {
         [Key]
         public Guid OrderID { get; set; }
+        public DateTime OrderDate { get; set; }
         [ForeignKey("CustomerID")]
         public Guid? CustomerID { get; set; }
         [ForeignKey("AccountID")]
