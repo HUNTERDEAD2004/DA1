@@ -37,12 +37,15 @@ namespace PRL.View
             {
                 string username = txt_User.Text;
                 string ten = txtTen.Text;
+<<<<<<< HEAD
                 DateTime namSinh;
                 if (!DateTime.TryParse(namsinh.Text, out namSinh))
                 {
                     MessageBox.Show("Định dạng diem không hợp lệ. Vui lòng nhập một số hợp lệ.");
                     return;
                 }
+=======
+>>>>>>> An-DBNew
                 string email = txtEmail.Text;
                 string sdt = txtsdt.Text;
                 string GioiTinh = comboBox1.Text;
@@ -62,7 +65,11 @@ namespace PRL.View
                 {
                     Username = username,
                     Name = ten,
+<<<<<<< HEAD
                     BOD = namSinh,
+=======
+                    BOD = dtpNS.Value,
+>>>>>>> An-DBNew
                     Email = email,
                     PhoneNumber = sdt,
                     Gender = GioiTinh,
@@ -101,5 +108,15 @@ namespace PRL.View
         {
 
         }
+<<<<<<< HEAD
+=======
+
+        private void btn_QuenMatKhau_Click(object sender, EventArgs e)
+        {
+            QuenMK form = new QuenMK();
+            this.Hide();
+            form.Show();
+        }
+>>>>>>> An-DBNew
     }
 }

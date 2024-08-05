@@ -10,7 +10,11 @@ namespace AppData.Models
     public class Warranty
     {
         public Guid WarrantyID { get; set; }
+<<<<<<< HEAD
         public Guid IMEI { get; set; }
+=======
+        public Guid ProductDetailID { get; set; }
+>>>>>>> An-DBNew
         public DateTime WarrantyStartDate { get; set; }
         public DateTime WarrantyEndDate { get; set; }
 

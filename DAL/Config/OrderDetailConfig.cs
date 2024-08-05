@@ -24,9 +24,16 @@ namespace AppData.Config
                    .WithMany(o => o.OrderDetails)
                    .HasForeignKey(x => x.OrderID);
 
+<<<<<<< HEAD
             builder.HasOne(x => x.ProductDetail)
                    .WithMany(p => p.OrderDetails)
                    .HasForeignKey(x => x.IMEI);
         }
+=======
+        builder.HasOne(x => x.ProductDetail)
+               .WithMany(p => p.OrderDetails)
+               .HasForeignKey(x => x.ProductDetailID)
+               .OnDelete(DeleteBehavior.NoAction);  // Thêm dòng này để không cho phép cascade delete/update
+>>>>>>> An-DBNew
     }
 }

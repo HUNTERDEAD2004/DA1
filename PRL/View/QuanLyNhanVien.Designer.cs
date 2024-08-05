@@ -36,7 +36,20 @@
             groupBox2 = new GroupBox();
             dgvnhanvien = new DataGridView();
             groupBox1 = new GroupBox();
+<<<<<<< HEAD
             radioButton1 = new RadioButton();
+=======
+            cbQuyen = new ComboBox();
+            panel2 = new Panel();
+            label7 = new Label();
+            rbtnu = new RadioButton();
+            radioButton1 = new RadioButton();
+            rbtnam = new RadioButton();
+            dateNV = new DateTimePicker();
+            txtDC = new TextBox();
+            lable22 = new Label();
+            label12 = new Label();
+>>>>>>> An-DBNew
             rdb_NgungHD = new RadioButton();
             rdb_HoatDong = new RadioButton();
             label10 = new Label();
@@ -148,7 +161,16 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.SlateBlue;
+<<<<<<< HEAD
             groupBox1.Controls.Add(radioButton1);
+=======
+            groupBox1.Controls.Add(cbQuyen);
+            groupBox1.Controls.Add(panel2);
+            groupBox1.Controls.Add(dateNV);
+            groupBox1.Controls.Add(txtDC);
+            groupBox1.Controls.Add(lable22);
+            groupBox1.Controls.Add(label12);
+>>>>>>> An-DBNew
             groupBox1.Controls.Add(rdb_NgungHD);
             groupBox1.Controls.Add(rdb_HoatDong);
             groupBox1.Controls.Add(label10);
@@ -181,6 +203,50 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Quản lý nhân viên";
             // 
+<<<<<<< HEAD
+=======
+            // cbQuyen
+            // 
+            cbQuyen.FormattingEnabled = true;
+            cbQuyen.Items.AddRange(new object[] { "User", "Admin" });
+            cbQuyen.Location = new Point(572, 57);
+            cbQuyen.Name = "cbQuyen";
+            cbQuyen.Size = new Size(347, 23);
+            cbQuyen.TabIndex = 25;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(rbtnu);
+            panel2.Controls.Add(radioButton1);
+            panel2.Controls.Add(rbtnam);
+            panel2.Location = new Point(458, 190);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(477, 57);
+            panel2.TabIndex = 18;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(7, 22);
+            label7.Name = "label7";
+            label7.Size = new Size(52, 15);
+            label7.TabIndex = 6;
+            label7.Text = "Giới tính";
+            // 
+            // rbtnu
+            // 
+            rbtnu.AutoSize = true;
+            rbtnu.Location = new Point(116, 20);
+            rbtnu.Margin = new Padding(3, 2, 3, 2);
+            rbtnu.Name = "rbtnu";
+            rbtnu.Size = new Size(41, 19);
+            rbtnu.TabIndex = 10;
+            rbtnu.TabStop = true;
+            rbtnu.Text = "Nữ";
+            rbtnu.UseVisualStyleBackColor = true;
+            // 
+>>>>>>> An-DBNew
             // radioButton1
             // 
             radioButton1.AutoSize = true;
@@ -193,6 +259,55 @@
             radioButton1.Text = "Không xác định";
             radioButton1.UseVisualStyleBackColor = true;
             // 
+<<<<<<< HEAD
+=======
+            // rbtnam
+            // 
+            rbtnam.AutoSize = true;
+            rbtnam.Location = new Point(231, 20);
+            rbtnam.Margin = new Padding(3, 2, 3, 2);
+            rbtnam.Name = "rbtnam";
+            rbtnam.Size = new Size(51, 19);
+            rbtnam.TabIndex = 10;
+            rbtnam.TabStop = true;
+            rbtnam.Text = "Nam";
+            rbtnam.UseVisualStyleBackColor = true;
+            // 
+            // dateNV
+            // 
+            dateNV.Location = new Point(106, 131);
+            dateNV.Name = "dateNV";
+            dateNV.Size = new Size(311, 23);
+            dateNV.TabIndex = 24;
+            // 
+            // txtDC
+            // 
+            txtDC.Location = new Point(106, 95);
+            txtDC.Margin = new Padding(3, 2, 3, 2);
+            txtDC.Name = "txtDC";
+            txtDC.Size = new Size(312, 23);
+            txtDC.TabIndex = 23;
+            // 
+            // lable22
+            // 
+            lable22.AutoSize = true;
+            lable22.Location = new Point(16, 97);
+            lable22.Name = "lable22";
+            lable22.Size = new Size(43, 15);
+            lable22.TabIndex = 22;
+            lable22.Text = "Địa chỉ";
+            lable22.Click += label11_Click;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(463, 60);
+            label12.Name = "label12";
+            label12.Size = new Size(42, 15);
+            label12.TabIndex = 20;
+            label12.Text = "Quyền";
+            // 
+>>>>>>> An-DBNew
             // rdb_NgungHD
             // 
             rdb_NgungHD.AutoSize = true;
@@ -409,7 +524,7 @@
             panel1.Controls.Add(btnsua);
             panel1.Location = new Point(-67, -9);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1157, 654);
+            panel1.Size = new Size(1648, 902);
             panel1.TabIndex = 20;
             // 
             // QuanLyNhanVien
@@ -461,8 +576,22 @@
         private Label label10;
         private Panel panel1;
         private RadioButton radioButton1;
+<<<<<<< HEAD
         private TextBox textBox3;
         private TextBox textBox2;
         private TextBox textBox1;
+=======
+        private TextBox txtMK;
+        private TextBox txtTK;
+        private TextBox txtL;
+        private TextBox txtDC;
+        private Label lable22;
+        private Label label12;
+        private DateTimePicker dateNV;
+        private Panel panel2;
+        private Button bttCL;
+        private Button bttRL;
+        private ComboBox cbQuyen;
+>>>>>>> An-DBNew
     }
 }

@@ -15,7 +15,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
 using AppData.Models;
+<<<<<<< HEAD
 using System.Text.RegularExpressions;
+=======
+>>>>>>> An-DBNew
 
 namespace PRL.View
 {
@@ -122,7 +125,11 @@ namespace PRL.View
                 MessageBox.Show("Định dạng ngày sinh không hợp lệ. Vui lòng nhập một số hợp lệ.");
                 return;
             }
+<<<<<<< HEAD
             string emaill = txtemail.Text;
+=======
+            string email = txtemail.Text;
+>>>>>>> An-DBNew
             string diachi = txtdiachi.Text;
             int diem;
             if (int.TryParse(txtdiem.Text, out diem))
@@ -152,7 +159,11 @@ namespace PRL.View
                 CustomerID = Guid.NewGuid(),
                 CustomerName = name,
                 Age = tuoi,
+<<<<<<< HEAD
                 Email = emaill,
+=======
+                Email = email,
+>>>>>>> An-DBNew
                 Address = diachi,
                 Gender = gender,
                 PhoneNumber = sdt,
@@ -184,12 +195,16 @@ namespace PRL.View
                     MessageBox.Show("Lấp đầy khoảng trống đi nào", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+<<<<<<< HEAD
                 string emailRegex = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
                 if (!Regex.IsMatch(txtemail.Text, emailRegex))
                 {
                     MessageBox.Show("Sai email rồi", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+=======
+
+>>>>>>> An-DBNew
                 Guid id = Guid.Parse(txt_idkh.Text);
                 Customer cust = _dbContext.Customers.FirstOrDefault(a => a.CustomerID == id);
                 cust.CustomerName = txtten.Text;

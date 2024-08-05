@@ -20,6 +20,14 @@ namespace AppData.Config
 
             builder.Property(x => x.WarrantyEndDate)
                    .IsRequired();
+<<<<<<< HEAD
+=======
+
+            builder.HasOne(x => x.ProductDetail)
+               .WithMany(pd => pd.Warranties)
+               .HasForeignKey(x => x.ProductDetailID)
+               .OnDelete(DeleteBehavior.NoAction);
+>>>>>>> An-DBNew
         }
     }
 }

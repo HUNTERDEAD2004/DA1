@@ -11,7 +11,11 @@ namespace AppData.Models
 
         public Guid OrderID { get; set; }
 
+<<<<<<< HEAD
         public Guid IMEI { get; set; }
+=======
+        public Guid ProductDetailID { get; set; }
+>>>>>>> An-DBNew
 
         [StringLength(255)]
         public string ProductName { get; set; }

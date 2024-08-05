@@ -1,6 +1,10 @@
 ﻿using AppData.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.ApplicationServices;
+<<<<<<< HEAD
+=======
+using Microsoft.Win32;
+>>>>>>> An-DBNew
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,12 +28,17 @@ namespace PRL.View
 
         private void ForgotPassword_Click(object sender, EventArgs e)
         {
-
+            QuenMK form = new QuenMK();
+            this.Hide();
+            form.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
 
+=======
+>>>>>>> An-DBNew
             string username = textBox1.Text;
             string pass = textBox2.Text;
             try
@@ -37,9 +46,18 @@ namespace PRL.View
                 Account us = GetUser(username, pass);
                 if (us != null && CheckUser(us))
                 {
+<<<<<<< HEAD
                     MainForm form = new MainForm(username);
 
                     form.Tag = us; // Lưu trữ thông tin người dùng trong Tag
+=======
+                    MainForm form = new MainForm();
+
+                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\MyApp");
+                    key.SetValue("Username", username);
+                    key.SetValue("Role", us.Roles);
+                    key.Close();
+>>>>>>> An-DBNew
 
                     this.Hide();
                     form.Show();
@@ -57,6 +75,7 @@ namespace PRL.View
 
         bool CheckUser(Account user)
         {
+<<<<<<< HEAD
             return user != null; // Chỉ kiểm tra xem user có null hay không
         }
 
@@ -77,6 +96,41 @@ namespace PRL.View
                 checkBox1.BringToFront();
                 textBox2.PasswordChar = '*';
             }
+=======
+            return user != null; 
+        }
+
+
+        private Account GetUser(string username, string pass)
+        {
+            var user = dbContext.Accounts.FirstOrDefault(u => u.Username == username && u.Password == pass);
+            if (user != null)
+            {
+                user.Roles = GetRole(username); 
+            }
+            return user;
+        }
+
+
+        private string GetRole(string username)
+        {
+            var role = dbContext.Accounts.Where(r => r.Username == username).Select(r => r.Roles).FirstOrDefault();
+            return role;
+        }
+
+
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DangKy form = new DangKy();
+            this.Hide();
+            form.Show();
+>>>>>>> An-DBNew
         }
     }
 }

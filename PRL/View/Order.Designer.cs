@@ -57,6 +57,11 @@
             txtSP = new TextBox();
             panel1 = new Panel();
             btnSearch = new FontAwesome.Sharp.IconButton();
+<<<<<<< HEAD:PRL/View/Order.Designer.cs
+=======
+            txtTG = new TextBox();
+            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
+>>>>>>> An-DBNew:PRL/View/Orderform.Designer.cs
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDCT).BeginInit();
             groupBox1.SuspendLayout();
@@ -333,8 +338,29 @@
             panel1.BackColor = Color.SlateBlue;
             panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(label7);
+<<<<<<< HEAD:PRL/View/Order.Designer.cs
             panel1.ForeColor = SystemColors.ButtonHighlight;
             panel1.Location = new Point(-2, -3);
+=======
+            panel1.Controls.Add(txtGia);
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(bttXoa);
+            panel1.Controls.Add(txtSL);
+            panel1.Controls.Add(txtTK);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(RBCTT);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(bttCL);
+            panel1.Controls.Add(txtSZ);
+            panel1.Controls.Add(RBDTT);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(txtSP);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(bttSua);
+            panel1.ForeColor = SystemColors.ActiveCaptionText;
+            panel1.Location = new Point(-2, -6);
+>>>>>>> An-DBNew:PRL/View/Orderform.Designer.cs
             panel1.Name = "panel1";
             panel1.Size = new Size(1424, 917);
             panel1.TabIndex = 70;
@@ -351,7 +377,26 @@
             btnSearch.TabIndex = 56;
             btnSearch.UseVisualStyleBackColor = true;
             // 
+<<<<<<< HEAD:PRL/View/Order.Designer.cs
             // Order
+=======
+            // txtTG
+            // 
+            txtTG.Location = new Point(112, 329);
+            txtTG.Name = "txtTG";
+            txtTG.ReadOnly = true;
+            txtTG.Size = new Size(298, 23);
+            txtTG.TabIndex = 71;
+            // 
+            // sqlCommand1
+            // 
+            sqlCommand1.CommandTimeout = 30;
+            sqlCommand1.Connection = null;
+            sqlCommand1.Notification = null;
+            sqlCommand1.Transaction = null;
+            // 
+            // Orderform
+>>>>>>> An-DBNew:PRL/View/Orderform.Designer.cs
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -424,5 +469,23 @@
         private TextBox txtSP;
         private Panel panel1;
         private FontAwesome.Sharp.IconButton btnSearch;
+<<<<<<< HEAD:PRL/View/Order.Designer.cs
+=======
+        private Label label8;
+        private TextBox txtTG;
+        private TextBox txtimei;
+        private Label label11;
+        private Button bttHDT;
+        private Button bttCHD;
+        private TextBox txtHDHT;
+        private DataGridView dgvHD;
+        private Button bttCheck;
+        private Button bttHDCT;
+        private GroupBox groupBox3;
+        private Button bttRL;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private TextBox textBox1;
+        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
+>>>>>>> An-DBNew:PRL/View/Orderform.Designer.cs
     }
 }

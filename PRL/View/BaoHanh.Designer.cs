@@ -35,6 +35,7 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             btnClear = new GroupBox();
+<<<<<<< HEAD
             txtnguoithem = new TextBox();
             label3 = new Label();
             radioButton2 = new RadioButton();
@@ -44,6 +45,8 @@
             label8 = new Label();
             idsp = new TextBox();
             label6 = new Label();
+=======
+>>>>>>> An-DBNew
             groupBox2 = new GroupBox();
             dgvsanpham = new DataGridView();
             groupBox1 = new GroupBox();
@@ -61,8 +64,12 @@
             label1 = new Label();
             txtID = new TextBox();
             panel1 = new Panel();
+<<<<<<< HEAD
             txtnguoisua = new TextBox();
             label9 = new Label();
+=======
+            button1 = new Button();
+>>>>>>> An-DBNew
             btnClear.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvsanpham).BeginInit();
@@ -73,6 +80,7 @@
             // 
             // btnClear
             // 
+<<<<<<< HEAD
             btnClear.Controls.Add(txtnguoisua);
             btnClear.Controls.Add(label9);
             btnClear.Controls.Add(txtnguoithem);
@@ -84,6 +92,9 @@
             btnClear.Controls.Add(label8);
             btnClear.Controls.Add(idsp);
             btnClear.Controls.Add(label6);
+=======
+            btnClear.Controls.Add(button1);
+>>>>>>> An-DBNew
             btnClear.Controls.Add(groupBox2);
             btnClear.Controls.Add(groupBox1);
             btnClear.Controls.Add(btnUpdate);
@@ -100,6 +111,7 @@
             btnClear.Controls.Add(txtID);
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnClear.ForeColor = SystemColors.ActiveCaptionText;
+<<<<<<< HEAD
             btnClear.Location = new Point(10, 9);
             btnClear.Margin = new Padding(3, 4, 3, 4);
             btnClear.Name = "btnClear";
@@ -194,13 +206,29 @@
             label6.Size = new Size(75, 20);
             label6.TabIndex = 83;
             label6.Text = "Trạng thái";
+=======
+            btnClear.Location = new Point(9, 7);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(1250, 556);
+            btnClear.TabIndex = 2;
+            btnClear.TabStop = false;
+            btnClear.Text = "Bảo Hành";
+>>>>>>> An-DBNew
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dgvsanpham);
+<<<<<<< HEAD
             groupBox2.Location = new Point(565, 299);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(485, 293);
+=======
+            groupBox2.Location = new Point(494, 224);
+            groupBox2.Margin = new Padding(3, 2, 3, 2);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new Padding(3, 2, 3, 2);
+            groupBox2.Size = new Size(424, 220);
+>>>>>>> An-DBNew
             groupBox2.TabIndex = 81;
             groupBox2.TabStop = false;
             groupBox2.Text = "Sản phẩm";
@@ -224,8 +252,12 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvsanpham.DefaultCellStyle = dataGridViewCellStyle2;
+<<<<<<< HEAD
             dgvsanpham.Location = new Point(23, 27);
             dgvsanpham.Margin = new Padding(3, 4, 3, 4);
+=======
+            dgvsanpham.Location = new Point(20, 20);
+>>>>>>> An-DBNew
             dgvsanpham.Name = "dgvsanpham";
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Control;
@@ -237,16 +269,28 @@
             dgvsanpham.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvsanpham.RowHeadersWidth = 51;
             dgvsanpham.RowTemplate.Height = 25;
+<<<<<<< HEAD
             dgvsanpham.Size = new Size(438, 243);
+=======
+            dgvsanpham.Size = new Size(383, 182);
+>>>>>>> An-DBNew
             dgvsanpham.TabIndex = 69;
             dgvsanpham.CellContentClick += dgvsanpham_CellContentClick;
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(dgvbaohanh);
+<<<<<<< HEAD
             groupBox1.Location = new Point(47, 299);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(485, 293);
+=======
+            groupBox1.Location = new Point(41, 224);
+            groupBox1.Margin = new Padding(3, 2, 3, 2);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(3, 2, 3, 2);
+            groupBox1.Size = new Size(424, 220);
+>>>>>>> An-DBNew
             groupBox1.TabIndex = 80;
             groupBox1.TabStop = false;
             groupBox1.Text = "Bảo Hành";
@@ -270,8 +314,12 @@
             dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
             dgvbaohanh.DefaultCellStyle = dataGridViewCellStyle5;
+<<<<<<< HEAD
             dgvbaohanh.Location = new Point(23, 27);
             dgvbaohanh.Margin = new Padding(3, 4, 3, 4);
+=======
+            dgvbaohanh.Location = new Point(20, 20);
+>>>>>>> An-DBNew
             dgvbaohanh.Name = "dgvbaohanh";
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = SystemColors.Control;
@@ -283,7 +331,11 @@
             dgvbaohanh.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvbaohanh.RowHeadersWidth = 51;
             dgvbaohanh.RowTemplate.Height = 25;
+<<<<<<< HEAD
             dgvbaohanh.Size = new Size(438, 243);
+=======
+            dgvbaohanh.Size = new Size(383, 182);
+>>>>>>> An-DBNew
             dgvbaohanh.TabIndex = 69;
             dgvbaohanh.CellContentClick += dgvbaohanh_CellContentClick;
             // 
@@ -294,10 +346,16 @@
             btnUpdate.FlatAppearance.BorderSize = 2;
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.ForeColor = SystemColors.ActiveCaptionText;
+<<<<<<< HEAD
             btnUpdate.Location = new Point(381, 259);
             btnUpdate.Margin = new Padding(3, 4, 3, 4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(86, 33);
+=======
+            btnUpdate.Location = new Point(333, 157);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(75, 25);
+>>>>>>> An-DBNew
             btnUpdate.TabIndex = 79;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
@@ -310,12 +368,20 @@
             btnClean.FlatAppearance.BorderSize = 2;
             btnClean.FlatStyle = FlatStyle.Flat;
             btnClean.ForeColor = SystemColors.ActiveCaptionText;
+<<<<<<< HEAD
             btnClean.Location = new Point(500, 259);
             btnClean.Margin = new Padding(3, 4, 3, 4);
             btnClean.Name = "btnClean";
             btnClean.Size = new Size(86, 33);
             btnClean.TabIndex = 76;
             btnClean.Text = "Clear";
+=======
+            btnClean.Location = new Point(438, 157);
+            btnClean.Name = "btnClean";
+            btnClean.Size = new Size(75, 25);
+            btnClean.TabIndex = 76;
+            btnClean.Text = "Xóa";
+>>>>>>> An-DBNew
             btnClean.UseVisualStyleBackColor = false;
             btnClean.Click += btnClean_Click;
             // 
@@ -326,10 +392,16 @@
             add.FlatAppearance.BorderSize = 2;
             add.FlatStyle = FlatStyle.Flat;
             add.ForeColor = SystemColors.ActiveCaptionText;
+<<<<<<< HEAD
             add.Location = new Point(248, 259);
             add.Margin = new Padding(3, 4, 3, 4);
             add.Name = "add";
             add.Size = new Size(86, 33);
+=======
+            add.Location = new Point(217, 157);
+            add.Name = "add";
+            add.Size = new Size(75, 25);
+>>>>>>> An-DBNew
             add.TabIndex = 62;
             add.Text = "Add";
             add.UseVisualStyleBackColor = false;
@@ -338,28 +410,46 @@
             // ngaykt
             // 
             ngaykt.Format = DateTimePickerFormat.Short;
+<<<<<<< HEAD
             ngaykt.Location = new Point(896, 57);
             ngaykt.Margin = new Padding(3, 4, 3, 4);
             ngaykt.Name = "ngaykt";
             ngaykt.Size = new Size(220, 27);
+=======
+            ngaykt.Location = new Point(450, 83);
+            ngaykt.Name = "ngaykt";
+            ngaykt.Size = new Size(193, 23);
+>>>>>>> An-DBNew
             ngaykt.TabIndex = 74;
             // 
             // ngaybd
             // 
             ngaybd.Format = DateTimePickerFormat.Short;
+<<<<<<< HEAD
             ngaybd.Location = new Point(514, 52);
             ngaybd.Margin = new Padding(3, 4, 3, 4);
             ngaybd.Name = "ngaybd";
             ngaybd.Size = new Size(220, 27);
+=======
+            ngaybd.Location = new Point(450, 39);
+            ngaybd.Name = "ngaybd";
+            ngaybd.Size = new Size(193, 23);
+>>>>>>> An-DBNew
             ngaybd.TabIndex = 73;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ButtonHighlight;
+<<<<<<< HEAD
             label4.Location = new Point(768, 62);
             label4.Name = "label4";
             label4.Size = new Size(100, 20);
+=======
+            label4.Location = new Point(338, 87);
+            label4.Name = "label4";
+            label4.Size = new Size(81, 15);
+>>>>>>> An-DBNew
             label4.TabIndex = 67;
             label4.Text = "Ngày kết thúc";
             // 
@@ -367,9 +457,15 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.ButtonHighlight;
+<<<<<<< HEAD
             label5.Location = new Point(386, 57);
             label5.Name = "label5";
             label5.Size = new Size(99, 20);
+=======
+            label5.Location = new Point(338, 43);
+            label5.Name = "label5";
+            label5.Size = new Size(78, 15);
+>>>>>>> An-DBNew
             label5.TabIndex = 66;
             label5.Text = "Ngày bắt đầu";
             // 
@@ -381,10 +477,16 @@
             btnBack.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnBack.IconSize = 17;
             btnBack.ImageAlign = ContentAlignment.MiddleRight;
+<<<<<<< HEAD
             btnBack.Location = new Point(990, 851);
             btnBack.Margin = new Padding(3, 4, 3, 4);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(86, 31);
+=======
+            btnBack.Location = new Point(866, 638);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(75, 23);
+>>>>>>> An-DBNew
             btnBack.TabIndex = 15;
             btnBack.Text = "Back";
             btnBack.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -392,19 +494,31 @@
             // 
             // ime
             // 
+<<<<<<< HEAD
             ime.Location = new Point(147, 111);
             ime.Margin = new Padding(3, 4, 3, 4);
             ime.Name = "ime";
             ime.Size = new Size(220, 27);
+=======
+            ime.Location = new Point(129, 83);
+            ime.Name = "ime";
+            ime.Size = new Size(193, 23);
+>>>>>>> An-DBNew
             ime.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
+<<<<<<< HEAD
             label2.Location = new Point(19, 116);
             label2.Name = "label2";
             label2.Size = new Size(38, 20);
+=======
+            label2.Location = new Point(17, 87);
+            label2.Name = "label2";
+            label2.Size = new Size(30, 15);
+>>>>>>> An-DBNew
             label2.TabIndex = 3;
             label2.Text = "IMEI";
             // 
@@ -412,25 +526,39 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.ButtonHighlight;
+<<<<<<< HEAD
             label1.Location = new Point(19, 57);
             label1.Name = "label1";
             label1.Size = new Size(90, 20);
+=======
+            label1.Location = new Point(17, 43);
+            label1.Name = "label1";
+            label1.Size = new Size(71, 15);
+>>>>>>> An-DBNew
             label1.TabIndex = 1;
             label1.Text = "ID bảo hành";
             // 
             // txtID
             // 
+<<<<<<< HEAD
             txtID.Location = new Point(147, 52);
             txtID.Margin = new Padding(3, 4, 3, 4);
             txtID.Name = "txtID";
             txtID.ReadOnly = true;
             txtID.Size = new Size(220, 27);
+=======
+            txtID.Location = new Point(129, 39);
+            txtID.Name = "txtID";
+            txtID.ReadOnly = true;
+            txtID.Size = new Size(193, 23);
+>>>>>>> An-DBNew
             txtID.TabIndex = 0;
             // 
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
             panel1.Controls.Add(btnClear);
+<<<<<<< HEAD
             panel1.Location = new Point(2, 4);
             panel1.Name = "panel1";
             panel1.Size = new Size(1477, 813);
@@ -460,6 +588,36 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1339, 685);
             Controls.Add(panel1);
+=======
+            panel1.Location = new Point(2, 3);
+            panel1.Margin = new Padding(3, 2, 3, 2);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1292, 610);
+            panel1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.SkyBlue;
+            button1.FlatAppearance.BorderColor = Color.Lavender;
+            button1.FlatAppearance.BorderSize = 2;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.ActiveCaptionText;
+            button1.Location = new Point(539, 157);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 25);
+            button1.TabIndex = 82;
+            button1.Text = "Clear";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // BaoHanh
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1172, 514);
+            Controls.Add(panel1);
+            Margin = new Padding(3, 2, 3, 2);
+>>>>>>> An-DBNew
             Name = "BaoHanh";
             Text = "BaoHanh";
             Load += BaoHanh_Load;
@@ -486,11 +644,17 @@
         private Label label5;
         private FontAwesome.Sharp.IconButton btnBack;
         private TextBox ime;
+<<<<<<< HEAD
+=======
+        private Label label2;
+        private Label label1;
+>>>>>>> An-DBNew
         private TextBox txtID;
         private Panel panel1;
         private GroupBox groupBox2;
         private DataGridView dgvsanpham;
         private GroupBox groupBox1;
+<<<<<<< HEAD
         private TextBox tensp;
         private Label label7;
         private Label label8;
@@ -504,5 +668,8 @@
         private Label label3;
         private TextBox txtnguoisua;
         private Label label9;
+=======
+        private Button button1;
+>>>>>>> An-DBNew
     }
 }

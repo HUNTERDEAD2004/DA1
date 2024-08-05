@@ -31,6 +31,22 @@ namespace AppData.Config
             builder.HasOne(x => x.Account)
                    .WithMany()
                    .HasForeignKey(x => x.AccountID);
+<<<<<<< HEAD
+=======
+
+            builder.HasOne(x => x.Voucher)
+                   .WithMany(s => s.Orders)
+                   .HasForeignKey(x => x.IDVoucher)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(o => o.Report)
+                   .WithMany(r => r.Orders)
+                   .HasForeignKey(o => o.ReportID);
+
+            builder.HasMany(o => o.CancelledOrders)
+                   .WithOne(co => co.Order)
+                   .HasForeignKey(co => co.OrderID);
+>>>>>>> An-DBNew
         }
     }
 }
