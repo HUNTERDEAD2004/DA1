@@ -33,7 +33,7 @@ namespace PRL.View
         {
             var productDetails = context.ProductDetails.Select(pd => new
             {
-                pd.IMEI,
+                pd.ProductDetailID,
                 pd.Name,
                 Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                 RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
@@ -42,7 +42,7 @@ namespace PRL.View
                 GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID).GPUName,
                 ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID).ROMSize,
                 Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID).DisplayName,
-                Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
+                //Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
                 Version = context.Versions.FirstOrDefault(s => s.VersionID == pd.VersionID).VersionName,
                 Rear = context.RearCameras.FirstOrDefault(s => s.RearCameraID == pd.RearCameraID).RearCameraDetails,
                 Camera_Selfie = context.CameraSelfies.FirstOrDefault(s => s.CameraSelfieID == pd.CameraSelfieID).CameraSelfieDetails,
@@ -50,7 +50,7 @@ namespace PRL.View
                 Battery = context.BatteryCapacities.FirstOrDefault(s => s.BatteryID == pd.BatteryID).Capacity,
                 Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                 Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
-                Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
+                //Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
             })
             .ToList();
 
@@ -90,7 +90,7 @@ namespace PRL.View
             var productDetails = searchResults
                 .Select(pd => new
                 {
-                    pd.IMEI,
+                    //pd.IMEI,
                     pd.Name,
                     Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                     RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
@@ -99,7 +99,7 @@ namespace PRL.View
                     GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID).GPUName,
                     ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID).ROMSize,
                     Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID).DisplayName,
-                    Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
+                    //Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
                     Version = context.Versions.FirstOrDefault(s => s.VersionID == pd.VersionID).VersionName,
                     Rear = context.RearCameras.FirstOrDefault(s => s.RearCameraID == pd.RearCameraID).RearCameraDetails,
                     Camera_Selfie = context.CameraSelfies.FirstOrDefault(s => s.CameraSelfieID == pd.CameraSelfieID).CameraSelfieDetails,
@@ -107,7 +107,7 @@ namespace PRL.View
                     Battery = context.BatteryCapacities.FirstOrDefault(s => s.BatteryID == pd.BatteryID).Capacity,
                     Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                     Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
-                    Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
+                    //Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
                 })
                 .ToList();
 
@@ -151,7 +151,7 @@ namespace PRL.View
                 }
                 foreach (var productDetail in allProducts)
                 {
-                    var product = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == productDetail.IMEI);
+                    var product = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == productDetail.ProductDetailID);
                     if (product != null)
                     {
                         product.SaleID = selectedSaleID;
@@ -162,7 +162,7 @@ namespace PRL.View
             {
                 foreach (var productDetail in searchResults)
                 {
-                    var product = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == productDetail.IMEI);
+                    var product = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == productDetail.ProductDetailID);
                     if (product != null)
                     {
                         product.SaleID = selectedSaleID;

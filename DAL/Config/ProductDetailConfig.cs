@@ -8,7 +8,7 @@ namespace AppData.Config
     {
         public void Configure(EntityTypeBuilder<ProductDetail> builder)
         {
-            builder.HasKey(x => x.IMEI);
+            builder.HasKey(x => x.ProductDetailID);
 
             builder.Property(x => x.Name)
                    .IsRequired()
@@ -70,12 +70,7 @@ namespace AppData.Config
             builder.HasOne(x => x.OperatingSystem)
                   .WithMany(s => s.ProductDetails)
                   .HasForeignKey(x => x.OSID)
-                  .OnDelete(DeleteBehavior.NoAction); // Thay đổi hành vi xóa
-
-            builder.HasOne(x => x.YearOfManufacture)
-                  .WithMany(s => s.ProductDetails)
-                  .HasForeignKey(x => x.YearID)
-                  .OnDelete(DeleteBehavior.NoAction); // Thay đổi hành vi xóa     
+                  .OnDelete(DeleteBehavior.NoAction); // Thay đổi hành vi xóa   
 
            
         }

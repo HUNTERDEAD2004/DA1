@@ -18,7 +18,7 @@ namespace AppData.Config
 
             builder.HasOne(x => x.ProductDetail)
                .WithMany(pd => pd.Warranties)
-               .HasForeignKey(x => x.IMEI)
+               .HasForeignKey(x => x.ProductDetailID)
                .OnDelete(DeleteBehavior.NoAction);
         }
     }
