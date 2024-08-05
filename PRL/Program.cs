@@ -22,7 +22,7 @@ namespace PRL
 
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new CPU());
+            Application.Run(new Login());
         }
 
     }

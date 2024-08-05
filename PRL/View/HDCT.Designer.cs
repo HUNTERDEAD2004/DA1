@@ -46,7 +46,7 @@
             button4 = new Button();
             button2 = new Button();
             label5 = new Label();
-            txtTT = new TextBox();
+            txtVC = new TextBox();
             label4 = new Label();
             txtSL = new TextBox();
             label6 = new Label();
@@ -54,6 +54,12 @@
             groupBox4 = new GroupBox();
             lab32 = new Label();
             txtMHD = new TextBox();
+            label2 = new Label();
+            txtTTVC = new TextBox();
+            label7 = new Label();
+            TxtTT = new TextBox();
+            label8 = new Label();
+            txtVCG = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvKH).BeginInit();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).BeginInit();
@@ -65,7 +71,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(745, 303);
+            label3.Location = new Point(747, 342);
             label3.Name = "label3";
             label3.Size = new Size(56, 15);
             label3.TabIndex = 86;
@@ -73,14 +79,14 @@
             // 
             // txtTKH
             // 
-            txtTKH.Location = new Point(845, 300);
+            txtTKH.Location = new Point(847, 339);
             txtTKH.Name = "txtTKH";
             txtTKH.Size = new Size(340, 23);
             txtTKH.TabIndex = 85;
             // 
             // button6
             // 
-            button6.Location = new Point(1191, 300);
+            button6.Location = new Point(1193, 339);
             button6.Name = "button6";
             button6.Size = new Size(39, 23);
             button6.TabIndex = 84;
@@ -103,7 +109,7 @@
             // ss
             // 
             ss.AutoSize = true;
-            ss.Location = new Point(750, 181);
+            ss.Location = new Point(750, 220);
             ss.Name = "ss";
             ss.Size = new Size(90, 15);
             ss.TabIndex = 83;
@@ -112,7 +118,7 @@
             // 
             // txtMKH
             // 
-            txtMKH.Location = new Point(853, 178);
+            txtMKH.Location = new Point(853, 217);
             txtMKH.Name = "txtMKH";
             txtMKH.Size = new Size(340, 23);
             txtMKH.TabIndex = 82;
@@ -130,6 +136,7 @@
             // 
             txtMNV.Location = new Point(854, 60);
             txtMNV.Name = "txtMNV";
+            txtMNV.ReadOnly = true;
             txtMNV.Size = new Size(340, 23);
             txtMNV.TabIndex = 76;
             // 
@@ -137,7 +144,7 @@
             // 
             groupBox2.Controls.Add(groupBox3);
             groupBox2.Controls.Add(dgvHDTT);
-            groupBox2.Location = new Point(12, 328);
+            groupBox2.Location = new Point(12, 368);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(708, 285);
             groupBox2.TabIndex = 74;
@@ -193,7 +200,7 @@
             // 
             // bttBack
             // 
-            bttBack.Location = new Point(1163, 619);
+            bttBack.Location = new Point(1163, 659);
             bttBack.Name = "bttBack";
             bttBack.Size = new Size(75, 23);
             bttBack.TabIndex = 72;
@@ -203,7 +210,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(845, 619);
+            button3.Location = new Point(845, 659);
             button3.Name = "button3";
             button3.Size = new Size(75, 23);
             button3.TabIndex = 71;
@@ -212,7 +219,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(753, 619);
+            button4.Location = new Point(753, 659);
             button4.Name = "button4";
             button4.Size = new Size(75, 23);
             button4.TabIndex = 70;
@@ -221,7 +228,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(956, 246);
+            button2.Location = new Point(958, 285);
             button2.Name = "button2";
             button2.Size = new Size(104, 48);
             button2.TabIndex = 69;
@@ -234,16 +241,16 @@
             label5.AutoSize = true;
             label5.Location = new Point(750, 143);
             label5.Name = "label5";
-            label5.Size = new Size(57, 15);
+            label5.Size = new Size(55, 15);
             label5.TabIndex = 67;
-            label5.Text = "Tổng tiền";
+            label5.Text = "Vouchers";
             // 
-            // txtTT
+            // txtVC
             // 
-            txtTT.Location = new Point(854, 140);
-            txtTT.Name = "txtTT";
-            txtTT.Size = new Size(340, 23);
-            txtTT.TabIndex = 66;
+            txtVC.Location = new Point(854, 140);
+            txtVC.Name = "txtVC";
+            txtVC.Size = new Size(139, 23);
+            txtVC.TabIndex = 66;
             // 
             // label4
             // 
@@ -258,13 +265,13 @@
             // 
             txtSL.Location = new Point(854, 99);
             txtSL.Name = "txtSL";
-            txtSL.Size = new Size(340, 23);
+            txtSL.Size = new Size(139, 23);
             txtSL.TabIndex = 64;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(750, 220);
+            label6.Location = new Point(750, 259);
             label6.Name = "label6";
             label6.Size = new Size(26, 15);
             label6.TabIndex = 88;
@@ -272,7 +279,7 @@
             // 
             // txtSDT
             // 
-            txtSDT.Location = new Point(854, 217);
+            txtSDT.Location = new Point(854, 256);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(340, 23);
             txtSDT.TabIndex = 87;
@@ -280,7 +287,7 @@
             // groupBox4
             // 
             groupBox4.Controls.Add(dgvKH);
-            groupBox4.Location = new Point(737, 328);
+            groupBox4.Location = new Point(737, 368);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(514, 285);
             groupBox4.TabIndex = 89;
@@ -303,11 +310,65 @@
             txtMHD.Size = new Size(340, 23);
             txtMHD.TabIndex = 90;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(749, 181);
+            label2.Name = "label2";
+            label2.Size = new Size(57, 15);
+            label2.TabIndex = 93;
+            label2.Text = "Tổng tiền";
+            // 
+            // txtTTVC
+            // 
+            txtTTVC.Location = new Point(853, 178);
+            txtTTVC.Name = "txtTTVC";
+            txtTTVC.Size = new Size(340, 23);
+            txtTTVC.TabIndex = 92;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(1015, 102);
+            label7.Name = "label7";
+            label7.Size = new Size(34, 15);
+            label7.TabIndex = 95;
+            label7.Text = "Tổng";
+            // 
+            // TxtTT
+            // 
+            TxtTT.Location = new Point(1055, 99);
+            TxtTT.Name = "TxtTT";
+            TxtTT.Size = new Size(139, 23);
+            TxtTT.TabIndex = 94;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(1014, 148);
+            label8.Name = "label8";
+            label8.Size = new Size(35, 15);
+            label8.TabIndex = 97;
+            label8.Text = "Giảm";
+            // 
+            // txtVCG
+            // 
+            txtVCG.Location = new Point(1055, 140);
+            txtVCG.Name = "txtVCG";
+            txtVCG.Size = new Size(139, 23);
+            txtVCG.TabIndex = 96;
+            // 
             // HDCT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1263, 659);
+            ClientSize = new Size(1263, 694);
+            Controls.Add(label8);
+            Controls.Add(txtVCG);
+            Controls.Add(label7);
+            Controls.Add(TxtTT);
+            Controls.Add(label2);
+            Controls.Add(txtTTVC);
             Controls.Add(lab32);
             Controls.Add(txtMHD);
             Controls.Add(groupBox4);
@@ -327,7 +388,7 @@
             Controls.Add(button4);
             Controls.Add(button2);
             Controls.Add(label5);
-            Controls.Add(txtTT);
+            Controls.Add(txtVC);
             Controls.Add(label4);
             Controls.Add(txtSL);
             Name = "HDCT";
@@ -362,7 +423,7 @@
         private Button button4;
         private Button button2;
         private Label label5;
-        private TextBox txtTT;
+        private TextBox txtVC;
         private Label label4;
         private TextBox txtSL;
         private Label label6;
@@ -371,5 +432,11 @@
         private GroupBox groupBox4;
         private Label lab32;
         private TextBox txtMHD;
+        private Label label2;
+        private TextBox txtTTVC;
+        private Label label7;
+        private TextBox TxtTT;
+        private Label label8;
+        private TextBox txtVCG;
     }
 }

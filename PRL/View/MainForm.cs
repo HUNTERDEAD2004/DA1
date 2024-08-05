@@ -1,4 +1,7 @@
 ﻿using FontAwesome.Sharp;
+using Microsoft.Win32;
+using System.Data;
+using System.Xml.Linq;
 
 namespace PRL.View
 {
@@ -59,6 +62,10 @@ namespace PRL.View
             leftborderBtn = new Panel();
             leftborderBtn.Size = new Size(7, 60);
             Menu.Controls.Add(leftborderBtn);
+            btnLogout.Anchor = AnchorStyles.Right;
+            label2.Anchor = AnchorStyles.Right;
+            panelChange.Dock = DockStyle.Fill;
+            panelChange.Anchor = AnchorStyles.Left;
         }
         public void Reset()
         {
@@ -78,6 +85,7 @@ namespace PRL.View
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
+            panelChange.Dock = DockStyle.Fill;
             panelChange.Controls.Clear();
             panelChange.Controls.Add(form);
             panelChange.Tag = form;
@@ -92,14 +100,43 @@ namespace PRL.View
 
         private void btnProduct_Click_1(object sender, EventArgs e)
         {
-            ActivateButton(sender, hover.color1);
-            OpenForm(new Products());
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var role = key.GetValue("Role").ToString();
+                key.Close();
+
+                if (role == "admin")
+                {
+                    ActivateButton(sender, hover.color1);
+                    OpenForm(new Products());
+                }
+                else if (role == "user")
+                {
+                    MessageBox.Show("Cút");
+                }
+            }
+            
         }
 
         private void btnAccount_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, hover.color2);
-            OpenForm(new QuanLyNhanVien());
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var role = key.GetValue("Role").ToString();
+                key.Close();
+
+                if (role == "admin")
+                {
+                    ActivateButton(sender, hover.color2);
+                    OpenForm(new QuanLyNhanVien());
+                } else if (role == "user")
+                {
+                    MessageBox.Show("Cút");
+                }
+            }
+            
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
@@ -114,6 +151,7 @@ namespace PRL.View
         private void btnCustomer_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, hover.color4);
+            OpenForm(new KhachHang());
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -140,6 +178,13 @@ namespace PRL.View
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var name = key.GetValue("Username").ToString();
+                label2.Text = ($"Xin Chào: {name}");
+                key.Close();
+            }
 
         }
     }

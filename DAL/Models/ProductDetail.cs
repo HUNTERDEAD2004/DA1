@@ -8,23 +8,25 @@ namespace AppData.Models
     public class ProductDetail
     {
         [Key]
-        public string IMEI { get; set; }
+        public Guid ProductDetailID { get; set; }
         public Guid ProductID { get; set; }
         public Guid? IDVoucher { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal importPrice { get; set; }
+        public int Quantity { get; set; }
+        public int Status { get; set; }
         public Guid ColorID { get; set; }
         public Guid RAMID { get; set; }
         public Guid CPUID { get; set; }
         public Guid GPUID { get; set; }
         public Guid ROMID { get; set; }
         public Guid DisplayID { get; set; }
-        public Guid SaleID { get; set; }
+        public Guid? SaleID { get; set; }
         public Guid OSID { get; set; }
         public Guid BatteryID { get; set; }
-        public Guid WeightID { get; set; }
-        public Guid YearID { get; set; }
+        public int Weight { get; set; }
+        public int Year { get; set; }
         public Guid MaterialID { get; set; }
         public Guid OriginID { get; set; }
         public Guid VersionID { get; set; }
@@ -43,8 +45,6 @@ namespace AppData.Models
         public Voucher Voucher { get; set; }
         public OperatingSystems OperatingSystem { get; set; }
         public BatteryCapacity BatteryCapacity { get; set; }
-        public Weight Weight { get; set; }
-        public YearOfManufacture YearOfManufacture { get; set; }
         public Material Material { get; set; }
         public Origin Origin { get; set; }
         public Versions Version { get; set; }
@@ -53,5 +53,6 @@ namespace AppData.Models
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public ICollection<Warranty> Warranties { get; set; }
+        public ICollection<IMEI> Imeis { get; set; }
     }
 }
