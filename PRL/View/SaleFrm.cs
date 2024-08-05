@@ -137,41 +137,51 @@ namespace PRL.View
         private void btnUse_Click(object sender, EventArgs e)
         {
             // Lấy giá trị SaleID từ ComboBox
-            Guid selectedSaleID = (Guid)cbSale.SelectedValue;
-
-            // Nếu searchResults null hoặc không có giá trị, lấy toàn bộ sản phẩm từ DataGridView
-            if (searchResults == null || searchResults.Count == 0)
+            try
             {
-                var allProducts = dgvSPCT.DataSource as List<ProductDetail>;
+                Guid selectedSaleID = (Guid)cbSale.SelectedValue;
 
-                if (allProducts == null || allProducts.Count == 0)
+                // Nếu searchResults null hoặc không có giá trị, lấy toàn bộ sản phẩm từ DataGridView
+                if (searchResults == null || searchResults.Count == 0)
                 {
-                    MessageBox.Show("Không có sản phẩm nào để áp dụng mã sale.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                foreach (var productDetail in allProducts)
-                {
-                    var product = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == productDetail.IMEI);
-                    if (product != null)
+                    var allProducts = dgvSPCT.DataSource as List<ProductDetail>;
+
+                    if (allProducts == null || allProducts.Count == 0)
                     {
-                        product.SaleID = selectedSaleID;
+                        MessageBox.Show("Không có sản phẩm nào để áp dụng mã sale.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    foreach (var productDetail in allProducts)
+                    {
+                        var product = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == productDetail.IMEI);
+                        if (product != null)
+                        {
+                            product.SaleID = selectedSaleID;
+                        }
                     }
                 }
-            }
-            else
-            {
-                foreach (var productDetail in searchResults)
+                else
                 {
-                    var product = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == productDetail.IMEI);
-                    if (product != null)
+                    foreach (var productDetail in searchResults)
                     {
-                        product.SaleID = selectedSaleID;
+                        var product = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == productDetail.IMEI);
+                        if (product != null)
+                        {
+                            product.SaleID = selectedSaleID;
+                        }
                     }
                 }
-            }
-            context.SaveChanges();
+                context.SaveChanges();
 
-            MessageBox.Show("Đã áp dụng mã sale cho các sản phẩm tìm thấy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đã áp dụng mã sale cho các sản phẩm tìm thấy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            
         }
         public void LoadSales()
         {

@@ -29,14 +29,6 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            label4 = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            RamSizeTxt = new TextBox();
-            RamTypeTxt = new TextBox();
-            RamIdTxt = new TextBox();
-            groupBox2 = new GroupBox();
-            DgvRAMShow = new DataGridView();
             label7 = new Label();
             label6 = new Label();
             label9 = new Label();
@@ -50,6 +42,14 @@
             BtnDelete = new Button();
             BtnUpdate = new Button();
             BtnAdd = new Button();
+            label4 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            RamSizeTxt = new TextBox();
+            RamTypeTxt = new TextBox();
+            RamIdTxt = new TextBox();
+            groupBox2 = new GroupBox();
+            DgvRAMShow = new DataGridView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvRAMShow).BeginInit();
@@ -84,78 +84,6 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "RAM";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(12, 125);
-            label4.Name = "label4";
-            label4.Size = new Size(55, 15);
-            label4.TabIndex = 17;
-            label4.Text = "RamType";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(16, 194);
-            label2.Name = "label2";
-            label2.Size = new Size(51, 15);
-            label2.TabIndex = 15;
-            label2.Text = "RamSize";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(26, 54);
-            label1.Name = "label1";
-            label1.Size = new Size(41, 15);
-            label1.TabIndex = 14;
-            label1.Text = "RamId";
-            // 
-            // RamSizeTxt
-            // 
-            RamSizeTxt.Location = new Point(73, 191);
-            RamSizeTxt.Name = "RamSizeTxt";
-            RamSizeTxt.Size = new Size(274, 23);
-            RamSizeTxt.TabIndex = 11;
-            // 
-            // RamTypeTxt
-            // 
-            RamTypeTxt.Location = new Point(73, 122);
-            RamTypeTxt.Name = "RamTypeTxt";
-            RamTypeTxt.Size = new Size(274, 23);
-            RamTypeTxt.TabIndex = 8;
-            // 
-            // RamIdTxt
-            // 
-            RamIdTxt.Location = new Point(73, 54);
-            RamIdTxt.Name = "RamIdTxt";
-            RamIdTxt.Size = new Size(274, 23);
-            RamIdTxt.TabIndex = 7;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(DgvRAMShow);
-            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-            groupBox2.Location = new Point(12, 250);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1161, 322);
-            groupBox2.TabIndex = 20;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Hiển thị";
-            // 
-            // DgvRAMShow
-            // 
-            DgvRAMShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgvRAMShow.Location = new Point(6, 22);
-            DgvRAMShow.Name = "DgvRAMShow";
-            DgvRAMShow.RowTemplate.Height = 25;
-            DgvRAMShow.Size = new Size(1149, 294);
-            DgvRAMShow.TabIndex = 0;
-            DgvRAMShow.CellContentClick += DgvRAMShow_CellContentClick;
             // 
             // label7
             // 
@@ -276,6 +204,79 @@
             BtnAdd.TabIndex = 39;
             BtnAdd.Text = "Add";
             BtnAdd.UseVisualStyleBackColor = true;
+            BtnAdd.Click += BtnAdd_Click_1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(12, 125);
+            label4.Name = "label4";
+            label4.Size = new Size(55, 15);
+            label4.TabIndex = 17;
+            label4.Text = "RamType";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(16, 194);
+            label2.Name = "label2";
+            label2.Size = new Size(51, 15);
+            label2.TabIndex = 15;
+            label2.Text = "RamSize";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.Control;
+            label1.Location = new Point(26, 54);
+            label1.Name = "label1";
+            label1.Size = new Size(41, 15);
+            label1.TabIndex = 14;
+            label1.Text = "RamId";
+            // 
+            // RamSizeTxt
+            // 
+            RamSizeTxt.Location = new Point(73, 191);
+            RamSizeTxt.Name = "RamSizeTxt";
+            RamSizeTxt.Size = new Size(274, 23);
+            RamSizeTxt.TabIndex = 11;
+            // 
+            // RamTypeTxt
+            // 
+            RamTypeTxt.Location = new Point(73, 122);
+            RamTypeTxt.Name = "RamTypeTxt";
+            RamTypeTxt.Size = new Size(274, 23);
+            RamTypeTxt.TabIndex = 8;
+            // 
+            // RamIdTxt
+            // 
+            RamIdTxt.Location = new Point(73, 54);
+            RamIdTxt.Name = "RamIdTxt";
+            RamIdTxt.Size = new Size(274, 23);
+            RamIdTxt.TabIndex = 7;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(DgvRAMShow);
+            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
+            groupBox2.Location = new Point(12, 250);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(1161, 322);
+            groupBox2.TabIndex = 20;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Hiển thị";
+            // 
+            // DgvRAMShow
+            // 
+            DgvRAMShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvRAMShow.Location = new Point(6, 22);
+            DgvRAMShow.Name = "DgvRAMShow";
+            DgvRAMShow.RowTemplate.Height = 25;
+            DgvRAMShow.Size = new Size(1149, 294);
+            DgvRAMShow.TabIndex = 0;
+            DgvRAMShow.CellContentClick += DgvRAMShow_CellContentClick;
             // 
             // RAM
             // 

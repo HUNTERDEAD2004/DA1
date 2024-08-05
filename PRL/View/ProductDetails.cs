@@ -243,6 +243,7 @@ namespace PRL.View
                 OriginID = (Guid)cbOrigin.SelectedValue,
                 MaterialID = (Guid)cbMaterial.SelectedValue,
                 YearID = (Guid)cbYOM.SelectedValue,
+                Status = 1,
             };
 
             context.ProductDetails.Add(detail);

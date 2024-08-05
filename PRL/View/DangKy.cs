@@ -37,12 +37,14 @@ namespace PRL.View
             {
                 string username = txt_User.Text;
                 string ten = txtTen.Text;
+                string dc = txtDiaChi.Text;
                 string email = txtEmail.Text;
                 string sdt = txtsdt.Text;
                 string GioiTinh = comboBox1.Text;
                 string Password = txt_Password.Text;
                 if (string.IsNullOrEmpty(username) ||
                     string.IsNullOrEmpty(ten) ||
+                    string.IsNullOrEmpty(dc) ||
                     string.IsNullOrEmpty(email) ||
                     string.IsNullOrEmpty(sdt) ||
                     string.IsNullOrEmpty(GioiTinh) ||
@@ -56,11 +58,18 @@ namespace PRL.View
                 {
                     Username = username,
                     Name = ten,
+                    Adress = dc,
                     BOD = dtpNS.Value,
                     Email = email,
                     PhoneNumber = sdt,
                     Gender = GioiTinh,
+                    Wage = 0,
                     Password = Password,
+                    Roles = "user",
+                    CreateAt = DateTime.Now,
+                    UpdateAt = DateTime.Now,
+                    CreateBy = "admin",
+                    UpdateBy = "admin",
                 };
                 context.Accounts.Add(user);
                 context.SaveChanges();

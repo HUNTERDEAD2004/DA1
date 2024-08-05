@@ -100,7 +100,6 @@
             // 
             txtImei.Location = new Point(109, 45);
             txtImei.Name = "txtImei";
-            txtImei.ReadOnly = true;
             txtImei.Size = new Size(163, 23);
             txtImei.TabIndex = 0;
             // 

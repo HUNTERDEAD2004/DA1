@@ -16,7 +16,7 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB6;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -148,20 +148,28 @@ namespace PRL.View
 
         private void dgvHDC_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvHDC.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            try
             {
-                dgvHDC.CurrentRow.Selected = true;
-                txtMHD.Text = dgvHDC.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
-                txtSL.Text = dgvHDC.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
-                TxtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
-                VC();
+                if (dgvHDC.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    dgvHDC.CurrentRow.Selected = true;
+                    txtMHD.Text = dgvHDC.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
+                    txtSL.Text = dgvHDC.Rows[e.RowIndex].Cells["TotalAmount"].Value.ToString();
+                    TxtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                    VC();
 
-                decimal discount = Convert.ToDecimal(txtVCG.Text);
-                decimal price = decimal.Parse(TxtTT.Text);
+                    decimal discount = Convert.ToDecimal(txtVCG.Text);
+                    decimal price = decimal.Parse(TxtTT.Text);
 
-                decimal totalPrice = price * (1 - (discount / 100));
+                    decimal totalPrice = price * (1 - (discount / 100));
 
-                txtTTVC.Text = totalPrice.ToString("F2");
+                    txtTTVC.Text = totalPrice.ToString("F2");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
@@ -251,7 +259,7 @@ namespace PRL.View
                     {
                         string sdt = txtSDT.Text.Trim();
                         Guid? customerId = null;
-                        int totalPoints = int.Parse(txtSL.Text); // Số lượng của hóa đơn được sử dụng làm điểm cộng
+                        //int totalPoints = int.Parse(txtSL.Text); // Số lượng của hóa đơn được sử dụng làm điểm cộng
 
                         using (var context = new IphoneDbContext())
                         {
@@ -270,7 +278,7 @@ namespace PRL.View
                                         Email = "fakeemail@example.com",
                                         PhoneNumber = sdt,
                                         Gender = "N/A",
-                                        Point = totalPoints, // Điểm khởi tạo bằng số lượng của hóa đơn
+                                        Point = 0, // Điểm khởi tạo bằng số lượng của hóa đơn
                                         Address = "abc",
                                         CreatedAt = DateTime.Now,
                                         UpdatedAt = DateTime.Now,
@@ -283,7 +291,7 @@ namespace PRL.View
                                 else
                                 {
                                     // Cộng điểm cho khách hàng hiện có
-                                    customer.Point += totalPoints;
+                                    customer.Point += 0;
                                     context.SaveChanges();
                                 }
                                 customerId = customer.CustomerID;
@@ -303,7 +311,7 @@ namespace PRL.View
                         UpdatedBy = @UpdatedBy
                     WHERE OrderID = @OrderID";
 
-                            using (SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True"))
+                            using (SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB6;Trusted_Connection=True;TrustServerCertificate=True"))
                             {
                                 SqlCommand cmd = new SqlCommand(sql, conn);
                                 cmd.Parameters.AddWithValue("@OrderID", orderId);

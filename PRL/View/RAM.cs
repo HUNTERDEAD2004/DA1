@@ -90,36 +90,7 @@ namespace PRL.View
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            var CreateRam = MessageBox.Show("Bạn có muốn tạo thêm RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (CreateRam == DialogResult.Yes)
-            {
-                if (string.IsNullOrWhiteSpace(RamTypeTxt.Text) || string.IsNullOrWhiteSpace(RamSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
-                {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Kết thúc phương thức nếu có trường rỗng
-                }
-
-                var newRam = new Ram
-                {
-                    RAMID = Guid.NewGuid(), // Tạo ID mới
-                    RAMSize = RamSizeTxt.Text,
-                    RAMType = RamTypeTxt.Text,
-                    CreatedAt = DateTime.Now,
-                    CreatedBy = CBTxt.Text,
-                    UpdatedAt = DateTime.Now,
-                    UpdatedBy = UBTxt.Text
-                };
-
-                // Thêm vào cơ sở dữ liệu
-                _db.RAMs.Add(newRam);
-                _db.SaveChanges();
-                MessageBox.Show("Tạo Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadData();
-            }
-            else
-            {
-                MessageBox.Show("Tạo Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -224,6 +195,40 @@ namespace PRL.View
             }).ToList();
 
             DgvRAMShow.DataSource = filteredData;
+        }
+
+        private void BtnAdd_Click_1(object sender, EventArgs e)
+        {
+            var CreateRam = MessageBox.Show("Bạn có muốn tạo thêm RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (CreateRam == DialogResult.Yes)
+            {
+                if (string.IsNullOrWhiteSpace(RamTypeTxt.Text) || string.IsNullOrWhiteSpace(RamSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Kết thúc phương thức nếu có trường rỗng
+                }
+
+                var newRam = new Ram
+                {
+                    RAMID = Guid.NewGuid(), // Tạo ID mới
+                    RAMSize = RamSizeTxt.Text,
+                    RAMType = RamTypeTxt.Text,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = CBTxt.Text,
+                    UpdatedAt = DateTime.Now,
+                    UpdatedBy = UBTxt.Text
+                };
+
+                // Thêm vào cơ sở dữ liệu
+                _db.RAMs.Add(newRam);
+                _db.SaveChanges();
+                MessageBox.Show("Tạo Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+            }
+            else
+            {
+                MessageBox.Show("Tạo Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

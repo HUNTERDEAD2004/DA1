@@ -19,7 +19,7 @@ namespace PRL.View
 {
     public partial class Orderform : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB6;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -53,12 +53,12 @@ namespace PRL.View
                 dgvHDCT.AutoResizeColumns();
 
                 // Load userRoles
-                SqlCommand cmd2 = new SqlCommand("SELECT \r\n    pd.IMEI, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    p.Quantity, \r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nWHERE \r\n    pd.Status = 1;", conn);
-                SqlDataReader dr2 = cmd2.ExecuteReader();
-                DataTable dt2 = new DataTable();
-                dt2.Load(dr2);
-                dr2.Close();
-                dgvSP.DataSource = dt2;
+                //SqlCommand cmd2 = new SqlCommand("SELECT \r\n    pd.IMEI, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    p.Quantity, \r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nWHERE \r\n    pd.Status = 1;", conn);
+                //SqlDataReader dr2 = cmd2.ExecuteReader();
+                //DataTable dt2 = new DataTable();
+                //dt2.Load(dr2);
+                //dr2.Close();
+                //dgvSP.DataSource = dt2;
                 dgvSP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvSP.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
                 dgvSP.DefaultCellStyle.BackColor = System.Drawing.Color.White;
@@ -183,8 +183,10 @@ namespace PRL.View
         {
             conn.Open();
             HienThi();
+            LoadData();
             LayDLHD();
             LayDLSP();
+            LoadDataHD();
         }
 
 
@@ -200,7 +202,7 @@ namespace PRL.View
                            join g in context.GPUs on iph.GPUID equals g.GPUID
                            join r in context.RAMs on iph.RAMID equals r.RAMID
                            join s in context.Sales on iph.SaleID equals s.SaleID
-                           where iph.Status == 1 // Điều kiện == 1
+                           where iph.Status == 1 
                            select new
                            {
                                iph.IMEI,
@@ -371,7 +373,7 @@ namespace PRL.View
 
         private void LoadOrderDetailInfo(Guid orderId)
         {
-            using (var conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=AppleStore4;Trusted_Connection=True;TrustServerCertificate=True"))
+            using (var conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=AppleStore6;Trusted_Connection=True;TrustServerCertificate=True"))
             {
                 string query = @"
                 SELECT od.OrderDetailsID, od.ProductId, od.OderID, od.Quantity, od.IpadIMEI, od.NameSPCT, od.Price, od.PercentDiscount, od.CreateAt, od.UpdateAt, od.CreateBy, od.UpdateBy,
@@ -803,6 +805,7 @@ namespace PRL.View
             {
                 LoadData();
                 LayDLHD();
+                LoadDataHD();
                 ClearDataGridView();
             }
             catch (Exception ex)
