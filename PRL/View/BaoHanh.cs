@@ -67,7 +67,7 @@ namespace PRL.View
             // Thêm dữ liệu vào DataGridView
             foreach (var bh in baohanh)
             {
-                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.ProductDetailID, bh.WarrantyStartDate, bh.WarrantyEndDate);
+                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.IMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
             }
         }
         public void LoadDataSP()
@@ -93,7 +93,7 @@ namespace PRL.View
             // Thêm dữ liệu vào DataGridView
             foreach (var bh in baohanh)
             {
-                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.ProductDetailID, bh.WarrantyStartDate, bh.WarrantyEndDate);
+                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.IMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
             }
         }
         private void dgvbaohanh_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -125,7 +125,7 @@ namespace PRL.View
                 return;
             }
 
-            var productDetail = _dbContext.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imei));
+            var productDetail = _dbContext.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
             if (productDetail == null)
             {
                 MessageBox.Show("Không tìm thấy sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -137,7 +137,7 @@ namespace PRL.View
             Warranty bh = new Warranty()
             {
                 WarrantyID = Guid.NewGuid(),
-                ProductDetailID = Guid.Parse(imei),
+                IMEI = imei,
                 CreatedAt = ngaytao,
                 UpdatedAt = ngaysua,
                 CreatedBy = "Admin",
@@ -162,7 +162,7 @@ namespace PRL.View
 
                 Guid id = Guid.Parse(txtID.Text);
                 Warranty bh = _dbContext.Warranties.FirstOrDefault(a => a.WarrantyID == id);
-                bh.ProductDetailID = Guid.Parse(ime.Text);
+                bh.IMEI = ime.Text;
                 bh.WarrantyStartDate = DateTime.Now;
                 bh.WarrantyEndDate = DateTime.Now;
 

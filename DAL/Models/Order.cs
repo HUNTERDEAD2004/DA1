@@ -14,13 +14,11 @@ namespace AppData.Models
     {
         [Key]
         public Guid OrderID { get; set; }
-        public DateTime OrderDate { get; set; }
         [ForeignKey("CustomerID")]
         public Guid? CustomerID { get; set; }
         [ForeignKey("AccountID")]
         public Guid? AccountID { get; set; }
         public Guid? IDVoucher { get; set; }
-        public Guid ReportID { get; set; }
         public decimal? TotalAmount { get; set; }
         public decimal? Price { get; set; }
         public int? Status { get; set; }
@@ -31,9 +29,7 @@ namespace AppData.Models
         public virtual Customer Customer { get; set; }
         public virtual Account Account { get; set; }
         public virtual Voucher Voucher { get; set; }
-        public Report Report { get; set; }
-        public ICollection<CancelledOrder> CancelledOrders { get; set; }
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

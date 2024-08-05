@@ -157,6 +157,7 @@ namespace PRL.View
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, hover.color5);
+            OpenForm(new FrmThongKe());
         }
 
         private void btnSetting_Click(object sender, EventArgs e)

@@ -1,6 +1,6 @@
 ﻿using DAL.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Config
 {
-    public class ImeiConfig : IEntityTypeConfiguration<IMEI>
+    public class WeightConfig : IEntityTypeConfiguration<Weight>
     {
-        public void Configure(EntityTypeBuilder<IMEI> builder)
+        public void Configure(EntityTypeBuilder<Weight> builder)
         {
-            builder.HasKey(x => x.ImeiID);
+            builder.HasKey(x => x.WeightID);
+
+           
         }
     }
 }

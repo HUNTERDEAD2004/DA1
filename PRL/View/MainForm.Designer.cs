@@ -257,7 +257,7 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(1104, 23);
+            btnLogout.Location = new Point(873, 23);
             btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(82, 22);
@@ -270,7 +270,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(977, 26);
+            label2.Location = new Point(746, 26);
             label2.Name = "label2";
             label2.Size = new Size(112, 15);
             label2.TabIndex = 3;

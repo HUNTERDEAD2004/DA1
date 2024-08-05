@@ -84,7 +84,17 @@ namespace PRL.View
             cbSystem.DisplayMember = "OSName";
             cbSystem.ValueMember = "OSID";
 
+            var weight = context.Weights.ToList();
+            weight.Insert(0, new Weight { WeightID = Guid.Empty, WeightValue = -1 });
+            cbWeight.DataSource = weight;
+            cbWeight.DisplayMember = "WeightValue";
+            cbWeight.ValueMember = "WeightID";
 
+            var year = context.YearsOfManufacture.ToList();
+            year.Insert(0, new YearOfManufacture { YearID = Guid.Empty, Year = -1 });
+            cbYOM.DataSource = year;
+            cbYOM.DisplayMember = "Year";
+            cbYOM.ValueMember = "YearID";
 
             var m = context.Materials.ToList();
             m.Insert(0, new Material { MaterialID = Guid.Empty, MaterialName = "-- Chọn chất liệu --" });
@@ -99,7 +109,7 @@ namespace PRL.View
             cbOrigin.ValueMember = "OriginID";
 
             var ver = context.Versions.ToList();
-            ver.Insert(0, new Versions { VersionID = Guid.Empty, VersionName = "-- Chọn phiên bản --" });
+            ver.Insert(0, new DAL.Models.Versions { VersionID = Guid.Empty, VersionName = "-- Chọn phiên bản --" });
             cbVersion.DataSource = ver;
             cbVersion.DisplayMember = "VersionName";
             cbVersion.ValueMember = "VersionID";
@@ -136,7 +146,7 @@ namespace PRL.View
             var product = context.Products.FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                product.Total = context.ProductDetails.Count(pd => pd.ProductID == productId);
+                product.Quantity = context.ProductDetails.Count(pd => pd.ProductID == productId);
                 context.SaveChanges();
             }
         }
@@ -146,7 +156,7 @@ namespace PRL.View
                     .Where(pd => pd.ProductID == _productID)
                     .Select(pd => new
                     {
-                        pd.ProductDetailID,
+                        pd.IMEI,
                         pd.Name,
                         Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                         RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
@@ -155,7 +165,7 @@ namespace PRL.View
                         GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID).GPUName,
                         ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID).ROMSize,
                         Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID).DisplayName,
-                        Weight = "",
+                        Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
                         Version = context.Versions.FirstOrDefault(s => s.VersionID == pd.VersionID).VersionName,
                         Rear = context.RearCameras.FirstOrDefault(s => s.RearCameraID == pd.RearCameraID).RearCameraDetails,
                         Camera_Selfie = context.CameraSelfies.FirstOrDefault(s => s.CameraSelfieID == pd.CameraSelfieID).CameraSelfieDetails,
@@ -163,10 +173,10 @@ namespace PRL.View
                         Battery = context.BatteryCapacities.FirstOrDefault(s => s.BatteryID == pd.BatteryID).Capacity,
                         Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                         Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
-                        Year_Of_Manufacture = "",
+                        Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
                         Sale = context.Sales.FirstOrDefault(s => s.SaleID == pd.SaleID).DiscountValue + "%"
                     })
-                    .ToList();  
+                    .ToList();
 
             dgvDetails.DataSource = productDetails;
         }
@@ -213,9 +223,9 @@ namespace PRL.View
 
             var detail = new ProductDetail
             {
-                ProductDetailID = Guid.Parse(txtImei.Text),
+                IMEI = txtImei.Text,
                 ProductID = _productID,
-                Name = txtName.Text, 
+                Name = txtName.Text,
                 ColorID = (Guid)cbColor.SelectedValue,
                 RAMID = (Guid)cbRam.SelectedValue,
                 Price = decimal.Parse(txtPrice.Text),
@@ -228,11 +238,11 @@ namespace PRL.View
                 RearCameraID = (Guid)cbRear.SelectedValue,
                 VersionID = (Guid)cbVersion.SelectedValue,
                 OSID = (Guid)cbSystem.SelectedValue,
-                Weight = 0,
+                WeightID = (Guid)cbWeight.SelectedValue,
                 BatteryID = (Guid)cbBattery.SelectedValue,
                 OriginID = (Guid)cbOrigin.SelectedValue,
                 MaterialID = (Guid)cbMaterial.SelectedValue,
-                Year = 2000,
+                YearID = (Guid)cbYOM.SelectedValue,
             };
 
             context.ProductDetails.Add(detail);
@@ -250,7 +260,7 @@ namespace PRL.View
                 var imei = txtImei.Text;
 
                 // Tìm chi tiết sản phẩm dựa trên IMEI
-                var detail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imei));
+                var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
 
                 if (detail != null)
                 {
@@ -267,16 +277,16 @@ namespace PRL.View
                     var saleId = cbSale.SelectedValue != null ? (Guid)cbSale.SelectedValue : Guid.Empty;
                     var saleExists = context.Sales.Any(s => s.SaleID == saleId);
 
-                    //detail.SaleID = saleExists ? saleId : new Guid("fda777df-d952-48c9-a916-ef6b90547878");
-                    //detail.CameraSelfieID = (Guid)cbSelfie.SelectedValue;
-                    //detail.RearCameraID = (Guid)cbRear.SelectedValue;
-                    //detail.VersionID = (Guid)cbVersion.SelectedValue;
-                    //detail.OSID = (Guid)cbSystem.SelectedValue;
-                    //detail.WeightID = (Guid)cbWeight.SelectedValue;
-                    //detail.BatteryID = (Guid)cbBattery.SelectedValue;
-                    //detail.OriginID = (Guid)cbOrigin.SelectedValue;
-                    //detail.MaterialID = (Guid)cbMaterial.SelectedValue;
-                    //detail.YearID = (Guid)cbYOM.SelectedValue;
+                    detail.SaleID = saleExists ? saleId : new Guid("fda777df-d952-48c9-a916-ef6b90547878");
+                    detail.CameraSelfieID = (Guid)cbSelfie.SelectedValue;
+                    detail.RearCameraID = (Guid)cbRear.SelectedValue;
+                    detail.VersionID = (Guid)cbVersion.SelectedValue;
+                    detail.OSID = (Guid)cbSystem.SelectedValue;
+                    detail.WeightID = (Guid)cbWeight.SelectedValue;
+                    detail.BatteryID = (Guid)cbBattery.SelectedValue;
+                    detail.OriginID = (Guid)cbOrigin.SelectedValue;
+                    detail.MaterialID = (Guid)cbMaterial.SelectedValue;
+                    detail.YearID = (Guid)cbYOM.SelectedValue;
 
                     // Cập nhật chi tiết sản phẩm trong cơ sở dữ liệu
                     context.ProductDetails.Update(detail);
@@ -311,7 +321,7 @@ namespace PRL.View
                 if (!string.IsNullOrEmpty(imeiCell))
                 {
                     // Tìm chi tiết sản phẩm dựa trên IMEI
-                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imeiCell));
+                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imeiCell);
 
                     if (productDetail != null)
                     {
@@ -322,7 +332,7 @@ namespace PRL.View
                             context.ProductDetails.Update(productDetail);
                             context.SaveChanges();
                         }
-                        //txtImei.Text = productDetail.ProductDetailID;
+                        txtImei.Text = productDetail.IMEI;
                         txtImport.Text = productDetail.importPrice.ToString("0.00");
                         cbColor.SelectedValue = productDetail.ColorID;
                         cbRam.SelectedValue = productDetail.RAMID;
@@ -333,8 +343,8 @@ namespace PRL.View
                         cbRear.SelectedValue = productDetail.RearCameraID;
                         cbSelfie.SelectedValue = productDetail.CameraSelfieID;
                         cbVersion.SelectedValue = productDetail.VersionID;
-                        //cbYOM.SelectedValue = productDetail.YearID;
-                        //cbWeight.SelectedValue = productDetail.WeightID;
+                        cbYOM.SelectedValue = productDetail.YearID;
+                        cbWeight.SelectedValue = productDetail.WeightID;
                         cbOrigin.SelectedValue = productDetail.OriginID;
                         cbBattery.SelectedValue = productDetail.BatteryID;
                         cbDisplay.SelectedValue = productDetail.DisplayID;
@@ -363,7 +373,7 @@ namespace PRL.View
                 var imei = txtImei.Text;
 
                 // Tìm chi tiết sản phẩm dựa trên IMEI
-                var detail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imei));
+                var detail = context.ProductDetails.FirstOrDefault(pd => pd.IMEI == imei);
 
                 if (detail != null)
                 {
@@ -399,7 +409,7 @@ namespace PRL.View
             txtImei.Text = "";
             txtName.Text = "";
             cbColor.SelectedIndex = -1;
-            cbRam.SelectedIndex = -1;   
+            cbRam.SelectedIndex = -1;
             txtPrice.Text = "";
             cbCpu.SelectedIndex = -1;
             cbGPU.SelectedIndex = -1;
@@ -424,7 +434,7 @@ namespace PRL.View
 
         }
         public void RemoveExpiredSales()
-        {   
+        {
             var expiredSales = context.Sales.Where(s => s.EndDate < DateTime.Now).ToList();
 
             foreach (var sale in expiredSales)
@@ -446,5 +456,94 @@ namespace PRL.View
             context.SaveChanges();
         }
 
+        private void bcSale_Click(object sender, EventArgs e)
+        {
+            SaleFrm sale = new SaleFrm();
+            sale.Show();
+        }
+
+        private void bcRam_Click(object sender, EventArgs e)
+        {
+            RAM rAM = new RAM();
+            rAM.Show();
+        }
+
+        private void bcCpu_Click(object sender, EventArgs e)
+        {
+            CPU cu = new CPU();
+            cu.Show();
+        }
+
+        private void bcGpu_Click(object sender, EventArgs e)
+        {
+            GPU gpu = new GPU();
+            gpu.Show();
+        }
+
+        private void bcRom_Click(object sender, EventArgs e)
+        {
+            ROM rROM = new ROM();
+            rROM.Show();
+        }
+
+        private void bcDisplay_Click(object sender, EventArgs e)
+        {
+            ManHinh display = new ManHinh();
+            display.Show();
+        }
+
+        private void bcRC_Click(object sender, EventArgs e)
+        {
+            CamSau cs = new CamSau();
+            cs.Show();
+        }
+
+        private void bcCS_Click(object sender, EventArgs e)
+        {
+            CamTruoc camTruoc = new CamTruoc();
+            camTruoc.Show();
+        }
+
+        private void bcYOM_Click(object sender, EventArgs e)
+        {
+            NamSanXuat namSanXuat = new NamSanXuat();
+            namSanXuat.Show();
+        }
+
+        private void bcMater_Click(object sender, EventArgs e)
+        {
+            NguyenLieu nguyenLieu = new NguyenLieu();
+            nguyenLieu.Show();
+        }
+
+        private void bcOrigin_Click(object sender, EventArgs e)
+        {
+            ORIGIN oRIGIN = new ORIGIN();
+            oRIGIN.Show();
+        }
+
+        private void bcWght_Click(object sender, EventArgs e)
+        {
+            WEIGHT wEIGHT = new WEIGHT();
+            wEIGHT.Show();
+        }
+
+        private void bcSys_Click(object sender, EventArgs e)
+        {
+            HeDieuHanh heDieuHanh = new HeDieuHanh();
+            heDieuHanh.Show();
+        }
+
+        private void bcBT_Click(object sender, EventArgs e)
+        {
+            Battery battery = new Battery();
+            battery.Show();
+        }
+
+        private void bcVer_Click(object sender, EventArgs e)
+        {
+            VERSION ver = new VERSION();
+            ver.Show();
+        }
     }
 }

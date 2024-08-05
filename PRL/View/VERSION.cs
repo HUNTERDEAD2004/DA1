@@ -98,7 +98,7 @@ namespace PRL.View
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
 
-                var newWeight = new Versions
+                var newWeight = new DAL.Models.Versions
                 {
                     VersionID = Guid.NewGuid(), // Tạo ID mới
                     VersionName = VerNameTxt.Text,

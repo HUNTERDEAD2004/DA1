@@ -33,14 +33,6 @@ namespace AppData.Config
                    .WithMany(s => s.Orders)
                    .HasForeignKey(x => x.IDVoucher)
                    .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasOne(o => o.Report)
-                   .WithMany(r => r.Orders)
-                   .HasForeignKey(o => o.ReportID);
-
-            builder.HasMany(o => o.CancelledOrders)
-                   .WithOne(co => co.Order)
-                   .HasForeignKey(co => co.OrderID);
         }
     }
 }

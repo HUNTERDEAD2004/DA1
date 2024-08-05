@@ -166,7 +166,7 @@ namespace PRL.View
                 {
                     product.ProductName = txtName.Text;
                     product.Description = txtDescription.Text;
-                    product.Total = int.Parse(txtQuantity.Text);
+                    product.Quantity = int.Parse(txtQuantity.Text);
                     product.UpdatedAt = DateTime.UtcNow;
                     product.UpdatedBy = "Apple";
 
