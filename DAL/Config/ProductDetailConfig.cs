@@ -57,11 +57,6 @@ namespace AppData.Config
                    .HasForeignKey(x => x.SaleID)
                    .OnDelete(DeleteBehavior.NoAction); // Thay đổi hành vi xóa
 
-            builder.HasOne(x => x.Voucher)
-                   .WithMany(s => s.ProductDetails)
-                   .HasForeignKey(x => x.IDVoucher)
-                   .OnDelete(DeleteBehavior.NoAction);
-
             builder.HasOne(x => x.BatteryCapacity)
                    .WithMany(s => s.ProductDetails)
                    .HasForeignKey(x => x.BatteryID)

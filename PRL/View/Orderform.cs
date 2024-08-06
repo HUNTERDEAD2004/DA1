@@ -1,6 +1,8 @@
 ﻿using AppData.Models;
+using DAL.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,10 +10,13 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Markup;
+using System.Windows.Media.Media3D;
+using System.Windows.Media;
 using System.Xml.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -19,7 +24,7 @@ namespace PRL.View
 {
     public partial class Orderform : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB5;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -53,24 +58,24 @@ namespace PRL.View
                 dgvHDCT.AutoResizeColumns();
 
                 // Load userRoles
-                SqlCommand cmd2 = new SqlCommand("SELECT \r\n    pd.IMEI, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    p.Quantity, \r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nWHERE \r\n    pd.Status = 1;", conn);
-                SqlDataReader dr2 = cmd2.ExecuteReader();
-                DataTable dt2 = new DataTable();
-                dt2.Load(dr2);
-                dr2.Close();
-                dgvSP.DataSource = dt2;
+                //SqlCommand cmd2 = new SqlCommand("SELECT \r\n    pd.ProductDetailID, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    pd.Quantity,\r\n\tp.Total,\r\n\tpd.Status,\r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nWHERE \r\n    pd.Status = 1;", conn);
+                //SqlDataReader dr2 = cmd2.ExecuteReader();
+                //DataTable dt2 = new DataTable();
+                //dt2.Load(dr2);
+                //dr2.Close();
+                //dgvSP.DataSource = dt2;
                 dgvSP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvSP.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
                 dgvSP.DefaultCellStyle.BackColor = System.Drawing.Color.White;
                 dgvSP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 dgvSP.AutoResizeColumns();
 
-                SqlCommand cmd3 = new SqlCommand("SELECT * FROM Orders", conn);
-                SqlDataReader dr3 = cmd3.ExecuteReader();
-                DataTable dt3 = new DataTable();
-                dt3.Load(dr3);
-                dr3.Close();
-                dgvHD.DataSource = dt3;
+                //SqlCommand cmd3 = new SqlCommand("SELECT * FROM Orders", conn);
+                //SqlDataReader dr3 = cmd3.ExecuteReader();
+                //DataTable dt3 = new DataTable();
+                //dt3.Load(dr3);
+                //dr3.Close();
+                //dgvHD.DataSource = dt3;
                 dgvHD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvHD.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
                 dgvHD.DefaultCellStyle.BackColor = System.Drawing.Color.White;
@@ -144,7 +149,7 @@ namespace PRL.View
 
         void LayDLSP()
         {
-            string sql2 = "\r\nSELECT \r\n    pd.IMEI, \r\n    pd.Name AS ProductName, \r\n    pd.importPrice,\r\n    pd.Price,\r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    ro.ROMSize AS ROM, \r\n    co.ColorName AS Color, \r\n    o.OriginName AS Origin,\r\n    y.Year AS YearOfManufacture,\r\n    m.MaterialName AS Material,\r\n    v.VersionName AS Version,\r\n    rc.RearCameraDetails AS RearCamera,\r\n    cs.CameraSelfieDetails AS CameraSelfie,\r\n    os.OSName AS OperatingSystem,\r\n    b.Capacity AS BatteryCapacity,\r\n    w.WeightValue AS Weight,\r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    ROMs ro ON pd.ROMID = ro.ROMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nINNER JOIN \r\n    Origins o ON pd.OriginID = o.OriginID\r\nINNER JOIN \r\n    YearsOfManufacture y ON pd.YearID = y.YearID\r\nINNER JOIN \r\n    Materials m ON pd.MaterialID = m.MaterialID\r\nINNER JOIN \r\n    Versions v ON pd.VersionID = v.VersionID\r\nINNER JOIN \r\n    RearCameras rc ON pd.RearCameraID = rc.RearCameraID\r\nINNER JOIN \r\n    CameraSelfies cs ON pd.CameraSelfieID = cs.CameraSelfieID\r\nINNER JOIN \r\n    OperatingSystems os ON pd.OSID = os.OSID\r\nINNER JOIN \r\n    BatteryCapacities b ON pd.BatteryID = b.BatteryID\r\nINNER JOIN \r\n    Weights w ON pd.WeightID = w.WeightID\r\n";
+            string sql2 = "SELECT \r\n    pd.ProductDetailID, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, \r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    pd.Quantity,\r\n\tp.Total,\r\n\tpd.Status,\r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nWHERE \r\n    pd.Status = 1;";
 
             sda = new SqlDataAdapter(sql2, conn);
             ds = new DataSet();
@@ -152,11 +157,10 @@ namespace PRL.View
 
         private void dgvHD_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             if (dgvSP.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 dgvSP.CurrentRow.Selected = true;
-                txtimei.Text = dgvSP.Rows[e.RowIndex].Cells["IMEI"].Value.ToString();
+                txtSPCT.Text = dgvSP.Rows[e.RowIndex].Cells["ProductDetailID"].Value.ToString();
                 txtMSP.Text = dgvSP.Rows[e.RowIndex].Cells["ProductID"].Value.ToString();
                 txtSP.Text = dgvSP.Rows[e.RowIndex].Cells["ProductName"].Value.ToString();
                 txtSZ.Text = dgvSP.Rows[e.RowIndex].Cells["PercentDiscount"].Value.ToString();
@@ -164,27 +168,41 @@ namespace PRL.View
                 txtGia.Text = dgvSP.Rows[e.RowIndex].Cells["Price"].Value.ToString();
                 txtSL.Text = "1";
 
-                // Chuyển đổi txtSZ.Text và txtGia.Text thành số
-                decimal discount = Convert.ToDecimal(txtSZ.Text);
-                decimal price = Convert.ToDecimal(txtGia.Text);
-                int quantity = Convert.ToInt32(txtSL.Text);
+                var imei = dgvSP.Rows[e.RowIndex].Cells["ProductDetailID"].Value.ToString();
+                Guid productDetailID = Guid.Parse(imei);
 
-                // Tính tổng tiền
-                decimal totalPrice = quantity * price * (1 - (discount / 100));
+                // Lấy danh sách IMEI có ProductDetailID tương ứng và có Status = 1
+                var imeis = Context.iMEIs.Where(im => im.ProductDetailID == productDetailID && im.Status == 1).ToList();
+                imeis.Insert(0, new IMEI { ImeiID = "-- Chọn thông tin IMEI --" });
 
-                // Gán kết quả vào txtTG
-                txtTG.Text = totalPrice.ToString("F2");
-
+                // Cập nhật DataSource cho ComboBox
+                cbImei.DataSource = imeis;
+                cbImei.ValueMember = "ImeiID";
             }
             LayDLSP();
         }
+
 
         private void Order_Load(object sender, EventArgs e)
         {
             conn.Open();
             HienThi();
-            LayDLHD();
+            LoadDataHD();
             LayDLSP();
+            LoadData();
+            LoadComboBoxData();
+        }
+        private void LoadComboBoxData()
+        {
+            // Lấy danh sách IMEI có Status = 1
+            var imei = Context.iMEIs.Where(i => i.Status == 1).ToList();
+
+            // Thêm một mục đầu tiên vào danh sách để người dùng chọn
+            imei.Insert(0, new IMEI { ImeiID = "-- Chọn thông tin IMEI --" });
+
+            // Thiết lập DataSource cho ComboBox
+            cbImei.DataSource = imei;
+            cbImei.ValueMember = "ImeiID";
         }
 
 
@@ -192,31 +210,33 @@ namespace PRL.View
         {
             using (var context = new IphoneDbContext())
             {
-                var data = from iph in context.ProductDetails
-                           join p in context.Products on iph.ProductID equals p.ProductID
-                           join co in context.Colours on iph.ColorID equals co.ColorID
-                           join d in context.Displays on iph.DisplayID equals d.DisplayID
-                           join c in context.CPUs on iph.CPUID equals c.CPUID
-                           join g in context.GPUs on iph.GPUID equals g.GPUID
-                           join r in context.RAMs on iph.RAMID equals r.RAMID
-                           join s in context.Sales on iph.SaleID equals s.SaleID
-                           where iph.Status == 1 // Điều kiện == 1
+                var data = from pd in context.ProductDetails
+                           join p in context.Products on pd.ProductID equals p.ProductID
+                           join co in context.Colours on pd.ColorID equals co.ColorID
+                           join d in context.Displays on pd.DisplayID equals d.DisplayID
+                           join c in context.CPUs on pd.CPUID equals c.CPUID
+                           join g in context.GPUs on pd.GPUID equals g.GPUID
+                           join r in context.RAMs on pd.RAMID equals r.RAMID
+                           join s in context.Sales on pd.SaleID equals s.SaleID
+                           where pd.Status == 1 // Điều kiện == 1
                            select new
                            {
-                               iph.Imeis,
-                               iph.ProductID,
-                               ProductDetailName = iph.Name,
+                               pd.ProductDetailID,
+                               pd.ProductID,
+                               ProductName = pd.Name,
                                d.DisplayName,
                                CPU = c.CPUName,
                                GPU = g.GPUName,
                                RAM = r.RAMSize,
-                               iph.Price,
-                               ProductName = p.ProductName,
+                               pd.Price,
+                               pd.Quantity,
+                               ProductNames = p.ProductName,
                                p.Description,
                                Color = co.ColorName,
                                p.Total,
+                               pd.Status,
                                SaleCode = s.SaleDescription,
-                               SaleDescription = s.SaleDescription,
+                               SaleName = s.SaleDescription,
                                PercentDiscount = s.DiscountValue,
                                SaleStart = s.StartDate,
                                SaleEnd = s.EndDate
@@ -229,55 +249,86 @@ namespace PRL.View
 
 
 
+
         private void LoadDataHD()
         {
             using (var context = new IphoneDbContext())
             {
-                var oder = context.Orders
+                var orders = context.Orders
                     .Where(o => o.Status == 0)
+                    .Select(o => new
+                    {
+                        o.OrderID,
+                        Username = o.Account.Username,  // Tên nhân viên
+                        CustomerName = o.Customer.CustomerName,  // Tên khách hàng
+                        ReportDate = o.Report.ReportDate,  // Ngày báo cáo
+                        ReportID = o.Report.ReportID,  // Ngày báo cáo
+                        o.IDVoucher,
+                        Quantity = o.OrderDetails.Sum(od => od.Quantity),  // Tổng số lượng
+                        Price = o.OrderDetails.Sum(od => od.Quantity * od.UnitPrice),  // Tổng tiền
+                        Status = o.Status == 0 ? "Chưa thanh toán" : "Đã thanh toán",
+                        o.CreatedAt,
+                        o.UpdatedAt,
+                        o.UpdatedBy,
+                        o.CreatedBy,
+                    })
                     .ToList();
-                dgvHD.DataSource = oder.Select(u => new
-                {
-                    u.OrderID,
-                    u.AccountID,
-                    u.CustomerID,
-                    u.IDVoucher,
-                    u.TotalAmount,
-                    u.Price,
-                    Status = u.Status == 0 ? "Chưa thanh toán" : "Đã thanh toán",
-                    u.CreatedAt,
-                    u.UpdatedAt,
-                    u.UpdatedBy,
-                    u.CreatedBy,
-                }).ToList();
+
+                dgvHD.DataSource = orders;
+
+                dgvHD.Columns["OrderID"].DisplayIndex = 0;
+                dgvHD.Columns["CustomerName"].DisplayIndex = 1;
+                dgvHD.Columns["Username"].DisplayIndex = 2;
+                dgvHD.Columns["Quantity"].DisplayIndex = 3;
+                dgvHD.Columns["Price"].DisplayIndex = 4;
+                dgvHD.Columns["Status"].DisplayIndex = 5;
+                dgvHD.Columns["ReportDate"].DisplayIndex = 6;
+                dgvHD.Columns["IDVoucher"].DisplayIndex = 7;
+                dgvHD.Columns["ReportID"].DisplayIndex = 8;
+                dgvHD.Columns["CreatedAt"].DisplayIndex = 9;
+                dgvHD.Columns["UpdatedAt"].DisplayIndex = 10;
+                dgvHD.Columns["CreatedBy"].DisplayIndex = 11;
+                dgvHD.Columns["UpdatedBy"].DisplayIndex = 12;
             }
         }
+
+
+
 
         private void LoadDataHDCT()
         {
             using (var context = new IphoneDbContext())
             {
-                var oderCT = context.OrderDetails
-                                    .Where(o => o.OrderID == Guid.Parse(txtHDHT.Text))
-                                    .ToList();
-                dgvHDCT.DataSource = oderCT.Select(u => new
-                {
-                    u.OrderDetailID,
-                    u.OrderID,
-                    u.ProductDetailID,
-                    u.ProductName,
-                    u.Quantity,
-                    u.UnitPrice,
-                    u.DiscountValue,
-                    u.CreatedAt,
-                    u.UpdatedAt,
-                    u.UpdatedBy,
-                    u.CreatedBy,
-                }).ToList();
-                dgvHDCT.DataSource = oderCT.ToList();
+                var orderCT = from od in context.OrderDetails
+                              join imei in context.iMEIs on od.OrderDetailID equals imei.OrderDetailID
+                              where od.OrderID == Guid.Parse(txtHDHT.Text)
+                              select new
+                              {                               
+                                  od.ProductName,
+                                  od.Quantity,
+                                  od.UnitPrice,
+                                  od.DiscountValue,
+                                  imei.ImeiID,
+                                  od.OrderDetailID,
+                                  od.OrderID,
+                                  od.ProductDetailID
+                              };
 
+                dgvHDCT.DataSource = orderCT.ToList();
+
+                dgvHDCT.Columns["ImeiID"].DisplayIndex = 0;
+                dgvHDCT.Columns["ProductName"].DisplayIndex = 1;
+                dgvHDCT.Columns["Quantity"].DisplayIndex = 2;
+                dgvHDCT.Columns["UnitPrice"].DisplayIndex = 3;
+                dgvHDCT.Columns["DiscountValue"].DisplayIndex = 4;
+                dgvHDCT.Columns["OrderDetailID"].DisplayIndex = 5;
+                dgvHDCT.Columns["OrderID"].DisplayIndex = 6;
+                dgvHDCT.Columns["ProductDetailID"].DisplayIndex = 7;
             }
         }
+
+
+
 
 
         private float ParseFloat(string input)
@@ -296,7 +347,7 @@ namespace PRL.View
         {
             try
             {
-                Guid productId, orderId;
+                Guid productId, orderId, productDetailId;
 
                 // Check ProductId
                 if (!Guid.TryParse(txtMSP.Text, out productId))
@@ -312,27 +363,119 @@ namespace PRL.View
                     return;
                 }
 
+                // Check ProductDetailID (IMEI)
+                if (!Guid.TryParse(txtSPCT.Text, out productDetailId))
+                {
+                    MessageBox.Show("IMEI không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if IMEI is a number and has 15 digits
+                string newImei = cbImei.Text.Trim();
+                if (!long.TryParse(newImei, out _) || newImei.Length != 15)
+                {
+                    MessageBox.Show("IMEI phải là số và có đủ 15 số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 using (var context = new IphoneDbContext())
                 {
                     // Tìm sản phẩm bằng IMEI
-                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductID == productId || pd.ProductDetailID == Guid.Parse(txtimei.Text));
+                    var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductID == productId || pd.ProductDetailID == productDetailId);
                     if (productDetail == null)
                     {
                         MessageBox.Show("Không tìm thấy sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
-                    productDetail.Status = 0;
+                    // Giảm số lượng sản phẩm
+                    if (productDetail.Quantity > 0)
+                    {
+                        productDetail.Quantity -= 1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sản phẩm đã hết hàng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    var Imei = context.iMEIs.FirstOrDefault(pd => pd.ImeiID == newImei || pd.ProductDetailID == productDetailId);
+                    if (Imei == null)
+                    {
+                        MessageBox.Show("Không tìm thấy sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    } else
+                    {
+                        Imei.Status = 2;
+                    }
+
+                    
+
+                    // Lấy giá và các thông tin từ ProductDetails
+                    decimal unitPrice = productDetail.Price;
+                    string productName = productDetail.Name;
+
+                    // Lấy giá trị chiết khấu từ bảng Sales
+                    var sale = context.Sales.FirstOrDefault(s => s.SaleID == productDetail.SaleID);
+                    decimal discountValue = sale != null ? sale.DiscountValue : 0;
+
+                    // Tính toán giá sau chiết khấu
+                    decimal finalPrice = unitPrice;
+
+                    if (discountValue > 0 && discountValue < 100)
+                    {
+                        // Giảm theo phần trăm
+                        finalPrice = unitPrice * (1 - (discountValue / 100));
+                    }
+                    else if (discountValue > 1000 && discountValue <= unitPrice)
+                    {
+                        // Giảm theo giá cố định
+                        finalPrice = unitPrice - discountValue;
+                    }
+                    else if ((discountValue >= 100 && discountValue <= 1000) || discountValue > unitPrice)
+                    {
+                        MessageBox.Show("Giá trị chiết khấu không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Tạo OrderDetailID mới
+                    Guid newOrderDetailId = Guid.NewGuid();
+
+                    // Check if IMEI already exists
+                    var existingImei = context.iMEIs.FirstOrDefault(i => i.ImeiID == newImei);
+                    if (existingImei != null)
+                    {
+                        // Cập nhật OrderDetailID cho IMEI đã tồn tại
+                        existingImei.OrderDetailID = newOrderDetailId;
+                        existingImei.UpdatedAt = DateTime.Now;
+                        existingImei.UpdatedBy = "admin";
+                    }
+                    else
+                    {
+                        // Add new IMEI to IMEIs table
+                        var newImeiEntry = new IMEI
+                        {
+                            ImeiID = newImei,
+                            ProductDetailID = productDetailId,
+                            OrderDetailID = newOrderDetailId,
+                            Status = 2,
+                            CreatedAt = DateTime.Now,
+                            UpdatedAt = DateTime.Now,
+                            CreatedBy = "admin",
+                            UpdatedBy = "admin"
+                        };
+                        context.iMEIs.Add(newImeiEntry);
+                    }
 
                     var hdtc = new OrderDetail
                     {
-                        OrderDetailID = Guid.NewGuid(),
+                        OrderDetailID = newOrderDetailId,
                         OrderID = orderId,
-                        ProductDetailID = Guid.Parse(txtimei.Text),
-                        ProductName = txtSP.Text,
+                        ProductDetailID = productDetailId,
+                        ProductName = productName,
                         Quantity = 1,
-                        UnitPrice = decimal.Parse(txtTG.Text),
-                        DiscountValue = decimal.Parse(txtSZ.Text),
+                        UnitPrice = finalPrice,
+                        DiscountValue = discountValue,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         CreatedBy = "admin",
@@ -344,8 +487,9 @@ namespace PRL.View
 
                     LoadData();
                     LoadDataHDCT();
-                    LayDLHD();
+                    LoadDataHD();
 
+                    clear();
                     MessageBox.Show("Thêm thành công!, toẹt zời hehehe", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -354,6 +498,10 @@ namespace PRL.View
                 MessageBox.Show("Thêm thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
+
 
 
         private int currentOrderIndex = 0;
@@ -415,19 +563,64 @@ namespace PRL.View
 
 
 
+        private Guid CheckAndCreateReport()
+        {
+            try
+            {
+                // Lấy ngày hôm nay
+                DateTime today = DateTime.Today;
 
+                // Kiểm tra xem có báo cáo nào đã được tạo hôm nay chưa
+                var existingReport = Context.Reports.FirstOrDefault(r => r.ReportDate == today);
+
+                if (existingReport == null)
+                {
+                    // Nếu chưa có, tạo báo cáo mới
+                    var newReport = new Report
+                    {
+                        ReportID = Guid.NewGuid(),
+                        ReportDate = today,
+                        TotalSold = 0,
+                        TotalAmount = 0,
+                        SuccessfulOrders = 0,
+                        CancelledOrders = 0,
+                        PendingOrders = 0,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = "admin",
+                        UpdatedBy = "admin"
+                    };
+
+                    Context.Reports.Add(newReport);
+                    Context.SaveChanges();
+
+                    return newReport.ReportID; // Trả về ReportID của báo cáo mới tạo
+                }
+
+                return existingReport.ReportID; // Trả về ReportID của báo cáo đã tồn tại
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi kiểm tra và tạo báo cáo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return Guid.Empty; // Trả về một Guid rỗng nếu có lỗi
+            }
+        }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
+                // Kiểm tra và tạo báo cáo nếu cần, đồng thời lấy ReportID
+                Guid reportId = CheckAndCreateReport();
+
                 var newOrder = new Order
                 {
                     OrderID = Guid.NewGuid(),
                     CustomerID = Guid.Parse("41c71f03-a71d-4434-b97d-6570c344901c"),
                     AccountID = Guid.Parse("94f5180e-ab9c-4843-a743-800cfa3ba75b"),
                     IDVoucher = Guid.Parse("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
+                    ReportID = reportId,  // Gán ReportID vào đơn hàng
                     TotalAmount = 0,
                     Price = 0,
                     Status = 0,
@@ -523,9 +716,9 @@ namespace PRL.View
                     WHERE od.OrderID = Orders.OrderID
                 ), 0),
                 Price = COALESCE((
-                    SELECT SUM(od.Quantity * pd.Price)
+                    SELECT SUM(od.Quantity * od.UnitPrice)
                     FROM OrderDetails od
-                    JOIN ProductDetails pd ON od.IMEI = pd.IMEI
+                    JOIN ProductDetails pd ON od.ProductDetailID = pd.ProductDetailID
                     WHERE od.OrderID = Orders.OrderID
                 ), 0);
             ";
@@ -577,27 +770,24 @@ namespace PRL.View
 
                 UpdateOrderDetails();
                 // Câu truy vấn SELECT
-                string sql5 = @"SELECT OrderDetailID, 
-                       OrderID, 
-                       IMEI, 
-                       ProductName, 
-                       Quantity, 
-                       UnitPrice, 
-                       DiscountValue, 
-                       CreatedAt, 
-                       UpdatedAt, 
-                       CreatedBy, 
-                       UpdatedBy
-                FROM OrderDetails
-                WHERE OrderID = @OrderID";
-
-
-
-
+                string sql5 = @"
+                SELECT          
+               od.ProductName, 
+               od.Quantity, 
+               od.UnitPrice, 
+               od.DiscountValue, 
+                i.ImeiID,
+               i.OrderDetailID,
+               od.OrderID, 
+               od.ProductDetailID
+        FROM OrderDetails od
+        JOIN IMEIs i ON od.OrderDetailID = i.OrderDetailID
+        WHERE od.OrderID = @OrderID";
 
                 // Khởi tạo SqlCommand
                 SqlCommand cmd = new SqlCommand(sql5, conn);
                 cmd.Parameters.AddWithValue("@OrderID", txtHDHT.Text);
+                // Ẩn cột OrderDetailID trong DataGridView
 
                 // Thực hiện lệnh SELECT
                 sda = new SqlDataAdapter(cmd);
@@ -607,8 +797,48 @@ namespace PRL.View
                 // Kiểm tra xem DataSet có dữ liệu hay không
                 if (ds.Tables[0].Rows.Count > 0)
                 {
+                    using (var context = new IphoneDbContext())
+                    {
+                        // Tính toán giá sau chiết khấu cho từng hàng
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            Guid productDetailId = (Guid)row["ProductDetailID"];
+                            var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == productDetailId);
+                            if (productDetail == null)
+                            {
+                                MessageBox.Show($"Không tìm thấy sản phẩm cho ProductDetailID: {productDetailId}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            decimal unitPrice = productDetail.Price;
+                            // Lấy giá trị chiết khấu từ bảng Sales
+                            var sale = context.Sales.FirstOrDefault(s => s.SaleID == productDetail.SaleID);
+                            decimal discountValue = sale != null ? sale.DiscountValue : 0;
+                            decimal finalPrice = unitPrice;
+
+                            if (discountValue > 0 && discountValue < 100)
+                            {
+                                // Giảm theo phần trăm
+                                finalPrice = unitPrice * (1 - (discountValue / 100));
+                            }
+                            else if (discountValue > 1000 && discountValue <= unitPrice)
+                            {
+                                // Giảm theo giá cố định
+                                finalPrice = unitPrice - discountValue;
+                            }
+                            else if ((discountValue >= 100 && discountValue <= 1000) || discountValue > unitPrice)
+                            {
+                                MessageBox.Show("Giá trị chiết khấu không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            row["UnitPrice"] = finalPrice;
+                        }
+                    }
+
                     // Điền dữ liệu vào DataGridView
                     dgvHDCT.DataSource = ds.Tables[0];
+
                 }
                 else
                 {
@@ -625,6 +855,8 @@ namespace PRL.View
                 conn.Close();
             }
         }
+
+
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -648,7 +880,7 @@ namespace PRL.View
 
                     if (productDetail != null)
                     {
-                        productDetail.Status = 1;
+                        productDetail.Quantity += 1;
                     }
 
                     Context.OrderDetails.Remove(orderItem);
@@ -672,18 +904,21 @@ namespace PRL.View
             }
         }
 
-
-        private void bttCL_Click(object sender, EventArgs e)
+        void clear()
         {
             txtMSP.Text = "";
             txtHDCT.Text = "";
-            txtimei.Text = "";
+            txtSPCT.Text = "";
             txtSP.Text = "";
             txtSZ.Text = "";
             DTPVC.Text = "";
             txtSL.Text = "";
             txtGia.Text = "";
-            txtTG.Text = "";
+            cbImei.Text = "";
+        }
+        private void bttCL_Click(object sender, EventArgs e)
+        {
+            clear();
         }
 
         private void bttSua_Click(object sender, EventArgs e)
@@ -702,7 +937,7 @@ namespace PRL.View
                     oderItem.Quantity = Convert.ToInt32("1");
                     oderItem.ProductName = txtSP.Text;
                     oderItem.UnitPrice = Convert.ToInt32(txtGia.Text);
-                    oderItem.DiscountValue = Convert.ToInt32(txtTG.Text);
+                    oderItem.DiscountValue = Convert.ToInt32(cbImei.Text);
                     oderItem.CreatedAt = DateTime.Now;
                     oderItem.UpdatedAt = DateTime.Now;
                     oderItem.CreatedBy = "admin";
@@ -728,23 +963,13 @@ namespace PRL.View
             if (dgvHDCT.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 dgvHDCT.CurrentRow.Selected = true;
-                txtimei.Text = dgvHDCT.Rows[e.RowIndex].Cells["IMEI"].Value.ToString();
-                txtHDCT.Text = dgvHDCT.Rows[e.RowIndex].Cells["OrderDetailID"].Value.ToString();
+                txtSPCT.Text = dgvHDCT.Rows[e.RowIndex].Cells["ProductDetailID"].Value.ToString();
+                cbImei.Text = dgvHDCT.Rows[e.RowIndex].Cells["ImeiID"].Value.ToString();
+                //txtHDCT.Text = dgvHDCT.Rows[e.RowIndex].Cells["OrderDetailID"].Value.ToString();
                 txtSP.Text = dgvHDCT.Rows[e.RowIndex].Cells["ProductName"].Value.ToString();
                 txtSZ.Text = dgvHDCT.Rows[e.RowIndex].Cells["DiscountValue"].Value.ToString();
                 txtGia.Text = dgvHDCT.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString();
-                txtSL.Text = "1";
-
-                // Chuyển đổi txtSZ.Text và txtGia.Text thành số
-                decimal discount = Convert.ToDecimal(txtSZ.Text);
-                decimal price = Convert.ToDecimal(txtGia.Text);
-                int quantity = Convert.ToInt32(txtSL.Text);
-
-                // Tính tổng tiền
-                decimal totalPrice = quantity * price * (1 - (discount / 100));
-
-                // Gán kết quả vào txtTG
-                txtTG.Text = totalPrice.ToString("F2");
+                txtSL.Text = "1";      
 
             }
             LayDLSP();
@@ -791,10 +1016,8 @@ namespace PRL.View
 
         private void ClearDataGridView()
         {
-            // Cách 1: Đặt DataSource về null
-            dgvHDCT.DataSource = null;
 
-            // Cách 2: Xóa tất cả các hàng trong DataGridView
+            dgvHDCT.DataSource = null;
             dgvHDCT.Rows.Clear();
         }
         private void bttRL_Click_1(object sender, EventArgs e)
@@ -802,7 +1025,7 @@ namespace PRL.View
             try
             {
                 LoadData();
-                LayDLHD();
+                LoadDataHD();
                 ClearDataGridView();
             }
             catch (Exception ex)

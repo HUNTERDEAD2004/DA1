@@ -31,9 +31,8 @@
             label3 = new Label();
             txtTKH = new TextBox();
             button6 = new Button();
-            dgvKH = new DataGridView();
             ss = new Label();
-            txtMKH = new TextBox();
+            txtKT = new TextBox();
             label1 = new Label();
             txtMNV = new TextBox();
             groupBox2 = new GroupBox();
@@ -51,7 +50,6 @@
             txtSL = new TextBox();
             label6 = new Label();
             txtSDT = new TextBox();
-            groupBox4 = new GroupBox();
             lab32 = new Label();
             txtMHD = new TextBox();
             label2 = new Label();
@@ -60,18 +58,18 @@
             TxtTT = new TextBox();
             label8 = new Label();
             txtVCG = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dgvKH).BeginInit();
+            label9 = new Label();
+            txtTL = new TextBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDC).BeginInit();
-            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(747, 342);
+            label3.Location = new Point(229, 352);
             label3.Name = "label3";
             label3.Size = new Size(56, 15);
             label3.TabIndex = 86;
@@ -79,49 +77,36 @@
             // 
             // txtTKH
             // 
-            txtTKH.Location = new Point(847, 339);
+            txtTKH.Location = new Point(329, 349);
             txtTKH.Name = "txtTKH";
             txtTKH.Size = new Size(340, 23);
             txtTKH.TabIndex = 85;
             // 
             // button6
             // 
-            button6.Location = new Point(1193, 339);
+            button6.Location = new Point(675, 349);
             button6.Name = "button6";
             button6.Size = new Size(39, 23);
             button6.TabIndex = 84;
             button6.Text = "Tìm";
             button6.UseVisualStyleBackColor = true;
             // 
-            // dgvKH
-            // 
-            dgvKH.AllowUserToAddRows = false;
-            dgvKH.AllowUserToDeleteRows = false;
-            dgvKH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKH.Location = new Point(14, 20);
-            dgvKH.Name = "dgvKH";
-            dgvKH.ReadOnly = true;
-            dgvKH.RowHeadersWidth = 51;
-            dgvKH.RowTemplate.Height = 25;
-            dgvKH.Size = new Size(487, 244);
-            dgvKH.TabIndex = 62;
-            // 
             // ss
             // 
             ss.AutoSize = true;
             ss.Location = new Point(750, 220);
             ss.Name = "ss";
-            ss.Size = new Size(90, 15);
+            ss.Size = new Size(58, 15);
             ss.TabIndex = 83;
-            ss.Text = "Mã Khách hàng";
+            ss.Text = "Khách Trả";
             ss.Click += ss_Click;
             // 
-            // txtMKH
+            // txtKT
             // 
-            txtMKH.Location = new Point(853, 217);
-            txtMKH.Name = "txtMKH";
-            txtMKH.Size = new Size(340, 23);
-            txtMKH.TabIndex = 82;
+            txtKT.Location = new Point(853, 217);
+            txtKT.Name = "txtKT";
+            txtKT.Size = new Size(340, 23);
+            txtKT.TabIndex = 82;
             // 
             // label1
             // 
@@ -228,7 +213,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(958, 285);
+            button2.Location = new Point(970, 586);
             button2.Name = "button2";
             button2.Size = new Size(104, 48);
             button2.TabIndex = 69;
@@ -265,13 +250,14 @@
             // 
             txtSL.Location = new Point(854, 99);
             txtSL.Name = "txtSL";
+            txtSL.ReadOnly = true;
             txtSL.Size = new Size(139, 23);
             txtSL.TabIndex = 64;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(750, 259);
+            label6.Location = new Point(753, 296);
             label6.Name = "label6";
             label6.Size = new Size(26, 15);
             label6.TabIndex = 88;
@@ -279,20 +265,11 @@
             // 
             // txtSDT
             // 
-            txtSDT.Location = new Point(854, 256);
+            txtSDT.Location = new Point(853, 293);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(340, 23);
             txtSDT.TabIndex = 87;
-            // 
-            // groupBox4
-            // 
-            groupBox4.Controls.Add(dgvKH);
-            groupBox4.Location = new Point(737, 368);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(514, 285);
-            groupBox4.TabIndex = 89;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Khách hàng";
+            txtSDT.TextChanged += txtSDT_TextChanged;
             // 
             // lab32
             // 
@@ -307,6 +284,7 @@
             // 
             txtMHD.Location = new Point(854, 28);
             txtMHD.Name = "txtMHD";
+            txtMHD.ReadOnly = true;
             txtMHD.Size = new Size(340, 23);
             txtMHD.TabIndex = 90;
             // 
@@ -358,11 +336,30 @@
             txtVCG.Size = new Size(139, 23);
             txtVCG.TabIndex = 96;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(750, 258);
+            label9.Name = "label9";
+            label9.Size = new Size(37, 15);
+            label9.TabIndex = 99;
+            label9.Text = "Trả lại";
+            // 
+            // txtTL
+            // 
+            txtTL.Location = new Point(853, 255);
+            txtTL.Name = "txtTL";
+            txtTL.Size = new Size(340, 23);
+            txtTL.TabIndex = 98;
+            txtTL.TextChanged += txtSDT_TextChanged;
+            // 
             // HDCT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1263, 694);
+            Controls.Add(label9);
+            Controls.Add(txtTL);
             Controls.Add(label8);
             Controls.Add(txtVCG);
             Controls.Add(label7);
@@ -371,14 +368,13 @@
             Controls.Add(txtTTVC);
             Controls.Add(lab32);
             Controls.Add(txtMHD);
-            Controls.Add(groupBox4);
             Controls.Add(label6);
             Controls.Add(txtSDT);
             Controls.Add(label3);
             Controls.Add(txtTKH);
             Controls.Add(button6);
             Controls.Add(ss);
-            Controls.Add(txtMKH);
+            Controls.Add(txtKT);
             Controls.Add(label1);
             Controls.Add(txtMNV);
             Controls.Add(groupBox2);
@@ -394,12 +390,10 @@
             Name = "HDCT";
             Text = "HDCT";
             Load += HDCT_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvKH).EndInit();
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).EndInit();
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvHDC).EndInit();
-            groupBox4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -409,9 +403,8 @@
         private Label label3;
         private TextBox txtTKH;
         private Button button6;
-        private DataGridView dgvKH;
         private Label ss;
-        private TextBox txtMKH;
+        private TextBox txtKT;
         private Label label1;
         private TextBox txtMNV;
         private GroupBox groupBox2;
@@ -429,7 +422,6 @@
         private Label label6;
         private TextBox txtSDT;
         private GroupBox groupBox3;
-        private GroupBox groupBox4;
         private Label lab32;
         private TextBox txtMHD;
         private Label label2;
@@ -438,5 +430,7 @@
         private TextBox TxtTT;
         private Label label8;
         private TextBox txtVCG;
+        private Label label9;
+        private TextBox txtTL;
     }
 }

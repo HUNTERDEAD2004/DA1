@@ -62,7 +62,7 @@ namespace PRL.View
 
         bool CheckUser(Account user)
         {
-            return user != null; 
+            return user != null;
         }
 
 
@@ -71,7 +71,7 @@ namespace PRL.View
             var user = dbContext.Accounts.FirstOrDefault(u => u.Username == username && u.Password == pass);
             if (user != null)
             {
-                user.Roles = GetRole(username); 
+                user.Roles = GetRole(username);
             }
             return user;
         }
@@ -95,6 +95,25 @@ namespace PRL.View
             DangKy form = new DangKy();
             this.Hide();
             form.Show();
+        }
+
+        private void bttHT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CBHT_CheckedChanged(object sender, EventArgs e)
+        {
+            if (textBox2.PasswordChar == '*')
+            {
+                CBHT.BringToFront();
+                textBox2.PasswordChar = '\0';
+            }
+            else
+            {
+                CBHT.BringToFront();
+                textBox2.PasswordChar = '*';
+            }
         }
     }
 }

@@ -17,6 +17,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Media;
+using DocumentFormat.OpenXml.InkML;
+using Microsoft.Win32;
 
 namespace PRL.View
 {
@@ -36,11 +38,11 @@ namespace PRL.View
         }
         void HienThi()
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Accounts", conn);
-            SqlDataReader dr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(dr);
-            dgvnhanvien.DataSource = dt;
+            //SqlCommand cmd = new SqlCommand("SELECT * FROM Accounts", conn);
+            //SqlDataReader dr = cmd.ExecuteReader();
+            //DataTable dt = new DataTable();
+            //dt.Load(dr);
+            //dgvnhanvien.DataSource = dt;
             // Thiết lập tự động điều chỉnh độ rộng cột
             dgvnhanvien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
@@ -103,6 +105,7 @@ namespace PRL.View
         {
             conn.Open();
             HienThi();
+            LoadData();
             LayDL();
         }
 
@@ -283,6 +286,23 @@ namespace PRL.View
                     return;
                 }
 
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Username", tk);
+                
+
+                    key.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 var user = new Account
                 {
@@ -300,8 +320,8 @@ namespace PRL.View
                     Wage = Convert.ToDecimal(txtL.Text),
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,
-                    CreateBy = "admin", // Thay đổi thành người dùng hiện tại
-                    UpdateBy = "admin"  // Thay đổi thành người dùng hiện tại
+                    CreateBy = tk, 
+                    UpdateBy = tk  
                 };
 
 
@@ -386,11 +406,28 @@ namespace PRL.View
                         return;
                     }
 
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                    string tk = null;
+                    if (key != null)
+                    {
+                        tk = key.GetValue("Username").ToString();
+                        string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@Username", tk);
+
+
+                        key.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     // Giả sử user là đối tượng Account đã tồn tại trong cơ sở dữ liệu và bạn muốn cập nhật thông tin của nó
                     user.Name = txtten.Text;
                     user.Adress = txtDC.Text;
                     user.Username = txtTK.Text;
-                    user.Password = txtMK.Text;
                     user.Status = rdb_HoatDong.Checked ? 1 : 0;
                     user.Roles = "user"; // Thay đổi vai trò phù hợp
                     user.PhoneNumber = txtsdt.Text;
@@ -400,8 +437,8 @@ namespace PRL.View
                     user.Wage = Convert.ToDecimal(txtL.Text);
                     user.CreateAt = DateTime.Now;
                     user.UpdateAt = DateTime.Now;
-                    user.CreateBy = "admin";
-                    user.UpdateBy = "admin";
+                    user.CreateBy = tk;
+                    user.UpdateBy = tk;
 
 
                     Context.SaveChanges();

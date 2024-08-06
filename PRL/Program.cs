@@ -11,8 +11,8 @@ namespace PRL
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
 
             //HDCT hdctform = new HDCT();
             //Orderform orderform = new Orderform(hdctform);

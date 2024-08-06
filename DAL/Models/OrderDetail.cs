@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,5 +32,7 @@ namespace AppData.Models
         public Order Order { get; set; }
 
         public ProductDetail ProductDetail { get; set; }
+        public ICollection<IMEI> Imeis { get; set; } // Navigation property cho quan hệ
+
     }
 }

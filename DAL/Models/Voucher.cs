@@ -18,7 +18,6 @@ namespace DAL.Models
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<ProductDetail> ProductDetails { get; set; }
 
     }
 }

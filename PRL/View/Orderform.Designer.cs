@@ -56,6 +56,7 @@
             label1 = new Label();
             txtSP = new TextBox();
             panel1 = new Panel();
+            cbImei = new ComboBox();
             bttRL = new Button();
             txtHDHT = new TextBox();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -67,10 +68,9 @@
             bttHDT = new Button();
             bttCHD = new Button();
             label11 = new Label();
-            txtimei = new TextBox();
+            txtSPCT = new TextBox();
             label8 = new Label();
             btnSearch = new FontAwesome.Sharp.IconButton();
-            txtTG = new TextBox();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDCT).BeginInit();
@@ -364,6 +364,7 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(cbImei);
             panel1.Controls.Add(bttRL);
             panel1.Controls.Add(txtHDHT);
             panel1.Controls.Add(iconButton1);
@@ -374,10 +375,9 @@
             panel1.Controls.Add(bttHDT);
             panel1.Controls.Add(bttCHD);
             panel1.Controls.Add(label11);
-            panel1.Controls.Add(txtimei);
+            panel1.Controls.Add(txtSPCT);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(btnSearch);
-            panel1.Controls.Add(txtTG);
             panel1.Controls.Add(DTPVC);
             panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(label5);
@@ -403,6 +403,14 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1663, 920);
             panel1.TabIndex = 70;
+            // 
+            // cbImei
+            // 
+            cbImei.FormattingEnabled = true;
+            cbImei.Location = new Point(112, 326);
+            cbImei.Name = "cbImei";
+            cbImei.Size = new Size(298, 23);
+            cbImei.TabIndex = 83;
             // 
             // bttRL
             // 
@@ -519,13 +527,13 @@
             label11.TabIndex = 73;
             label11.Text = "Mã Imei";
             // 
-            // txtimei
+            // txtSPCT
             // 
-            txtimei.Location = new Point(112, 89);
-            txtimei.Name = "txtimei";
-            txtimei.ReadOnly = true;
-            txtimei.Size = new Size(298, 23);
-            txtimei.TabIndex = 71;
+            txtSPCT.Location = new Point(112, 89);
+            txtSPCT.Name = "txtSPCT";
+            txtSPCT.ReadOnly = true;
+            txtSPCT.Size = new Size(298, 23);
+            txtSPCT.TabIndex = 71;
             // 
             // label8
             // 
@@ -534,9 +542,9 @@
             label8.ForeColor = SystemColors.ButtonHighlight;
             label8.Location = new Point(8, 329);
             label8.Name = "label8";
-            label8.Size = new Size(57, 15);
+            label8.Size = new Size(30, 15);
             label8.TabIndex = 72;
-            label8.Text = "Tổng tiền";
+            label8.Text = "Imei";
             // 
             // btnSearch
             // 
@@ -549,14 +557,6 @@
             btnSearch.Size = new Size(37, 23);
             btnSearch.TabIndex = 56;
             btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // txtTG
-            // 
-            txtTG.Location = new Point(112, 329);
-            txtTG.Name = "txtTG";
-            txtTG.ReadOnly = true;
-            txtTG.Size = new Size(298, 23);
-            txtTG.TabIndex = 71;
             // 
             // sqlCommand1
             // 
@@ -623,8 +623,7 @@
         private Panel panel1;
         private FontAwesome.Sharp.IconButton btnSearch;
         private Label label8;
-        private TextBox txtTG;
-        private TextBox txtimei;
+        private TextBox txtSPCT;
         private Label label11;
         private Button bttHDT;
         private Button bttCHD;
@@ -637,5 +636,6 @@
         private FontAwesome.Sharp.IconButton iconButton1;
         private TextBox textBox1;
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
+        private ComboBox cbImei;
     }
 }

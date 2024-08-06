@@ -16,7 +16,7 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB5;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -69,9 +69,18 @@ namespace PRL.View
             {
                 conn.Open();
                 string query = @"
-                SELECT od.OrderDetailID, od.OrderID, od.IMEI, od.ProductName, od.Quantity, od.UnitPrice, od.DiscountValue, od.CreatedAt, od.UpdatedAt, od.CreatedBy, od.UpdatedBy
-                FROM OrderDetails od
-                WHERE od.OrderID = @OrderID";
+                SELECT          
+               od.ProductName, 
+               od.Quantity, 
+               od.UnitPrice, 
+               od.DiscountValue, 
+                i.ImeiID,
+               i.OrderDetailID,
+               od.OrderID, 
+               od.ProductDetailID
+        FROM OrderDetails od
+        JOIN IMEIs i ON od.OrderDetailID = i.OrderDetailID
+        WHERE od.OrderID = @OrderID";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@OrderID", orderId);
@@ -107,38 +116,22 @@ namespace PRL.View
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
             if (key != null)
             {
-                var tk = key.GetValue("Username").ToString();
+                string tk = key.GetValue("Username").ToString();
                 string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
 
-               
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Username", tk);
-
-                try
-                {
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        string accountId = reader["AccountID"].ToString();
-                        txtMNV.Text = accountId; // Gán AccountID vào TextBox
-                    }
-                    else
-                    {
-                        txtMNV.Text = "Không tìm thấy tài khoản";
-                    }
-                    reader.Close();
-                    conn.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi: " + ex.Message);
-                }
+                txtMNV.Text = tk;
                 
 
                 key.Close();
             }
+            else
+            {
+                MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
 
         private void ss_Click(object sender, EventArgs e)
@@ -148,20 +141,29 @@ namespace PRL.View
 
         private void dgvHDC_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvHDC.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            try
             {
-                dgvHDC.CurrentRow.Selected = true;
-                txtMHD.Text = dgvHDC.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
-                txtSL.Text = dgvHDC.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
-                TxtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
-                VC();
+                if (dgvHDC.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    dgvHDC.CurrentRow.Selected = true;
+                    txtMHD.Text = dgvHDC.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
+                    txtSL.Text = dgvHDC.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
+                    TxtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                    VC();
 
-                decimal discount = Convert.ToDecimal(txtVCG.Text);
-                decimal price = decimal.Parse(TxtTT.Text);
+                    decimal discount = Convert.ToDecimal(txtVCG.Text);
+                    decimal price = decimal.Parse(TxtTT.Text);
 
-                decimal totalPrice = price * (1 - (discount / 100));
+                    decimal totalPrice = price * (1 - (discount / 100));
 
-                txtTTVC.Text = totalPrice.ToString("F2");
+                    txtTTVC.Text = totalPrice.ToString("F2");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Không tìm thấy: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -204,9 +206,13 @@ namespace PRL.View
 
                 dgvHDC.DataSource = order;
 
-
+                dgvHDC.Columns["AccountID"].DisplayIndex = 0;
+                dgvHDC.Columns["CustomerID"].DisplayIndex = 1;
+                dgvHDC.Columns["TotalAmount"].DisplayIndex = 2;
+                dgvHDC.Columns["Price"].DisplayIndex = 3;
+                dgvHDC.Columns["Status"].DisplayIndex = 4;
                 // Xóa 9 cột đầu tiên
-                RemoveFirstNineColumns();
+                //RemoveFirstNineColumns();
             }
         }
 
@@ -222,14 +228,16 @@ namespace PRL.View
             {
                 if (totalAmount >= voucher.Minium_Total)
                 {
-                    selectedVoucherId = voucher.IDVoucher;
+                    var Mini = voucher.Minium_Total;
+                    txtVC.Text = Mini.ToString();
                     discountValue = voucher.Discount; // Lấy giá trị Discount
                     break;
                 }
             }
 
             // Gán IDVoucher vào txtVC
-            txtVC.Text = selectedVoucherId.ToString();
+            //txtVC.Text = selectedVoucherId.ToString();
+            
 
             // Gán Discount vào txtVCG
             txtVCG.Text = discountValue.ToString();
@@ -245,13 +253,17 @@ namespace PRL.View
                 {
                     var selectedRow = dgvHDC.SelectedRows[0];
                     var orderIdCell = selectedRow.Cells["OrderID"].Value;
+                    var reportIdCell = selectedRow.Cells["ReportID"].Value; // Lấy ReportID từ DataGridView
 
                     // Kiểm tra giá trị OrderID có hợp lệ không
-                    if (orderIdCell != null && Guid.TryParse(orderIdCell.ToString(), out Guid orderId))
+                    if (orderIdCell != null && Guid.TryParse(orderIdCell.ToString(), out Guid orderId) &&
+                        reportIdCell != null && Guid.TryParse(reportIdCell.ToString(), out Guid reportId))
                     {
                         string sdt = txtSDT.Text.Trim();
                         Guid? customerId = null;
                         int totalPoints = int.Parse(txtSL.Text); // Số lượng của hóa đơn được sử dụng làm điểm cộng
+                        decimal price = decimal.Parse(txtTTVC.Text); // Giá trị hóa đơn
+                        int quantity = int.Parse(txtSL.Text); // Số lượng sản phẩm
 
                         using (var context = new IphoneDbContext())
                         {
@@ -289,6 +301,20 @@ namespace PRL.View
                                 customerId = customer.CustomerID;
                             }
 
+                            // Lấy AccountID từ Username
+                            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                            string accountIdString = null;
+                            if (key != null)
+                            {
+                                string username = key.GetValue("Username").ToString();
+                                var account = context.Accounts.FirstOrDefault(a => a.Username == username);
+                                if (account != null)
+                                {
+                                    accountIdString = account.AccountID.ToString();
+                                }
+                                key.Close();
+                            }
+
                             // Tạo câu lệnh SQL để cập nhật hóa đơn
                             string sql = @"
                     UPDATE Orders
@@ -303,15 +329,33 @@ namespace PRL.View
                         UpdatedBy = @UpdatedBy
                     WHERE OrderID = @OrderID";
 
-                            using (SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True"))
+                            using (SqlCommand cmd = new SqlCommand(sql, conn))
                             {
-                                SqlCommand cmd = new SqlCommand(sql, conn);
                                 cmd.Parameters.AddWithValue("@OrderID", orderId);
                                 cmd.Parameters.AddWithValue("@CustomerID", (object)customerId ?? DBNull.Value);
-                                cmd.Parameters.AddWithValue("@AccountID", txtMNV.Text);
-                                cmd.Parameters.AddWithValue("@IDVoucher", txtVC.Text);
-                                cmd.Parameters.AddWithValue("@Price", decimal.Parse(txtTTVC.Text));
-                                cmd.Parameters.AddWithValue("@TotalAmount", decimal.Parse(txtSL.Text));
+
+                                // Kiểm tra và chuyển đổi AccountID
+                                if (Guid.TryParse(accountIdString, out Guid accountId))
+                                {
+                                    cmd.Parameters.AddWithValue("@AccountID", accountId);
+                                }
+                                else
+                                {
+                                    cmd.Parameters.AddWithValue("@AccountID", DBNull.Value);
+                                }
+
+                                // Kiểm tra và chuyển đổi IDVoucher
+                                if (Guid.TryParse(txtVC.Text, out Guid voucherId))
+                                {
+                                    cmd.Parameters.AddWithValue("@IDVoucher", voucherId);
+                                }
+                                else
+                                {
+                                    cmd.Parameters.AddWithValue("@IDVoucher", DBNull.Value);
+                                }
+
+                                cmd.Parameters.AddWithValue("@Price", price);
+                                cmd.Parameters.AddWithValue("@TotalAmount", quantity);
                                 cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now);
                                 cmd.Parameters.AddWithValue("@UpdatedBy", "system");
 
@@ -328,6 +372,18 @@ namespace PRL.View
 
                                 if (rowsAffected > 0)
                                 {
+                                    // Cập nhật báo cáo
+                                    var report = context.Reports.FirstOrDefault(r => r.ReportID == reportId);
+                                    if (report != null)
+                                    {
+                                        report.TotalSold += quantity;
+                                        report.TotalAmount += price;
+                                        report.SuccessfulOrders += 1;
+                                        report.UpdatedAt = DateTime.Now;
+                                        report.UpdatedBy = "system";
+                                        context.SaveChanges();
+                                    }
+
                                     // Load lại dữ liệu hóa đơn cụ thể
                                     LoadDataHD(orderId);
                                     MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -341,7 +397,7 @@ namespace PRL.View
                     }
                     else
                     {
-                        MessageBox.Show("OrderID không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("OrderID hoặc ReportID không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -360,6 +416,24 @@ namespace PRL.View
         }
 
 
+
+        private void txtSDT_TextChanged(object sender, EventArgs e)
+        {
+            TinhTienTraLai();
+        }
+
+        private void TinhTienTraLai()
+        {
+            // Lấy giá trị từ các TextBox
+            decimal tongtien = decimal.TryParse(txtTTVC.Text, out tongtien) ? tongtien : 0;
+            decimal tienKhachDua = decimal.TryParse(txtKT.Text, out tienKhachDua) ? tienKhachDua : 0;
+
+            // Tính số tiền trả lại
+            decimal tienTraLai = tienKhachDua - tongtien;
+
+            // Hiển thị số tiền trả lại
+            txtTL.Text = tienTraLai.ToString();
+        }
     }
 
 }
