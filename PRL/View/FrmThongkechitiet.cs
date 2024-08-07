@@ -36,18 +36,17 @@ namespace PRL.View
             {
                 //  lấy chi tiết hóa đơn với các bảng kết nối
                 var orderDetails = (from od in _context.OrderDetails
-                                    join pd in _context.ProductDetails on od.Imeis equals pd.Imeis
+                                    join pd in _context.ProductDetails on od.ProductDetailID equals pd.ProductDetailID
                                     join sl in _context.Sales on pd.SaleID equals sl.SaleID
                                     where od.OrderID == _orderID
                                     select new
                                     {
                                         ProductName = pd.Name,
                                         Quantity = od.Quantity,
-                                        UnitPrice = od.UnitPrice, 
+                                        UnitPrice = od.UnitPrice,
                                         DiscountValue = sl.DiscountValue
-                                    }).ToList(); 
+                                    }).ToList();
 
-                
                 if (orderDetails.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu cho hóa đơn này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -55,7 +54,7 @@ namespace PRL.View
 
                 // Tạo và điền DataTable
                 dataTable = new DataTable();
-                dataTable.Columns.Add("STT", typeof(int)); 
+                dataTable.Columns.Add("STT", typeof(int));
                 dataTable.Columns.Add("ProductName");
                 dataTable.Columns.Add("Quantity", typeof(int));
                 dataTable.Columns.Add("DiscountValue", typeof(decimal));

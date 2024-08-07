@@ -29,6 +29,7 @@ namespace PRL.View
             // Tắt thuộc tính AllowUserToAddRows
             dgvHDC.AllowUserToAddRows = false;
             dgvHDTT.AllowUserToAddRows = false;
+            txtKT.Leave += new EventHandler(txtKT_Leave);
         }
 
         private void bttBack_Click(object sender, EventArgs e)
@@ -122,7 +123,7 @@ namespace PRL.View
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Username", tk);
                 txtMNV.Text = tk;
-                
+
 
                 key.Close();
             }
@@ -222,22 +223,25 @@ namespace PRL.View
             decimal totalAmount = decimal.Parse(TxtTT.Text);
             var vouchers = Context.Vouchers.OrderByDescending(v => v.Minium_Total).ToList();
             Guid selectedVoucherId = new Guid("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"); // Mặc định
-            decimal discountValue = 0m; // Mặc định giá trị Discount
+            decimal discountValue = 0; // Mặc định giá trị Discount
 
             foreach (var voucher in vouchers)
             {
                 if (totalAmount >= voucher.Minium_Total)
                 {
+                    var Ma = voucher.IDVoucher;
+                    txtMVC.Text = Ma.ToString();
+
                     var Mini = voucher.Minium_Total;
                     txtVC.Text = Mini.ToString();
-                    discountValue = voucher.Discount; // Lấy giá trị Discount
+                    discountValue = voucher.Discount;
                     break;
                 }
             }
 
             // Gán IDVoucher vào txtVC
             //txtVC.Text = selectedVoucherId.ToString();
-            
+
 
             // Gán Discount vào txtVCG
             txtVCG.Text = discountValue.ToString();
@@ -344,8 +348,8 @@ namespace PRL.View
                                     cmd.Parameters.AddWithValue("@AccountID", DBNull.Value);
                                 }
 
-                                // Kiểm tra và chuyển đổi IDVoucher
-                                if (Guid.TryParse(txtVC.Text, out Guid voucherId))
+
+                                if (Guid.TryParse(txtMVC.Text, out Guid voucherId))
                                 {
                                     cmd.Parameters.AddWithValue("@IDVoucher", voucherId);
                                 }
@@ -419,20 +423,28 @@ namespace PRL.View
 
         private void txtSDT_TextChanged(object sender, EventArgs e)
         {
-            TinhTienTraLai();
         }
 
         private void TinhTienTraLai()
         {
-            // Lấy giá trị từ các TextBox
             decimal tongtien = decimal.TryParse(txtTTVC.Text, out tongtien) ? tongtien : 0;
             decimal tienKhachDua = decimal.TryParse(txtKT.Text, out tienKhachDua) ? tienKhachDua : 0;
 
-            // Tính số tiền trả lại
-            decimal tienTraLai = tienKhachDua - tongtien;
+            if (decimal.Parse(txtKT.Text) < decimal.Parse(txtTTVC.Text))
+            {
+                MessageBox.Show("Khách trả chưa Đủ. Không Cho Nợ OK.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                decimal tienTraLai = tienKhachDua - tongtien;
+                txtTL.Text = tienTraLai.ToString();
+            }
+        }
 
-            // Hiển thị số tiền trả lại
-            txtTL.Text = tienTraLai.ToString();
+        private void txtKT_Leave(object sender, EventArgs e)
+        {
+            TinhTienTraLai();
+
         }
     }
 

@@ -60,6 +60,8 @@
             txtVCG = new TextBox();
             label9 = new Label();
             txtTL = new TextBox();
+            label10 = new Label();
+            txtMVC = new TextBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).BeginInit();
             groupBox1.SuspendLayout();
@@ -94,7 +96,7 @@
             // ss
             // 
             ss.AutoSize = true;
-            ss.Location = new Point(750, 220);
+            ss.Location = new Point(750, 236);
             ss.Name = "ss";
             ss.Size = new Size(58, 15);
             ss.TabIndex = 83;
@@ -103,23 +105,24 @@
             // 
             // txtKT
             // 
-            txtKT.Location = new Point(853, 217);
+            txtKT.Location = new Point(853, 233);
             txtKT.Name = "txtKT";
             txtKT.Size = new Size(340, 23);
             txtKT.TabIndex = 82;
+            txtKT.Leave += txtKT_Leave;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(750, 63);
+            label1.Location = new Point(750, 92);
             label1.Name = "label1";
-            label1.Size = new Size(82, 15);
+            label1.Size = new Size(62, 15);
             label1.TabIndex = 78;
-            label1.Text = "Mã Nhân Viên";
+            label1.Text = "Nhân Viên";
             // 
             // txtMNV
             // 
-            txtMNV.Location = new Point(854, 60);
+            txtMNV.Location = new Point(854, 89);
             txtMNV.Name = "txtMNV";
             txtMNV.ReadOnly = true;
             txtMNV.Size = new Size(340, 23);
@@ -224,23 +227,24 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(750, 143);
+            label5.Location = new Point(750, 159);
             label5.Name = "label5";
-            label5.Size = new Size(55, 15);
+            label5.Size = new Size(73, 15);
             label5.TabIndex = 67;
-            label5.Text = "Vouchers";
+            label5.Text = "Vouchers DK";
             // 
             // txtVC
             // 
-            txtVC.Location = new Point(854, 140);
+            txtVC.Location = new Point(854, 156);
             txtVC.Name = "txtVC";
+            txtVC.ReadOnly = true;
             txtVC.Size = new Size(139, 23);
             txtVC.TabIndex = 66;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(750, 102);
+            label4.Location = new Point(750, 121);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 65;
@@ -248,7 +252,7 @@
             // 
             // txtSL
             // 
-            txtSL.Location = new Point(854, 99);
+            txtSL.Location = new Point(854, 118);
             txtSL.Name = "txtSL";
             txtSL.ReadOnly = true;
             txtSL.Size = new Size(139, 23);
@@ -257,7 +261,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(753, 296);
+            label6.Location = new Point(753, 312);
             label6.Name = "label6";
             label6.Size = new Size(26, 15);
             label6.TabIndex = 88;
@@ -265,7 +269,7 @@
             // 
             // txtSDT
             // 
-            txtSDT.Location = new Point(853, 293);
+            txtSDT.Location = new Point(853, 309);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(340, 23);
             txtSDT.TabIndex = 87;
@@ -291,7 +295,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(749, 181);
+            label2.Location = new Point(749, 197);
             label2.Name = "label2";
             label2.Size = new Size(57, 15);
             label2.TabIndex = 93;
@@ -299,15 +303,16 @@
             // 
             // txtTTVC
             // 
-            txtTTVC.Location = new Point(853, 178);
+            txtTTVC.Location = new Point(853, 194);
             txtTTVC.Name = "txtTTVC";
+            txtTTVC.ReadOnly = true;
             txtTTVC.Size = new Size(340, 23);
             txtTTVC.TabIndex = 92;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(1015, 102);
+            label7.Location = new Point(1015, 121);
             label7.Name = "label7";
             label7.Size = new Size(34, 15);
             label7.TabIndex = 95;
@@ -315,15 +320,16 @@
             // 
             // TxtTT
             // 
-            TxtTT.Location = new Point(1055, 99);
+            TxtTT.Location = new Point(1055, 118);
             TxtTT.Name = "TxtTT";
+            TxtTT.ReadOnly = true;
             TxtTT.Size = new Size(139, 23);
             TxtTT.TabIndex = 94;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(1014, 148);
+            label8.Location = new Point(1014, 164);
             label8.Name = "label8";
             label8.Size = new Size(35, 15);
             label8.TabIndex = 97;
@@ -331,15 +337,16 @@
             // 
             // txtVCG
             // 
-            txtVCG.Location = new Point(1055, 140);
+            txtVCG.Location = new Point(1055, 156);
             txtVCG.Name = "txtVCG";
+            txtVCG.ReadOnly = true;
             txtVCG.Size = new Size(139, 23);
             txtVCG.TabIndex = 96;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(750, 258);
+            label9.Location = new Point(750, 274);
             label9.Name = "label9";
             label9.Size = new Size(37, 15);
             label9.TabIndex = 99;
@@ -347,17 +354,37 @@
             // 
             // txtTL
             // 
-            txtTL.Location = new Point(853, 255);
+            txtTL.Location = new Point(853, 271);
             txtTL.Name = "txtTL";
+            txtTL.ReadOnly = true;
             txtTL.Size = new Size(340, 23);
             txtTL.TabIndex = 98;
             txtTL.TextChanged += txtSDT_TextChanged;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(750, 60);
+            label10.Name = "label10";
+            label10.Size = new Size(75, 15);
+            label10.TabIndex = 101;
+            label10.Text = "Mã Vouchers";
+            // 
+            // txtMVC
+            // 
+            txtMVC.Location = new Point(854, 57);
+            txtMVC.Name = "txtMVC";
+            txtMVC.ReadOnly = true;
+            txtMVC.Size = new Size(340, 23);
+            txtMVC.TabIndex = 100;
             // 
             // HDCT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1263, 694);
+            Controls.Add(label10);
+            Controls.Add(txtMVC);
             Controls.Add(label9);
             Controls.Add(txtTL);
             Controls.Add(label8);
@@ -432,5 +459,7 @@
         private TextBox txtVCG;
         private Label label9;
         private TextBox txtTL;
+        private Label label10;
+        private TextBox txtMVC;
     }
 }

@@ -40,8 +40,7 @@
             RBCTT = new RadioButton();
             RBDTT = new RadioButton();
             bttCL = new Button();
-            label7 = new Label();
-            txtTK = new TextBox();
+            txtTKSP = new TextBox();
             bttSua = new Button();
             button2 = new Button();
             DTPVC = new DateTimePicker();
@@ -59,8 +58,6 @@
             cbImei = new ComboBox();
             bttRL = new Button();
             txtHDHT = new TextBox();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            textBox1 = new TextBox();
             groupBox3 = new GroupBox();
             dgvHD = new DataGridView();
             bttHDCT = new Button();
@@ -72,6 +69,7 @@
             label8 = new Label();
             btnSearch = new FontAwesome.Sharp.IconButton();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
+            cbSPTk = new ComboBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDCT).BeginInit();
             groupBox1.SuspendLayout();
@@ -193,6 +191,7 @@
             // 
             RBDTT.AutoSize = true;
             RBDTT.BackColor = Color.SlateBlue;
+            RBDTT.Enabled = false;
             RBDTT.ForeColor = SystemColors.ButtonHighlight;
             RBDTT.Location = new Point(112, 369);
             RBDTT.Name = "RBDTT";
@@ -213,23 +212,12 @@
             bttCL.UseVisualStyleBackColor = true;
             bttCL.Click += bttCL_Click;
             // 
-            // label7
+            // txtTKSP
             // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.SlateBlue;
-            label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(421, 409);
-            label7.Name = "label7";
-            label7.Size = new Size(56, 15);
-            label7.TabIndex = 55;
-            label7.Text = "Tìm kiếm";
-            // 
-            // txtTK
-            // 
-            txtTK.Location = new Point(483, 406);
-            txtTK.Name = "txtTK";
-            txtTK.Size = new Size(204, 23);
-            txtTK.TabIndex = 54;
+            txtTKSP.Location = new Point(554, 406);
+            txtTKSP.Name = "txtTKSP";
+            txtTKSP.Size = new Size(204, 23);
+            txtTKSP.TabIndex = 54;
             // 
             // bttSua
             // 
@@ -364,11 +352,10 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(cbSPTk);
             panel1.Controls.Add(cbImei);
             panel1.Controls.Add(bttRL);
             panel1.Controls.Add(txtHDHT);
-            panel1.Controls.Add(iconButton1);
-            panel1.Controls.Add(textBox1);
             panel1.Controls.Add(groupBox3);
             panel1.Controls.Add(bttHDCT);
             panel1.Controls.Add(bttCheck);
@@ -381,12 +368,11 @@
             panel1.Controls.Add(DTPVC);
             panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(label7);
             panel1.Controls.Add(txtGia);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(bttXoa);
             panel1.Controls.Add(txtSL);
-            panel1.Controls.Add(txtTK);
+            panel1.Controls.Add(txtTKSP);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(RBCTT);
             panel1.Controls.Add(label2);
@@ -430,25 +416,6 @@
             txtHDHT.ReadOnly = true;
             txtHDHT.Size = new Size(145, 23);
             txtHDHT.TabIndex = 71;
-            // 
-            // iconButton1
-            // 
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            iconButton1.IconColor = Color.Black;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 17;
-            iconButton1.Location = new Point(1118, 404);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(37, 23);
-            iconButton1.TabIndex = 81;
-            iconButton1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(908, 404);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(204, 23);
-            textBox1.TabIndex = 80;
             // 
             // groupBox3
             // 
@@ -552,11 +519,12 @@
             btnSearch.IconColor = Color.Black;
             btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnSearch.IconSize = 17;
-            btnSearch.Location = new Point(693, 406);
+            btnSearch.Location = new Point(764, 406);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(37, 23);
             btnSearch.TabIndex = 56;
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // sqlCommand1
             // 
@@ -564,6 +532,14 @@
             sqlCommand1.Connection = null;
             sqlCommand1.Notification = null;
             sqlCommand1.Transaction = null;
+            // 
+            // cbSPTk
+            // 
+            cbSPTk.FormattingEnabled = true;
+            cbSPTk.Location = new Point(427, 406);
+            cbSPTk.Name = "cbSPTk";
+            cbSPTk.Size = new Size(121, 23);
+            cbSPTk.TabIndex = 84;
             // 
             // Orderform
             // 
@@ -606,7 +582,7 @@
         private RadioButton RBDTT;
         private Button bttCL;
         private Label label7;
-        private TextBox txtTK;
+        private TextBox txtTKSP;
         private Button bttSua;
         private Button button2;
         private DateTimePicker DTPVC;
@@ -633,9 +609,8 @@
         private Button bttHDCT;
         private GroupBox groupBox3;
         private Button bttRL;
-        private FontAwesome.Sharp.IconButton iconButton1;
-        private TextBox textBox1;
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
         private ComboBox cbImei;
+        private ComboBox cbSPTk;
     }
 }
