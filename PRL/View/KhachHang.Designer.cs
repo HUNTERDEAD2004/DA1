@@ -341,7 +341,7 @@
             panel1.Controls.Add(groupBox2);
             panel1.Location = new Point(-18, -59);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1479, 881);
+            panel1.Size = new Size(1452, 898);
             panel1.TabIndex = 21;
             // 
             // button4
@@ -443,7 +443,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1419, 773);
+            ClientSize = new Size(1412, 835);
             Controls.Add(panel1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "KhachHang";

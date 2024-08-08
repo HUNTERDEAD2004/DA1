@@ -10,7 +10,6 @@ namespace AppData.Models
         [Key]
         public string IMEI { get; set; }
         public Guid ProductID { get; set; }
-     //   public Guid? IDVoucher { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal importPrice { get; set; }
@@ -41,7 +40,6 @@ namespace AppData.Models
         public Color Color { get; set; }
         public Display Display { get; set; }
         public Sales Sale { get; set; }
-      //  public Voucher Voucher { get; set; }
         public OperatingSystems OperatingSystem { get; set; }
         public BatteryCapacity BatteryCapacity { get; set; }
         public Weight Weight { get; set; }

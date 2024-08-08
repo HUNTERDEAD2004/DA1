@@ -200,7 +200,7 @@
             // cbQuyen
             // 
             cbQuyen.FormattingEnabled = true;
-            cbQuyen.Items.AddRange(new object[] { "User", "Admin" });
+            cbQuyen.Items.AddRange(new object[] { "user", "admin" });
             cbQuyen.Location = new Point(572, 57);
             cbQuyen.Name = "cbQuyen";
             cbQuyen.Size = new Size(347, 23);

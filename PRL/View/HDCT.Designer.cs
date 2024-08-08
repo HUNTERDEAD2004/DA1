@@ -31,9 +31,8 @@
             label3 = new Label();
             txtTKH = new TextBox();
             button6 = new Button();
-            dgvKH = new DataGridView();
             ss = new Label();
-            txtMKH = new TextBox();
+            txtKT = new TextBox();
             label1 = new Label();
             txtMNV = new TextBox();
             groupBox2 = new GroupBox();
@@ -51,7 +50,6 @@
             txtSL = new TextBox();
             label6 = new Label();
             txtSDT = new TextBox();
-            groupBox4 = new GroupBox();
             lab32 = new Label();
             txtMHD = new TextBox();
             label2 = new Label();
@@ -60,18 +58,20 @@
             TxtTT = new TextBox();
             label8 = new Label();
             txtVCG = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dgvKH).BeginInit();
+            label9 = new Label();
+            txtTL = new TextBox();
+            label10 = new Label();
+            txtMVC = new TextBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDC).BeginInit();
-            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(747, 342);
+            label3.Location = new Point(229, 352);
             label3.Name = "label3";
             label3.Size = new Size(56, 15);
             label3.TabIndex = 86;
@@ -79,62 +79,50 @@
             // 
             // txtTKH
             // 
-            txtTKH.Location = new Point(847, 339);
+            txtTKH.Location = new Point(329, 349);
             txtTKH.Name = "txtTKH";
             txtTKH.Size = new Size(340, 23);
             txtTKH.TabIndex = 85;
             // 
             // button6
             // 
-            button6.Location = new Point(1193, 339);
+            button6.Location = new Point(675, 349);
             button6.Name = "button6";
             button6.Size = new Size(39, 23);
             button6.TabIndex = 84;
             button6.Text = "Tìm";
             button6.UseVisualStyleBackColor = true;
             // 
-            // dgvKH
-            // 
-            dgvKH.AllowUserToAddRows = false;
-            dgvKH.AllowUserToDeleteRows = false;
-            dgvKH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKH.Location = new Point(14, 20);
-            dgvKH.Name = "dgvKH";
-            dgvKH.ReadOnly = true;
-            dgvKH.RowHeadersWidth = 51;
-            dgvKH.RowTemplate.Height = 25;
-            dgvKH.Size = new Size(487, 244);
-            dgvKH.TabIndex = 62;
-            // 
             // ss
             // 
             ss.AutoSize = true;
-            ss.Location = new Point(750, 220);
+            ss.Location = new Point(750, 236);
             ss.Name = "ss";
-            ss.Size = new Size(90, 15);
+            ss.Size = new Size(58, 15);
             ss.TabIndex = 83;
-            ss.Text = "Mã Khách hàng";
+            ss.Text = "Khách Trả";
             ss.Click += ss_Click;
             // 
-            // txtMKH
+            // txtKT
             // 
-            txtMKH.Location = new Point(853, 217);
-            txtMKH.Name = "txtMKH";
-            txtMKH.Size = new Size(340, 23);
-            txtMKH.TabIndex = 82;
+            txtKT.Location = new Point(853, 233);
+            txtKT.Name = "txtKT";
+            txtKT.Size = new Size(340, 23);
+            txtKT.TabIndex = 82;
+            txtKT.Leave += txtKT_Leave;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(750, 63);
+            label1.Location = new Point(750, 92);
             label1.Name = "label1";
-            label1.Size = new Size(82, 15);
+            label1.Size = new Size(62, 15);
             label1.TabIndex = 78;
-            label1.Text = "Mã Nhân Viên";
+            label1.Text = "Nhân Viên";
             // 
             // txtMNV
             // 
-            txtMNV.Location = new Point(854, 60);
+            txtMNV.Location = new Point(854, 89);
             txtMNV.Name = "txtMNV";
             txtMNV.ReadOnly = true;
             txtMNV.Size = new Size(340, 23);
@@ -228,7 +216,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(958, 285);
+            button2.Location = new Point(970, 586);
             button2.Name = "button2";
             button2.Size = new Size(104, 48);
             button2.TabIndex = 69;
@@ -239,23 +227,24 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(750, 143);
+            label5.Location = new Point(750, 159);
             label5.Name = "label5";
-            label5.Size = new Size(55, 15);
+            label5.Size = new Size(73, 15);
             label5.TabIndex = 67;
-            label5.Text = "Vouchers";
+            label5.Text = "Vouchers DK";
             // 
             // txtVC
             // 
-            txtVC.Location = new Point(854, 140);
+            txtVC.Location = new Point(854, 156);
             txtVC.Name = "txtVC";
+            txtVC.ReadOnly = true;
             txtVC.Size = new Size(139, 23);
             txtVC.TabIndex = 66;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(750, 102);
+            label4.Location = new Point(750, 121);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 65;
@@ -263,15 +252,16 @@
             // 
             // txtSL
             // 
-            txtSL.Location = new Point(854, 99);
+            txtSL.Location = new Point(854, 118);
             txtSL.Name = "txtSL";
+            txtSL.ReadOnly = true;
             txtSL.Size = new Size(139, 23);
             txtSL.TabIndex = 64;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(750, 259);
+            label6.Location = new Point(753, 312);
             label6.Name = "label6";
             label6.Size = new Size(26, 15);
             label6.TabIndex = 88;
@@ -279,20 +269,11 @@
             // 
             // txtSDT
             // 
-            txtSDT.Location = new Point(854, 256);
+            txtSDT.Location = new Point(853, 309);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(340, 23);
             txtSDT.TabIndex = 87;
-            // 
-            // groupBox4
-            // 
-            groupBox4.Controls.Add(dgvKH);
-            groupBox4.Location = new Point(737, 368);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(514, 285);
-            groupBox4.TabIndex = 89;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Khách hàng";
+            txtSDT.TextChanged += txtSDT_TextChanged;
             // 
             // lab32
             // 
@@ -307,13 +288,14 @@
             // 
             txtMHD.Location = new Point(854, 28);
             txtMHD.Name = "txtMHD";
+            txtMHD.ReadOnly = true;
             txtMHD.Size = new Size(340, 23);
             txtMHD.TabIndex = 90;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(749, 181);
+            label2.Location = new Point(749, 197);
             label2.Name = "label2";
             label2.Size = new Size(57, 15);
             label2.TabIndex = 93;
@@ -321,15 +303,16 @@
             // 
             // txtTTVC
             // 
-            txtTTVC.Location = new Point(853, 178);
+            txtTTVC.Location = new Point(853, 194);
             txtTTVC.Name = "txtTTVC";
+            txtTTVC.ReadOnly = true;
             txtTTVC.Size = new Size(340, 23);
             txtTTVC.TabIndex = 92;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(1015, 102);
+            label7.Location = new Point(1015, 121);
             label7.Name = "label7";
             label7.Size = new Size(34, 15);
             label7.TabIndex = 95;
@@ -337,15 +320,16 @@
             // 
             // TxtTT
             // 
-            TxtTT.Location = new Point(1055, 99);
+            TxtTT.Location = new Point(1055, 118);
             TxtTT.Name = "TxtTT";
+            TxtTT.ReadOnly = true;
             TxtTT.Size = new Size(139, 23);
             TxtTT.TabIndex = 94;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(1014, 148);
+            label8.Location = new Point(1014, 164);
             label8.Name = "label8";
             label8.Size = new Size(35, 15);
             label8.TabIndex = 97;
@@ -353,16 +337,56 @@
             // 
             // txtVCG
             // 
-            txtVCG.Location = new Point(1055, 140);
+            txtVCG.Location = new Point(1055, 156);
             txtVCG.Name = "txtVCG";
+            txtVCG.ReadOnly = true;
             txtVCG.Size = new Size(139, 23);
             txtVCG.TabIndex = 96;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(750, 274);
+            label9.Name = "label9";
+            label9.Size = new Size(37, 15);
+            label9.TabIndex = 99;
+            label9.Text = "Trả lại";
+            // 
+            // txtTL
+            // 
+            txtTL.Location = new Point(853, 271);
+            txtTL.Name = "txtTL";
+            txtTL.ReadOnly = true;
+            txtTL.Size = new Size(340, 23);
+            txtTL.TabIndex = 98;
+            txtTL.TextChanged += txtSDT_TextChanged;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(750, 60);
+            label10.Name = "label10";
+            label10.Size = new Size(75, 15);
+            label10.TabIndex = 101;
+            label10.Text = "Mã Vouchers";
+            // 
+            // txtMVC
+            // 
+            txtMVC.Location = new Point(854, 57);
+            txtMVC.Name = "txtMVC";
+            txtMVC.ReadOnly = true;
+            txtMVC.Size = new Size(340, 23);
+            txtMVC.TabIndex = 100;
             // 
             // HDCT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1263, 694);
+            Controls.Add(label10);
+            Controls.Add(txtMVC);
+            Controls.Add(label9);
+            Controls.Add(txtTL);
             Controls.Add(label8);
             Controls.Add(txtVCG);
             Controls.Add(label7);
@@ -371,14 +395,13 @@
             Controls.Add(txtTTVC);
             Controls.Add(lab32);
             Controls.Add(txtMHD);
-            Controls.Add(groupBox4);
             Controls.Add(label6);
             Controls.Add(txtSDT);
             Controls.Add(label3);
             Controls.Add(txtTKH);
             Controls.Add(button6);
             Controls.Add(ss);
-            Controls.Add(txtMKH);
+            Controls.Add(txtKT);
             Controls.Add(label1);
             Controls.Add(txtMNV);
             Controls.Add(groupBox2);
@@ -394,12 +417,10 @@
             Name = "HDCT";
             Text = "HDCT";
             Load += HDCT_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvKH).EndInit();
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).EndInit();
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvHDC).EndInit();
-            groupBox4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -409,9 +430,8 @@
         private Label label3;
         private TextBox txtTKH;
         private Button button6;
-        private DataGridView dgvKH;
         private Label ss;
-        private TextBox txtMKH;
+        private TextBox txtKT;
         private Label label1;
         private TextBox txtMNV;
         private GroupBox groupBox2;
@@ -429,7 +449,6 @@
         private Label label6;
         private TextBox txtSDT;
         private GroupBox groupBox3;
-        private GroupBox groupBox4;
         private Label lab32;
         private TextBox txtMHD;
         private Label label2;
@@ -438,5 +457,9 @@
         private TextBox TxtTT;
         private Label label8;
         private TextBox txtVCG;
+        private Label label9;
+        private TextBox txtTL;
+        private Label label10;
+        private TextBox txtMVC;
     }
 }

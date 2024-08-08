@@ -275,6 +275,7 @@
             label2.Size = new Size(112, 15);
             label2.TabIndex = 3;
             label2.Text = "Xin chào, Username";
+            label2.Click += label2_Click;
             // 
             // title
             // 

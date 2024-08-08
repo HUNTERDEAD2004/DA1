@@ -43,9 +43,9 @@ namespace PRL.View
                                     {
                                         ProductName = pd.Name,
                                         Quantity = od.Quantity,
-                                        UnitPrice = od.UnitPrice, 
+                                        UnitPrice = od.UnitPrice,
                                         DiscountValue = sl.DiscountValue
-                                    }).ToList(); 
+                                    }).ToList();
 
                 
                 if (orderDetails.Count == 0)
@@ -55,7 +55,7 @@ namespace PRL.View
 
                 // Tạo và điền DataTable
                 dataTable = new DataTable();
-                dataTable.Columns.Add("STT", typeof(int)); 
+                dataTable.Columns.Add("STT", typeof(int));
                 dataTable.Columns.Add("ProductName");
                 dataTable.Columns.Add("Quantity", typeof(int));
                 dataTable.Columns.Add("DiscountValue", typeof(decimal));

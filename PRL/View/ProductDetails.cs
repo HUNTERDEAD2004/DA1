@@ -84,18 +84,6 @@ namespace PRL.View
             cbSystem.DisplayMember = "OSName";
             cbSystem.ValueMember = "OSID";
 
-            var weight = context.Weights.ToList();
-            weight.Insert(0, new Weight { WeightID = Guid.Empty, WeightValue = -1 });
-            cbWeight.DataSource = weight;
-            cbWeight.DisplayMember = "WeightValue";
-            cbWeight.ValueMember = "WeightID";
-
-            var year = context.YearsOfManufacture.ToList();
-            year.Insert(0, new YearOfManufacture { YearID = Guid.Empty, Year = -1 });
-            cbYOM.DataSource = year;
-            cbYOM.DisplayMember = "Year";
-            cbYOM.ValueMember = "YearID";
-
             var m = context.Materials.ToList();
             m.Insert(0, new Material { MaterialID = Guid.Empty, MaterialName = "-- Chọn chất liệu --" });
             cbMaterial.DataSource = m;
@@ -156,7 +144,7 @@ namespace PRL.View
                     .Where(pd => pd.ProductID == _productID)
                     .Select(pd => new
                     {
-                        pd.IMEI,
+                        pd.Imeis,
                         pd.Name,
                         Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                         RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
@@ -165,7 +153,7 @@ namespace PRL.View
                         GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID).GPUName,
                         ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID).ROMSize,
                         Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID).DisplayName,
-                        Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
+                        //Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
                         Version = context.Versions.FirstOrDefault(s => s.VersionID == pd.VersionID).VersionName,
                         Rear = context.RearCameras.FirstOrDefault(s => s.RearCameraID == pd.RearCameraID).RearCameraDetails,
                         Camera_Selfie = context.CameraSelfies.FirstOrDefault(s => s.CameraSelfieID == pd.CameraSelfieID).CameraSelfieDetails,
@@ -173,7 +161,7 @@ namespace PRL.View
                         Battery = context.BatteryCapacities.FirstOrDefault(s => s.BatteryID == pd.BatteryID).Capacity,
                         Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                         Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
-                        Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
+                        //Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
                         Sale = context.Sales.FirstOrDefault(s => s.SaleID == pd.SaleID).DiscountValue + "%"
                     })
                     .ToList();
@@ -223,7 +211,7 @@ namespace PRL.View
 
             var detail = new ProductDetail
             {
-                IMEI = txtImei.Text,
+                //Imeis = txtImei.Text,
                 ProductID = _productID,
                 Name = txtName.Text,
                 ColorID = (Guid)cbColor.SelectedValue,
@@ -238,11 +226,11 @@ namespace PRL.View
                 RearCameraID = (Guid)cbRear.SelectedValue,
                 VersionID = (Guid)cbVersion.SelectedValue,
                 OSID = (Guid)cbSystem.SelectedValue,
-                WeightID = (Guid)cbWeight.SelectedValue,
+                //Weight = cbWeight.SelectedValue,
                 BatteryID = (Guid)cbBattery.SelectedValue,
                 OriginID = (Guid)cbOrigin.SelectedValue,
                 MaterialID = (Guid)cbMaterial.SelectedValue,
-                YearID = (Guid)cbYOM.SelectedValue,
+                //Year = cbYOM.SelectedValue,
                 Status = 1,
             };
 
@@ -283,11 +271,11 @@ namespace PRL.View
                     detail.RearCameraID = (Guid)cbRear.SelectedValue;
                     detail.VersionID = (Guid)cbVersion.SelectedValue;
                     detail.OSID = (Guid)cbSystem.SelectedValue;
-                    detail.WeightID = (Guid)cbWeight.SelectedValue;
+                    //detail.WeightID = (Guid)cbWeight.SelectedValue;
                     detail.BatteryID = (Guid)cbBattery.SelectedValue;
                     detail.OriginID = (Guid)cbOrigin.SelectedValue;
                     detail.MaterialID = (Guid)cbMaterial.SelectedValue;
-                    detail.YearID = (Guid)cbYOM.SelectedValue;
+                    //detail.YearID = (Guid)cbYOM.SelectedValue;
 
                     // Cập nhật chi tiết sản phẩm trong cơ sở dữ liệu
                     context.ProductDetails.Update(detail);
@@ -317,7 +305,7 @@ namespace PRL.View
             if (e.RowIndex >= 0)
             {
                 // Lấy giá trị IMEI từ ô được nhấp
-                var imeiCell = dgvDetails.Rows[e.RowIndex].Cells["IMEI"].Value as string;
+                var imeiCell = dgvDetails.Rows[e.RowIndex].Cells["ProductDetailID"].Value as string;
 
                 if (!string.IsNullOrEmpty(imeiCell))
                 {
@@ -507,8 +495,7 @@ namespace PRL.View
 
         private void bcYOM_Click(object sender, EventArgs e)
         {
-            NamSanXuat namSanXuat = new NamSanXuat();
-            namSanXuat.Show();
+            
         }
 
         private void bcMater_Click(object sender, EventArgs e)
@@ -525,8 +512,7 @@ namespace PRL.View
 
         private void bcWght_Click(object sender, EventArgs e)
         {
-            WEIGHT wEIGHT = new WEIGHT();
-            wEIGHT.Show();
+            
         }
 
         private void bcSys_Click(object sender, EventArgs e)

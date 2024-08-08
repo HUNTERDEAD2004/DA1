@@ -12,7 +12,7 @@ namespace PRL.View
         private Form currentForm;
         private Orderform orderForm;
         private HDCT hdctForm;
-        
+
         public struct hover
         {
             public static Color color1 = Color.FromArgb(172, 126, 241);
@@ -56,7 +56,7 @@ namespace PRL.View
         }
         public MainForm()
         {
-            
+
 
             InitializeComponent();
             leftborderBtn = new Panel();
@@ -116,7 +116,7 @@ namespace PRL.View
                     MessageBox.Show("Cút");
                 }
             }
-            
+
         }
 
         private void btnAccount_Click(object sender, EventArgs e)
@@ -131,12 +131,13 @@ namespace PRL.View
                 {
                     ActivateButton(sender, hover.color2);
                     OpenForm(new QuanLyNhanVien());
-                } else if (role == "user")
+                }
+                else if (role == "user")
                 {
                     MessageBox.Show("Cút");
                 }
             }
-            
+
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
@@ -145,7 +146,7 @@ namespace PRL.View
             Orderform orderform = new Orderform(hdctform);
 
             OpenForm(orderform);
-            
+
         }
 
         private void btnCustomer_Click(object sender, EventArgs e)
@@ -186,6 +187,11 @@ namespace PRL.View
                 label2.Text = ($"Xin Chào: {name}");
                 key.Close();
             }
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
 
         }
     }

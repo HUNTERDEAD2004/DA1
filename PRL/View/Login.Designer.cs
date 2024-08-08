@@ -38,6 +38,7 @@
             button1 = new Button();
             ForgotPassword = new Button();
             button2 = new Button();
+            CBHT = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -176,11 +177,22 @@
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
+            // CBHT
+            // 
+            CBHT.AutoSize = true;
+            CBHT.Location = new Point(697, 168);
+            CBHT.Name = "CBHT";
+            CBHT.Size = new Size(15, 14);
+            CBHT.TabIndex = 9;
+            CBHT.UseVisualStyleBackColor = true;
+            CBHT.CheckedChanged += CBHT_CheckedChanged;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(729, 400);
+            Controls.Add(CBHT);
             Controls.Add(button2);
             Controls.Add(ForgotPassword);
             Controls.Add(button1);
@@ -214,5 +226,6 @@
         private Button button1;
         private Button ForgotPassword;
         private Button button2;
+        private CheckBox CBHT;
     }
 }
