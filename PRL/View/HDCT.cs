@@ -16,7 +16,7 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB6;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=PHUC\\SQLEXPRESS;Database=IphoneNhom1;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -311,7 +311,7 @@ namespace PRL.View
                         UpdatedBy = @UpdatedBy
                     WHERE OrderID = @OrderID";
 
-                            using (SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB6;Trusted_Connection=True;TrustServerCertificate=True"))
+                            using (SqlConnection conn = new SqlConnection("Server=PHUC\\SQLEXPRESS;Database=IphoneNhom1;Trusted_Connection=True;TrustServerCertificate=True"))
                             {
                                 SqlCommand cmd = new SqlCommand(sql, conn);
                                 cmd.Parameters.AddWithValue("@OrderID", orderId);

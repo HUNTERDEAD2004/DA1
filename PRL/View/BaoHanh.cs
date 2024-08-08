@@ -15,7 +15,7 @@ namespace PRL.View
 {
     public partial class BaoHanh : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=PHUC\\SQLEXPRESS;Database=IphoneNhom;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         IphoneDbContext _dbContext;

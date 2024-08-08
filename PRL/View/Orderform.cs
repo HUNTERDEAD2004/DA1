@@ -19,7 +19,7 @@ namespace PRL.View
 {
     public partial class Orderform : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB6;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=PHUC\\SQLEXPRESS;Database=IphoneNhom1;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -373,7 +373,7 @@ namespace PRL.View
 
         private void LoadOrderDetailInfo(Guid orderId)
         {
-            using (var conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=AppleStore6;Trusted_Connection=True;TrustServerCertificate=True"))
+            using (var conn = new SqlConnection("Server=PHUC\\SQLEXPRESS;Database=IphoneNhom1;Trusted_Connection=True;TrustServerCertificate=True"))
             {
                 string query = @"
                 SELECT od.OrderDetailsID, od.ProductId, od.OderID, od.Quantity, od.IpadIMEI, od.NameSPCT, od.Price, od.PercentDiscount, od.CreateAt, od.UpdateAt, od.CreateBy, od.UpdateBy,
