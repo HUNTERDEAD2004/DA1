@@ -36,6 +36,7 @@
             groupBox2 = new GroupBox();
             dgvnhanvien = new DataGridView();
             groupBox1 = new GroupBox();
+            cbQuyen = new ComboBox();
             panel2 = new Panel();
             label7 = new Label();
             rbtnu = new RadioButton();
@@ -44,7 +45,6 @@
             dateNV = new DateTimePicker();
             txtDC = new TextBox();
             lable22 = new Label();
-            textRL = new TextBox();
             label12 = new Label();
             rdb_NgungHD = new RadioButton();
             rdb_HoatDong = new RadioButton();
@@ -163,11 +163,11 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.SlateBlue;
+            groupBox1.Controls.Add(cbQuyen);
             groupBox1.Controls.Add(panel2);
             groupBox1.Controls.Add(dateNV);
             groupBox1.Controls.Add(txtDC);
             groupBox1.Controls.Add(lable22);
-            groupBox1.Controls.Add(textRL);
             groupBox1.Controls.Add(label12);
             groupBox1.Controls.Add(rdb_NgungHD);
             groupBox1.Controls.Add(rdb_HoatDong);
@@ -196,6 +196,15 @@
             groupBox1.TabIndex = 13;
             groupBox1.TabStop = false;
             groupBox1.Text = "Quản lý nhân viên";
+            // 
+            // cbQuyen
+            // 
+            cbQuyen.FormattingEnabled = true;
+            cbQuyen.Items.AddRange(new object[] { "User", "Admin" });
+            cbQuyen.Location = new Point(572, 57);
+            cbQuyen.Name = "cbQuyen";
+            cbQuyen.Size = new Size(347, 23);
+            cbQuyen.TabIndex = 25;
             // 
             // panel2
             // 
@@ -277,14 +286,6 @@
             lable22.TabIndex = 22;
             lable22.Text = "Địa chỉ";
             lable22.Click += label11_Click;
-            // 
-            // textRL
-            // 
-            textRL.Location = new Point(572, 58);
-            textRL.Margin = new Padding(3, 2, 3, 2);
-            textRL.Name = "textRL";
-            textRL.Size = new Size(347, 23);
-            textRL.TabIndex = 21;
             // 
             // label12
             // 
@@ -473,7 +474,7 @@
             panel1.Controls.Add(btnsua);
             panel1.Location = new Point(-67, -9);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1157, 654);
+            panel1.Size = new Size(1648, 902);
             panel1.TabIndex = 20;
             panel1.Paint += panel1_Paint;
             // 
@@ -555,11 +556,11 @@
         private TextBox txtL;
         private TextBox txtDC;
         private Label lable22;
-        private TextBox textRL;
         private Label label12;
         private DateTimePicker dateNV;
         private Panel panel2;
         private Button bttCL;
         private Button bttRL;
+        private ComboBox cbQuyen;
     }
 }

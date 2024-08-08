@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace PRL.View
 {
-    public partial class QuenMK : Form
+    public partial class HeDieuHanh : Form
     {
-        public QuenMK()
+        public HeDieuHanh()
         {
             InitializeComponent();
-        }
-
-        private void bttBack_Click(object sender, EventArgs e)
-        {
-            Login form = new Login();
-            this.Hide();
-            form.Show();
         }
     }
 }
