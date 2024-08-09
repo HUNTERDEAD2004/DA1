@@ -29,7 +29,7 @@ namespace PRL.View
 {
     public partial class Orderform : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB7;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=UYNSAUSAU\\SQLEXPRESS;Database=IphoneDB5;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -833,7 +833,7 @@ namespace PRL.View
                 if (existingReport == null)
                 {
                     // Nếu chưa có, tạo báo cáo mới
-                    var newReport = new Report
+                    var newReport = new DAL.Models.Report
                     {
                         ReportID = Guid.NewGuid(),
                         ReportDate = today,

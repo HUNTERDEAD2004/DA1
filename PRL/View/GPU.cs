@@ -45,7 +45,7 @@ namespace PRL.View
                     c.GPUMemory,
                     c.CreatedAt,
                     c.CreatedBy,
-                    c.UpdatedAt, 
+                    c.UpdatedAt,
                     c.UpdatedBy,
                 }).ToList();
 
@@ -225,6 +225,26 @@ namespace PRL.View
             }).ToList();
 
             DgvGPUShow.DataSource = filteredData;
+        }
+
+        private void BtnAdd_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnUpdate_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnDelete_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnSearch_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

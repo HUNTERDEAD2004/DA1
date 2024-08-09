@@ -19,7 +19,7 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB7;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=UYNSAUSAU\\SQLEXPRESS;Database=IphoneDB5;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         IphoneDbContext Context;
