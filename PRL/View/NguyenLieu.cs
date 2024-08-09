@@ -1,5 +1,6 @@
 ﻿using AppData.Models;
 using DAL.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +22,30 @@ namespace PRL.View
             _db = new IphoneDbContext();
             InitializeComponent();
         }
-
+        public static string? GetAccountIdFromRegistry()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    key.Close();
+                    return tk;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+        string nameAc = GetAccountIdFromRegistry();
         private void NguyenLieu_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -80,10 +104,6 @@ namespace PRL.View
                 // Gán dữ liệu từ các ô vào các TextBox tương ứng
                 MaterialIdTxt.Text = row.Cells["MaterialID"].Value.ToString();
                 MarterialNameTxt.Text = row.Cells["MaterialName"].Value.ToString();
-                CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
-                CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
-                UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
-                UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
 
@@ -92,7 +112,7 @@ namespace PRL.View
             var CreateCamSelf = MessageBox.Show("Bạn có muốn tạo thêm Material không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateCamSelf == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(MarterialNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(MarterialNameTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -107,9 +127,9 @@ namespace PRL.View
                     MaterialID = Guid.NewGuid(), // Tạo ID mới
                     MaterialName = MarterialNameTxt.Text,
                     CreatedAt = DateTime.Now,
-                    CreatedBy = CBTxt.Text,
+                    CreatedBy = nameAc,
                     UpdatedAt = DateTime.Now,
-                    UpdatedBy = UBTxt.Text
+                    UpdatedBy = nameAc
                 };
 
                 // Thêm vào cơ sở dữ liệu
@@ -129,7 +149,7 @@ namespace PRL.View
             var UpdateCamSelf = MessageBox.Show("Bạn có muốn sửa Material không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (UpdateCamSelf == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(MarterialNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(MarterialNameTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -146,10 +166,9 @@ namespace PRL.View
                 if (ExitingMaterial != null)
                 {
                     ExitingMaterial.MaterialName = MarterialNameTxt.Text;
-                    ExitingMaterial.CreatedAt = DateTime.Parse(CATimePicker.Text);
-                    ExitingMaterial.CreatedBy = CBTxt.Text;
-                    ExitingMaterial.UpdatedAt = DateTime.Parse(CATimePicker.Text);
-                    ExitingMaterial.UpdatedBy = UBTxt.Text;
+                    ExitingMaterial.CreatedBy = nameAc;
+                    ExitingMaterial.UpdatedAt = DateTime.Now;
+                    ExitingMaterial.UpdatedBy = nameAc;
 
                     _db.SaveChanges();
                     MessageBox.Show("Sửa Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);

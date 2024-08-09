@@ -144,7 +144,6 @@
             MarterialNameTxt.Name = "MarterialNameTxt";
             MarterialNameTxt.Size = new Size(177, 23);
             MarterialNameTxt.TabIndex = 22;
-            MarterialNameTxt.TextChanged += this.MarterialNameTxt_TextChanged;
             // 
             // label3
             // 

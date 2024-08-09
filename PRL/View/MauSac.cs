@@ -1,4 +1,6 @@
 ﻿using AppData.Models;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,13 +29,36 @@ namespace PRL.View
             // Điều chỉnh kích thước các cột tự động theo nội dung
             DgvColorShow.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-
+        public static string? GetAccountIdFromRegistry()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    key.Close();
+                    return tk;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+        string nameAc = GetAccountIdFromRegistry();
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             var CreateColor = MessageBox.Show("Bạn có muốn tạo thêm Color không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateColor == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -48,9 +73,9 @@ namespace PRL.View
                     ColorID = Guid.NewGuid(),
                     ColorName = ColorNameTxt.Text,
                     CreatedAt = DateTime.Now,
-                    CreatedBy = CBTxt.Text,
+                    CreatedBy = nameAc,
                     UpdatedAt = DateTime.Now,
-                    UpdatedBy = UBTxt.Text
+                    UpdatedBy = nameAc
                 };
 
                 // Thêm vào cơ sở dữ liệu
@@ -70,7 +95,7 @@ namespace PRL.View
             var updateColor = MessageBox.Show("Bạn có muốn Sửa Color không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (updateColor == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(ColorNameTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -87,10 +112,9 @@ namespace PRL.View
                 if (existingColor != null)
                 {
                     existingColor.ColorName = ColorNameTxt.Text;
-                    existingColor.CreatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingColor.CreatedBy = CBTxt.Text;
-                    existingColor.UpdatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingColor.UpdatedBy = UBTxt.Text;
+                    existingColor.CreatedBy = nameAc;
+                    existingColor.UpdatedAt = DateTime.Now;
+                    existingColor.UpdatedBy = nameAc;
 
                     _db.SaveChanges();
 
@@ -215,10 +239,6 @@ namespace PRL.View
                 // Gán dữ liệu từ các ô vào các TextBox tương ứng
                 ColorId.Text = row.Cells["ColorID"].Value.ToString();
                 ColorNameTxt.Text = row.Cells["ColorName"].Value.ToString();
-                CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
-                CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
-                UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
-                UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
     }
