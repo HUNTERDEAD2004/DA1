@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtImei = new TextBox();
+            txtQuantity = new TextBox();
             label1 = new Label();
             txtProductID = new TextBox();
             label2 = new Label();
@@ -48,8 +48,14 @@
             btnUpdate = new Button();
             btnDel = new Button();
             panel1 = new Panel();
-            txtWei = new TextBox();
-            txtYOM = new TextBox();
+            btnSearch = new FontAwesome.Sharp.IconButton();
+            cbRomSearch = new ComboBox();
+            cbRamSearch = new ComboBox();
+            cbColorSearch = new ComboBox();
+            txtNameSearch = new TextBox();
+            btnLoad = new Button();
+            txtYear = new ComboBox();
+            txtWeight = new TextBox();
             bcBT = new Button();
             bcVer = new Button();
             bcCS = new Button();
@@ -92,31 +98,30 @@
             cbCpu = new ComboBox();
             cbRam = new ComboBox();
             cbColor = new ComboBox();
-            button1 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetails).BeginInit();
             SuspendLayout();
             // 
-            // txtImei
+            // txtQuantity
             // 
-            txtImei.Location = new Point(109, 45);
-            txtImei.Name = "txtImei";
-            txtImei.Size = new Size(163, 23);
-            txtImei.TabIndex = 0;
+            txtQuantity.Location = new Point(122, 295);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.Size = new Size(163, 23);
+            txtQuantity.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(36, 48);
+            label1.Location = new Point(49, 298);
             label1.Name = "label1";
-            label1.Size = new Size(30, 15);
+            label1.Size = new Size(53, 15);
             label1.TabIndex = 1;
-            label1.Text = "IMEI";
+            label1.Text = "Quantity";
             // 
             // txtProductID
             // 
-            txtProductID.Location = new Point(109, 95);
+            txtProductID.Location = new Point(122, 49);
             txtProductID.Name = "txtProductID";
             txtProductID.ReadOnly = true;
             txtProductID.Size = new Size(163, 23);
@@ -126,7 +131,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(36, 98);
+            label2.Location = new Point(49, 52);
             label2.Name = "label2";
             label2.Size = new Size(63, 15);
             label2.TabIndex = 3;
@@ -136,7 +141,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(646, 252);
+            label4.Location = new Point(952, 148);
             label4.Name = "label4";
             label4.Size = new Size(36, 15);
             label4.TabIndex = 5;
@@ -144,7 +149,7 @@
             // 
             // txtName
             // 
-            txtName.Location = new Point(109, 145);
+            txtName.Location = new Point(122, 99);
             txtName.Name = "txtName";
             txtName.Size = new Size(163, 23);
             txtName.TabIndex = 8;
@@ -153,7 +158,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(36, 148);
+            label6.Location = new Point(49, 102);
             label6.Name = "label6";
             label6.Size = new Size(39, 15);
             label6.TabIndex = 9;
@@ -161,7 +166,7 @@
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(109, 195);
+            txtPrice.Location = new Point(122, 149);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(163, 23);
             txtPrice.TabIndex = 10;
@@ -179,7 +184,7 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(36, 198);
+            label7.Location = new Point(49, 152);
             label7.Name = "label7";
             label7.Size = new Size(33, 15);
             label7.TabIndex = 12;
@@ -219,7 +224,7 @@
             // 
             label10.AutoSize = true;
             label10.ForeColor = SystemColors.ButtonHighlight;
-            label10.Location = new Point(36, 298);
+            label10.Location = new Point(49, 252);
             label10.Name = "label10";
             label10.Size = new Size(28, 15);
             label10.TabIndex = 20;
@@ -278,9 +283,14 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(txtWei);
-            panel1.Controls.Add(txtYOM);
+            panel1.Controls.Add(btnSearch);
+            panel1.Controls.Add(cbRomSearch);
+            panel1.Controls.Add(cbRamSearch);
+            panel1.Controls.Add(cbColorSearch);
+            panel1.Controls.Add(txtNameSearch);
+            panel1.Controls.Add(btnLoad);
+            panel1.Controls.Add(txtYear);
+            panel1.Controls.Add(txtWeight);
             panel1.Controls.Add(bcBT);
             panel1.Controls.Add(bcVer);
             panel1.Controls.Add(bcCS);
@@ -341,25 +351,83 @@
             panel1.Controls.Add(label2);
             panel1.Controls.Add(txtProductID);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(txtImei);
+            panel1.Controls.Add(txtQuantity);
             panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(1527, 773);
             panel1.TabIndex = 0;
             // 
-            // txtWei
+            // btnSearch
             // 
-            txtWei.Location = new Point(1025, 131);
-            txtWei.Name = "txtWei";
-            txtWei.Size = new Size(163, 23);
-            txtWei.TabIndex = 63;
+            btnSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            btnSearch.IconColor = Color.Black;
+            btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnSearch.IconSize = 17;
+            btnSearch.Location = new Point(549, 347);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(49, 23);
+            btnSearch.TabIndex = 68;
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
-            // txtYOM
+            // cbRomSearch
             // 
-            txtYOM.Location = new Point(1025, 91);
-            txtYOM.Name = "txtYOM";
-            txtYOM.Size = new Size(163, 23);
-            txtYOM.TabIndex = 62;
+            cbRomSearch.FormattingEnabled = true;
+            cbRomSearch.Location = new Point(423, 346);
+            cbRomSearch.Name = "cbRomSearch";
+            cbRomSearch.Size = new Size(121, 23);
+            cbRomSearch.TabIndex = 66;
+            // 
+            // cbRamSearch
+            // 
+            cbRamSearch.FormattingEnabled = true;
+            cbRamSearch.Location = new Point(296, 346);
+            cbRamSearch.Name = "cbRamSearch";
+            cbRamSearch.Size = new Size(121, 23);
+            cbRamSearch.TabIndex = 66;
+            // 
+            // cbColorSearch
+            // 
+            cbColorSearch.FormattingEnabled = true;
+            cbColorSearch.Location = new Point(169, 346);
+            cbColorSearch.Name = "cbColorSearch";
+            cbColorSearch.Size = new Size(121, 23);
+            cbColorSearch.TabIndex = 66;
+            // 
+            // txtNameSearch
+            // 
+            txtNameSearch.Location = new Point(36, 346);
+            txtNameSearch.Name = "txtNameSearch";
+            txtNameSearch.PlaceholderText = "Name...";
+            txtNameSearch.Size = new Size(127, 23);
+            txtNameSearch.TabIndex = 65;
+            // 
+            // btnLoad
+            // 
+            btnLoad.Location = new Point(1167, 385);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(38, 23);
+            btnLoad.TabIndex = 64;
+            btnLoad.Text = "RL";
+            btnLoad.UseVisualStyleBackColor = true;
+            btnLoad.Click += btnLoad_Click;
+            // 
+            // txtYear
+            // 
+            txtYear.FormattingEnabled = true;
+            txtYear.Items.AddRange(new object[] { "2007", "", "2008", "", "2009", "", "2010", "", "2011", "", "2012", "", "2013", "", "2014", "", "2015", "", "2016", "", "2017", "", "2018", "", "2019", "", "2020", "", "2021", "", "2022", "", "2023", "", "2024" });
+            txtYear.Location = new Point(738, 100);
+            txtYear.Name = "txtYear";
+            txtYear.Size = new Size(163, 23);
+            txtYear.TabIndex = 63;
+            // 
+            // txtWeight
+            // 
+            txtWeight.Location = new Point(738, 247);
+            txtWeight.Name = "txtWeight";
+            txtWeight.PlaceholderText = "0.00(g)";
+            txtWeight.Size = new Size(163, 23);
+            txtWeight.TabIndex = 62;
             // 
             // bcBT
             // 
@@ -373,7 +441,7 @@
             // 
             // bcVer
             // 
-            bcVer.Location = new Point(907, 101);
+            bcVer.Location = new Point(1204, 95);
             bcVer.Name = "bcVer";
             bcVer.Size = new Size(27, 23);
             bcVer.TabIndex = 60;
@@ -393,7 +461,7 @@
             // 
             // bcYOM
             // 
-            bcYOM.Location = new Point(1204, 90);
+            bcYOM.Location = new Point(907, 100);
             bcYOM.Name = "bcYOM";
             bcYOM.Size = new Size(27, 23);
             bcYOM.TabIndex = 57;
@@ -403,7 +471,7 @@
             // 
             // bcMater
             // 
-            bcMater.Location = new Point(907, 148);
+            bcMater.Location = new Point(907, 147);
             bcMater.Name = "bcMater";
             bcMater.Size = new Size(27, 23);
             bcMater.TabIndex = 56;
@@ -423,7 +491,7 @@
             // 
             // bcWght
             // 
-            bcWght.Location = new Point(1204, 131);
+            bcWght.Location = new Point(907, 247);
             bcWght.Name = "bcWght";
             bcWght.Size = new Size(27, 23);
             bcWght.TabIndex = 54;
@@ -503,7 +571,7 @@
             // 
             // bcSale
             // 
-            bcSale.Location = new Point(278, 290);
+            bcSale.Location = new Point(291, 249);
             bcSale.Name = "bcSale";
             bcSale.Size = new Size(27, 23);
             bcSale.TabIndex = 46;
@@ -513,7 +581,7 @@
             // 
             // bcColor
             // 
-            bcColor.Location = new Point(907, 248);
+            bcColor.Location = new Point(1204, 146);
             bcColor.Name = "bcColor";
             bcColor.Size = new Size(27, 23);
             bcColor.TabIndex = 45;
@@ -522,7 +590,7 @@
             // 
             // txtImport
             // 
-            txtImport.Location = new Point(109, 244);
+            txtImport.Location = new Point(122, 198);
             txtImport.Name = "txtImport";
             txtImport.Size = new Size(163, 23);
             txtImport.TabIndex = 44;
@@ -531,7 +599,7 @@
             // 
             label15.AutoSize = true;
             label15.ForeColor = SystemColors.ButtonHighlight;
-            label15.Location = new Point(31, 249);
+            label15.Location = new Point(44, 203);
             label15.Name = "label15";
             label15.Size = new Size(72, 15);
             label15.TabIndex = 43;
@@ -540,7 +608,7 @@
             // cbVersion
             // 
             cbVersion.FormattingEnabled = true;
-            cbVersion.Location = new Point(738, 100);
+            cbVersion.Location = new Point(1025, 98);
             cbVersion.Name = "cbVersion";
             cbVersion.Size = new Size(163, 23);
             cbVersion.TabIndex = 41;
@@ -557,7 +625,7 @@
             // 
             label20.AutoSize = true;
             label20.ForeColor = SystemColors.ButtonHighlight;
-            label20.Location = new Point(646, 103);
+            label20.Location = new Point(949, 103);
             label20.Name = "label20";
             label20.Size = new Size(45, 15);
             label20.TabIndex = 39;
@@ -627,7 +695,7 @@
             // 
             txt2.AutoSize = true;
             txt2.ForeColor = SystemColors.ButtonHighlight;
-            txt2.Location = new Point(948, 135);
+            txt2.Location = new Point(646, 252);
             txt2.Name = "txt2";
             txt2.Size = new Size(45, 15);
             txt2.TabIndex = 37;
@@ -657,11 +725,11 @@
             // 
             txt3.AutoSize = true;
             txt3.ForeColor = SystemColors.ButtonHighlight;
-            txt3.Location = new Point(949, 94);
+            txt3.Location = new Point(646, 105);
             txt3.Name = "txt3";
-            txt3.Size = new Size(34, 15);
+            txt3.Size = new Size(29, 15);
             txt3.TabIndex = 37;
-            txt3.Text = "YOM";
+            txt3.Text = "Year";
             // 
             // label14
             // 
@@ -697,7 +765,7 @@
             // cbSale
             // 
             cbSale.FormattingEnabled = true;
-            cbSale.Location = new Point(109, 290);
+            cbSale.Location = new Point(122, 249);
             cbSale.Name = "cbSale";
             cbSale.Size = new Size(163, 23);
             cbSale.TabIndex = 35;
@@ -745,19 +813,10 @@
             // cbColor
             // 
             cbColor.FormattingEnabled = true;
-            cbColor.Location = new Point(738, 246);
+            cbColor.Location = new Point(1025, 145);
             cbColor.Name = "cbColor";
             cbColor.Size = new Size(163, 23);
             cbColor.TabIndex = 28;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(278, 44);
-            button1.Name = "button1";
-            button1.Size = new Size(27, 23);
-            button1.TabIndex = 64;
-            button1.Text = "+";
-            button1.UseVisualStyleBackColor = true;
             // 
             // ProductDetails
             // 
@@ -776,7 +835,7 @@
 
         #endregion
 
-        private TextBox txtImei;
+        private TextBox txtQuantity;
         private Label label1;
         private TextBox txtProductID;
         private Label label2;
@@ -838,8 +897,13 @@
         private Button bcRom;
         private Button bcDisplay;
         private Button bcRC;
-        private TextBox txtWei;
-        private TextBox txtYOM;
-        private Button button1;
+        private ComboBox txtYear;
+        private TextBox txtWeight;
+        private Button btnLoad;
+        private ComboBox cbRomSearch;
+        private ComboBox cbRamSearch;
+        private ComboBox cbColorSearch;
+        private TextBox txtNameSearch;
+        private FontAwesome.Sharp.IconButton btnSearch;
     }
 }

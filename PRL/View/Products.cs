@@ -1,9 +1,5 @@
 ﻿using AppData.Models;
-using DocumentFormat.OpenXml.InkML;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic.ApplicationServices;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +28,7 @@ namespace PRL.View
             var products = context.Products.ToList();
             dgvData.DataSource = products;
             dgvData.Columns["ProductID"].Visible = false;
+            dgvData.Columns["ProductDetails"].Visible = false;
         }
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -44,7 +41,6 @@ namespace PRL.View
         }
         private void ClearForm()
         {
-            txtID.Text = "";
             txtName.Text = "";
             txtDescription.Text = "";
             txtUpdateAt.Text = "";
@@ -63,9 +59,7 @@ namespace PRL.View
             if (e.RowIndex >= 0)
             {
                 var selectedRow = dgvData.Rows[e.RowIndex];
-                txtID.Text = selectedRow.Cells["ProductID"].Value.ToString();
                 txtName.Text = selectedRow.Cells["ProductName"].Value.ToString();
-                txtQuantity.Text = selectedRow.Cells["Total"].Value.ToString();
                 txtDescription.Text = selectedRow.Cells["Description"].Value.ToString();
                 txtCreatAt.Text = selectedRow.Cells["CreatedAt"].Value.ToString();
                 txtUpdateAt.Text = selectedRow.Cells["UpdatedAt"].Value.ToString();
@@ -136,65 +130,29 @@ namespace PRL.View
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            try
+            var productName = txtName.Text.Trim();
+
+            var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
+
+            if (existingProduct != null)
             {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
-                string tk = null;
-                if (key != null)
-                {
-                    tk = key.GetValue("Username").ToString();
-                    string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
-
-                    key.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
-                var productName = txtName.Text.Trim();
-                var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
-
-                if (existingProduct != null)
-                {
-                    MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                Guid ProductIDAC = Guid.NewGuid();
-                var product = new Product
-                {
-                    ProductID = ProductIDAC,
-                    ProductName = txtName.Text,
-                    Description = txtDescription.Text,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    CreatedBy = tk,
-                    UpdatedBy = tk
-                };
-
-                var acc = new DAL.Models.Activity
-                {
-                    Note = $"{tk} Đã Thêm nhân viên {ProductIDAC}, vào lúc {DateTime.Now}",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    CreatedBy = tk,
-                    UpdatedBy = tk
-                };
-
-                context.Activities.Add(acc);
-                context.Products.Add(product);
-                context.SaveChanges();
-                LoadData();
-                MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception)
+            var product = new Product
             {
-
-                throw;
-            }
-            
+                ProductID = Guid.NewGuid(),
+                ProductName = txtName.Text,
+                Description = txtDescription.Text,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                CreatedBy = "Apple",
+                UpdatedBy = "Apple"
+            };
+            context.Products.Add(product);
+            context.SaveChanges();
+            LoadData();
+            MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -206,7 +164,6 @@ namespace PRL.View
                 {
                     product.ProductName = txtName.Text;
                     product.Description = txtDescription.Text;
-                    product.Total = int.Parse(txtQuantity.Text);
                     product.UpdatedAt = DateTime.UtcNow;
                     product.UpdatedBy = "Apple";
 
@@ -222,6 +179,53 @@ namespace PRL.View
         private void Products_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void btnDelete_Click_1(object sender, EventArgs e)
+        {
+            if (dgvData.SelectedRows.Count > 0)
+            {
+                var productId = (Guid)dgvData.SelectedRows[0].Cells["ProductID"].Value;
+                var product = context.Products.Find(productId);
+
+                if (product != null)
+                {
+                    var confirmResult = MessageBox.Show("Bạn có chắc muốn xóa sản phẩm này và tất cả chi tiết liên quan?",
+                                                         "Xác nhận xóa",
+                                                         MessageBoxButtons.YesNo,
+                                                         MessageBoxIcon.Question);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        // Xóa tất cả ProductDetails liên quan
+                        var productDetails = context.ProductDetails.Where(pd => pd.ProductID == productId).ToList();
+                        context.ProductDetails.RemoveRange(productDetails);
+
+                        // Xóa sản phẩm
+                        context.Products.Remove(product);
+                        context.SaveChanges();
+
+                        MessageBox.Show("Xóa sản phẩm và chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Tải lại dữ liệu và xóa form
+                        LoadData();
+                        ClearForm();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy sản phẩm", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm để xóa", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

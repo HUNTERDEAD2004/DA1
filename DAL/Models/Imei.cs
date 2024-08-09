@@ -24,6 +24,8 @@ namespace DAL.Models
 
         public ProductDetail ProductDetail { get; set; }
         public OrderDetail OrderDetail { get; set; }
+        public ICollection<Warranty> Warranties { get; set; }
+
 
     }
 }

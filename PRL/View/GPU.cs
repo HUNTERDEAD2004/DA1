@@ -99,7 +99,12 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existed = _db.GPUs.FirstOrDefault(r => r.GPUName == GpuNameTxt.Text);
+                if (existed != null)
+                {
+                    MessageBox.Show("GPU này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var newGPU = new Gpu
                 {
                     GPUID = Guid.NewGuid(), // Tạo ID mới

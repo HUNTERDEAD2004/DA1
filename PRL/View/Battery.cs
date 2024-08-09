@@ -97,7 +97,12 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existed = _db.BatteryCapacities.FirstOrDefault(r => r.Capacity == int.Parse(CapicityTxt.Text));
+                if (existed != null)
+                {
+                    MessageBox.Show("Dung lượng pin này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var newBattery = new BatteryCapacity
                 {
                     BatteryID = Guid.NewGuid(), // Tạo ID mới

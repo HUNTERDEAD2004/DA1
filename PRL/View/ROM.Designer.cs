@@ -40,13 +40,13 @@
             label8 = new Label();
             CBTxt = new TextBox();
             UBTxt = new TextBox();
-            UATimePicker = new DateTimePicker();
             CATimePicker = new DateTimePicker();
-            BtnSearch = new Button();
-            SearchingTxt = new TextBox();
-            BtnDelete = new Button();
-            BtnUpdate = new Button();
+            UATimePicker = new DateTimePicker();
             BtnAdd = new Button();
+            BtnUpdate = new Button();
+            BtnSearch = new Button();
+            BtnDelete = new Button();
+            SearchingTxt = new TextBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvROMShow).BeginInit();
             groupBox1.SuspendLayout();
@@ -181,13 +181,6 @@
             UBTxt.Size = new Size(150, 23);
             UBTxt.TabIndex = 46;
             // 
-            // UATimePicker
-            // 
-            UATimePicker.Location = new Point(562, 125);
-            UATimePicker.Name = "UATimePicker";
-            UATimePicker.Size = new Size(200, 23);
-            UATimePicker.TabIndex = 45;
-            // 
             // CATimePicker
             // 
             CATimePicker.Location = new Point(562, 54);
@@ -195,43 +188,12 @@
             CATimePicker.Size = new Size(200, 23);
             CATimePicker.TabIndex = 44;
             // 
-            // BtnSearch
+            // UATimePicker
             // 
-            BtnSearch.ForeColor = SystemColors.ActiveCaptionText;
-            BtnSearch.Location = new Point(803, 167);
-            BtnSearch.Name = "BtnSearch";
-            BtnSearch.Size = new Size(116, 41);
-            BtnSearch.TabIndex = 43;
-            BtnSearch.Text = "Search";
-            BtnSearch.UseVisualStyleBackColor = true;
-            // 
-            // SearchingTxt
-            // 
-            SearchingTxt.Location = new Point(803, 57);
-            SearchingTxt.Multiline = true;
-            SearchingTxt.Name = "SearchingTxt";
-            SearchingTxt.Size = new Size(238, 27);
-            SearchingTxt.TabIndex = 42;
-            // 
-            // BtnDelete
-            // 
-            BtnDelete.ForeColor = SystemColors.ActiveCaptionText;
-            BtnDelete.Location = new Point(925, 110);
-            BtnDelete.Name = "BtnDelete";
-            BtnDelete.Size = new Size(116, 41);
-            BtnDelete.TabIndex = 41;
-            BtnDelete.Text = "Delete";
-            BtnDelete.UseVisualStyleBackColor = true;
-            // 
-            // BtnUpdate
-            // 
-            BtnUpdate.ForeColor = SystemColors.ActiveCaptionText;
-            BtnUpdate.Location = new Point(925, 167);
-            BtnUpdate.Name = "BtnUpdate";
-            BtnUpdate.Size = new Size(116, 41);
-            BtnUpdate.TabIndex = 40;
-            BtnUpdate.Text = "Update";
-            BtnUpdate.UseVisualStyleBackColor = true;
+            UATimePicker.Location = new Point(562, 125);
+            UATimePicker.Name = "UATimePicker";
+            UATimePicker.Size = new Size(200, 23);
+            UATimePicker.TabIndex = 45;
             // 
             // BtnAdd
             // 
@@ -242,6 +204,48 @@
             BtnAdd.TabIndex = 39;
             BtnAdd.Text = "Add";
             BtnAdd.UseVisualStyleBackColor = true;
+            BtnAdd.Click += BtnAdd_Click;
+            // 
+            // BtnUpdate
+            // 
+            BtnUpdate.ForeColor = SystemColors.ActiveCaptionText;
+            BtnUpdate.Location = new Point(925, 167);
+            BtnUpdate.Name = "BtnUpdate";
+            BtnUpdate.Size = new Size(116, 41);
+            BtnUpdate.TabIndex = 40;
+            BtnUpdate.Text = "Update";
+            BtnUpdate.UseVisualStyleBackColor = true;
+            BtnUpdate.Click += BtnUpdate_Click;
+            // 
+            // BtnSearch
+            // 
+            BtnSearch.ForeColor = SystemColors.ActiveCaptionText;
+            BtnSearch.Location = new Point(803, 167);
+            BtnSearch.Name = "BtnSearch";
+            BtnSearch.Size = new Size(116, 41);
+            BtnSearch.TabIndex = 43;
+            BtnSearch.Text = "Search";
+            BtnSearch.UseVisualStyleBackColor = true;
+            BtnSearch.Click += BtnSearch_Click;
+            // 
+            // BtnDelete
+            // 
+            BtnDelete.ForeColor = SystemColors.ActiveCaptionText;
+            BtnDelete.Location = new Point(925, 110);
+            BtnDelete.Name = "BtnDelete";
+            BtnDelete.Size = new Size(116, 41);
+            BtnDelete.TabIndex = 41;
+            BtnDelete.Text = "Delete";
+            BtnDelete.UseVisualStyleBackColor = true;
+            BtnDelete.Click += BtnDelete_Click;
+            // 
+            // SearchingTxt
+            // 
+            SearchingTxt.Location = new Point(803, 57);
+            SearchingTxt.Multiline = true;
+            SearchingTxt.Name = "SearchingTxt";
+            SearchingTxt.Size = new Size(238, 27);
+            SearchingTxt.TabIndex = 42;
             // 
             // ROM
             // 

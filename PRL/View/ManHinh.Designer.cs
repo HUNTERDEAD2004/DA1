@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            DisPlayName = new TextBox();
-            label2 = new Label();
-            label1 = new Label();
-            DisPlayId = new TextBox();
-            groupBox2 = new GroupBox();
-            DgvDIsPlayShow = new DataGridView();
             label7 = new Label();
             label6 = new Label();
             label9 = new Label();
@@ -48,6 +42,12 @@
             BtnDelete = new Button();
             BtnUpdate = new Button();
             BtnAdd = new Button();
+            DisPlayName = new TextBox();
+            label2 = new Label();
+            label1 = new Label();
+            DisPlayId = new TextBox();
+            groupBox2 = new GroupBox();
+            DgvDIsPlayShow = new DataGridView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvDIsPlayShow).BeginInit();
@@ -80,61 +80,6 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Display";
-            // 
-            // DisPlayName
-            // 
-            DisPlayName.Location = new Point(126, 109);
-            DisPlayName.Name = "DisPlayName";
-            DisPlayName.Size = new Size(274, 23);
-            DisPlayName.TabIndex = 21;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(21, 112);
-            label2.Name = "label2";
-            label2.Size = new Size(77, 15);
-            label2.TabIndex = 15;
-            label2.Text = "DisplayName";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(21, 57);
-            label1.Name = "label1";
-            label1.Size = new Size(55, 15);
-            label1.TabIndex = 14;
-            label1.Text = "DisplayId";
-            // 
-            // DisPlayId
-            // 
-            DisPlayId.Location = new Point(126, 54);
-            DisPlayId.Name = "DisPlayId";
-            DisPlayId.Size = new Size(274, 23);
-            DisPlayId.TabIndex = 7;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(DgvDIsPlayShow);
-            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-            groupBox2.Location = new Point(2, 241);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1161, 322);
-            groupBox2.TabIndex = 20;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Hiển thị";
-            // 
-            // DgvDIsPlayShow
-            // 
-            DgvDIsPlayShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgvDIsPlayShow.Location = new Point(6, 22);
-            DgvDIsPlayShow.Name = "DgvDIsPlayShow";
-            DgvDIsPlayShow.RowTemplate.Height = 25;
-            DgvDIsPlayShow.Size = new Size(1149, 294);
-            DgvDIsPlayShow.TabIndex = 0;
-            DgvDIsPlayShow.CellContentClick += DgvDIsPlayShow_CellContentClick;
             // 
             // label7
             // 
@@ -255,6 +200,62 @@
             BtnAdd.TabIndex = 39;
             BtnAdd.Text = "Add";
             BtnAdd.UseVisualStyleBackColor = true;
+            BtnAdd.Click += BtnAdd_Click_1;
+            // 
+            // DisPlayName
+            // 
+            DisPlayName.Location = new Point(126, 109);
+            DisPlayName.Name = "DisPlayName";
+            DisPlayName.Size = new Size(274, 23);
+            DisPlayName.TabIndex = 21;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(21, 112);
+            label2.Name = "label2";
+            label2.Size = new Size(77, 15);
+            label2.TabIndex = 15;
+            label2.Text = "DisplayName";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.Control;
+            label1.Location = new Point(21, 57);
+            label1.Name = "label1";
+            label1.Size = new Size(55, 15);
+            label1.TabIndex = 14;
+            label1.Text = "DisplayId";
+            // 
+            // DisPlayId
+            // 
+            DisPlayId.Location = new Point(126, 54);
+            DisPlayId.Name = "DisPlayId";
+            DisPlayId.Size = new Size(274, 23);
+            DisPlayId.TabIndex = 7;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(DgvDIsPlayShow);
+            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
+            groupBox2.Location = new Point(2, 241);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(1161, 322);
+            groupBox2.TabIndex = 20;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Hiển thị";
+            // 
+            // DgvDIsPlayShow
+            // 
+            DgvDIsPlayShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvDIsPlayShow.Location = new Point(6, 22);
+            DgvDIsPlayShow.Name = "DgvDIsPlayShow";
+            DgvDIsPlayShow.RowTemplate.Height = 25;
+            DgvDIsPlayShow.Size = new Size(1149, 294);
+            DgvDIsPlayShow.TabIndex = 0;
+            DgvDIsPlayShow.CellContentClick += DgvDIsPlayShow_CellContentClick;
             // 
             // ManHinh
             // 

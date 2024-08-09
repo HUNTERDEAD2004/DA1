@@ -205,9 +205,14 @@ namespace PRL.View
                 if (string.IsNullOrWhiteSpace(RamTypeTxt.Text) || string.IsNullOrWhiteSpace(RamSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Kết thúc phương thức nếu có trường rỗng
+                    return;
                 }
-
+                var existed = _db.RAMs.FirstOrDefault(r => r.RAMSize == RamSizeTxt.Text);
+                if (existed != null)
+                {
+                    MessageBox.Show("Kích thước RAM này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var newRam = new Ram
                 {
                     RAMID = Guid.NewGuid(), // Tạo ID mới
@@ -219,7 +224,6 @@ namespace PRL.View
                     UpdatedBy = UBTxt.Text
                 };
 
-                // Thêm vào cơ sở dữ liệu
                 _db.RAMs.Add(newRam);
                 _db.SaveChanges();
                 MessageBox.Show("Tạo Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);

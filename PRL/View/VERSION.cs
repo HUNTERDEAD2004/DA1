@@ -97,7 +97,12 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existed = _db.Versions.FirstOrDefault(r => r.VersionName == VerNameTxt.Text);
+                if (existed != null)
+                {
+                    MessageBox.Show("Kích thước RAM này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var newWeight = new DAL.Models.Versions
                 {
                     VersionID = Guid.NewGuid(), // Tạo ID mới

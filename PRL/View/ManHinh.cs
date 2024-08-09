@@ -220,5 +220,10 @@ namespace PRL.View
                 MessageBox.Show("Sửa Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void BtnAdd_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

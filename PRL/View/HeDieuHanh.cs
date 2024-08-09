@@ -16,5 +16,10 @@ namespace PRL.View
         {
             InitializeComponent();
         }
+
+        private void HeDieuHanh_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

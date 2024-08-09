@@ -50,7 +50,6 @@ namespace AppData.Models
         public CameraSelfie CameraSelfie { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
-        public ICollection<Warranty> Warranties { get; set; }
         public ICollection<IMEI> Imeis { get; set; }
     }
 }

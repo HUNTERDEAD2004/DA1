@@ -19,7 +19,7 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB5;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB7;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         IphoneDbContext Context;
@@ -335,18 +335,18 @@ namespace PRL.View
 
                                 // lệnh SQL để cập nhật hóa đơn
                                 string sql = @"
-                        UPDATE Orders
-                        SET 
-                            Status = 1,
-                            AccountID = @AccountID,
-                            IDVoucher = @IDVoucher,
-                            Price = @Price,
-                            Note = @Note,
-                            TotalAmount = @TotalAmount,
-                            UpdatedAt = @UpdatedAt,
-                            UpdatedBy = @UpdatedBy,
-                            CustomerID = @CustomerID
-                        WHERE OrderID = @OrderID";
+        UPDATE Orders
+        SET 
+            Status = 1,
+            AccountID = @AccountID,
+            IDVoucher = @IDVoucher,
+            Price = @Price,
+            Note = @Note,
+            TotalAmount = @TotalAmount,
+            UpdatedAt = @UpdatedAt,
+            UpdatedBy = @UpdatedBy,
+            CustomerID = @CustomerID
+        WHERE OrderID = @OrderID";
 
                                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                                 {
@@ -424,9 +424,36 @@ namespace PRL.View
                                         context.Activities.Add(acc);
                                         context.SaveChanges();
 
-                                        // Load lại dữ liệu hóa đơn cụ thể
-                                        //LoadDataHD(orderId);
+                                        // Thêm ImeiID vào bảng Bảo hành, từng cái một
+                                        foreach (DataGridViewRow row in dgvHDTT.Rows)
+                                        {
+                                            if (row.Cells["ImeiID"].Value != null)
+                                            {
+                                                string imeiId = row.Cells["ImeiID"].Value.ToString();
+                                                if (imeiId.Length == 15)
+                                                {
+                                                    var warranty = new Warranty
+                                                    {
+                                                        WarrantyID = Guid.NewGuid(),
+                                                        ImeiID = imeiId,
+                                                        WarrantyStartDate = DateTime.Now,
+                                                        WarrantyEndDate = DateTime.Now.AddMonths(12),
+                                                        CreatedAt = DateTime.Now,
+                                                        UpdatedAt = DateTime.Now,
+                                                        CreatedBy = usernameAC,
+                                                        UpdatedBy = usernameAC
+                                                    };
+                                                    context.Warranties.Add(warranty);
+                                                    context.SaveChanges(); // Lưu từng bản ghi bảo hành sau khi thêm
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("ImeiID không hợp lệ: " + imeiId, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                        }
 
+                                        // Load lại dữ liệu hóa đơn cụ thể
                                         dgvHDC.DataSource = null;
                                         dgvHDTT.DataSource = null;
                                         txtMHD.Text = "";
@@ -441,7 +468,7 @@ namespace PRL.View
                                         txtTL.Text = "";
                                         richTextBox1.Text = "";
                                         this.Close();
-                                        MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        MessageBox.Show("Thanh toán thành công và đã thêm bảo hành!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     }
                                     else
                                     {
@@ -470,6 +497,8 @@ namespace PRL.View
                 MessageBox.Show("Thanh toán thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
 
 

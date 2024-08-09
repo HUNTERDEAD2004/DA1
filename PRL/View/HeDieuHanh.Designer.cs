@@ -265,6 +265,7 @@
             Controls.Add(groupBox1);
             Name = "HeDieuHanh";
             Text = "HeDieuHanh";
+            Load += HeDieuHanh_Load;
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DgvOShow).EndInit();
             groupBox1.ResumeLayout(false);

@@ -16,9 +16,9 @@ namespace AppData.Config
             builder.Property(x => x.WarrantyEndDate)
                    .IsRequired();
 
-            builder.HasOne(x => x.ProductDetail)
+            builder.HasOne(x => x.iMEI)
                .WithMany(pd => pd.Warranties)
-               .HasForeignKey(x => x.ProductDetailID)
+               .HasForeignKey(x => x.ImeiID)
                .OnDelete(DeleteBehavior.NoAction);
         }
     }

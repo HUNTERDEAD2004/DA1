@@ -37,14 +37,11 @@
             bttXoa = new Button();
             label9 = new Label();
             txtHDCT = new TextBox();
-            RBCTT = new RadioButton();
-            RBDTT = new RadioButton();
             bttCL = new Button();
             txtTKSP = new TextBox();
             bttSua = new Button();
             button2 = new Button();
             DTPVC = new DateTimePicker();
-            label6 = new Label();
             label5 = new Label();
             txtGia = new TextBox();
             label4 = new Label();
@@ -176,33 +173,6 @@
             txtHDCT.Size = new Size(298, 23);
             txtHDCT.TabIndex = 59;
             // 
-            // RBCTT
-            // 
-            RBCTT.AutoSize = true;
-            RBCTT.BackColor = Color.SlateBlue;
-            RBCTT.ForeColor = SystemColors.ButtonHighlight;
-            RBCTT.Location = new Point(257, 369);
-            RBCTT.Name = "RBCTT";
-            RBCTT.Size = new Size(108, 19);
-            RBCTT.TabIndex = 58;
-            RBCTT.TabStop = true;
-            RBCTT.Text = "Chờ thanh toán";
-            RBCTT.UseVisualStyleBackColor = false;
-            // 
-            // RBDTT
-            // 
-            RBDTT.AutoSize = true;
-            RBDTT.BackColor = Color.SlateBlue;
-            RBDTT.Enabled = false;
-            RBDTT.ForeColor = SystemColors.ButtonHighlight;
-            RBDTT.Location = new Point(112, 369);
-            RBDTT.Name = "RBDTT";
-            RBDTT.Size = new Size(100, 19);
-            RBDTT.TabIndex = 57;
-            RBDTT.TabStop = true;
-            RBDTT.Text = "Đã thanh toán";
-            RBDTT.UseVisualStyleBackColor = false;
-            // 
             // bttCL
             // 
             bttCL.ForeColor = SystemColors.ActiveCaptionText;
@@ -252,17 +222,6 @@
             DTPVC.Name = "DTPVC";
             DTPVC.Size = new Size(147, 23);
             DTPVC.TabIndex = 51;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.SlateBlue;
-            label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(8, 373);
-            label6.Name = "label6";
-            label6.Size = new Size(59, 15);
-            label6.TabIndex = 50;
-            label6.Text = "Trạng thái";
             // 
             // label5
             // 
@@ -378,15 +337,12 @@
             panel1.Controls.Add(txtSL);
             panel1.Controls.Add(txtTKSP);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(RBCTT);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(bttCL);
             panel1.Controls.Add(txtSZ);
-            panel1.Controls.Add(RBDTT);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(txtSP);
-            panel1.Controls.Add(label6);
             panel1.Controls.Add(bttSua);
             panel1.ForeColor = SystemColors.ActiveCaptionText;
             panel1.Location = new Point(-2, -6);
@@ -601,15 +557,12 @@
         private Button bttXoa;
         private Label label9;
         private TextBox txtHDCT;
-        private RadioButton RBCTT;
-        private RadioButton RBDTT;
         private Button bttCL;
         private Label label7;
         private TextBox txtTKSP;
         private Button bttSua;
         private Button button2;
         private DateTimePicker DTPVC;
-        private Label label6;
         private Label label5;
         private TextBox txtGia;
         private Label label4;

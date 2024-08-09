@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            ColorNameTxt = new TextBox();
-            label2 = new Label();
-            label1 = new Label();
-            ColorId = new TextBox();
-            groupBox2 = new GroupBox();
-            DgvColorShow = new DataGridView();
             label7 = new Label();
             label6 = new Label();
             label9 = new Label();
@@ -48,6 +42,12 @@
             BtnDelete = new Button();
             BtnUpdate = new Button();
             BtnAdd = new Button();
+            ColorNameTxt = new TextBox();
+            label2 = new Label();
+            label1 = new Label();
+            ColorId = new TextBox();
+            groupBox2 = new GroupBox();
+            DgvColorShow = new DataGridView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvColorShow).BeginInit();
@@ -80,61 +80,6 @@
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Color";
-            // 
-            // ColorNameTxt
-            // 
-            ColorNameTxt.Location = new Point(93, 119);
-            ColorNameTxt.Name = "ColorNameTxt";
-            ColorNameTxt.Size = new Size(274, 23);
-            ColorNameTxt.TabIndex = 21;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(21, 122);
-            label2.Name = "label2";
-            label2.Size = new Size(68, 15);
-            label2.TabIndex = 15;
-            label2.Text = "ColorName";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(21, 57);
-            label1.Name = "label1";
-            label1.Size = new Size(46, 15);
-            label1.TabIndex = 14;
-            label1.Text = "ColorId";
-            // 
-            // ColorId
-            // 
-            ColorId.Location = new Point(93, 54);
-            ColorId.Name = "ColorId";
-            ColorId.Size = new Size(274, 23);
-            ColorId.TabIndex = 7;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(DgvColorShow);
-            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-            groupBox2.Location = new Point(3, 238);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1161, 322);
-            groupBox2.TabIndex = 22;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Hiển thị";
-            // 
-            // DgvColorShow
-            // 
-            DgvColorShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgvColorShow.Location = new Point(6, 22);
-            DgvColorShow.Name = "DgvColorShow";
-            DgvColorShow.RowTemplate.Height = 25;
-            DgvColorShow.Size = new Size(1149, 294);
-            DgvColorShow.TabIndex = 0;
-            DgvColorShow.CellContentClick += DgvColorShow_CellContentClick;
             // 
             // label7
             // 
@@ -255,6 +200,62 @@
             BtnAdd.TabIndex = 39;
             BtnAdd.Text = "Add";
             BtnAdd.UseVisualStyleBackColor = true;
+            BtnAdd.Click += BtnAdd_Click_1;
+            // 
+            // ColorNameTxt
+            // 
+            ColorNameTxt.Location = new Point(93, 119);
+            ColorNameTxt.Name = "ColorNameTxt";
+            ColorNameTxt.Size = new Size(274, 23);
+            ColorNameTxt.TabIndex = 21;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(21, 122);
+            label2.Name = "label2";
+            label2.Size = new Size(68, 15);
+            label2.TabIndex = 15;
+            label2.Text = "ColorName";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.Control;
+            label1.Location = new Point(21, 57);
+            label1.Name = "label1";
+            label1.Size = new Size(46, 15);
+            label1.TabIndex = 14;
+            label1.Text = "ColorId";
+            // 
+            // ColorId
+            // 
+            ColorId.Location = new Point(93, 54);
+            ColorId.Name = "ColorId";
+            ColorId.Size = new Size(274, 23);
+            ColorId.TabIndex = 7;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(DgvColorShow);
+            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
+            groupBox2.Location = new Point(3, 238);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(1161, 322);
+            groupBox2.TabIndex = 22;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Hiển thị";
+            // 
+            // DgvColorShow
+            // 
+            DgvColorShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvColorShow.Location = new Point(6, 22);
+            DgvColorShow.Name = "DgvColorShow";
+            DgvColorShow.RowTemplate.Height = 25;
+            DgvColorShow.Size = new Size(1149, 294);
+            DgvColorShow.TabIndex = 0;
+            DgvColorShow.CellContentClick += DgvColorShow_CellContentClick;
             // 
             // MauSac
             // 

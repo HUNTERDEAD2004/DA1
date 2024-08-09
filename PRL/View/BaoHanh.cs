@@ -15,7 +15,7 @@ namespace PRL.View
 {
     public partial class BaoHanh : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB7;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         IphoneDbContext _dbContext;
@@ -34,7 +34,7 @@ namespace PRL.View
         void HienThi()
         {
             conn.Open();
-            SqlCommand cmd2 = new SqlCommand("SELECT \r\n    pd.IMEI, \r\n    pd.ProductID, \r\n    pd.Name AS ProductName, \r\n    d.DisplayName, \r\n    c.CPUName AS CPU, \r\n    g.GPUName AS GPU, \r\n    r.RAMSize AS RAM, \r\n    pd.Price, \r\n    p.ProductName, pd.Status ,\r\n    p.Description, \r\n    co.ColorName AS Color, \r\n    p.Quantity, \r\n    s.SaleDescription AS SaleCode, \r\n    s.SaleDescription AS SaleName, \r\n    s.DiscountValue AS PercentDiscount, \r\n    s.StartDate AS SaleStart, \r\n    s.EndDate AS SaleEnd\r\nFROM \r\n    ProductDetails pd\r\nINNER JOIN \r\n    Products p ON pd.ProductID = p.ProductID\r\nINNER JOIN \r\n    Colours co ON pd.ColorID = co.ColorID\r\nINNER JOIN \r\n    Displays d ON pd.DisplayID = d.DisplayID\r\nINNER JOIN \r\n    CPUs c ON pd.CPUID = c.CPUID\r\nINNER JOIN \r\n    GPUs g ON pd.GPUID = g.GPUID\r\nINNER JOIN \r\n    RAMs r ON pd.RAMID = r.RAMID\r\nINNER JOIN \r\n    Sales s ON pd.SaleID = s.SaleID\r\nWHERE \r\n    pd.Status = 0;", conn);
+            SqlCommand cmd2 = new SqlCommand("SELECT * from iMEIs where Status = 2;", conn);
             SqlDataReader dr2 = cmd2.ExecuteReader();
             DataTable dt2 = new DataTable();
             dt2.Load(dr2);
@@ -67,7 +67,7 @@ namespace PRL.View
             // Thêm dữ liệu vào DataGridView
             foreach (var bh in baohanh)
             {
-                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.ProductDetailID, bh.WarrantyStartDate, bh.WarrantyEndDate);
+                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.iMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
             }
         }
         public void LoadDataSP()
@@ -93,7 +93,7 @@ namespace PRL.View
             // Thêm dữ liệu vào DataGridView
             foreach (var bh in baohanh)
             {
-                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.ProductDetailID, bh.WarrantyStartDate, bh.WarrantyEndDate);
+                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.iMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
             }
         }
         private void dgvbaohanh_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -137,7 +137,7 @@ namespace PRL.View
             Warranty bh = new Warranty()
             {
                 WarrantyID = Guid.NewGuid(),
-                ProductDetailID = Guid.Parse(imei),
+                ImeiID = imei,
                 CreatedAt = ngaytao,
                 UpdatedAt = ngaysua,
                 CreatedBy = "Admin",
@@ -162,7 +162,7 @@ namespace PRL.View
 
                 Guid id = Guid.Parse(txtID.Text);
                 Warranty bh = _dbContext.Warranties.FirstOrDefault(a => a.WarrantyID == id);
-                bh.ProductDetailID = Guid.Parse(ime.Text);
+                bh.ImeiID = ime.Text;
                 bh.WarrantyStartDate = DateTime.Now;
                 bh.WarrantyEndDate = DateTime.Now;
 

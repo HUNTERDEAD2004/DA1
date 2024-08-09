@@ -217,5 +217,10 @@ namespace PRL.View
                 UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
+
+        private void BtnAdd_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
