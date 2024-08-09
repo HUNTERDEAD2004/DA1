@@ -29,25 +29,17 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            BtnSearch = new Button();
+            SearchingTxt = new TextBox();
+            BtnDelete = new Button();
+            BtnUpdate = new Button();
+            BtnAdd = new Button();
             ColorNameTxt = new TextBox();
             label2 = new Label();
             label1 = new Label();
             ColorId = new TextBox();
             groupBox2 = new GroupBox();
             DgvColorShow = new DataGridView();
-            label7 = new Label();
-            label6 = new Label();
-            label9 = new Label();
-            label8 = new Label();
-            CBTxt = new TextBox();
-            UBTxt = new TextBox();
-            UATimePicker = new DateTimePicker();
-            CATimePicker = new DateTimePicker();
-            BtnSearch = new Button();
-            SearchingTxt = new TextBox();
-            BtnDelete = new Button();
-            BtnUpdate = new Button();
-            BtnAdd = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvColorShow).BeginInit();
@@ -56,14 +48,6 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.SlateBlue;
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label9);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(CBTxt);
-            groupBox1.Controls.Add(UBTxt);
-            groupBox1.Controls.Add(UATimePicker);
-            groupBox1.Controls.Add(CATimePicker);
             groupBox1.Controls.Add(BtnSearch);
             groupBox1.Controls.Add(SearchingTxt);
             groupBox1.Controls.Add(BtnDelete);
@@ -80,133 +64,6 @@
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Color";
-            // 
-            // ColorNameTxt
-            // 
-            ColorNameTxt.Location = new Point(93, 119);
-            ColorNameTxt.Name = "ColorNameTxt";
-            ColorNameTxt.Size = new Size(274, 23);
-            ColorNameTxt.TabIndex = 21;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(21, 122);
-            label2.Name = "label2";
-            label2.Size = new Size(68, 15);
-            label2.TabIndex = 15;
-            label2.Text = "ColorName";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(21, 57);
-            label1.Name = "label1";
-            label1.Size = new Size(46, 15);
-            label1.TabIndex = 14;
-            label1.Text = "ColorId";
-            // 
-            // ColorId
-            // 
-            ColorId.Location = new Point(93, 54);
-            ColorId.Name = "ColorId";
-            ColorId.Size = new Size(274, 23);
-            ColorId.TabIndex = 7;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(DgvColorShow);
-            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-            groupBox2.Location = new Point(3, 238);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1161, 322);
-            groupBox2.TabIndex = 22;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Hiển thị";
-            // 
-            // DgvColorShow
-            // 
-            DgvColorShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgvColorShow.Location = new Point(6, 22);
-            DgvColorShow.Name = "DgvColorShow";
-            DgvColorShow.RowTemplate.Height = 25;
-            DgvColorShow.Size = new Size(1149, 294);
-            DgvColorShow.TabIndex = 0;
-            DgvColorShow.CellContentClick += DgvColorShow_CellContentClick;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.SlateBlue;
-            label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(513, 54);
-            label7.Name = "label7";
-            label7.Size = new Size(56, 15);
-            label7.TabIndex = 51;
-            label7.Text = "Create At";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.SlateBlue;
-            label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(513, 125);
-            label6.Name = "label6";
-            label6.Size = new Size(60, 15);
-            label6.TabIndex = 50;
-            label6.Text = "Update At";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.SlateBlue;
-            label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(322, 187);
-            label9.Name = "label9";
-            label9.Size = new Size(57, 15);
-            label9.TabIndex = 49;
-            label9.Text = "Create By";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.SlateBlue;
-            label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(576, 187);
-            label8.Name = "label8";
-            label8.Size = new Size(61, 15);
-            label8.TabIndex = 48;
-            label8.Text = "Update By";
-            // 
-            // CBTxt
-            // 
-            CBTxt.Location = new Point(385, 184);
-            CBTxt.Name = "CBTxt";
-            CBTxt.Size = new Size(150, 23);
-            CBTxt.TabIndex = 47;
-            // 
-            // UBTxt
-            // 
-            UBTxt.Location = new Point(647, 184);
-            UBTxt.Name = "UBTxt";
-            UBTxt.Size = new Size(150, 23);
-            UBTxt.TabIndex = 46;
-            // 
-            // UATimePicker
-            // 
-            UATimePicker.Location = new Point(597, 119);
-            UATimePicker.Name = "UATimePicker";
-            UATimePicker.Size = new Size(200, 23);
-            UATimePicker.TabIndex = 45;
-            // 
-            // CATimePicker
-            // 
-            CATimePicker.Location = new Point(597, 48);
-            CATimePicker.Name = "CATimePicker";
-            CATimePicker.Size = new Size(200, 23);
-            CATimePicker.TabIndex = 44;
             // 
             // BtnSearch
             // 
@@ -256,6 +113,62 @@
             BtnAdd.Text = "Add";
             BtnAdd.UseVisualStyleBackColor = true;
             // 
+            // ColorNameTxt
+            // 
+            ColorNameTxt.Location = new Point(93, 114);
+            ColorNameTxt.Name = "ColorNameTxt";
+            ColorNameTxt.Size = new Size(274, 23);
+            ColorNameTxt.TabIndex = 21;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(21, 117);
+            label2.Name = "label2";
+            label2.Size = new Size(68, 15);
+            label2.TabIndex = 15;
+            label2.Text = "ColorName";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.Control;
+            label1.Location = new Point(21, 57);
+            label1.Name = "label1";
+            label1.Size = new Size(46, 15);
+            label1.TabIndex = 14;
+            label1.Text = "ColorId";
+            // 
+            // ColorId
+            // 
+            ColorId.Location = new Point(93, 54);
+            ColorId.Name = "ColorId";
+            ColorId.ReadOnly = true;
+            ColorId.Size = new Size(274, 23);
+            ColorId.TabIndex = 7;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(DgvColorShow);
+            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
+            groupBox2.Location = new Point(3, 238);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(1161, 322);
+            groupBox2.TabIndex = 22;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Hiển thị";
+            // 
+            // DgvColorShow
+            // 
+            DgvColorShow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvColorShow.Location = new Point(6, 22);
+            DgvColorShow.Name = "DgvColorShow";
+            DgvColorShow.RowTemplate.Height = 25;
+            DgvColorShow.Size = new Size(1149, 294);
+            DgvColorShow.TabIndex = 0;
+            DgvColorShow.CellContentClick += DgvColorShow_CellContentClick;
+            // 
             // MauSac
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -283,14 +196,6 @@
         private TextBox ColorId;
         private GroupBox groupBox2;
         private DataGridView DgvColorShow;
-        private Label label7;
-        private Label label6;
-        private Label label9;
-        private Label label8;
-        private TextBox CBTxt;
-        private TextBox UBTxt;
-        private DateTimePicker UATimePicker;
-        private DateTimePicker CATimePicker;
         private Button BtnSearch;
         private TextBox SearchingTxt;
         private Button BtnDelete;

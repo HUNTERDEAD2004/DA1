@@ -1,8 +1,10 @@
 ﻿using AppData.Models;
 using DAL.Models;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Irony.Parsing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +34,30 @@ namespace PRL.View
             LoadDetails();
             RemoveExpiredSales();
         }
+        public static string? GetAccountIdFromRegistry()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    key.Close();
+                    return tk;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+        string nameAc = GetAccountIdFromRegistry();
         private void LoadComboBoxData()
         {
             var ramList = context.RAMs.ToList();
@@ -294,6 +320,16 @@ namespace PRL.View
             context.SaveChanges();
             UpdateProductQuantity(_productID);
             MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var acc = new Activity
+            {
+                Note = $"{nameAc} Đã thêm sản phẩm {ProductName} với {cbRam.SelectedValue}, {cbRom.SelectedValue}, {cbColor.SelectedValue}, vào lúc {DateTime.Now}",
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                CreatedBy = nameAc,
+                UpdatedBy = nameAc
+            };
+            context.Activities.Add(acc);
+            context.SaveChanges();
             this.Close();
         }
 
@@ -301,15 +337,12 @@ namespace PRL.View
         {
             if (dgvDetails.SelectedRows.Count > 0)
             {
-                // Lấy ProductDetailID từ hàng được chọn
                 var productDetailID = (Guid)dgvDetails.SelectedRows[0].Cells["ProductDetailID"].Value;
 
-                // Tìm chi tiết sản phẩm dựa trên ProductDetailID
                 var detail = context.ProductDetails.Find(productDetailID);
 
                 if (detail != null)
                 {
-                    // Xác thực dữ liệu nhập
                     if (string.IsNullOrEmpty(txtName.Text) ||
                         int.Parse(txtWeight.Text) == 0)
 
@@ -359,18 +392,23 @@ namespace PRL.View
                     detail.Weight = int.Parse(txtWeight.Text);
                     detail.Year = int.Parse(txtYear.Text);
 
-                    // Kiểm tra và cập nhật SaleID
                     var saleId = cbSale.SelectedValue != null ? (Guid?)cbSale.SelectedValue : null;
                     detail.SaleID = saleId.HasValue && context.Sales.Any(s => s.SaleID == saleId.Value) ? saleId : null;
 
-                    // Cập nhật chi tiết sản phẩm trong cơ sở dữ liệu
                     context.ProductDetails.Update(detail);
                     context.SaveChanges();
 
-                    // Hiển thị thông báo thành công
                     MessageBox.Show("Cập nhật chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Tải lại dữ liệu
+                    var acc = new Activity
+                    {
+                        Note = $"{nameAc} Đã sửa sản phẩm {ProductName}, vào lúc {DateTime.Now}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = nameAc,
+                        UpdatedBy = nameAc
+                    };
+                    context.Activities.Add(acc);
+                    context.SaveChanges();
                     LoadDetails();
                     ClearForm();
                 }
@@ -455,18 +493,22 @@ namespace PRL.View
                 if (detail != null)
                 {
                     var productId = detail.ProductID;
-
-                    // Xóa chi tiết sản phẩm
                     context.ProductDetails.Remove(detail);
                     context.SaveChanges();
 
-                    // Cập nhật số lượng sản phẩm (nếu cần)
                     UpdateProductQuantity(productId);
 
-                    // Hiển thị thông báo thành công
                     MessageBox.Show("Xóa chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Tải lại dữ liệu và làm sạch form
+                    var acc = new Activity
+                    {
+                        Note = $"{nameAc} Đã xóa sản phẩm {ProductName}, vào lúc {DateTime.Now}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = nameAc,
+                        UpdatedBy = nameAc
+                    };
+                    context.Activities.Add(acc);
+                    context.SaveChanges();
                     LoadDetails();
                     ClearForm();
                 }

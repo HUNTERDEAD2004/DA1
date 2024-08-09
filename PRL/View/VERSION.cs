@@ -100,7 +100,7 @@ namespace PRL.View
                 var existed = _db.Versions.FirstOrDefault(r => r.VersionName == VerNameTxt.Text);
                 if (existed != null)
                 {
-                    MessageBox.Show("Kích thước RAM này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 var newWeight = new DAL.Models.Versions

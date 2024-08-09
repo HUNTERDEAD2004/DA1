@@ -97,7 +97,11 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existing = _db.Materials.FirstOrDefault(c => c.MaterialName == MarterialNameTxt.Text);
+                if (existing != null)
+                {
+                    MessageBox.Show("Đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 var newMaterial = new Material
                 {
                     MaterialID = Guid.NewGuid(), // Tạo ID mới
@@ -214,6 +218,11 @@ namespace PRL.View
             }).ToList();
 
             DgvMaterialhow.DataSource = filteredData;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

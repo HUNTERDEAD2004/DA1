@@ -29,25 +29,17 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            BtnSearch = new Button();
+            SearchingTxt = new TextBox();
+            BtnDelete = new Button();
+            BtnUpdate = new Button();
+            BtnAdd = new Button();
             DisPlayName = new TextBox();
             label2 = new Label();
             label1 = new Label();
             DisPlayId = new TextBox();
             groupBox2 = new GroupBox();
             DgvDIsPlayShow = new DataGridView();
-            label7 = new Label();
-            label6 = new Label();
-            label9 = new Label();
-            label8 = new Label();
-            CBTxt = new TextBox();
-            UBTxt = new TextBox();
-            UATimePicker = new DateTimePicker();
-            CATimePicker = new DateTimePicker();
-            BtnSearch = new Button();
-            SearchingTxt = new TextBox();
-            BtnDelete = new Button();
-            BtnUpdate = new Button();
-            BtnAdd = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvDIsPlayShow).BeginInit();
@@ -56,14 +48,6 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.SlateBlue;
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label9);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(CBTxt);
-            groupBox1.Controls.Add(UBTxt);
-            groupBox1.Controls.Add(UATimePicker);
-            groupBox1.Controls.Add(CATimePicker);
             groupBox1.Controls.Add(BtnSearch);
             groupBox1.Controls.Add(SearchingTxt);
             groupBox1.Controls.Add(BtnDelete);
@@ -80,6 +64,54 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Display";
+            // 
+            // BtnSearch
+            // 
+            BtnSearch.ForeColor = SystemColors.ActiveCaptionText;
+            BtnSearch.Location = new Point(905, 156);
+            BtnSearch.Name = "BtnSearch";
+            BtnSearch.Size = new Size(116, 41);
+            BtnSearch.TabIndex = 43;
+            BtnSearch.Text = "Search";
+            BtnSearch.UseVisualStyleBackColor = true;
+            // 
+            // SearchingTxt
+            // 
+            SearchingTxt.Location = new Point(905, 46);
+            SearchingTxt.Multiline = true;
+            SearchingTxt.Name = "SearchingTxt";
+            SearchingTxt.Size = new Size(238, 27);
+            SearchingTxt.TabIndex = 42;
+            // 
+            // BtnDelete
+            // 
+            BtnDelete.ForeColor = SystemColors.ActiveCaptionText;
+            BtnDelete.Location = new Point(1027, 99);
+            BtnDelete.Name = "BtnDelete";
+            BtnDelete.Size = new Size(116, 41);
+            BtnDelete.TabIndex = 41;
+            BtnDelete.Text = "Delete";
+            BtnDelete.UseVisualStyleBackColor = true;
+            // 
+            // BtnUpdate
+            // 
+            BtnUpdate.ForeColor = SystemColors.ActiveCaptionText;
+            BtnUpdate.Location = new Point(1027, 156);
+            BtnUpdate.Name = "BtnUpdate";
+            BtnUpdate.Size = new Size(116, 41);
+            BtnUpdate.TabIndex = 40;
+            BtnUpdate.Text = "Update";
+            BtnUpdate.UseVisualStyleBackColor = true;
+            // 
+            // BtnAdd
+            // 
+            BtnAdd.ForeColor = SystemColors.ActiveCaptionText;
+            BtnAdd.Location = new Point(905, 99);
+            BtnAdd.Name = "BtnAdd";
+            BtnAdd.Size = new Size(116, 41);
+            BtnAdd.TabIndex = 39;
+            BtnAdd.Text = "Add";
+            BtnAdd.UseVisualStyleBackColor = true;
             // 
             // DisPlayName
             // 
@@ -136,126 +168,6 @@
             DgvDIsPlayShow.TabIndex = 0;
             DgvDIsPlayShow.CellContentClick += DgvDIsPlayShow_CellContentClick;
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.SlateBlue;
-            label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(580, 49);
-            label7.Name = "label7";
-            label7.Size = new Size(56, 15);
-            label7.TabIndex = 51;
-            label7.Text = "Create At";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.SlateBlue;
-            label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(580, 120);
-            label6.Name = "label6";
-            label6.Size = new Size(60, 15);
-            label6.TabIndex = 50;
-            label6.Text = "Update At";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.SlateBlue;
-            label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(375, 182);
-            label9.Name = "label9";
-            label9.Size = new Size(57, 15);
-            label9.TabIndex = 49;
-            label9.Text = "Create By";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.SlateBlue;
-            label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(628, 182);
-            label8.Name = "label8";
-            label8.Size = new Size(61, 15);
-            label8.TabIndex = 48;
-            label8.Text = "Update By";
-            // 
-            // CBTxt
-            // 
-            CBTxt.Location = new Point(452, 179);
-            CBTxt.Name = "CBTxt";
-            CBTxt.Size = new Size(150, 23);
-            CBTxt.TabIndex = 47;
-            // 
-            // UBTxt
-            // 
-            UBTxt.Location = new Point(714, 179);
-            UBTxt.Name = "UBTxt";
-            UBTxt.Size = new Size(150, 23);
-            UBTxt.TabIndex = 46;
-            // 
-            // UATimePicker
-            // 
-            UATimePicker.Location = new Point(664, 114);
-            UATimePicker.Name = "UATimePicker";
-            UATimePicker.Size = new Size(200, 23);
-            UATimePicker.TabIndex = 45;
-            // 
-            // CATimePicker
-            // 
-            CATimePicker.Location = new Point(664, 43);
-            CATimePicker.Name = "CATimePicker";
-            CATimePicker.Size = new Size(200, 23);
-            CATimePicker.TabIndex = 44;
-            // 
-            // BtnSearch
-            // 
-            BtnSearch.ForeColor = SystemColors.ActiveCaptionText;
-            BtnSearch.Location = new Point(905, 156);
-            BtnSearch.Name = "BtnSearch";
-            BtnSearch.Size = new Size(116, 41);
-            BtnSearch.TabIndex = 43;
-            BtnSearch.Text = "Search";
-            BtnSearch.UseVisualStyleBackColor = true;
-            // 
-            // SearchingTxt
-            // 
-            SearchingTxt.Location = new Point(905, 46);
-            SearchingTxt.Multiline = true;
-            SearchingTxt.Name = "SearchingTxt";
-            SearchingTxt.Size = new Size(238, 27);
-            SearchingTxt.TabIndex = 42;
-            // 
-            // BtnDelete
-            // 
-            BtnDelete.ForeColor = SystemColors.ActiveCaptionText;
-            BtnDelete.Location = new Point(1027, 99);
-            BtnDelete.Name = "BtnDelete";
-            BtnDelete.Size = new Size(116, 41);
-            BtnDelete.TabIndex = 41;
-            BtnDelete.Text = "Delete";
-            BtnDelete.UseVisualStyleBackColor = true;
-            // 
-            // BtnUpdate
-            // 
-            BtnUpdate.ForeColor = SystemColors.ActiveCaptionText;
-            BtnUpdate.Location = new Point(1027, 156);
-            BtnUpdate.Name = "BtnUpdate";
-            BtnUpdate.Size = new Size(116, 41);
-            BtnUpdate.TabIndex = 40;
-            BtnUpdate.Text = "Update";
-            BtnUpdate.UseVisualStyleBackColor = true;
-            // 
-            // BtnAdd
-            // 
-            BtnAdd.ForeColor = SystemColors.ActiveCaptionText;
-            BtnAdd.Location = new Point(905, 99);
-            BtnAdd.Name = "BtnAdd";
-            BtnAdd.Size = new Size(116, 41);
-            BtnAdd.TabIndex = 39;
-            BtnAdd.Text = "Add";
-            BtnAdd.UseVisualStyleBackColor = true;
-            // 
             // ManHinh
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -290,14 +202,6 @@
         private GroupBox groupBox2;
         private DataGridView DgvDIsPlayShow;
         private TextBox DisPlayName;
-        private Label label7;
-        private Label label6;
-        private Label label9;
-        private Label label8;
-        private TextBox CBTxt;
-        private TextBox UBTxt;
-        private DateTimePicker UATimePicker;
-        private DateTimePicker CATimePicker;
         private Button BtnSearch;
         private TextBox SearchingTxt;
         private Button BtnDelete;

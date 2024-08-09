@@ -38,10 +38,14 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existingColor = _db.Colours.FirstOrDefault(c => c.ColorName == ColorNameTxt.Text);
+                if (existingColor != null)
+                {
+                    MessageBox.Show("Màu này đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 var newColor = new AppData.Models.Color
                 {
-                    ColorID = Guid.NewGuid(), // Tạo ID mới
+                    ColorID = Guid.NewGuid(),
                     ColorName = ColorNameTxt.Text,
                     CreatedAt = DateTime.Now,
                     CreatedBy = CBTxt.Text,

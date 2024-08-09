@@ -31,14 +31,6 @@
             groupBox2 = new GroupBox();
             DgvMaterialhow = new DataGridView();
             groupBox1 = new GroupBox();
-            label7 = new Label();
-            label6 = new Label();
-            label9 = new Label();
-            label8 = new Label();
-            CBTxt = new TextBox();
-            UBTxt = new TextBox();
-            UATimePicker = new DateTimePicker();
-            CATimePicker = new DateTimePicker();
             BtnSearch = new Button();
             SearchingTxt = new TextBox();
             BtnDelete = new Button();
@@ -77,14 +69,6 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.SlateBlue;
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label9);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(CBTxt);
-            groupBox1.Controls.Add(UBTxt);
-            groupBox1.Controls.Add(UATimePicker);
-            groupBox1.Controls.Add(CATimePicker);
             groupBox1.Controls.Add(BtnSearch);
             groupBox1.Controls.Add(SearchingTxt);
             groupBox1.Controls.Add(BtnDelete);
@@ -101,78 +85,6 @@
             groupBox1.TabIndex = 24;
             groupBox1.TabStop = false;
             groupBox1.Text = "OS";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.SlateBlue;
-            label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(559, 57);
-            label7.Name = "label7";
-            label7.Size = new Size(56, 15);
-            label7.TabIndex = 38;
-            label7.Text = "Create At";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.SlateBlue;
-            label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(559, 128);
-            label6.Name = "label6";
-            label6.Size = new Size(60, 15);
-            label6.TabIndex = 37;
-            label6.Text = "Update At";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.SlateBlue;
-            label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(368, 190);
-            label9.Name = "label9";
-            label9.Size = new Size(57, 15);
-            label9.TabIndex = 36;
-            label9.Text = "Create By";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.SlateBlue;
-            label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(622, 190);
-            label8.Name = "label8";
-            label8.Size = new Size(61, 15);
-            label8.TabIndex = 35;
-            label8.Text = "Update By";
-            // 
-            // CBTxt
-            // 
-            CBTxt.Location = new Point(431, 187);
-            CBTxt.Name = "CBTxt";
-            CBTxt.Size = new Size(150, 23);
-            CBTxt.TabIndex = 34;
-            // 
-            // UBTxt
-            // 
-            UBTxt.Location = new Point(693, 187);
-            UBTxt.Name = "UBTxt";
-            UBTxt.Size = new Size(150, 23);
-            UBTxt.TabIndex = 33;
-            // 
-            // UATimePicker
-            // 
-            UATimePicker.Location = new Point(643, 122);
-            UATimePicker.Name = "UATimePicker";
-            UATimePicker.Size = new Size(200, 23);
-            UATimePicker.TabIndex = 32;
-            // 
-            // CATimePicker
-            // 
-            CATimePicker.Location = new Point(643, 51);
-            CATimePicker.Name = "CATimePicker";
-            CATimePicker.Size = new Size(200, 23);
-            CATimePicker.TabIndex = 31;
             // 
             // BtnSearch
             // 
@@ -228,20 +140,22 @@
             // 
             // MarterialNameTxt
             // 
-            MarterialNameTxt.Location = new Point(101, 117);
+            MarterialNameTxt.Location = new Point(388, 57);
             MarterialNameTxt.Name = "MarterialNameTxt";
             MarterialNameTxt.Size = new Size(177, 23);
             MarterialNameTxt.TabIndex = 22;
+            MarterialNameTxt.TextChanged += this.MarterialNameTxt_TextChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(20, 120);
+            label3.Location = new Point(307, 60);
             label3.Name = "label3";
             label3.Size = new Size(82, 15);
             label3.TabIndex = 21;
             label3.Text = "MaterialName";
+            label3.Click += label3_Click;
             // 
             // label1
             // 
@@ -283,14 +197,6 @@
         private GroupBox groupBox2;
         private DataGridView DgvMaterialhow;
         private GroupBox groupBox1;
-        private Label label7;
-        private Label label6;
-        private Label label9;
-        private Label label8;
-        private TextBox CBTxt;
-        private TextBox UBTxt;
-        private DateTimePicker UATimePicker;
-        private DateTimePicker CATimePicker;
         private Button BtnSearch;
         private TextBox SearchingTxt;
         private Button BtnDelete;
