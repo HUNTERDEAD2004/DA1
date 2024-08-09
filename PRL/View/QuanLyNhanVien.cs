@@ -24,7 +24,7 @@ namespace PRL.View
 {
     public partial class QuanLyNhanVien : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB4;Trusted_Connection=True;TrustServerCertificate=True");        //SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AN16NPP\\MSSQLSERVER01;Initial Catalog=Duan1_N6_Demo3;Integrated Security=True;TrustServerCertificate=true");
+        SqlConnection conn = new SqlConnection("Server=UYNSAUSAU\\SQLEXPRESS;Database=IphoneDB5;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -282,27 +282,27 @@ namespace PRL.View
 
                 if (taikhoanExists)
                 {
-                    MessageBox.Show("tài khoảng đã tồn tại. Vui lòng sử dụng số tài khoản khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("tài khoản đã tồn tại. Vui lòng sử dụng số tài khoản khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
                 string tk = null;
-                if (key != null)
-                {
-                    tk = key.GetValue("Username").ToString();
-                    string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+                //if (key != null)
+                //{
+                //    tk = key.GetValue("Username").ToString();
+                //    string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Username", tk);
-                
+                //    SqlCommand cmd = new SqlCommand(query, conn);
+                //    cmd.Parameters.AddWithValue("@Username", tk);
 
-                    key.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                //    key.Close();
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
 
                 var user = new Account
                 {
@@ -316,9 +316,9 @@ namespace PRL.View
                     PhoneNumber = txtsdt.Text,
                     Email = txtemail.Text,
                     BOD = dateNV.Value,
-                    Gender = rbtnam.Checked ? "Male" : (rbtnu.Checked ? "Female" : "Unspecified"),
+                    Gender = rbtnam.Checked ? "Nam" : (rbtnu.Checked ? "Nữ" : "Không xác định"),
                     Wage = Convert.ToDecimal(txtL.Text),
-                    CreateAt = DateTime.Now,
+                    CreateAt = DateTime.Now, 
                     UpdateAt = DateTime.Now,
                     CreateBy = tk, 
                     UpdateBy = tk  

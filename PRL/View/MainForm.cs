@@ -56,8 +56,6 @@ namespace PRL.View
         }
         public MainForm()
         {
-
-
             InitializeComponent();
             leftborderBtn = new Panel();
             leftborderBtn.Size = new Size(7, 60);
@@ -66,6 +64,7 @@ namespace PRL.View
             label2.Anchor = AnchorStyles.Right;
             panelChange.Dock = DockStyle.Fill;
             panelChange.Anchor = AnchorStyles.Left;
+            panelChange.Dock = DockStyle.Fill;
         }
         public void Reset()
         {
@@ -103,18 +102,20 @@ namespace PRL.View
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
             if (key != null)
             {
-                var role = key.GetValue("Role").ToString();
-                key.Close();
+                //var role = key.GetValue("Role").ToString();
+                //key.Close();
 
-                if (role == "admin")
-                {
-                    ActivateButton(sender, hover.color1);
-                    OpenForm(new Products());
-                }
-                else if (role == "user")
-                {
-                    MessageBox.Show("Cút");
-                }
+                //if (role == "admin")
+                //{
+                //    ActivateButton(sender, hover.color1);
+                //    OpenForm(new Products());
+                //}
+                //else if (role == "user")
+                //{
+                //    MessageBox.Show("Cút");
+                //}
+                ActivateButton(sender, hover.color1);
+                OpenForm(new Products());
             }
 
         }

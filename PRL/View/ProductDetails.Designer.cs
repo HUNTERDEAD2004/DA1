@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtImei = new TextBox();
+            txtQuantity = new TextBox();
             label1 = new Label();
             txtProductID = new TextBox();
             label2 = new Label();
@@ -48,6 +48,9 @@
             btnUpdate = new Button();
             btnDel = new Button();
             panel1 = new Panel();
+            btnLoad = new Button();
+            txtYear = new ComboBox();
+            txtWeight = new TextBox();
             bcBT = new Button();
             bcVer = new Button();
             bcCS = new Button();
@@ -72,8 +75,6 @@
             txt = new Label();
             cbSystem = new ComboBox();
             cbOrigin = new ComboBox();
-            cbYOM = new ComboBox();
-            cbWeight = new ComboBox();
             cbMaterial = new ComboBox();
             cbSelfie = new ComboBox();
             cbRear = new ComboBox();
@@ -92,22 +93,23 @@
             cbCpu = new ComboBox();
             cbRam = new ComboBox();
             cbColor = new ComboBox();
+            btnImei = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetails).BeginInit();
             SuspendLayout();
             // 
-            // txtImei
+            // txtQuantity
             // 
-            txtImei.Location = new Point(109, 45);
-            txtImei.Name = "txtImei";
-            txtImei.Size = new Size(163, 23);
-            txtImei.TabIndex = 0;
+            txtQuantity.Location = new Point(122, 295);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.Size = new Size(163, 23);
+            txtQuantity.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(36, 48);
+            label1.Location = new Point(49, 298);
             label1.Name = "label1";
             label1.Size = new Size(30, 15);
             label1.TabIndex = 1;
@@ -115,7 +117,7 @@
             // 
             // txtProductID
             // 
-            txtProductID.Location = new Point(109, 95);
+            txtProductID.Location = new Point(122, 49);
             txtProductID.Name = "txtProductID";
             txtProductID.ReadOnly = true;
             txtProductID.Size = new Size(163, 23);
@@ -125,7 +127,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(36, 98);
+            label2.Location = new Point(49, 52);
             label2.Name = "label2";
             label2.Size = new Size(63, 15);
             label2.TabIndex = 3;
@@ -143,7 +145,7 @@
             // 
             // txtName
             // 
-            txtName.Location = new Point(109, 145);
+            txtName.Location = new Point(122, 99);
             txtName.Name = "txtName";
             txtName.Size = new Size(163, 23);
             txtName.TabIndex = 8;
@@ -152,7 +154,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(36, 148);
+            label6.Location = new Point(49, 102);
             label6.Name = "label6";
             label6.Size = new Size(39, 15);
             label6.TabIndex = 9;
@@ -160,7 +162,7 @@
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(109, 195);
+            txtPrice.Location = new Point(122, 149);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(163, 23);
             txtPrice.TabIndex = 10;
@@ -178,7 +180,7 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(36, 198);
+            label7.Location = new Point(49, 152);
             label7.Name = "label7";
             label7.Size = new Size(33, 15);
             label7.TabIndex = 12;
@@ -218,7 +220,7 @@
             // 
             label10.AutoSize = true;
             label10.ForeColor = SystemColors.ButtonHighlight;
-            label10.Location = new Point(36, 298);
+            label10.Location = new Point(49, 252);
             label10.Name = "label10";
             label10.Size = new Size(28, 15);
             label10.TabIndex = 20;
@@ -277,6 +279,10 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(btnImei);
+            panel1.Controls.Add(btnLoad);
+            panel1.Controls.Add(txtYear);
+            panel1.Controls.Add(txtWeight);
             panel1.Controls.Add(bcBT);
             panel1.Controls.Add(bcVer);
             panel1.Controls.Add(bcCS);
@@ -301,8 +307,6 @@
             panel1.Controls.Add(txt);
             panel1.Controls.Add(cbSystem);
             panel1.Controls.Add(cbOrigin);
-            panel1.Controls.Add(cbYOM);
-            panel1.Controls.Add(cbWeight);
             panel1.Controls.Add(cbMaterial);
             panel1.Controls.Add(cbSelfie);
             panel1.Controls.Add(cbRear);
@@ -339,11 +343,38 @@
             panel1.Controls.Add(label2);
             panel1.Controls.Add(txtProductID);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(txtImei);
+            panel1.Controls.Add(txtQuantity);
             panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(1527, 773);
             panel1.TabIndex = 0;
+            // 
+            // btnLoad
+            // 
+            btnLoad.Location = new Point(1167, 385);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(38, 23);
+            btnLoad.TabIndex = 64;
+            btnLoad.Text = "RL";
+            btnLoad.UseVisualStyleBackColor = true;
+            btnLoad.Click += btnLoad_Click;
+            // 
+            // txtYear
+            // 
+            txtYear.FormattingEnabled = true;
+            txtYear.Items.AddRange(new object[] { "2007", "", "2008", "", "2009", "", "2010", "", "2011", "", "2012", "", "2013", "", "2014", "", "2015", "", "2016", "", "2017", "", "2018", "", "2019", "", "2020", "", "2021", "", "2022", "", "2023", "", "2024" });
+            txtYear.Location = new Point(738, 100);
+            txtYear.Name = "txtYear";
+            txtYear.Size = new Size(163, 23);
+            txtYear.TabIndex = 63;
+            // 
+            // txtWeight
+            // 
+            txtWeight.Location = new Point(738, 247);
+            txtWeight.Name = "txtWeight";
+            txtWeight.PlaceholderText = "0.00(g)";
+            txtWeight.Size = new Size(163, 23);
+            txtWeight.TabIndex = 62;
             // 
             // bcBT
             // 
@@ -377,7 +408,7 @@
             // 
             // bcYOM
             // 
-            bcYOM.Location = new Point(907, 98);
+            bcYOM.Location = new Point(907, 100);
             bcYOM.Name = "bcYOM";
             bcYOM.Size = new Size(27, 23);
             bcYOM.TabIndex = 57;
@@ -387,7 +418,7 @@
             // 
             // bcMater
             // 
-            bcMater.Location = new Point(907, 148);
+            bcMater.Location = new Point(907, 147);
             bcMater.Name = "bcMater";
             bcMater.Size = new Size(27, 23);
             bcMater.TabIndex = 56;
@@ -487,7 +518,7 @@
             // 
             // bcSale
             // 
-            bcSale.Location = new Point(278, 295);
+            bcSale.Location = new Point(291, 249);
             bcSale.Name = "bcSale";
             bcSale.Size = new Size(27, 23);
             bcSale.TabIndex = 46;
@@ -506,7 +537,7 @@
             // 
             // txtImport
             // 
-            txtImport.Location = new Point(109, 244);
+            txtImport.Location = new Point(122, 198);
             txtImport.Name = "txtImport";
             txtImport.Size = new Size(163, 23);
             txtImport.TabIndex = 44;
@@ -515,7 +546,7 @@
             // 
             label15.AutoSize = true;
             label15.ForeColor = SystemColors.ButtonHighlight;
-            label15.Location = new Point(31, 249);
+            label15.Location = new Point(44, 203);
             label15.Name = "label15";
             label15.Size = new Size(72, 15);
             label15.TabIndex = 43;
@@ -572,22 +603,6 @@
             cbOrigin.Name = "cbOrigin";
             cbOrigin.Size = new Size(163, 23);
             cbOrigin.TabIndex = 38;
-            // 
-            // cbYOM
-            // 
-            cbYOM.FormattingEnabled = true;
-            cbYOM.Location = new Point(738, 100);
-            cbYOM.Name = "cbYOM";
-            cbYOM.Size = new Size(163, 23);
-            cbYOM.TabIndex = 38;
-            // 
-            // cbWeight
-            // 
-            cbWeight.FormattingEnabled = true;
-            cbWeight.Location = new Point(738, 247);
-            cbWeight.Name = "cbWeight";
-            cbWeight.Size = new Size(163, 23);
-            cbWeight.TabIndex = 38;
             // 
             // cbMaterial
             // 
@@ -659,9 +674,9 @@
             txt3.ForeColor = SystemColors.ButtonHighlight;
             txt3.Location = new Point(646, 105);
             txt3.Name = "txt3";
-            txt3.Size = new Size(34, 15);
+            txt3.Size = new Size(29, 15);
             txt3.TabIndex = 37;
-            txt3.Text = "YOM";
+            txt3.Text = "Year";
             // 
             // label14
             // 
@@ -697,7 +712,7 @@
             // cbSale
             // 
             cbSale.FormattingEnabled = true;
-            cbSale.Location = new Point(109, 295);
+            cbSale.Location = new Point(122, 249);
             cbSale.Name = "cbSale";
             cbSale.Size = new Size(163, 23);
             cbSale.TabIndex = 35;
@@ -750,6 +765,16 @@
             cbColor.Size = new Size(163, 23);
             cbColor.TabIndex = 28;
             // 
+            // btnImei
+            // 
+            btnImei.Location = new Point(291, 295);
+            btnImei.Name = "btnImei";
+            btnImei.Size = new Size(27, 23);
+            btnImei.TabIndex = 65;
+            btnImei.Text = "+";
+            btnImei.UseVisualStyleBackColor = true;
+            btnImei.Click += btnImei_Click;
+            // 
             // ProductDetails
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -767,7 +792,7 @@
 
         #endregion
 
-        private TextBox txtImei;
+        private TextBox txtQuantity;
         private Label label1;
         private TextBox txtProductID;
         private Label label2;
@@ -803,8 +828,6 @@
         private Label txt;
         private ComboBox cbSystem;
         private ComboBox cbOrigin;
-        private ComboBox cbYOM;
-        private ComboBox cbWeight;
         private ComboBox cbMaterial;
         private ComboBox cbSelfie;
         private Label txt1;
@@ -831,5 +854,9 @@
         private Button bcRom;
         private Button bcDisplay;
         private Button bcRC;
+        private ComboBox txtYear;
+        private TextBox txtWeight;
+        private Button btnLoad;
+        private Button btnImei;
     }
 }

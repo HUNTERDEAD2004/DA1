@@ -28,6 +28,8 @@ namespace PRL.View
             var products = context.Products.ToList();
             dgvData.DataSource = products;
             dgvData.Columns["ProductID"].Visible = false;
+            dgvData.Columns["Statistics"].Visible = false;
+            dgvData.Columns["ProductDetails"].Visible = false;
         }
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -61,7 +63,6 @@ namespace PRL.View
                 var selectedRow = dgvData.Rows[e.RowIndex];
                 txtID.Text = selectedRow.Cells["ProductID"].Value.ToString();
                 txtName.Text = selectedRow.Cells["ProductName"].Value.ToString();
-                txtQuantity.Text = selectedRow.Cells["Quantity"].Value.ToString();
                 txtDescription.Text = selectedRow.Cells["Description"].Value.ToString();
                 txtCreatAt.Text = selectedRow.Cells["CreatedAt"].Value.ToString();
                 txtUpdateAt.Text = selectedRow.Cells["UpdatedAt"].Value.ToString();
@@ -166,7 +167,6 @@ namespace PRL.View
                 {
                     product.ProductName = txtName.Text;
                     product.Description = txtDescription.Text;
-                    product.Total = int.Parse(txtQuantity.Text);
                     product.UpdatedAt = DateTime.UtcNow;
                     product.UpdatedBy = "Apple";
 
