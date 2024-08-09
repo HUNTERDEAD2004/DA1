@@ -19,7 +19,7 @@ namespace PRL.View
 {
     public partial class HDCT : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB7;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB8;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         IphoneDbContext Context;
@@ -311,9 +311,14 @@ namespace PRL.View
                                     // Nếu người dùng chọn sử dụng điểm, trừ đi toàn bộ số điểm
                                     if (CBSD.Checked)
                                     {
-                                        pointsToDeduct = customer.Point; // Giả sử 'Points' là thuộc tính chứa số điểm của khách hàng
-                                        customer.Point = 0; // Trừ hết điểm của khách hàng
-                                        context.SaveChanges(); // Lưu thay đổi
+                                        pointsToDeduct = customer.Point;
+                                        customer.Point = 0; 
+                                        context.SaveChanges();
+                                    }
+                                    else
+                                    {
+                                        customer.Point += quantity; 
+                                        context.SaveChanges(); 
                                     }
                                 }
 
@@ -335,18 +340,18 @@ namespace PRL.View
 
                                 // lệnh SQL để cập nhật hóa đơn
                                 string sql = @"
-        UPDATE Orders
-        SET 
-            Status = 1,
-            AccountID = @AccountID,
-            IDVoucher = @IDVoucher,
-            Price = @Price,
-            Note = @Note,
-            TotalAmount = @TotalAmount,
-            UpdatedAt = @UpdatedAt,
-            UpdatedBy = @UpdatedBy,
-            CustomerID = @CustomerID
-        WHERE OrderID = @OrderID";
+                                UPDATE Orders
+                                SET 
+                                    Status = 1,
+                                    AccountID = @AccountID,
+                                    IDVoucher = @IDVoucher,
+                                    Price = @Price,
+                                    Note = @Note,
+                                    TotalAmount = @TotalAmount,
+                                    UpdatedAt = @UpdatedAt,
+                                    UpdatedBy = @UpdatedBy,
+                                    CustomerID = @CustomerID
+                                WHERE OrderID = @OrderID";
 
                                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                                 {
@@ -407,6 +412,7 @@ namespace PRL.View
                                             report.TotalSold += quantity;
                                             report.TotalAmount += price;
                                             report.SuccessfulOrders += 1;
+                                            report.PendingOrders -= 1;
                                             report.UpdatedAt = DateTime.Now;
                                             report.UpdatedBy = "system";
                                             context.SaveChanges();

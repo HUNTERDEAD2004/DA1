@@ -67,6 +67,7 @@ namespace PRL.View
             label2.Anchor = AnchorStyles.Right;
             panelChange.Dock = DockStyle.Fill;
             panelChange.Anchor = AnchorStyles.Left;
+            iconPictureBox1.Anchor = AnchorStyles.Right;
         }
         public void Reset()
         {
@@ -115,6 +116,7 @@ namespace PRL.View
                 else if (role == "user")
                 {
                     MessageBox.Show("Không đủ Quyền");
+                    return;
                 }
             }
 
@@ -136,6 +138,7 @@ namespace PRL.View
                 else if (role == "user")
                 {
                     MessageBox.Show("Không đủ Quyền");
+                    return;
                 }
             }
 
@@ -171,10 +174,11 @@ namespace PRL.View
                 else if (role == "user")
                 {
                     MessageBox.Show("Không đủ Quyền");
+                    return;
                 }
             }
 
-            
+
         }
 
         private void btnSetting_Click(object sender, EventArgs e)
@@ -228,9 +232,37 @@ namespace PRL.View
                 else if (role == "user")
                 {
                     MessageBox.Show("Không đủ Quyền");
+                    return;
                 }
             }
-           
+
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var role = key.GetValue("Role").ToString();
+                key.Close();
+
+                if (role == "admin")
+                {
+                    ActivateButton(sender, hover.color5);
+                    OpenForm(new BaoHanh());
+                }
+                else if (role == "user")
+                {
+                    MessageBox.Show("Không đủ Quyền");
+                    return;
+                }
+            }
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, hover.color5);
+            OpenForm(new ReportFrm());
         }
     }
 }

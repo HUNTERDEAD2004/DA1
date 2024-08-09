@@ -15,7 +15,7 @@ namespace PRL.View
 {
     public partial class BaoHanh : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB7;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB8;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         IphoneDbContext _dbContext;
@@ -34,12 +34,12 @@ namespace PRL.View
         void HienThi()
         {
             conn.Open();
-            SqlCommand cmd2 = new SqlCommand("SELECT * from iMEIs where Status = 2;", conn);
-            SqlDataReader dr2 = cmd2.ExecuteReader();
-            DataTable dt2 = new DataTable();
-            dt2.Load(dr2);
-            dr2.Close();
-            dgvsanpham.DataSource = dt2;
+            //SqlCommand cmd2 = new SqlCommand("SELECT ImeiID,Status,CreatedAt,CreatedBy from iMEIs where Status = 2;", conn);
+            //SqlDataReader dr2 = cmd2.ExecuteReader();
+            //DataTable dt2 = new DataTable();
+            //dt2.Load(dr2);
+            //dr2.Close();
+            //dgvsanpham.DataSource = dt2;
             dgvsanpham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvsanpham.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             dgvsanpham.DefaultCellStyle.BackColor = System.Drawing.Color.White;
@@ -49,66 +49,106 @@ namespace PRL.View
         }
         public void LoadData()
         {
-            // Xóa các cột hiện có (nếu có)
-            dgvbaohanh.Columns.Clear();
+            // Mở kết nối
+            conn.Open();
 
-            // Thêm các cột vào DataGridView
-            dgvbaohanh.Columns.Add("[WarrantyID]", "Customer ID");
-            dgvbaohanh.Columns.Add("[IMEI]", "Imei");
-            dgvbaohanh.Columns.Add("[WarrantyStartDate]", "bắt đầu");
-            dgvbaohanh.Columns.Add("[WarrantyEndDate]", "Kết thúc");
+            // Lấy dữ liệu từ bảng IMEIs với Status = 2
+            SqlCommand cmd2 = new SqlCommand("SELECT ImeiID, Status, CreatedAt, CreatedBy FROM IMEIs WHERE Status = 2;", conn);
+            SqlDataReader dr2 = cmd2.ExecuteReader();
+            DataTable dt2 = new DataTable();
+            dt2.Load(dr2);
+            dr2.Close();
 
-            // Lấy dữ liệu từ cơ sở dữ liệu
-            var baohanh = _dbContext.Warranties.ToList();
+            // Đóng kết nối tạm thời
+            conn.Close();
 
-            // Xóa dữ liệu hiện có trong DataGridView
-            dgvbaohanh.Rows.Clear();
-
-            // Thêm dữ liệu vào DataGridView
-            foreach (var bh in baohanh)
-            {
-                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.iMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
-            }
-        }
-        public void LoadDataSP()
-        {
-            var Sa = _dbContext.ProductDetails
-                    .Where(o => o.Status == 0)
-                    .ToList();
-            // Xóa các cột hiện có (nếu có)
+            // Xóa các cột và dòng hiện có trong DataGridView
             dgvsanpham.Columns.Clear();
+            dgvsanpham.Rows.Clear();
 
-            // Thêm các cột vào DataGridView
-            dgvsanpham.Columns.Add("[WarrantyID]", "Customer ID");
-            dgvsanpham.Columns.Add("[IMEI]", "Name");
-            dgvsanpham.Columns.Add("[WarrantyStartDate]", "bắt đầu");
-            dgvsanpham.Columns.Add("[WarrantyEndDate]", "Kết thúc");
+            // Thêm các cột từ bảng IMEIs
+            dgvsanpham.Columns.Add("ImeiID", "ImeiID");
+            dgvsanpham.Columns.Add("Status", "Status");
+            dgvsanpham.Columns.Add("CreatedAt", "CreatedAt");
+            dgvsanpham.Columns.Add("CreatedBy", "CreatedBy");
 
-            // Lấy dữ liệu từ cơ sở dữ liệu
+            // Thêm các cột từ bảng Warranties
+            dgvsanpham.Columns.Add("WarrantyID", "WarrantyID");
+            dgvsanpham.Columns.Add("WarrantyStartDate", "WarrantyStartDate");
+            dgvsanpham.Columns.Add("WarrantyEndDate", "WarrantyEndDate");
+
+            // Thêm dữ liệu từ bảng IMEIs vào DataGridView
+            foreach (DataRow row in dt2.Rows)
+            {
+                dgvsanpham.Rows.Add(row["ImeiID"], row["Status"], row["CreatedAt"], row["CreatedBy"], null, null, null);
+            }
+
+            // Lấy dữ liệu từ bảng Warranties trong cơ sở dữ liệu
             var baohanh = _dbContext.Warranties.ToList();
 
-            // Xóa dữ liệu hiện có trong DataGridView
-            dgvbaohanh.Rows.Clear();
-
-            // Thêm dữ liệu vào DataGridView
+            // Kết hợp dữ liệu bảo hành vào DataGridView
             foreach (var bh in baohanh)
             {
-                dgvbaohanh.Rows.Add(bh.WarrantyID, bh.iMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
+                foreach (DataGridViewRow dgvRow in dgvsanpham.Rows)
+                {
+                    if (dgvRow.Cells["ImeiID"].Value != null && dgvRow.Cells["ImeiID"].Value.ToString() == bh.ImeiID)
+                    {
+                        // Thêm dữ liệu bảo hành vào các cột tương ứng
+                        dgvRow.Cells["WarrantyID"].Value = bh.WarrantyID;
+                        dgvRow.Cells["WarrantyStartDate"].Value = bh.WarrantyStartDate;
+                        dgvRow.Cells["WarrantyEndDate"].Value = bh.WarrantyEndDate;
+                        break; // Dừng vòng lặp khi đã tìm thấy và cập nhật bảo hành
+                    }
+                }
             }
-        }
-        private void dgvbaohanh_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvbaohanh.Rows[e.RowIndex];
 
-                string imei = row.Cells[1].Value.ToString();
-                DateTime createAt = DateTime.Parse(row.Cells[2].Value.ToString());
-                DateTime updateAt = DateTime.Parse(row.Cells[3].Value.ToString());
-
-                ime.Text = imei;
-            }
+            // Định dạng DataGridView
+            dgvsanpham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvsanpham.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            dgvsanpham.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+            dgvsanpham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvsanpham.AutoResizeColumns();
         }
+
+        //public void LoadDataSP()
+        //{
+        //    var Sa = _dbContext.ProductDetails
+        //            .Where(o => o.Status == 0)
+        //            .ToList();
+        //    // Xóa các cột hiện có (nếu có)
+        //    dgvsanpham.Columns.Clear();
+
+        //    // Thêm các cột vào DataGridView
+        //    dgvsanpham.Columns.Add("[WarrantyID]", "Customer ID");
+        //    dgvsanpham.Columns.Add("[IMEI]", "Name");
+        //    dgvsanpham.Columns.Add("[WarrantyStartDate]", "bắt đầu");
+        //    dgvsanpham.Columns.Add("[WarrantyEndDate]", "Kết thúc");
+
+        //    // Lấy dữ liệu từ cơ sở dữ liệu
+        //    var baohanh = _dbContext.Warranties.ToList();
+
+        //    // Xóa dữ liệu hiện có trong DataGridView
+        //    dgvbaohanh.Rows.Clear();
+
+        //    // Thêm dữ liệu vào DataGridView
+        //    foreach (var bh in baohanh)
+        //    {
+        //        dgvbaohanh.Rows.Add(bh.WarrantyID, bh.iMEI, bh.WarrantyStartDate, bh.WarrantyEndDate);
+        //    }
+        //}
+        //private void dgvbaohanh_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0)
+        //    {
+        //        DataGridViewRow row = dgvbaohanh.Rows[e.RowIndex];
+
+        //        string imei = row.Cells[1].Value.ToString();
+        //        DateTime createAt = DateTime.Parse(row.Cells[2].Value.ToString());
+        //        DateTime updateAt = DateTime.Parse(row.Cells[3].Value.ToString());
+
+        //        ime.Text = imei;
+        //    }
+        //}
         private void add_Click_1(object sender, EventArgs e)
         {
             string imei = ime.Text;
@@ -132,7 +172,7 @@ namespace PRL.View
                 return;
             }
 
-            productDetail.Status = 1;         
+            productDetail.Status = 1;
 
             Warranty bh = new Warranty()
             {
@@ -221,6 +261,11 @@ namespace PRL.View
             ime.Text = "";
             ngaybd.Value = DateTime.Now;
             ngaykt.Value = DateTime.Now;
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

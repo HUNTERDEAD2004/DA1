@@ -24,12 +24,13 @@ using DocumentFormat.OpenXml.InkML;
 using System.Windows.Controls;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DAL.Config;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace PRL.View
 {
     public partial class Orderform : Form
     {
-        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB7;Trusted_Connection=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB8;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
         // Đặt màu chữ cho toàn bộ form
@@ -843,8 +844,8 @@ namespace PRL.View
                         PendingOrders = 0,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
-                        CreatedBy = "admin",
-                        UpdatedBy = "admin"
+                        CreatedBy = "system",
+                        UpdatedBy = "system"
                     };
 
                     Context.Reports.Add(newReport);
@@ -962,6 +963,15 @@ namespace PRL.View
                     CreatedBy = "admin",
                     UpdatedBy = "admin"
                 };
+
+                var report = Context.Reports.FirstOrDefault(r => r.ReportID == reportId);
+                if (report != null)
+                {
+                    report.PendingOrders += 1;
+                    report.UpdatedAt = DateTime.Now;
+                    report.UpdatedBy = "system";
+                    Context.SaveChanges();
+                }
 
                 var acc = new DAL.Models.Activity
                 {
@@ -1202,6 +1212,17 @@ namespace PRL.View
                 else
                 {
                     MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                Guid reportId = CheckAndCreateReport();
+
+                var report = Context.Reports.FirstOrDefault(r => r.ReportID == reportId);
+                if (report != null)
+                {
+                    report.PendingOrders -= 1;
+                    report.UpdatedAt = DateTime.Now;
+                    report.UpdatedBy = "system";
+                    Context.SaveChanges();
                 }
 
                 var acc = new DAL.Models.Activity

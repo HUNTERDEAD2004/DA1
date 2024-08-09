@@ -31,14 +31,10 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             btnClear = new GroupBox();
+            button1 = new Button();
             groupBox2 = new GroupBox();
             dgvsanpham = new DataGridView();
-            groupBox1 = new GroupBox();
-            dgvbaohanh = new DataGridView();
             btnUpdate = new Button();
             btnClean = new Button();
             add = new Button();
@@ -46,18 +42,14 @@
             ngaybd = new DateTimePicker();
             label4 = new Label();
             label5 = new Label();
-            btnBack = new FontAwesome.Sharp.IconButton();
             ime = new TextBox();
             label2 = new Label();
             label1 = new Label();
             txtID = new TextBox();
             panel1 = new Panel();
-            button1 = new Button();
             btnClear.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvsanpham).BeginInit();
-            groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvbaohanh).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -65,7 +57,6 @@
             // 
             btnClear.Controls.Add(button1);
             btnClear.Controls.Add(groupBox2);
-            btnClear.Controls.Add(groupBox1);
             btnClear.Controls.Add(btnUpdate);
             btnClear.Controls.Add(btnClean);
             btnClear.Controls.Add(add);
@@ -73,31 +64,47 @@
             btnClear.Controls.Add(ngaybd);
             btnClear.Controls.Add(label4);
             btnClear.Controls.Add(label5);
-            btnClear.Controls.Add(btnBack);
             btnClear.Controls.Add(ime);
             btnClear.Controls.Add(label2);
             btnClear.Controls.Add(label1);
             btnClear.Controls.Add(txtID);
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnClear.ForeColor = SystemColors.ActiveCaptionText;
-            btnClear.Location = new Point(9, 7);
+            btnClear.Location = new Point(10, 9);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(1250, 556);
+            btnClear.Size = new Size(1500, 798);
             btnClear.TabIndex = 2;
             btnClear.TabStop = false;
             btnClear.Text = "Bảo Hành";
             // 
+            // button1
+            // 
+            button1.BackColor = Color.SkyBlue;
+            button1.FlatAppearance.BorderColor = Color.Lavender;
+            button1.FlatAppearance.BorderSize = 2;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.ActiveCaptionText;
+            button1.Location = new Point(337, 122);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 25);
+            button1.TabIndex = 82;
+            button1.Text = "Clear";
+            button1.UseVisualStyleBackColor = false;
+            button1.Visible = false;
+            button1.Click += button1_Click;
+            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dgvsanpham);
-            groupBox2.Location = new Point(494, 224);
+            groupBox2.Location = new Point(17, 152);
             groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(424, 220);
+            groupBox2.Size = new Size(1178, 538);
             groupBox2.TabIndex = 81;
             groupBox2.TabStop = false;
             groupBox2.Text = "Sản phẩm";
+            groupBox2.Enter += groupBox2_Enter;
             // 
             // dgvsanpham
             // 
@@ -130,56 +137,9 @@
             dgvsanpham.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvsanpham.RowHeadersWidth = 51;
             dgvsanpham.RowTemplate.Height = 25;
-            dgvsanpham.Size = new Size(383, 182);
+            dgvsanpham.Size = new Size(1136, 513);
             dgvsanpham.TabIndex = 69;
             dgvsanpham.CellContentClick += dgvsanpham_CellContentClick;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(dgvbaohanh);
-            groupBox1.Location = new Point(41, 224);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(424, 220);
-            groupBox1.TabIndex = 80;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Bảo Hành";
-            // 
-            // dgvbaohanh
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvbaohanh.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvbaohanh.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvbaohanh.DefaultCellStyle = dataGridViewCellStyle5;
-            dgvbaohanh.Location = new Point(20, 20);
-            dgvbaohanh.Name = "dgvbaohanh";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvbaohanh.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            dgvbaohanh.RowHeadersWidth = 51;
-            dgvbaohanh.RowTemplate.Height = 25;
-            dgvbaohanh.Size = new Size(383, 182);
-            dgvbaohanh.TabIndex = 69;
-            dgvbaohanh.CellContentClick += dgvbaohanh_CellContentClick;
             // 
             // btnUpdate
             // 
@@ -188,12 +148,13 @@
             btnUpdate.FlatAppearance.BorderSize = 2;
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.ForeColor = SystemColors.ActiveCaptionText;
-            btnUpdate.Location = new Point(333, 157);
+            btnUpdate.Location = new Point(131, 122);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 25);
             btnUpdate.TabIndex = 79;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Visible = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // btnClean
@@ -203,12 +164,13 @@
             btnClean.FlatAppearance.BorderSize = 2;
             btnClean.FlatStyle = FlatStyle.Flat;
             btnClean.ForeColor = SystemColors.ActiveCaptionText;
-            btnClean.Location = new Point(438, 157);
+            btnClean.Location = new Point(236, 122);
             btnClean.Name = "btnClean";
             btnClean.Size = new Size(75, 25);
             btnClean.TabIndex = 76;
             btnClean.Text = "Xóa";
             btnClean.UseVisualStyleBackColor = false;
+            btnClean.Visible = false;
             btnClean.Click += btnClean_Click;
             // 
             // add
@@ -218,18 +180,19 @@
             add.FlatAppearance.BorderSize = 2;
             add.FlatStyle = FlatStyle.Flat;
             add.ForeColor = SystemColors.ActiveCaptionText;
-            add.Location = new Point(217, 157);
+            add.Location = new Point(15, 122);
             add.Name = "add";
             add.Size = new Size(75, 25);
             add.TabIndex = 62;
             add.Text = "Add";
             add.UseVisualStyleBackColor = false;
+            add.Visible = false;
             add.Click += add_Click_1;
             // 
             // ngaykt
             // 
             ngaykt.Format = DateTimePickerFormat.Short;
-            ngaykt.Location = new Point(450, 83);
+            ngaykt.Location = new Point(473, 87);
             ngaykt.Name = "ngaykt";
             ngaykt.Size = new Size(193, 23);
             ngaykt.TabIndex = 74;
@@ -237,7 +200,7 @@
             // ngaybd
             // 
             ngaybd.Format = DateTimePickerFormat.Short;
-            ngaybd.Location = new Point(450, 39);
+            ngaybd.Location = new Point(473, 43);
             ngaybd.Name = "ngaybd";
             ngaybd.Size = new Size(193, 23);
             ngaybd.TabIndex = 73;
@@ -246,7 +209,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(338, 87);
+            label4.Location = new Point(361, 91);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 67;
@@ -256,27 +219,11 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(338, 43);
+            label5.Location = new Point(361, 47);
             label5.Name = "label5";
             label5.Size = new Size(78, 15);
             label5.TabIndex = 66;
             label5.Text = "Ngày bắt đầu";
-            // 
-            // btnBack
-            // 
-            btnBack.ForeColor = SystemColors.ActiveCaptionText;
-            btnBack.IconChar = FontAwesome.Sharp.IconChar.ArrowAltCircleLeft;
-            btnBack.IconColor = Color.Black;
-            btnBack.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnBack.IconSize = 17;
-            btnBack.ImageAlign = ContentAlignment.MiddleRight;
-            btnBack.Location = new Point(866, 638);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(75, 23);
-            btnBack.TabIndex = 15;
-            btnBack.Text = "Back";
-            btnBack.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnBack.UseVisualStyleBackColor = true;
             // 
             // ime
             // 
@@ -320,29 +267,14 @@
             panel1.Location = new Point(2, 3);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1292, 610);
+            panel1.Size = new Size(1506, 760);
             panel1.TabIndex = 1;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.SkyBlue;
-            button1.FlatAppearance.BorderColor = Color.Lavender;
-            button1.FlatAppearance.BorderSize = 2;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = SystemColors.ActiveCaptionText;
-            button1.Location = new Point(539, 157);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 25);
-            button1.TabIndex = 82;
-            button1.Text = "Clear";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
             // 
             // BaoHanh
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1172, 514);
+            ClientSize = new Size(1496, 774);
             Controls.Add(panel1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "BaoHanh";
@@ -352,8 +284,6 @@
             btnClear.PerformLayout();
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvsanpham).EndInit();
-            groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvbaohanh).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -363,13 +293,11 @@
         private GroupBox btnClear;
         private Button btnUpdate;
         private Button btnClean;
-        private DataGridView dgvbaohanh;
         private Button add;
         private DateTimePicker ngaykt;
         private DateTimePicker ngaybd;
         private Label label4;
         private Label label5;
-        private FontAwesome.Sharp.IconButton btnBack;
         private TextBox ime;
         private Label label2;
         private Label label1;
@@ -377,7 +305,6 @@
         private Panel panel1;
         private GroupBox groupBox2;
         private DataGridView dgvsanpham;
-        private GroupBox groupBox1;
         private Button button1;
     }
 }

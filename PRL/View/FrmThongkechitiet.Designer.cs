@@ -266,6 +266,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.GhostWhite;
             ClientSize = new Size(844, 572);
             Controls.Add(label14);
             Controls.Add(label15);
@@ -292,7 +293,6 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "FrmThongkechitiet";
             Text = "FrmThongkechitiet";
-            //Load += FrmThongkechitiet_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
