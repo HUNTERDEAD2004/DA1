@@ -31,20 +31,56 @@ namespace PRL.View
 
         }
 
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // sdt 
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Loại bỏ các khoảng trắng, dấu "-" hoặc dấu "." trong số điện thoại
+            phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "").Replace(".", "");
+
+            // Kiểm tra độ dài của số điện thoại
+            if (phoneNumber.Length < 10 || phoneNumber.Length > 12)
+                return false;
+
+            // Kiểm tra nếu số điện thoại bắt đầu bằng "0"
+            if (phoneNumber.StartsWith("0"))
+            {
+                // Số điện thoại Việt Nam thường bắt đầu bằng "0" và có 10 chữ số
+                return phoneNumber.Length == 10;
+            }
+            else
+            {
+                // Số điện thoại quốc tế thường bắt đầu bằng "+" và có 11 hoặc 12 chữ số
+                return phoneNumber.Length == 11 || phoneNumber.Length == 12;
+            }
+        }
+        //
+
         private void btn_DangKy_Click(object sender, EventArgs e)
         {
             try
             {
                 string username = txt_User.Text;
                 string ten = txtTen.Text;
-                string dc = txtDiaChi.Text;
                 string email = txtEmail.Text;
                 string sdt = txtsdt.Text;
                 string GioiTinh = comboBox1.Text;
                 string Password = txt_Password.Text;
+                string dc = txtDiaChi.Text;
                 if (string.IsNullOrEmpty(username) ||
                     string.IsNullOrEmpty(ten) ||
-                    string.IsNullOrEmpty(dc) ||
                     string.IsNullOrEmpty(email) ||
                     string.IsNullOrEmpty(sdt) ||
                     string.IsNullOrEmpty(GioiTinh) ||
@@ -53,7 +89,33 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
                     return;
                 }
+                var existingUser = context.Accounts.FirstOrDefault(u => u.Username == username || u.Email == email || u.PhoneNumber == sdt);
+                if (existingUser != null)
+                {
+                    MessageBox.Show("Tài khoản đã tồn tại. Vui lòng sử dụng thông tin khác.");
+                    return;
+                }
+                //
+                if (!IsValidEmail(email))
+                {
+                    MessageBox.Show("Email không hợp lệ.");
+                    return;
+                }
 
+                // Kiểm tra số điện thoại
+                if (!IsValidPhoneNumber(sdt))
+                {
+                    MessageBox.Show("Số điện thoại không hợp lệ.");
+                    return;
+                }
+
+                // Kiểm tra tuổi
+                int age = DateTime.Now.Year - dtpNS.Value.Year;
+                if (age < 16)
+                {
+                    MessageBox.Show("Bạn phải từ 16 tuổi trở lên mới có thể đăng ký.");
+                    return;
+                }
                 Account user = new Account()
                 {
                     Username = username,
@@ -68,21 +130,10 @@ namespace PRL.View
                     Roles = "user",
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,
-                    CreateBy = "admin",
-                    UpdateBy = "admin",
+                    CreateBy = "system ",
+                    UpdateBy = "system ",
                 };
-
-                var acc = new DAL.Models.Activity
-                {
-                    Note = $"{username} Đã đăng ký tài khoản Tên {ten}, vào lúc {DateTime.Now}",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    CreatedBy = username,
-                    UpdatedBy = username
-                };
-
                 context.Accounts.Add(user);
-                context.Activities.Add(acc);
                 context.SaveChanges();
                 MessageBox.Show("đăng ký thành công");
             }
@@ -101,6 +152,7 @@ namespace PRL.View
                     MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}");
                 }
             }
+
 
         }
 

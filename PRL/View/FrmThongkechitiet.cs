@@ -9,10 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
-
+using iText.Kernel.Colors;
+using iText.Layout.Borders;
+using iText.Layout.Properties;
+using iText.Kernel.Font;
+using iText.IO.Font;
 namespace PRL.View
 {
     public partial class FrmThongkechitiet : Form
@@ -107,41 +110,96 @@ namespace PRL.View
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    using (var stream = new MemoryStream())
+                    using (var writer = new PdfWriter(saveFileDialog.FileName))
                     {
-                        using (var writer = new PdfWriter(stream))
+                        using (var pdf = new PdfDocument(writer))
                         {
-                            using (var pdf = new PdfDocument(writer))
+                            var document = new Document(pdf);
+
+                            // Sử dụng font Arial từ tệp TTF
+                            var pathToFont = "C:/Windows/Fonts/arial.ttf";
+                            PdfFont font = PdfFontFactory.CreateFont(pathToFont, PdfEncodings.IDENTITY_H);
+                            document.SetFont(font);
+
+                            // Thêm tiêu đề chính
+                            var title = new Paragraph("Chi tiết hóa đơn")
+                                .SetTextAlignment(TextAlignment.CENTER)
+                                .SetFontSize(24)
+                                .SetBold();
+                            document.Add(title);
+
+                            // Thêm tiêu đề phụ
+                            var subTitle = new Paragraph("IPhoneStore")
+                                .SetTextAlignment(TextAlignment.CENTER)
+                                .SetFontSize(18)
+                                .SetFontColor(ColorConstants.BLUE)
+                                .SetBold();
+                            document.Add(subTitle);
+
+                            // Thêm thông tin hóa đơn từ DataGridView
+                            var orderID = "Mã Hóa Đơn: " + label10.Text;
+                            var employeeName = "Nhân viên: " + label8.Text;
+                            var orderInfo = new Paragraph($"{orderID}\n{employeeName}")
+                                .SetTextAlignment(TextAlignment.RIGHT)
+                                .SetFontSize(12);
+                            document.Add(orderInfo);
+
+                            // Thêm thông tin khách hàng từ DataGridView
+                            var customerInfo = new Paragraph($"Thông Tin Khách Hàng\nHọ và Tên: {lb_name.Text}\nĐịa Chỉ: {lb_dc.Text}\nPhone: {lb_sdt.Text}\nNgày mua: {lb_date.Text}")
+                                .SetTextAlignment(TextAlignment.LEFT)
+                                .SetFontSize(12)
+                                .SetMarginTop(20);
+                            document.Add(customerInfo);
+
+                            // Thêm khoảng trống
+                            document.Add(new Paragraph("\n"));
+
+                            // Tạo bảng từ DataGridView
+                            var table = new Table(dataGridView1.Columns.Count)
+                                .UseAllAvailableWidth();
+
+                            // Thêm tiêu đề bảng
+                            foreach (DataGridViewColumn column in dataGridView1.Columns)
                             {
-                                var document = new Document(pdf);
+                                table.AddHeaderCell(new Cell().Add(new Paragraph(column.HeaderText)).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold());
+                            }
 
-                                // Thêm tiêu đề
-                                document.Add(new Paragraph("Hóa Đơn").SetFontSize(20).SetBold());
-
-                                // Thêm ngày in hóa đơn
-                                document.Add(new Paragraph("Ngày: " + DateTime.Now.ToString("dd/MM/yyyy")));
-
-                                // Tạo bảng từ DataTable
-                                var table = new Table(dataTable.Columns.Count);
-                                foreach (DataColumn column in dataTable.Columns)
+                            // Thêm dữ liệu vào bảng từ DataGridView
+                            foreach (DataGridViewRow row in dataGridView1.Rows)
+                            {
+                                if (!row.IsNewRow)
                                 {
-                                    table.AddHeaderCell(column.ColumnName);
-                                }
-
-                                foreach (DataRow row in dataTable.Rows)
-                                {
-                                    foreach (var cell in row.ItemArray)
+                                    foreach (DataGridViewCell cell in row.Cells)
                                     {
-                                        table.AddCell(cell.ToString());
+                                        table.AddCell(new Cell().Add(new Paragraph(cell.Value?.ToString() ?? "")));
                                     }
                                 }
-
-                                document.Add(table);
                             }
-                        }
 
-                        // Lưu tệp PDF
-                        File.WriteAllBytes(saveFileDialog.FileName, stream.ToArray());
+                            document.Add(table);
+
+                            // Thêm thông tin tổng tiền từ DataGridView
+                            var totalQuantity = "Tổng số lượng: " + label12.Text;
+                            var totalAmount = "Tổng Tiền: " + label14.Text;
+                            var totalInfo = new Paragraph($"{totalQuantity}\n{totalAmount}")
+                                .SetTextAlignment(TextAlignment.RIGHT)
+                                .SetFontSize(12)
+                                .SetMarginTop(20);
+                            document.Add(totalInfo);
+
+                            // Thêm khoảng trống
+                            document.Add(new Paragraph("\n"));
+
+                            // Thêm nút "In Hóa Đơn"
+                            var printButton = new Paragraph("In Hóa Đơn")
+                                .SetTextAlignment(TextAlignment.CENTER)
+                                .SetFontSize(16)
+                                .SetBold()
+                                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
+                                .SetFontColor(ColorConstants.BLACK)
+                                .SetBorder(new SolidBorder(1));
+                            document.Add(printButton);
+                        }
                     }
 
                     MessageBox.Show("Hóa đơn đã được lưu dưới dạng PDF thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

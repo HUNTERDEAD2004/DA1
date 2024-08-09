@@ -134,9 +134,9 @@
             label10.ForeColor = SystemColors.ButtonHighlight;
             label10.Location = new Point(6, 13);
             label10.Name = "label10";
-            label10.Size = new Size(80, 15);
+            label10.Size = new Size(74, 15);
             label10.TabIndex = 63;
-            label10.Text = "Mã Sản Phẩm";
+            label10.Text = "ID Sản Phẩm";
             // 
             // txtMSP
             // 
@@ -164,9 +164,9 @@
             label9.ForeColor = SystemColors.ButtonHighlight;
             label9.Location = new Point(6, 49);
             label9.Name = "label9";
-            label9.Size = new Size(90, 15);
+            label9.Size = new Size(84, 15);
             label9.TabIndex = 60;
-            label9.Text = "Mã Hóa đơn CT";
+            label9.Text = "ID Hóa đơn CT";
             // 
             // txtHDCT
             // 
@@ -521,9 +521,9 @@
             label11.ForeColor = SystemColors.ButtonHighlight;
             label11.Location = new Point(8, 92);
             label11.Name = "label11";
-            label11.Size = new Size(50, 15);
+            label11.Size = new Size(45, 15);
             label11.TabIndex = 73;
-            label11.Text = "Mã Imei";
+            label11.Text = "IDSPCT";
             // 
             // txtSPCT
             // 

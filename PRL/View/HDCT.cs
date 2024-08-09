@@ -60,6 +60,9 @@ namespace PRL.View
             {
                 Guid orderId = (Guid)data.Rows[0]["OrderID"];
                 LoadOrderDetails(orderId);
+
+                // Lấy CustomerName từ DataTable
+                string customerName = data.Rows[0]["CustomerName"].ToString();            
             }
             catch (Exception ex)
             {
@@ -134,8 +137,8 @@ namespace PRL.View
             else
             {
                 MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }        
-           
+            }
+
         }
 
 
@@ -154,7 +157,26 @@ namespace PRL.View
                     txtMHD.Text = dgvHDC.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
                     txtSL.Text = dgvHDC.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
                     TxtTT.Text = dgvHDC.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                    txtKT.Text = txtTTVC.Text;
+                    txtKH.Text = dgvHDC.Rows[e.RowIndex].Cells["CustomerName"].Value.ToString();
                     VC();
+
+                    string customerName = dgvHDC.Rows[e.RowIndex].Cells["CustomerName"].Value.ToString();
+
+                    // Truy vấn Point từ bảng Customers dựa trên CustomerName
+                    using (var context = new IphoneDbContext())
+                    {
+                        var customer = context.Customers.FirstOrDefault(c => c.CustomerName == customerName);
+                        if (customer != null)
+                        {
+                            int customerPoints = customer.Point;
+                            txtDiem.Text = customerPoints.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Không tìm thấy khách hàng: {customerName}.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
 
                     decimal discount = Convert.ToDecimal(txtVCG.Text);
                     decimal price = decimal.Parse(TxtTT.Text);
@@ -162,13 +184,14 @@ namespace PRL.View
                     decimal totalPrice = price * (1 - (discount / 100));
 
                     txtTTVC.Text = totalPrice.ToString("F2");
+                    originalTotalPrice = decimal.Parse(txtTTVC.Text);
+                    // Gọi sự kiện CheckedChanged để tính lại tổng tiền nếu checkbox được chọn
+                    CBSD_CheckedChanged(sender, e);
                 }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Không tìm thấy: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
         }
 
@@ -260,141 +283,170 @@ namespace PRL.View
                 {
                     var selectedRow = dgvHDC.SelectedRows[0];
                     var orderIdCell = selectedRow.Cells["OrderID"].Value;
-                    var reportIdCell = selectedRow.Cells["ReportID"].Value; 
+                    var reportIdCell = selectedRow.Cells["ReportID"].Value;
 
                     // Kiểm tra giá trị OrderID có hợp lệ không
                     if (orderIdCell != null && Guid.TryParse(orderIdCell.ToString(), out Guid orderId) &&
                         reportIdCell != null && Guid.TryParse(reportIdCell.ToString(), out Guid reportId))
                     {
-                        Guid? customerId = null;
-                        decimal price = decimal.Parse(txtTTVC.Text);
-                        int quantity = int.Parse(txtSL.Text); 
+                        // Hiển thị thông báo xác nhận trước khi thanh toán
+                        var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn thanh toán hóa đơn này không?", "Xác nhận thanh toán", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                        using (var context = new IphoneDbContext())
+                        if (confirmResult == DialogResult.Yes)
                         {
-                            
+                            Guid? customerId = null;
+                            decimal price = decimal.Parse(txtTTVC.Text);
+                            int quantity = int.Parse(txtSL.Text);
+                            int pointsToDeduct = 0;
 
-                            // Lấy AccountID từ Username
-                            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
-                            string accountIdString = null;
-                            string usernameAC = null;
-                            if (key != null)
+                            using (var context = new IphoneDbContext())
                             {
-                                string username = key.GetValue("Username").ToString();
-                                var account = context.Accounts.FirstOrDefault(a => a.Username == username);
-                                if (account != null)
+                                // Lấy CustomerID từ txtKH
+                                string customerInfo = txtKH.Text.Trim();
+                                var customer = context.Customers.FirstOrDefault(c => c.CustomerName == customerInfo || c.PhoneNumber == customerInfo);
+                                if (customer != null)
                                 {
-                                    accountIdString = account.AccountID.ToString();
-                                    usernameAC = account.Username.ToString();
-                                }
-                                key.Close();
-                            }
+                                    customerId = customer.CustomerID;
 
-                            //lệnh SQL để cập nhật hóa đơn
-                            string sql = @"
-                            UPDATE Orders
-                            SET 
-                                Status = 1,
-                                AccountID = @AccountID,
-                                IDVoucher = @IDVoucher,
-                                Price = @Price,
-                                Note = @Note,
-                                TotalAmount = @TotalAmount,
-                                UpdatedAt = @UpdatedAt,
-                                UpdatedBy = @UpdatedBy
-                            WHERE OrderID = @OrderID";
-
-                            using (SqlCommand cmd = new SqlCommand(sql, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@OrderID", orderId);
-
-                                // Kiểm tra và chuyển đổi AccountID
-                                if (Guid.TryParse(accountIdString, out Guid accountId))
-                                {
-                                    cmd.Parameters.AddWithValue("@AccountID", accountId);
-                                }
-                                else
-                                {
-                                    cmd.Parameters.AddWithValue("@AccountID", DBNull.Value);
-                                }
-
-
-                                if (Guid.TryParse(txtMVC.Text, out Guid voucherId))
-                                {
-                                    cmd.Parameters.AddWithValue("@IDVoucher", voucherId);
-                                }
-                                else
-                                {
-                                    cmd.Parameters.AddWithValue("@IDVoucher", DBNull.Value);
-                                }
-
-                                cmd.Parameters.AddWithValue("@Price", price);
-                                cmd.Parameters.AddWithValue("@TotalAmount", quantity);
-                                cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now);
-                                cmd.Parameters.AddWithValue("@UpdatedBy", "system");
-                                cmd.Parameters.AddWithValue("@Note", richTextBox1.Text);
-
-                                if (conn.State == ConnectionState.Closed)
-                                {
-                                    conn.Open();
-                                }
-
-                                int rowsAffected = cmd.ExecuteNonQuery();
-                                if (conn.State == ConnectionState.Open)
-                                {
-                                    conn.Close();
-                                }
-
-
-                                if (rowsAffected > 0)
-                                {
-                                    // Cập nhật báo cáo
-                                    var report = context.Reports.FirstOrDefault(r => r.ReportID == reportId);
-                                    if (report != null)
+                                    // Nếu người dùng chọn sử dụng điểm, trừ đi toàn bộ số điểm
+                                    if (CBSD.Checked)
                                     {
-                                        report.TotalSold += quantity;
-                                        report.TotalAmount += price;
-                                        report.SuccessfulOrders += 1;
-                                        report.UpdatedAt = DateTime.Now;
-                                        report.UpdatedBy = "system";
-                                        context.SaveChanges();
+                                        pointsToDeduct = customer.Point; // Giả sử 'Points' là thuộc tính chứa số điểm của khách hàng
+                                        customer.Point = 0; // Trừ hết điểm của khách hàng
+                                        context.SaveChanges(); // Lưu thay đổi
+                                    }
+                                }
+
+                                // Lấy AccountID từ Username
+                                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                                string accountIdString = null;
+                                string usernameAC = null;
+                                if (key != null)
+                                {
+                                    string username = key.GetValue("Username").ToString();
+                                    var account = context.Accounts.FirstOrDefault(a => a.Username == username);
+                                    if (account != null)
+                                    {
+                                        accountIdString = account.AccountID.ToString();
+                                        usernameAC = account.Username.ToString();
+                                    }
+                                    key.Close();
+                                }
+
+                                // lệnh SQL để cập nhật hóa đơn
+                                string sql = @"
+                        UPDATE Orders
+                        SET 
+                            Status = 1,
+                            AccountID = @AccountID,
+                            IDVoucher = @IDVoucher,
+                            Price = @Price,
+                            Note = @Note,
+                            TotalAmount = @TotalAmount,
+                            UpdatedAt = @UpdatedAt,
+                            UpdatedBy = @UpdatedBy,
+                            CustomerID = @CustomerID
+                        WHERE OrderID = @OrderID";
+
+                                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                                {
+                                    cmd.Parameters.AddWithValue("@OrderID", orderId);
+
+                                    // Kiểm tra và chuyển đổi AccountID
+                                    if (Guid.TryParse(accountIdString, out Guid accountId))
+                                    {
+                                        cmd.Parameters.AddWithValue("@AccountID", accountId);
+                                    }
+                                    else
+                                    {
+                                        cmd.Parameters.AddWithValue("@AccountID", DBNull.Value);
                                     }
 
-                                    var acc = new DAL.Models.Activity
+                                    if (Guid.TryParse(txtMVC.Text, out Guid voucherId))
                                     {
-                                        Note = $"{usernameAC} Đã thanh toán Hóa đơn {orderId}, vào lúc {DateTime.Now}",
-                                        CreatedAt = DateTime.Now,
-                                        UpdatedAt = DateTime.Now,
-                                        CreatedBy = usernameAC,
-                                        UpdatedBy = usernameAC
-                                    };
+                                        cmd.Parameters.AddWithValue("@IDVoucher", voucherId);
+                                    }
+                                    else
+                                    {
+                                        cmd.Parameters.AddWithValue("@IDVoucher", DBNull.Value);
+                                    }
 
+                                    cmd.Parameters.AddWithValue("@Price", price);
+                                    cmd.Parameters.AddWithValue("@TotalAmount", quantity);
+                                    cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now);
+                                    cmd.Parameters.AddWithValue("@UpdatedBy", "system");
+                                    cmd.Parameters.AddWithValue("@Note", richTextBox1.Text);
 
-                                    Context.Activities.Add(acc);
-                                    Context.SaveChanges();
+                                    // Kiểm tra và chuyển đổi CustomerID
+                                    if (customerId.HasValue)
+                                    {
+                                        cmd.Parameters.AddWithValue("@CustomerID", customerId.Value);
+                                    }
+                                    else
+                                    {
+                                        cmd.Parameters.AddWithValue("@CustomerID", DBNull.Value);
+                                    }
 
-                                    // Load lại dữ liệu hóa đơn cụ thể
-                                    //LoadDataHD(orderId);
+                                    if (conn.State == ConnectionState.Closed)
+                                    {
+                                        conn.Open();
+                                    }
 
-                                    dgvHDC.DataSource = null;
-                                    dgvHDTT.DataSource = null;
-                                    txtMHD.Text = "";
-                                    txtMVC.Text = "";
-                                    txtMNV.Text = "";
-                                    txtSL.Text = "";
-                                    TxtTT.Text = "";
-                                    txtVC.Text = "";
-                                    txtVCG.Text = "";
-                                    txtTTVC.Text = "";
-                                    txtKT.Text = "";
-                                    txtTL.Text = "";
-                                    richTextBox1.Text = "";
-                                    this.Close();
-                                    MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Không tìm thấy hóa đơn với OrderID: " + orderId, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    int rowsAffected = cmd.ExecuteNonQuery();
+                                    if (conn.State == ConnectionState.Open)
+                                    {
+                                        conn.Close();
+                                    }
+
+                                    if (rowsAffected > 0)
+                                    {
+                                        // Cập nhật báo cáo
+                                        var report = context.Reports.FirstOrDefault(r => r.ReportID == reportId);
+                                        if (report != null)
+                                        {
+                                            report.TotalSold += quantity;
+                                            report.TotalAmount += price;
+                                            report.SuccessfulOrders += 1;
+                                            report.UpdatedAt = DateTime.Now;
+                                            report.UpdatedBy = "system";
+                                            context.SaveChanges();
+                                        }
+
+                                        var acc = new DAL.Models.Activity
+                                        {
+                                            Note = $"{usernameAC} Đã thanh toán Hóa đơn {orderId} với {pointsToDeduct} điểm, vào lúc {DateTime.Now}",
+                                            CreatedAt = DateTime.Now,
+                                            UpdatedAt = DateTime.Now,
+                                            CreatedBy = usernameAC,
+                                            UpdatedBy = usernameAC
+                                        };
+
+                                        context.Activities.Add(acc);
+                                        context.SaveChanges();
+
+                                        // Load lại dữ liệu hóa đơn cụ thể
+                                        //LoadDataHD(orderId);
+
+                                        dgvHDC.DataSource = null;
+                                        dgvHDTT.DataSource = null;
+                                        txtMHD.Text = "";
+                                        txtMVC.Text = "";
+                                        txtMNV.Text = "";
+                                        txtSL.Text = "";
+                                        TxtTT.Text = "";
+                                        txtVC.Text = "";
+                                        txtVCG.Text = "";
+                                        txtTTVC.Text = "";
+                                        txtKT.Text = "";
+                                        txtTL.Text = "";
+                                        richTextBox1.Text = "";
+                                        this.Close();
+                                        MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Không tìm thấy hóa đơn với OrderID: " + orderId, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
                             }
                         }
@@ -418,6 +470,10 @@ namespace PRL.View
                 MessageBox.Show("Thanh toán thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
+
 
 
 
@@ -454,8 +510,55 @@ namespace PRL.View
 
         private void UpdateRichTextBox()
         {
-            richTextBox1.Text = $"Tổng tiền = {txtTTVC.Text},\nKhách trả = {txtKT.Text},\nTiền trả lại = {txtTL.Text}";
+            int customerPoints = int.Parse(txtDiem.Text);
+            int giam = customerPoints * 1000;
+            if (CBSD.Checked)
+            {
+                richTextBox1.Text = $"Tổng tiền = {txtTTVC.Text}," +
+                    $"\nKhách trả = {txtKT.Text},\nTiền trả lại = {txtTL.Text}," +
+                    $"\nKhách có sử dụng điểm: {txtDiem.Text} Điểm," +
+                    $"\nGiảm: {giam}";
+            }
+            else
+            {
+                richTextBox1.Text = $"Tổng tiền = {txtTTVC.Text},\nKhách trả = {txtKT.Text},\nTiền trả lại = {txtTL.Text}";
+
+            }
         }
+
+        private decimal originalTotalPrice; 
+
+        private void CBSD_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CBSD.Checked)
+                {
+                    if (originalTotalPrice == 0)
+                    {
+                        originalTotalPrice = decimal.Parse(txtTTVC.Text);
+                    }
+
+                    int customerPoints = int.Parse(txtDiem.Text); 
+
+                    decimal pointsDiscount = customerPoints * 1000;
+
+                    decimal discountedPrice = originalTotalPrice - pointsDiscount;
+                    txtTTVC.Text = discountedPrice.ToString("F2");
+                    txtKT.Text = txtTTVC.Text;
+                }
+                else
+                {
+                    txtTTVC.Text = originalTotalPrice.ToString("F2");
+                    txtKT.Text = txtTTVC.Text;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 
 }

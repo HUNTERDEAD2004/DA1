@@ -61,6 +61,11 @@
             label10 = new Label();
             txtMVC = new TextBox();
             richTextBox1 = new RichTextBox();
+            label6 = new Label();
+            txtKH = new TextBox();
+            ssss = new Label();
+            txtDiem = new TextBox();
+            CBSD = new CheckBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).BeginInit();
             groupBox1.SuspendLayout();
@@ -95,7 +100,7 @@
             // ss
             // 
             ss.AutoSize = true;
-            ss.Location = new Point(750, 236);
+            ss.Location = new Point(751, 259);
             ss.Name = "ss";
             ss.Size = new Size(58, 15);
             ss.TabIndex = 83;
@@ -104,7 +109,7 @@
             // 
             // txtKT
             // 
-            txtKT.Location = new Point(853, 233);
+            txtKT.Location = new Point(854, 256);
             txtKT.Name = "txtKT";
             txtKT.Size = new Size(340, 23);
             txtKT.TabIndex = 82;
@@ -215,7 +220,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(974, 433);
+            button2.Location = new Point(974, 512);
             button2.Name = "button2";
             button2.Size = new Size(104, 48);
             button2.TabIndex = 69;
@@ -277,7 +282,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(749, 197);
+            label2.Location = new Point(750, 220);
             label2.Name = "label2";
             label2.Size = new Size(57, 15);
             label2.TabIndex = 93;
@@ -285,7 +290,7 @@
             // 
             // txtTTVC
             // 
-            txtTTVC.Location = new Point(853, 194);
+            txtTTVC.Location = new Point(854, 217);
             txtTTVC.Name = "txtTTVC";
             txtTTVC.ReadOnly = true;
             txtTTVC.Size = new Size(340, 23);
@@ -328,7 +333,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(750, 274);
+            label9.Location = new Point(751, 297);
             label9.Name = "label9";
             label9.Size = new Size(37, 15);
             label9.TabIndex = 99;
@@ -336,7 +341,7 @@
             // 
             // txtTL
             // 
-            txtTL.Location = new Point(853, 271);
+            txtTL.Location = new Point(854, 294);
             txtTL.Name = "txtTL";
             txtTL.ReadOnly = true;
             txtTL.Size = new Size(340, 23);
@@ -362,18 +367,67 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(855, 300);
+            richTextBox1.Location = new Point(855, 379);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(339, 116);
             richTextBox1.TabIndex = 102;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(751, 335);
+            label6.Name = "label6";
+            label6.Size = new Size(70, 15);
+            label6.TabIndex = 104;
+            label6.Text = "Khách hàng";
+            // 
+            // txtKH
+            // 
+            txtKH.Location = new Point(854, 332);
+            txtKH.Name = "txtKH";
+            txtKH.ReadOnly = true;
+            txtKH.Size = new Size(340, 23);
+            txtKH.TabIndex = 103;
+            // 
+            // ssss
+            // 
+            ssss.AutoSize = true;
+            ssss.Location = new Point(752, 188);
+            ssss.Name = "ssss";
+            ssss.Size = new Size(35, 15);
+            ssss.TabIndex = 106;
+            ssss.Text = "Điểm";
+            // 
+            // txtDiem
+            // 
+            txtDiem.Location = new Point(855, 185);
+            txtDiem.Name = "txtDiem";
+            txtDiem.ReadOnly = true;
+            txtDiem.Size = new Size(310, 23);
+            txtDiem.TabIndex = 105;
+            // 
+            // CBSD
+            // 
+            CBSD.AutoSize = true;
+            CBSD.Location = new Point(1173, 191);
+            CBSD.Name = "CBSD";
+            CBSD.Size = new Size(15, 14);
+            CBSD.TabIndex = 107;
+            CBSD.UseVisualStyleBackColor = true;
+            CBSD.CheckedChanged += CBSD_CheckedChanged;
+            // 
             // HDCT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1263, 694);
+            Controls.Add(CBSD);
+            Controls.Add(ssss);
+            Controls.Add(txtDiem);
+            Controls.Add(label6);
+            Controls.Add(txtKH);
             Controls.Add(richTextBox1);
             Controls.Add(label10);
             Controls.Add(txtMVC);
@@ -450,5 +504,10 @@
         private Label label10;
         private TextBox txtMVC;
         private RichTextBox richTextBox1;
+        private Label label6;
+        private TextBox txtKH;
+        private Label ssss;
+        private TextBox txtDiem;
+        private CheckBox CBSD;
     }
 }
