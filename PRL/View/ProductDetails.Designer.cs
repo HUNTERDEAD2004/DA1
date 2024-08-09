@@ -48,6 +48,11 @@
             btnUpdate = new Button();
             btnDel = new Button();
             panel1 = new Panel();
+            btnSearch = new FontAwesome.Sharp.IconButton();
+            cbRomSearch = new ComboBox();
+            cbRamSearch = new ComboBox();
+            cbColorSearch = new ComboBox();
+            txtNameSearch = new TextBox();
             btnLoad = new Button();
             txtYear = new ComboBox();
             txtWeight = new TextBox();
@@ -93,7 +98,6 @@
             cbCpu = new ComboBox();
             cbRam = new ComboBox();
             cbColor = new ComboBox();
-            btnImei = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetails).BeginInit();
             SuspendLayout();
@@ -111,9 +115,9 @@
             label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Location = new Point(49, 298);
             label1.Name = "label1";
-            label1.Size = new Size(30, 15);
+            label1.Size = new Size(53, 15);
             label1.TabIndex = 1;
-            label1.Text = "IMEI";
+            label1.Text = "Quantity";
             // 
             // txtProductID
             // 
@@ -279,7 +283,11 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
-            panel1.Controls.Add(btnImei);
+            panel1.Controls.Add(btnSearch);
+            panel1.Controls.Add(cbRomSearch);
+            panel1.Controls.Add(cbRamSearch);
+            panel1.Controls.Add(cbColorSearch);
+            panel1.Controls.Add(txtNameSearch);
             panel1.Controls.Add(btnLoad);
             panel1.Controls.Add(txtYear);
             panel1.Controls.Add(txtWeight);
@@ -348,6 +356,51 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1527, 773);
             panel1.TabIndex = 0;
+            // 
+            // btnSearch
+            // 
+            btnSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            btnSearch.IconColor = Color.Black;
+            btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnSearch.IconSize = 17;
+            btnSearch.Location = new Point(549, 347);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(49, 23);
+            btnSearch.TabIndex = 68;
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // cbRomSearch
+            // 
+            cbRomSearch.FormattingEnabled = true;
+            cbRomSearch.Location = new Point(423, 346);
+            cbRomSearch.Name = "cbRomSearch";
+            cbRomSearch.Size = new Size(121, 23);
+            cbRomSearch.TabIndex = 66;
+            // 
+            // cbRamSearch
+            // 
+            cbRamSearch.FormattingEnabled = true;
+            cbRamSearch.Location = new Point(296, 346);
+            cbRamSearch.Name = "cbRamSearch";
+            cbRamSearch.Size = new Size(121, 23);
+            cbRamSearch.TabIndex = 66;
+            // 
+            // cbColorSearch
+            // 
+            cbColorSearch.FormattingEnabled = true;
+            cbColorSearch.Location = new Point(169, 346);
+            cbColorSearch.Name = "cbColorSearch";
+            cbColorSearch.Size = new Size(121, 23);
+            cbColorSearch.TabIndex = 66;
+            // 
+            // txtNameSearch
+            // 
+            txtNameSearch.Location = new Point(36, 346);
+            txtNameSearch.Name = "txtNameSearch";
+            txtNameSearch.PlaceholderText = "Name...";
+            txtNameSearch.Size = new Size(127, 23);
+            txtNameSearch.TabIndex = 65;
             // 
             // btnLoad
             // 
@@ -765,16 +818,6 @@
             cbColor.Size = new Size(163, 23);
             cbColor.TabIndex = 28;
             // 
-            // btnImei
-            // 
-            btnImei.Location = new Point(291, 295);
-            btnImei.Name = "btnImei";
-            btnImei.Size = new Size(27, 23);
-            btnImei.TabIndex = 65;
-            btnImei.Text = "+";
-            btnImei.UseVisualStyleBackColor = true;
-            btnImei.Click += btnImei_Click;
-            // 
             // ProductDetails
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -857,6 +900,10 @@
         private ComboBox txtYear;
         private TextBox txtWeight;
         private Button btnLoad;
-        private Button btnImei;
+        private ComboBox cbRomSearch;
+        private ComboBox cbRamSearch;
+        private ComboBox cbColorSearch;
+        private TextBox txtNameSearch;
+        private FontAwesome.Sharp.IconButton btnSearch;
     }
 }

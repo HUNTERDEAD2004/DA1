@@ -97,7 +97,12 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existed = _db.RearCameras.FirstOrDefault(r => r.RearCameraDetails == CameraSelfieDetailsTxt.Text);
+                if (existed != null)
+                {
+                    MessageBox.Show("Đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var newCamSelf = new CameraSelfie
                 {
                     CameraSelfieID = Guid.NewGuid(), // Tạo ID mới

@@ -109,7 +109,12 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existed = _db.CPUs.FirstOrDefault(r => r.CPUName == CPUName.Text);
+                if (existed != null)
+                {
+                    MessageBox.Show("CPU này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var newCPU = new Cpu
                 {
                     CPUID = Guid.NewGuid(), // Tạo ID mới

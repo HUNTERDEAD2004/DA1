@@ -33,8 +33,8 @@ namespace PRL.View
         {
             var productDetails = context.ProductDetails.Select(pd => new
             {
-                pd.ProductDetailID,
-                pd.Name,
+                ProductDetailID = pd.ProductDetailID,
+                Name = pd.Name,
                 Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                 RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
                 Price = pd.Price,
@@ -42,7 +42,7 @@ namespace PRL.View
                 GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID).GPUName,
                 ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID).ROMSize,
                 Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID).DisplayName,
-                //Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
+                Weight = pd.Weight,
                 Version = context.Versions.FirstOrDefault(s => s.VersionID == pd.VersionID).VersionName,
                 Rear = context.RearCameras.FirstOrDefault(s => s.RearCameraID == pd.RearCameraID).RearCameraDetails,
                 Camera_Selfie = context.CameraSelfies.FirstOrDefault(s => s.CameraSelfieID == pd.CameraSelfieID).CameraSelfieDetails,
@@ -50,7 +50,8 @@ namespace PRL.View
                 Battery = context.BatteryCapacities.FirstOrDefault(s => s.BatteryID == pd.BatteryID).Capacity,
                 Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                 Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
-                //Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
+                Year = pd.Year,
+                Sale = context.Sales.FirstOrDefault(s => s.SaleID == pd.SaleID).DiscountValue + "%"
             })
             .ToList();
 
@@ -90,8 +91,8 @@ namespace PRL.View
             var productDetails = searchResults
                 .Select(pd => new
                 {
-                    //pd.IMEI,
-                    pd.Name,
+                    ProductDetailID = pd.ProductDetailID,
+                    Name = pd.Name,
                     Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                     RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
                     Price = pd.Price,
@@ -99,7 +100,7 @@ namespace PRL.View
                     GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID).GPUName,
                     ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID).ROMSize,
                     Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID).DisplayName,
-                    //Weight = context.Weights.FirstOrDefault(s => s.WeightID == pd.WeightID).WeightValue,
+                    Weight = pd.Weight,
                     Version = context.Versions.FirstOrDefault(s => s.VersionID == pd.VersionID).VersionName,
                     Rear = context.RearCameras.FirstOrDefault(s => s.RearCameraID == pd.RearCameraID).RearCameraDetails,
                     Camera_Selfie = context.CameraSelfies.FirstOrDefault(s => s.CameraSelfieID == pd.CameraSelfieID).CameraSelfieDetails,
@@ -107,7 +108,8 @@ namespace PRL.View
                     Battery = context.BatteryCapacities.FirstOrDefault(s => s.BatteryID == pd.BatteryID).Capacity,
                     Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                     Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
-                    //Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
+                    Year = pd.Year,
+                    Sale = context.Sales.FirstOrDefault(s => s.SaleID == pd.SaleID).DiscountValue + "%"
                 })
                 .ToList();
 
@@ -136,22 +138,19 @@ namespace PRL.View
 
         private void btnUse_Click(object sender, EventArgs e)
         {
-            // Lấy giá trị SaleID từ ComboBox
             Guid selectedSaleID = (Guid)cbSale.SelectedValue;
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn áp dụng mã sale này cho các sản phẩm đã chọn?", "Xác nhận",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            // Nếu searchResults null hoặc không có giá trị, lấy toàn bộ sản phẩm từ DataGridView
-            if (searchResults == null || searchResults.Count == 0)
+            if (result == DialogResult.No)
             {
-                var allProducts = dgvSPCT.DataSource as List<ProductDetail>;
-
-                if (allProducts == null || allProducts.Count == 0)
+                return;
+            }
+            if (dgvSPCT.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvSPCT.SelectedRows)
                 {
-                    MessageBox.Show("Không có sản phẩm nào để áp dụng mã sale.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                foreach (var productDetail in allProducts)
-                {
-                    var product = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == productDetail.ProductDetailID);
+                    var productDetailID = (Guid)row.Cells["ProductDetailID"].Value;
+                    var product = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == productDetailID);
                     if (product != null)
                     {
                         product.SaleID = selectedSaleID;
@@ -160,7 +159,15 @@ namespace PRL.View
             }
             else
             {
-                foreach (var productDetail in searchResults)
+                var productList = searchResults ?? dgvSPCT.DataSource as List<ProductDetail>;
+
+                if (productList == null || productList.Count == 0)
+                {
+                    MessageBox.Show("Không có sản phẩm nào để áp dụng mã sale.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                foreach (var productDetail in productList)
                 {
                     var product = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == productDetail.ProductDetailID);
                     if (product != null)
@@ -169,10 +176,13 @@ namespace PRL.View
                     }
                 }
             }
+
+            // Lưu thay đổi vào cơ sở dữ liệu
             context.SaveChanges();
 
-            MessageBox.Show("Đã áp dụng mã sale cho các sản phẩm tìm thấy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Đã áp dụng mã sale cho các sản phẩm được chọn hoặc tìm thấy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         public void LoadSales()
         {
             var data = context.Sales.Where(s => s.EndDate >= DateTime.Now).ToList();

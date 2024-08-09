@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             btnClear = new GroupBox();
+            btnLoad = new Button();
             btnUpdate = new Button();
             txtQuantity = new TextBox();
             btnClean = new Button();
@@ -52,9 +53,8 @@
             label3 = new Label();
             txtName = new TextBox();
             label2 = new Label();
-            label1 = new Label();
-            txtID = new TextBox();
             panel1 = new Panel();
+            btnDelete = new Button();
             btnClear.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             panel1.SuspendLayout();
@@ -62,6 +62,8 @@
             // 
             // btnClear
             // 
+            btnClear.Controls.Add(btnDelete);
+            btnClear.Controls.Add(btnLoad);
             btnClear.Controls.Add(btnUpdate);
             btnClear.Controls.Add(txtQuantity);
             btnClear.Controls.Add(btnClean);
@@ -82,8 +84,6 @@
             btnClear.Controls.Add(label3);
             btnClear.Controls.Add(txtName);
             btnClear.Controls.Add(label2);
-            btnClear.Controls.Add(label1);
-            btnClear.Controls.Add(txtID);
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnClear.ForeColor = SystemColors.ActiveCaptionText;
             btnClear.Location = new Point(9, 8);
@@ -93,6 +93,21 @@
             btnClear.TabStop = false;
             btnClear.Text = "Product";
             btnClear.Enter += groupBox1_Enter;
+            // 
+            // btnLoad
+            // 
+            btnLoad.BackColor = Color.SkyBlue;
+            btnLoad.FlatAppearance.BorderColor = Color.Lavender;
+            btnLoad.FlatAppearance.BorderSize = 2;
+            btnLoad.FlatStyle = FlatStyle.Flat;
+            btnLoad.ForeColor = SystemColors.ActiveCaptionText;
+            btnLoad.Location = new Point(1096, 37);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(52, 25);
+            btnLoad.TabIndex = 80;
+            btnLoad.Text = "Load";
+            btnLoad.UseVisualStyleBackColor = false;
+            btnLoad.Click += btnLoad_Click;
             // 
             // btnUpdate
             // 
@@ -111,7 +126,7 @@
             // 
             // txtQuantity
             // 
-            txtQuantity.Location = new Point(128, 126);
+            txtQuantity.Location = new Point(126, 82);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.ReadOnly = true;
             txtQuantity.Size = new Size(193, 23);
@@ -124,7 +139,7 @@
             btnClean.FlatAppearance.BorderSize = 2;
             btnClean.FlatStyle = FlatStyle.Flat;
             btnClean.ForeColor = SystemColors.ActiveCaptionText;
-            btnClean.Location = new Point(246, 274);
+            btnClean.Location = new Point(245, 230);
             btnClean.Name = "btnClean";
             btnClean.Size = new Size(75, 25);
             btnClean.TabIndex = 76;
@@ -265,7 +280,7 @@
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(128, 172);
+            txtDescription.Location = new Point(126, 128);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(194, 96);
             txtDescription.TabIndex = 63;
@@ -275,7 +290,7 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(17, 172);
+            label7.Location = new Point(15, 128);
             label7.Name = "label7";
             label7.Size = new Size(67, 15);
             label7.TabIndex = 19;
@@ -301,7 +316,7 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(17, 129);
+            label3.Location = new Point(15, 85);
             label3.Name = "label3";
             label3.Size = new Size(56, 15);
             label3.TabIndex = 5;
@@ -309,7 +324,7 @@
             // 
             // txtName
             // 
-            txtName.Location = new Point(129, 83);
+            txtName.Location = new Point(127, 39);
             txtName.Name = "txtName";
             txtName.Size = new Size(193, 23);
             txtName.TabIndex = 4;
@@ -318,29 +333,11 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(17, 86);
+            label2.Location = new Point(15, 42);
             label2.Name = "label2";
             label2.Size = new Size(87, 15);
             label2.TabIndex = 3;
             label2.Text = "Product Name:";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(17, 42);
-            label1.Name = "label1";
-            label1.Size = new Size(66, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Product ID:";
-            // 
-            // txtID
-            // 
-            txtID.Location = new Point(129, 39);
-            txtID.Name = "txtID";
-            txtID.ReadOnly = true;
-            txtID.Size = new Size(193, 23);
-            txtID.TabIndex = 0;
             // 
             // panel1
             // 
@@ -352,12 +349,27 @@
             panel1.Size = new Size(1186, 502);
             panel1.TabIndex = 0;
             // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.SkyBlue;
+            btnDelete.FlatAppearance.BorderColor = Color.Lavender;
+            btnDelete.FlatAppearance.BorderSize = 2;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.ForeColor = SystemColors.ActiveCaptionText;
+            btnDelete.Location = new Point(577, 262);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(75, 25);
+            btnDelete.TabIndex = 81;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click_1;
+            // 
             // Products
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(1152, 496);
+            ClientSize = new Size(1181, 496);
             Controls.Add(panel1);
             Name = "Products";
             Text = "Products";
@@ -395,5 +407,7 @@
         private Button btnClean;
         private TextBox txtQuantity;
         private Button btnUpdate;
+        private Button btnLoad;
+        private Button btnDelete;
     }
 }

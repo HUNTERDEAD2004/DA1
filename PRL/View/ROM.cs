@@ -95,7 +95,12 @@ namespace PRL.View
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
                 }
-
+                var existed = _db.ROMs.FirstOrDefault(r => r.ROMSize == ROMSizeTxt.Text);
+                if (existed != null)
+                {
+                    MessageBox.Show("Kích thước ROM này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var newROM = new Rom
                 {
                     ROMID = Guid.NewGuid(), // Tạo ID mới
@@ -212,6 +217,11 @@ namespace PRL.View
             }).ToList();
 
             DgvROMShow.DataSource = filteredData;
+        }
+
+        private void BtnAdd_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

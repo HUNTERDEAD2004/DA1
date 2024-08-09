@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.DirectoryServices;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
@@ -36,8 +37,11 @@ namespace PRL.View
             var ramList = context.RAMs.ToList();
             ramList.Insert(0, new Ram { RAMID = Guid.Empty, RAMSize = "-- Chọn ram --" });
             cbRam.DataSource = ramList;
+            cbRamSearch.DataSource = ramList;
             cbRam.DisplayMember = "RAMSize";
             cbRam.ValueMember = "RAMID";
+            cbRamSearch.DisplayMember = "RAMSize";
+            cbRamSearch.ValueMember = "RAMID";
 
             var cpuList = context.CPUs.ToList();
             cpuList.Insert(0, new Cpu { CPUID = Guid.Empty, CPUName = "-- Chọn CPU --" });
@@ -54,14 +58,20 @@ namespace PRL.View
             var romList = context.ROMs.ToList();
             romList.Insert(0, new Rom { ROMID = Guid.Empty, ROMSize = "-- Chọn ROM --" });
             cbRom.DataSource = romList;
+            cbRomSearch.DataSource = romList;
             cbRom.DisplayMember = "ROMSize";
             cbRom.ValueMember = "ROMID";
+            cbRomSearch.DisplayMember = "ROMSize";
+            cbRomSearch.ValueMember = "ROMID";
 
             var colorList = context.Colours.ToList();
             colorList.Insert(0, new AppData.Models.Color { ColorID = Guid.Empty, ColorName = "-- Chọn màu --" });
             cbColor.DataSource = colorList;
+            cbColorSearch.DataSource = colorList;
             cbColor.DisplayMember = "ColorName";
             cbColor.ValueMember = "ColorID";
+            cbColorSearch.DisplayMember = "ColorName";
+            cbColorSearch.ValueMember = "ColorID";
 
             var displayList = context.Displays.ToList();
             displayList.Insert(0, new Display { DisplayID = Guid.Empty, DisplayName = "-- Chọn tấm nền --" });
@@ -76,7 +86,7 @@ namespace PRL.View
             cbSale.DataSource = saleList;
             cbSale.DisplayMember = "DiscountValue";
             cbSale.ValueMember = "SaleID";
-            cbSale.SelectedValue = Guid.Empty; 
+            cbSale.SelectedValue = Guid.Empty;
 
             var battery = context.BatteryCapacities.ToList();
             battery.Insert(0, new BatteryCapacity { BatteryID = Guid.Empty, Capacity = -1 });
@@ -186,9 +196,6 @@ namespace PRL.View
                 (Guid)cbColor.SelectedValue == Guid.Empty ||
                 (Guid)cbDisplay.SelectedValue == Guid.Empty ||
                 (Guid)cbRear.SelectedValue == Guid.Empty ||
-                (Guid)cbVersion.SelectedValue == Guid.Empty ||
-                (Guid)cbOrigin.SelectedValue == Guid.Empty ||
-                (Guid)cbSelfie.SelectedValue == Guid.Empty ||
                 (Guid)cbSystem.SelectedValue == Guid.Empty ||
                 (Guid)cbBattery.SelectedValue == Guid.Empty ||
                 (Guid)cbMaterial.SelectedValue == Guid.Empty
@@ -213,6 +220,20 @@ namespace PRL.View
             if (int.Parse(txtQuantity.Text) < 0)
             {
                 MessageBox.Show("số lượng không hợp lệ. Kiểm tra lại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            // Kiểm tra sản phẩm chi tiết trùng lặp
+            var existingDetail = context.ProductDetails
+                .FirstOrDefault(pd => pd.ProductID == _productID &&
+                                      pd.RAMID == (Guid)cbRam.SelectedValue &&
+                                      pd.ROMID == (Guid)cbRom.SelectedValue &&
+                                      pd.CPUID == (Guid)cbCpu.SelectedValue &&
+                                      pd.GPUID == (Guid)cbGPU.SelectedValue &&
+                                      pd.ColorID == (Guid)cbColor.SelectedValue);
+
+            if (existingDetail != null)
+            {
+                MessageBox.Show("Đã tồn tại. Vui lòng kiểm tra lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             // Lấy giá trị từ các combobox
             string color = cbColor.Text;
@@ -364,9 +385,6 @@ namespace PRL.View
             }
         }
 
-
-
-
         private void dgvDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Kiểm tra nếu người dùng nhấp vào một hàng hợp lệ
@@ -424,18 +442,15 @@ namespace PRL.View
                 }
             }
         }
-
-
-
         private void btnDel_Click(object sender, EventArgs e)
         {
-            // Kiểm tra và xóa chi tiết sản phẩm dựa trên IMEI
-            if (!string.IsNullOrEmpty(txtQuantity.Text))
+            if (dgvDetails.SelectedRows.Count > 0)
             {
-                var imei = txtQuantity.Text;
+                // Lấy ProductDetailID từ dòng được chọn trong DataGridView
+                var productDetailID = (Guid)dgvDetails.SelectedRows[0].Cells["ProductDetailID"].Value;
 
-                // Tìm chi tiết sản phẩm dựa trên IMEI
-                var detail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == Guid.Parse(imei));
+                // Tìm chi tiết sản phẩm dựa trên ProductDetailID
+                var detail = context.ProductDetails.FirstOrDefault(pd => pd.ProductDetailID == productDetailID);
 
                 if (detail != null)
                 {
@@ -462,10 +477,10 @@ namespace PRL.View
             }
             else
             {
-                MessageBox.Show("IMEI không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng chọn một chi tiết sản phẩm để xóa", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
+
         private void ClearForm()
         {
             txtQuantity.Text = "";
@@ -615,7 +630,83 @@ namespace PRL.View
 
         private void btnImei_Click(object sender, EventArgs e)
         {
-            IMEI meiI = new IMEI();
+            //IMEI meiI = new IMEI();
         }
+
+        private List<ProductDetail> searchResults = new List<ProductDetail>();
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchName = txtName.Text.Trim();
+            Guid? ramID = cbRam.SelectedValue as Guid?;
+            Guid? romID = cbRom.SelectedValue as Guid?;
+            Guid? colorID = cbColor.SelectedValue as Guid?;
+
+            if (string.IsNullOrEmpty(searchName) &&
+                (!ramID.HasValue || ramID.Value == Guid.Empty) &&
+                (!romID.HasValue || romID.Value == Guid.Empty) &&
+                (!colorID.HasValue || colorID.Value == Guid.Empty))
+            {
+                MessageBox.Show("Vui lòng nhập ít nhất một điều kiện tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var data = context.ProductDetails.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                data = data.Where(pd => pd.Name.Contains(searchName));
+            }
+
+            if (ramID.HasValue && ramID.Value != Guid.Empty)
+            {
+                data = data.Where(pd => pd.RAMID == ramID.Value);
+            }
+
+            if (romID.HasValue && romID.Value != Guid.Empty)
+            {
+                data = data.Where(pd => pd.ROMID == romID.Value);
+            }
+
+            if (colorID.HasValue && colorID.Value != Guid.Empty)
+            {
+                data = data.Where(pd => pd.ColorID == colorID.Value);
+            }
+            searchResults = data.ToList();
+
+            if (searchResults.Count == 0)
+            {
+                MessageBox.Show("Không tìm thấy sản phẩm nào thỏa mãn điều kiện tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var productDetails = searchResults
+            .Select(pd => new
+            {
+                ProductDetailID = pd.ProductDetailID,
+                Name = pd.Name,
+                Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID)?.ColorName,
+                RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID)?.RAMSize,
+                ROM = context.ROMs.FirstOrDefault(r => r.ROMID == pd.ROMID)?.ROMSize,
+                CPU = context.CPUs.FirstOrDefault(c => c.CPUID == pd.CPUID)?.CPUName,
+                GPU = context.GPUs.FirstOrDefault(g => g.GPUID == pd.GPUID)?.GPUName,
+                Display = context.Displays.FirstOrDefault(d => d.DisplayID == pd.DisplayID)?.DisplayName,
+                Weight = pd.Weight,
+                Version = context.Versions.FirstOrDefault(v => v.VersionID == pd.VersionID)?.VersionName,
+                RearCamera = context.RearCameras.FirstOrDefault(rc => rc.RearCameraID == pd.RearCameraID)?.RearCameraDetails,
+                CameraSelfie = context.CameraSelfies.FirstOrDefault(cs => cs.CameraSelfieID == pd.CameraSelfieID)?.CameraSelfieDetails,
+                OperatingSystem = context.OperatingSystems.FirstOrDefault(os => os.OSID == pd.OSID)?.OSName,
+                Battery = context.BatteryCapacities.FirstOrDefault(b => b.BatteryID == pd.BatteryID)?.Capacity,
+                Origin = context.Origins.FirstOrDefault(o => o.OriginID == pd.OriginID)?.OriginName,
+                Material = context.Materials.FirstOrDefault(m => m.MaterialID == pd.MaterialID)?.MaterialName,
+                Year = pd.Year,
+                Price = pd.Price,
+                Sale = pd.SaleID.HasValue
+                       ? context.Sales.FirstOrDefault(s => s.SaleID == pd.SaleID)?.DiscountValue + "%"
+                       : "No Sale"
+            })
+            .ToList();
+
+            dgvDetails.DataSource = productDetails;
+        }
+
     }
 }

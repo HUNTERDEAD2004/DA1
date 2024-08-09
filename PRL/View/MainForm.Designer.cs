@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             Menu = new Panel();
-            btnSetting = new FontAwesome.Sharp.IconButton();
+            btnSales = new FontAwesome.Sharp.IconButton();
             btnDashboard = new FontAwesome.Sharp.IconButton();
             btnCustomer = new FontAwesome.Sharp.IconButton();
             btnOrder = new FontAwesome.Sharp.IconButton();
@@ -54,7 +54,7 @@
             // Menu
             // 
             Menu.BackColor = Color.FromArgb(49, 42, 81);
-            Menu.Controls.Add(btnSetting);
+            Menu.Controls.Add(btnSales);
             Menu.Controls.Add(btnDashboard);
             Menu.Controls.Add(btnCustomer);
             Menu.Controls.Add(btnOrder);
@@ -69,28 +69,28 @@
             Menu.Size = new Size(192, 815);
             Menu.TabIndex = 0;
             // 
-            // btnSetting
+            // btnSales
             // 
-            btnSetting.Dock = DockStyle.Top;
-            btnSetting.FlatAppearance.BorderSize = 0;
-            btnSetting.FlatStyle = FlatStyle.Flat;
-            btnSetting.Font = new Font("Verdana", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSetting.ForeColor = Color.FromArgb(122, 119, 170);
-            btnSetting.IconChar = FontAwesome.Sharp.IconChar.Tools;
-            btnSetting.IconColor = Color.FromArgb(122, 119, 170);
-            btnSetting.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnSetting.IconSize = 28;
-            btnSetting.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSetting.Location = new Point(0, 310);
-            btnSetting.Margin = new Padding(3, 2, 3, 2);
-            btnSetting.Name = "btnSetting";
-            btnSetting.Size = new Size(192, 45);
-            btnSetting.TabIndex = 7;
-            btnSetting.Text = "   Setting";
-            btnSetting.TextAlign = ContentAlignment.MiddleLeft;
-            btnSetting.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnSetting.UseVisualStyleBackColor = true;
-            btnSetting.Click += btnSetting_Click;
+            btnSales.Dock = DockStyle.Top;
+            btnSales.FlatAppearance.BorderSize = 0;
+            btnSales.FlatStyle = FlatStyle.Flat;
+            btnSales.Font = new Font("Verdana", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSales.ForeColor = Color.FromArgb(122, 119, 170);
+            btnSales.IconChar = FontAwesome.Sharp.IconChar.Tools;
+            btnSales.IconColor = Color.FromArgb(122, 119, 170);
+            btnSales.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnSales.IconSize = 28;
+            btnSales.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSales.Location = new Point(0, 310);
+            btnSales.Margin = new Padding(3, 2, 3, 2);
+            btnSales.Name = "btnSales";
+            btnSales.Size = new Size(192, 45);
+            btnSales.TabIndex = 7;
+            btnSales.Text = "   Sales";
+            btnSales.TextAlign = ContentAlignment.MiddleLeft;
+            btnSales.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnSales.UseVisualStyleBackColor = true;
+            btnSales.Click += btnSetting_Click;
             // 
             // btnDashboard
             // 
@@ -257,7 +257,7 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(873, 23);
+            btnLogout.Location = new Point(1206, 23);
             btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(82, 22);
@@ -270,7 +270,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(746, 26);
+            label2.Location = new Point(1079, 26);
             label2.Name = "label2";
             label2.Size = new Size(112, 15);
             label2.TabIndex = 3;
@@ -338,7 +338,7 @@
         #endregion
         private Panel Menu;
         private FontAwesome.Sharp.IconButton btnProduct;
-        private FontAwesome.Sharp.IconButton btnSetting;
+        private FontAwesome.Sharp.IconButton btnSales;
         private FontAwesome.Sharp.IconButton btnDashboard;
         private FontAwesome.Sharp.IconButton btnCustomer;
         private FontAwesome.Sharp.IconButton btnOrder;

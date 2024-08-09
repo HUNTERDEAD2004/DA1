@@ -42,7 +42,6 @@ namespace PRL.View
         }
         private void ClearForm()
         {
-            txtID.Text = "";
             txtName.Text = "";
             txtDescription.Text = "";
             txtUpdateAt.Text = "";
@@ -61,7 +60,6 @@ namespace PRL.View
             if (e.RowIndex >= 0)
             {
                 var selectedRow = dgvData.Rows[e.RowIndex];
-                txtID.Text = selectedRow.Cells["ProductID"].Value.ToString();
                 txtName.Text = selectedRow.Cells["ProductName"].Value.ToString();
                 txtDescription.Text = selectedRow.Cells["Description"].Value.ToString();
                 txtCreatAt.Text = selectedRow.Cells["CreatedAt"].Value.ToString();
@@ -182,6 +180,53 @@ namespace PRL.View
         private void Products_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void btnDelete_Click_1(object sender, EventArgs e)
+        {
+            if (dgvData.SelectedRows.Count > 0)
+            {
+                var productId = (Guid)dgvData.SelectedRows[0].Cells["ProductID"].Value;
+                var product = context.Products.Find(productId);
+
+                if (product != null)
+                {
+                    var confirmResult = MessageBox.Show("Bạn có chắc muốn xóa sản phẩm này và tất cả chi tiết liên quan?",
+                                                         "Xác nhận xóa",
+                                                         MessageBoxButtons.YesNo,
+                                                         MessageBoxIcon.Question);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        // Xóa tất cả ProductDetails liên quan
+                        var productDetails = context.ProductDetails.Where(pd => pd.ProductID == productId).ToList();
+                        context.ProductDetails.RemoveRange(productDetails);
+
+                        // Xóa sản phẩm
+                        context.Products.Remove(product);
+                        context.SaveChanges();
+
+                        MessageBox.Show("Xóa sản phẩm và chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Tải lại dữ liệu và xóa form
+                        LoadData();
+                        ClearForm();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy sản phẩm", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm để xóa", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

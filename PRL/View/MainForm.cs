@@ -164,6 +164,7 @@ namespace PRL.View
 
         private void btnSetting_Click(object sender, EventArgs e)
         {
+            OpenForm(new SaleFrm());
             ActivateButton(sender, hover.color6);
         }
 
