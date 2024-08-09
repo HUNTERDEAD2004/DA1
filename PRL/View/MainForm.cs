@@ -1,4 +1,5 @@
-﻿using FontAwesome.Sharp;
+﻿using DAL.Models;
+using FontAwesome.Sharp;
 using Microsoft.Win32;
 using System.Data;
 using System.Xml.Linq;
@@ -113,7 +114,7 @@ namespace PRL.View
                 }
                 else if (role == "user")
                 {
-                    MessageBox.Show("Cút");
+                    MessageBox.Show("Không đủ Quyền");
                 }
             }
 
@@ -134,7 +135,7 @@ namespace PRL.View
                 }
                 else if (role == "user")
                 {
-                    MessageBox.Show("Cút");
+                    MessageBox.Show("Không đủ Quyền");
                 }
             }
 
@@ -142,8 +143,7 @@ namespace PRL.View
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
-            HDCT hdctform = new HDCT();
-            Orderform orderform = new Orderform(hdctform);
+            Orderform orderform = new Orderform();
 
             OpenForm(orderform);
 
@@ -157,8 +157,24 @@ namespace PRL.View
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, hover.color5);
-            OpenForm(new FrmThongKe());
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var role = key.GetValue("Role").ToString();
+                key.Close();
+
+                if (role == "admin")
+                {
+                    ActivateButton(sender, hover.color5);
+                    OpenForm(new FrmThongKe());
+                }
+                else if (role == "user")
+                {
+                    MessageBox.Show("Không đủ Quyền");
+                }
+            }
+
+            
         }
 
         private void btnSetting_Click(object sender, EventArgs e)
@@ -193,6 +209,28 @@ namespace PRL.View
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void iconPictureBox1_Click(object sender, EventArgs e)
+        {
+
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var role = key.GetValue("Role").ToString();
+                key.Close();
+
+                if (role == "admin")
+                {
+                    Activitiesform acc = new Activitiesform();
+                    acc.Show();
+                }
+                else if (role == "user")
+                {
+                    MessageBox.Show("Không đủ Quyền");
+                }
+            }
+           
         }
     }
 }

@@ -20,6 +20,5 @@ namespace AppData.Models
         public string UpdatedBy { get; set; }
 
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
-        public virtual ICollection<Statistics> Statistics { get; set; }
     }
 }

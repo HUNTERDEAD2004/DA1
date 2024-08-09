@@ -55,6 +55,9 @@
             label1 = new Label();
             txtSP = new TextBox();
             panel1 = new Panel();
+            label12 = new Label();
+            txtSDT = new TextBox();
+            cbSPTk = new ComboBox();
             cbImei = new ComboBox();
             bttRL = new Button();
             txtHDHT = new TextBox();
@@ -69,7 +72,6 @@
             label8 = new Label();
             btnSearch = new FontAwesome.Sharp.IconButton();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
-            cbSPTk = new ComboBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDCT).BeginInit();
             groupBox1.SuspendLayout();
@@ -352,6 +354,8 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(label12);
+            panel1.Controls.Add(txtSDT);
             panel1.Controls.Add(cbSPTk);
             panel1.Controls.Add(cbImei);
             panel1.Controls.Add(bttRL);
@@ -389,6 +393,33 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1663, 920);
             panel1.TabIndex = 70;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.BackColor = Color.SlateBlue;
+            label12.ForeColor = SystemColors.ButtonHighlight;
+            label12.Location = new Point(1000, 408);
+            label12.Name = "label12";
+            label12.Size = new Size(26, 15);
+            label12.TabIndex = 86;
+            label12.Text = "SDT";
+            label12.Click += label12_Click;
+            // 
+            // txtSDT
+            // 
+            txtSDT.Location = new Point(1039, 404);
+            txtSDT.Name = "txtSDT";
+            txtSDT.Size = new Size(122, 23);
+            txtSDT.TabIndex = 85;
+            // 
+            // cbSPTk
+            // 
+            cbSPTk.FormattingEnabled = true;
+            cbSPTk.Location = new Point(427, 406);
+            cbSPTk.Name = "cbSPTk";
+            cbSPTk.Size = new Size(121, 23);
+            cbSPTk.TabIndex = 84;
             // 
             // cbImei
             // 
@@ -533,14 +564,6 @@
             sqlCommand1.Notification = null;
             sqlCommand1.Transaction = null;
             // 
-            // cbSPTk
-            // 
-            cbSPTk.FormattingEnabled = true;
-            cbSPTk.Location = new Point(427, 406);
-            cbSPTk.Name = "cbSPTk";
-            cbSPTk.Size = new Size(121, 23);
-            cbSPTk.TabIndex = 84;
-            // 
             // Orderform
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -612,5 +635,7 @@
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
         private ComboBox cbImei;
         private ComboBox cbSPTk;
+        private Label label12;
+        private TextBox txtSDT;
     }
 }

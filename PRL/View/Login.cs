@@ -1,4 +1,5 @@
 ﻿using AppData.Models;
+using DocumentFormat.OpenXml.InkML;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.Win32;
@@ -48,6 +49,17 @@ namespace PRL.View
 
                     this.Hide();
                     form.Show();
+
+                    var acc = new DAL.Models.Activity
+                    {
+                        Note = $"{username} Đã đăng nhập vào lúc {DateTime.Now} Với vai trò {us.Roles}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = username,
+                        UpdatedBy = username
+                    };
+                    dbContext.Activities.Add(acc);
+                    dbContext.SaveChanges();
                 }
                 else
                 {

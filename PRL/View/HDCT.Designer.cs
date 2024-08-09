@@ -48,8 +48,6 @@
             txtVC = new TextBox();
             label4 = new Label();
             txtSL = new TextBox();
-            label6 = new Label();
-            txtSDT = new TextBox();
             lab32 = new Label();
             txtMHD = new TextBox();
             label2 = new Label();
@@ -62,6 +60,7 @@
             txtTL = new TextBox();
             label10 = new Label();
             txtMVC = new TextBox();
+            richTextBox1 = new RichTextBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHDTT).BeginInit();
             groupBox1.SuspendLayout();
@@ -216,7 +215,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(970, 586);
+            button2.Location = new Point(974, 433);
             button2.Name = "button2";
             button2.Size = new Size(104, 48);
             button2.TabIndex = 69;
@@ -257,23 +256,6 @@
             txtSL.ReadOnly = true;
             txtSL.Size = new Size(139, 23);
             txtSL.TabIndex = 64;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(753, 312);
-            label6.Name = "label6";
-            label6.Size = new Size(26, 15);
-            label6.TabIndex = 88;
-            label6.Text = "SDT";
-            // 
-            // txtSDT
-            // 
-            txtSDT.Location = new Point(853, 309);
-            txtSDT.Name = "txtSDT";
-            txtSDT.Size = new Size(340, 23);
-            txtSDT.TabIndex = 87;
-            txtSDT.TextChanged += txtSDT_TextChanged;
             // 
             // lab32
             // 
@@ -378,11 +360,21 @@
             txtMVC.Size = new Size(340, 23);
             txtMVC.TabIndex = 100;
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(855, 300);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(339, 116);
+            richTextBox1.TabIndex = 102;
+            richTextBox1.Text = "";
+            richTextBox1.TextChanged += richTextBox1_TextChanged;
+            // 
             // HDCT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1263, 694);
+            Controls.Add(richTextBox1);
             Controls.Add(label10);
             Controls.Add(txtMVC);
             Controls.Add(label9);
@@ -395,8 +387,6 @@
             Controls.Add(txtTTVC);
             Controls.Add(lab32);
             Controls.Add(txtMHD);
-            Controls.Add(label6);
-            Controls.Add(txtSDT);
             Controls.Add(label3);
             Controls.Add(txtTKH);
             Controls.Add(button6);
@@ -446,8 +436,6 @@
         private TextBox txtVC;
         private Label label4;
         private TextBox txtSL;
-        private Label label6;
-        private TextBox txtSDT;
         private GroupBox groupBox3;
         private Label lab32;
         private TextBox txtMHD;
@@ -461,5 +449,6 @@
         private TextBox txtTL;
         private Label label10;
         private TextBox txtMVC;
+        private RichTextBox richTextBox1;
     }
 }

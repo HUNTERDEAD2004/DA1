@@ -1,5 +1,9 @@
 ﻿using AppData.Models;
+using DocumentFormat.OpenXml.InkML;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.ApplicationServices;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,7 +65,7 @@ namespace PRL.View
                 var selectedRow = dgvData.Rows[e.RowIndex];
                 txtID.Text = selectedRow.Cells["ProductID"].Value.ToString();
                 txtName.Text = selectedRow.Cells["ProductName"].Value.ToString();
-                txtQuantity.Text = selectedRow.Cells["Quantity"].Value.ToString();
+                txtQuantity.Text = selectedRow.Cells["Total"].Value.ToString();
                 txtDescription.Text = selectedRow.Cells["Description"].Value.ToString();
                 txtCreatAt.Text = selectedRow.Cells["CreatedAt"].Value.ToString();
                 txtUpdateAt.Text = selectedRow.Cells["UpdatedAt"].Value.ToString();
@@ -132,29 +136,65 @@ namespace PRL.View
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            var productName = txtName.Text.Trim();
-
-            var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
-
-            if (existingProduct != null)
+            try
             {
-                MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+
+                    key.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+                var productName = txtName.Text.Trim();
+                var existingProduct = context.Products.FirstOrDefault(p => p.ProductName == productName);
+
+                if (existingProduct != null)
+                {
+                    MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                Guid ProductIDAC = Guid.NewGuid();
+                var product = new Product
+                {
+                    ProductID = ProductIDAC,
+                    ProductName = txtName.Text,
+                    Description = txtDescription.Text,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    CreatedBy = tk,
+                    UpdatedBy = tk
+                };
+
+                var acc = new DAL.Models.Activity
+                {
+                    Note = $"{tk} Đã Thêm nhân viên {ProductIDAC}, vào lúc {DateTime.Now}",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CreatedBy = tk,
+                    UpdatedBy = tk
+                };
+
+                context.Activities.Add(acc);
+                context.Products.Add(product);
+                context.SaveChanges();
+                LoadData();
+                MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
-            var product = new Product
+            catch (Exception)
             {
-                ProductID = Guid.NewGuid(),
-                ProductName = txtName.Text,
-                Description = txtDescription.Text,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                CreatedBy = "Apple",
-                UpdatedBy = "Apple"
-            };
-            context.Products.Add(product);
-            context.SaveChanges();
-            LoadData();
-            MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                throw;
+            }
+            
         }
         private void btnUpdate_Click(object sender, EventArgs e)
         {

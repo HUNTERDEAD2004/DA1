@@ -48,6 +48,8 @@
             btnUpdate = new Button();
             btnDel = new Button();
             panel1 = new Panel();
+            txtWei = new TextBox();
+            txtYOM = new TextBox();
             bcBT = new Button();
             bcVer = new Button();
             bcCS = new Button();
@@ -72,8 +74,6 @@
             txt = new Label();
             cbSystem = new ComboBox();
             cbOrigin = new ComboBox();
-            cbYOM = new ComboBox();
-            cbWeight = new ComboBox();
             cbMaterial = new ComboBox();
             cbSelfie = new ComboBox();
             cbRear = new ComboBox();
@@ -92,6 +92,7 @@
             cbCpu = new ComboBox();
             cbRam = new ComboBox();
             cbColor = new ComboBox();
+            button1 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetails).BeginInit();
             SuspendLayout();
@@ -135,7 +136,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(952, 148);
+            label4.Location = new Point(646, 252);
             label4.Name = "label4";
             label4.Size = new Size(36, 15);
             label4.TabIndex = 5;
@@ -277,6 +278,9 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(txtWei);
+            panel1.Controls.Add(txtYOM);
             panel1.Controls.Add(bcBT);
             panel1.Controls.Add(bcVer);
             panel1.Controls.Add(bcCS);
@@ -301,8 +305,6 @@
             panel1.Controls.Add(txt);
             panel1.Controls.Add(cbSystem);
             panel1.Controls.Add(cbOrigin);
-            panel1.Controls.Add(cbYOM);
-            panel1.Controls.Add(cbWeight);
             panel1.Controls.Add(cbMaterial);
             panel1.Controls.Add(cbSelfie);
             panel1.Controls.Add(cbRear);
@@ -345,6 +347,20 @@
             panel1.Size = new Size(1527, 773);
             panel1.TabIndex = 0;
             // 
+            // txtWei
+            // 
+            txtWei.Location = new Point(1025, 131);
+            txtWei.Name = "txtWei";
+            txtWei.Size = new Size(163, 23);
+            txtWei.TabIndex = 63;
+            // 
+            // txtYOM
+            // 
+            txtYOM.Location = new Point(1025, 91);
+            txtYOM.Name = "txtYOM";
+            txtYOM.Size = new Size(163, 23);
+            txtYOM.TabIndex = 62;
+            // 
             // bcBT
             // 
             bcBT.Location = new Point(1204, 48);
@@ -357,7 +373,7 @@
             // 
             // bcVer
             // 
-            bcVer.Location = new Point(1204, 95);
+            bcVer.Location = new Point(907, 101);
             bcVer.Name = "bcVer";
             bcVer.Size = new Size(27, 23);
             bcVer.TabIndex = 60;
@@ -377,7 +393,7 @@
             // 
             // bcYOM
             // 
-            bcYOM.Location = new Point(907, 98);
+            bcYOM.Location = new Point(1204, 90);
             bcYOM.Name = "bcYOM";
             bcYOM.Size = new Size(27, 23);
             bcYOM.TabIndex = 57;
@@ -407,7 +423,7 @@
             // 
             // bcWght
             // 
-            bcWght.Location = new Point(907, 247);
+            bcWght.Location = new Point(1204, 131);
             bcWght.Name = "bcWght";
             bcWght.Size = new Size(27, 23);
             bcWght.TabIndex = 54;
@@ -487,7 +503,7 @@
             // 
             // bcSale
             // 
-            bcSale.Location = new Point(278, 295);
+            bcSale.Location = new Point(278, 290);
             bcSale.Name = "bcSale";
             bcSale.Size = new Size(27, 23);
             bcSale.TabIndex = 46;
@@ -497,7 +513,7 @@
             // 
             // bcColor
             // 
-            bcColor.Location = new Point(1204, 146);
+            bcColor.Location = new Point(907, 248);
             bcColor.Name = "bcColor";
             bcColor.Size = new Size(27, 23);
             bcColor.TabIndex = 45;
@@ -524,7 +540,7 @@
             // cbVersion
             // 
             cbVersion.FormattingEnabled = true;
-            cbVersion.Location = new Point(1025, 98);
+            cbVersion.Location = new Point(738, 100);
             cbVersion.Name = "cbVersion";
             cbVersion.Size = new Size(163, 23);
             cbVersion.TabIndex = 41;
@@ -541,7 +557,7 @@
             // 
             label20.AutoSize = true;
             label20.ForeColor = SystemColors.ButtonHighlight;
-            label20.Location = new Point(949, 103);
+            label20.Location = new Point(646, 103);
             label20.Name = "label20";
             label20.Size = new Size(45, 15);
             label20.TabIndex = 39;
@@ -572,22 +588,6 @@
             cbOrigin.Name = "cbOrigin";
             cbOrigin.Size = new Size(163, 23);
             cbOrigin.TabIndex = 38;
-            // 
-            // cbYOM
-            // 
-            cbYOM.FormattingEnabled = true;
-            cbYOM.Location = new Point(738, 100);
-            cbYOM.Name = "cbYOM";
-            cbYOM.Size = new Size(163, 23);
-            cbYOM.TabIndex = 38;
-            // 
-            // cbWeight
-            // 
-            cbWeight.FormattingEnabled = true;
-            cbWeight.Location = new Point(738, 247);
-            cbWeight.Name = "cbWeight";
-            cbWeight.Size = new Size(163, 23);
-            cbWeight.TabIndex = 38;
             // 
             // cbMaterial
             // 
@@ -627,7 +627,7 @@
             // 
             txt2.AutoSize = true;
             txt2.ForeColor = SystemColors.ButtonHighlight;
-            txt2.Location = new Point(646, 252);
+            txt2.Location = new Point(948, 135);
             txt2.Name = "txt2";
             txt2.Size = new Size(45, 15);
             txt2.TabIndex = 37;
@@ -657,7 +657,7 @@
             // 
             txt3.AutoSize = true;
             txt3.ForeColor = SystemColors.ButtonHighlight;
-            txt3.Location = new Point(646, 105);
+            txt3.Location = new Point(949, 94);
             txt3.Name = "txt3";
             txt3.Size = new Size(34, 15);
             txt3.TabIndex = 37;
@@ -697,7 +697,7 @@
             // cbSale
             // 
             cbSale.FormattingEnabled = true;
-            cbSale.Location = new Point(109, 295);
+            cbSale.Location = new Point(109, 290);
             cbSale.Name = "cbSale";
             cbSale.Size = new Size(163, 23);
             cbSale.TabIndex = 35;
@@ -745,10 +745,19 @@
             // cbColor
             // 
             cbColor.FormattingEnabled = true;
-            cbColor.Location = new Point(1025, 145);
+            cbColor.Location = new Point(738, 246);
             cbColor.Name = "cbColor";
             cbColor.Size = new Size(163, 23);
             cbColor.TabIndex = 28;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(278, 44);
+            button1.Name = "button1";
+            button1.Size = new Size(27, 23);
+            button1.TabIndex = 64;
+            button1.Text = "+";
+            button1.UseVisualStyleBackColor = true;
             // 
             // ProductDetails
             // 
@@ -803,8 +812,6 @@
         private Label txt;
         private ComboBox cbSystem;
         private ComboBox cbOrigin;
-        private ComboBox cbYOM;
-        private ComboBox cbWeight;
         private ComboBox cbMaterial;
         private ComboBox cbSelfie;
         private Label txt1;
@@ -831,5 +838,8 @@
         private Button bcRom;
         private Button bcDisplay;
         private Button bcRC;
+        private TextBox txtWei;
+        private TextBox txtYOM;
+        private Button button1;
     }
 }

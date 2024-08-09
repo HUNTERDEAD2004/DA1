@@ -38,9 +38,7 @@ namespace AppData.Config
                    .WithMany(r => r.Orders)
                    .HasForeignKey(o => o.ReportID);
 
-            builder.HasMany(o => o.CancelledOrders)
-                   .WithOne(co => co.Order)
-                   .HasForeignKey(co => co.OrderID);
+
         }
     }
 }

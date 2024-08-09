@@ -144,7 +144,6 @@ namespace PRL.View
                     .Where(pd => pd.ProductID == _productID)
                     .Select(pd => new
                     {
-                        pd.Imeis,
                         pd.Name,
                         Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                         RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
@@ -162,6 +161,7 @@ namespace PRL.View
                         Origin = context.Origins.FirstOrDefault(s => s.OriginID == pd.OriginID).OriginName,
                         Material = context.Materials.FirstOrDefault(s => s.MaterialID == pd.MaterialID).MaterialName,
                         //Year_Of_Manufacture = context.YearsOfManufacture.FirstOrDefault(s => s.YearID == pd.YearID).Year,
+                        pd.ProductDetailID,
                         Sale = context.Sales.FirstOrDefault(s => s.SaleID == pd.SaleID).DiscountValue + "%"
                     })
                     .ToList();
@@ -180,10 +180,10 @@ namespace PRL.View
                 (Guid)cbRear.SelectedValue == Guid.Empty ||
                 (Guid)cbVersion.SelectedValue == Guid.Empty ||
                 (Guid)cbOrigin.SelectedValue == Guid.Empty ||
-                (Guid)cbWeight.SelectedValue == Guid.Empty ||
+                txtYOM.Text == null ||
                 (Guid)cbSelfie.SelectedValue == Guid.Empty ||
                 (Guid)cbSystem.SelectedValue == Guid.Empty ||
-                (Guid)cbYOM.SelectedValue == Guid.Empty ||
+                txtWei.Text == null ||
                 (Guid)cbBattery.SelectedValue == Guid.Empty ||
                 (Guid)cbMaterial.SelectedValue == Guid.Empty
                 )
@@ -191,13 +191,13 @@ namespace PRL.View
                 MessageBox.Show("Vui lòng chọn tất cả các thông tin chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string imei = txtImei.Text;
-            string imeiPattern = @"^\d{15,}$";
-            if (!Regex.IsMatch(imei, imeiPattern))
-            {
-                MessageBox.Show("IMEI phải là chuỗi số và có ít nhất 15 ký tự.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //string imei = txtImei.Text;
+            //string imeiPattern = @"^\d{15,}$";
+            //if (!Regex.IsMatch(imei, imeiPattern))
+            //{
+            //    MessageBox.Show("IMEI phải là chuỗi số và có ít nhất 15 ký tự.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
             // Lấy giá trị từ các combobox
             string color = cbColor.Text;
             string ram = cbRam.Text;
@@ -209,14 +209,16 @@ namespace PRL.View
             // Tạo tên sản phẩm mới bằng cách kết hợp các giá trị combobox
             string newName = $"{txtName.Text} {color} {ram} {cpu} {gpu} {rom} {display}";
 
+            Guid ProductDetailIDAC = Guid.NewGuid();
             var detail = new ProductDetail
             {
-                //Imeis = txtImei.Text,
+                ProductDetailID = ProductDetailIDAC,
                 ProductID = _productID,
-                Name = txtName.Text,
+                Name = newName,
                 ColorID = (Guid)cbColor.SelectedValue,
                 RAMID = (Guid)cbRam.SelectedValue,
                 Price = decimal.Parse(txtPrice.Text),
+                importPrice = decimal.Parse(txtPrice.Text),
                 CPUID = (Guid)cbCpu.SelectedValue,
                 GPUID = (Guid)cbGPU.SelectedValue,
                 ROMID = (Guid)cbRom.SelectedValue,
@@ -226,12 +228,12 @@ namespace PRL.View
                 RearCameraID = (Guid)cbRear.SelectedValue,
                 VersionID = (Guid)cbVersion.SelectedValue,
                 OSID = (Guid)cbSystem.SelectedValue,
-                //Weight = cbWeight.SelectedValue,
+                Weight = Convert.ToInt32(txtWei.Text),
                 BatteryID = (Guid)cbBattery.SelectedValue,
                 OriginID = (Guid)cbOrigin.SelectedValue,
                 MaterialID = (Guid)cbMaterial.SelectedValue,
-                //Year = cbYOM.SelectedValue,
-                Status = 1,
+                Year = Convert.ToInt32(txtYOM.Text),
+                Status = 0,
             };
 
             context.ProductDetails.Add(detail);
@@ -305,7 +307,7 @@ namespace PRL.View
             if (e.RowIndex >= 0)
             {
                 // Lấy giá trị IMEI từ ô được nhấp
-                var imeiCell = dgvDetails.Rows[e.RowIndex].Cells["ProductDetailID"].Value as string;
+                var imeiCell = dgvDetails.Rows[e.RowIndex].Cells["ProductDetailID"].Value.ToString();
 
                 if (!string.IsNullOrEmpty(imeiCell))
                 {
@@ -332,8 +334,8 @@ namespace PRL.View
                         cbRear.SelectedValue = productDetail.RearCameraID;
                         cbSelfie.SelectedValue = productDetail.CameraSelfieID;
                         cbVersion.SelectedValue = productDetail.VersionID;
-                        //cbYOM.SelectedValue = productDetail.YearID;
-                        //cbWeight.SelectedValue = productDetail.WeightID;
+                        txtYOM.Text = productDetail.Year.ToString();
+                        txtWei.Text = productDetail.Weight.ToString();
                         cbOrigin.SelectedValue = productDetail.OriginID;
                         cbBattery.SelectedValue = productDetail.BatteryID;
                         cbDisplay.SelectedValue = productDetail.DisplayID;
@@ -413,8 +415,8 @@ namespace PRL.View
             cbSystem.SelectedValue = "";
             cbSystem.SelectedValue = "";
             cbMaterial.SelectedValue = "";
-            cbWeight.SelectedValue = -1;
-            cbYOM.SelectedValue = "";
+            txtWei.Text = "";
+            txtYOM.Text = "";
             cbOrigin.SelectedValue = "";
         }
 

@@ -16,7 +16,6 @@ namespace DAL.Models
         public int TotalSold { get; set; }
         public decimal TotalAmount { get; set; }
         public int SuccessfulOrders { get; set; }
-        public int CancelledOrders { get; set; }
         public int PendingOrders { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;

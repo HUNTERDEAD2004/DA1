@@ -93,7 +93,8 @@ namespace PRL.View
                            vc.Discount,
                            Status = od.Status == 1 ? "Đã thanh toán" : "Chưa thanh toán",
                            CreatedAt = od.CreatedAt.ToString("dd/MM/yyyy"),
-                           ac.Name
+                           ac.Name,
+                           od.Note
                        };
 
             // Bind data to DataGridView

@@ -1,4 +1,5 @@
 ﻿using AppData.Models;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Data.SqlClient;
 using Microsoft.Win32;
 using System;
@@ -10,7 +11,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PRL.View
 {
@@ -19,22 +22,23 @@ namespace PRL.View
         SqlConnection conn = new SqlConnection("Server=DESKTOP-PMB8531\\SQLEXPRESS;Database=IphoneDB5;Trusted_Connection=True;TrustServerCertificate=True");
         SqlDataAdapter sda;
         DataSet ds;
-        // Đặt màu chữ cho toàn bộ form
         IphoneDbContext Context;
 
         public HDCT()
         {
             Context = new IphoneDbContext();
             InitializeComponent();
-            // Tắt thuộc tính AllowUserToAddRows
+            // Tắt thêm hàng
             dgvHDC.AllowUserToAddRows = false;
             dgvHDTT.AllowUserToAddRows = false;
             txtKT.Leave += new EventHandler(txtKT_Leave);
+            txtKT.Leave += new EventHandler(richTextBox1_TextChanged);
+
+
         }
 
         private void bttBack_Click(object sender, EventArgs e)
         {
-            // Sự kiện bấm nút Back
         }
 
         public void ReceiveData(DataTable data)
@@ -130,14 +134,14 @@ namespace PRL.View
             else
             {
                 MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }        
+           
         }
 
 
 
         private void ss_Click(object sender, EventArgs e)
         {
-            // Sự kiện click khác
         }
 
         private void dgvHDC_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -170,7 +174,6 @@ namespace PRL.View
 
         private void dgvHDTT_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Sự kiện click trong dgvHDTT
         }
 
         private void RemoveFirstNineColumns()
@@ -222,8 +225,8 @@ namespace PRL.View
             // Kiểm tra và xác định IDVoucher
             decimal totalAmount = decimal.Parse(TxtTT.Text);
             var vouchers = Context.Vouchers.OrderByDescending(v => v.Minium_Total).ToList();
-            Guid selectedVoucherId = new Guid("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"); // Mặc định
-            decimal discountValue = 0; // Mặc định giá trị Discount
+            Guid selectedVoucherId = new Guid("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"); // Mặc định voucher ảo
+            decimal discountValue = 0; // Mặc định Discount 
 
             foreach (var voucher in vouchers)
             {
@@ -257,57 +260,24 @@ namespace PRL.View
                 {
                     var selectedRow = dgvHDC.SelectedRows[0];
                     var orderIdCell = selectedRow.Cells["OrderID"].Value;
-                    var reportIdCell = selectedRow.Cells["ReportID"].Value; // Lấy ReportID từ DataGridView
+                    var reportIdCell = selectedRow.Cells["ReportID"].Value; 
 
                     // Kiểm tra giá trị OrderID có hợp lệ không
                     if (orderIdCell != null && Guid.TryParse(orderIdCell.ToString(), out Guid orderId) &&
                         reportIdCell != null && Guid.TryParse(reportIdCell.ToString(), out Guid reportId))
                     {
-                        string sdt = txtSDT.Text.Trim();
                         Guid? customerId = null;
-                        int totalPoints = int.Parse(txtSL.Text); // Số lượng của hóa đơn được sử dụng làm điểm cộng
-                        decimal price = decimal.Parse(txtTTVC.Text); // Giá trị hóa đơn
-                        int quantity = int.Parse(txtSL.Text); // Số lượng sản phẩm
+                        decimal price = decimal.Parse(txtTTVC.Text);
+                        int quantity = int.Parse(txtSL.Text); 
 
                         using (var context = new IphoneDbContext())
                         {
-                            // Xử lý số điện thoại khách hàng
-                            if (!string.IsNullOrWhiteSpace(sdt))
-                            {
-                                var customer = context.Customers.FirstOrDefault(c => c.PhoneNumber == sdt);
-                                if (customer == null)
-                                {
-                                    // Tạo mới khách hàng nếu không tồn tại
-                                    customer = new Customer
-                                    {
-                                        CustomerID = Guid.NewGuid(),
-                                        CustomerName = "Khách hàng ảo",
-                                        Age = 0,
-                                        Email = "fakeemail@example.com",
-                                        PhoneNumber = sdt,
-                                        Gender = "N/A",
-                                        Point = totalPoints, // Điểm khởi tạo bằng số lượng của hóa đơn
-                                        Address = "abc",
-                                        CreatedAt = DateTime.Now,
-                                        UpdatedAt = DateTime.Now,
-                                        CreatedBy = "system",
-                                        UpdatedBy = "system"
-                                    };
-                                    context.Customers.Add(customer);
-                                    context.SaveChanges();
-                                }
-                                else
-                                {
-                                    // Cộng điểm cho khách hàng hiện có
-                                    customer.Point += totalPoints;
-                                    context.SaveChanges();
-                                }
-                                customerId = customer.CustomerID;
-                            }
+                            
 
                             // Lấy AccountID từ Username
                             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
                             string accountIdString = null;
+                            string usernameAC = null;
                             if (key != null)
                             {
                                 string username = key.GetValue("Username").ToString();
@@ -315,28 +285,28 @@ namespace PRL.View
                                 if (account != null)
                                 {
                                     accountIdString = account.AccountID.ToString();
+                                    usernameAC = account.Username.ToString();
                                 }
                                 key.Close();
                             }
 
-                            // Tạo câu lệnh SQL để cập nhật hóa đơn
+                            //lệnh SQL để cập nhật hóa đơn
                             string sql = @"
-                    UPDATE Orders
-                    SET 
-                        Status = 1,
-                        CustomerID = @CustomerID,
-                        AccountID = @AccountID,
-                        IDVoucher = @IDVoucher,
-                        Price = @Price,
-                        TotalAmount = @TotalAmount,
-                        UpdatedAt = @UpdatedAt,
-                        UpdatedBy = @UpdatedBy
-                    WHERE OrderID = @OrderID";
+                            UPDATE Orders
+                            SET 
+                                Status = 1,
+                                AccountID = @AccountID,
+                                IDVoucher = @IDVoucher,
+                                Price = @Price,
+                                Note = @Note,
+                                TotalAmount = @TotalAmount,
+                                UpdatedAt = @UpdatedAt,
+                                UpdatedBy = @UpdatedBy
+                            WHERE OrderID = @OrderID";
 
                             using (SqlCommand cmd = new SqlCommand(sql, conn))
                             {
                                 cmd.Parameters.AddWithValue("@OrderID", orderId);
-                                cmd.Parameters.AddWithValue("@CustomerID", (object)customerId ?? DBNull.Value);
 
                                 // Kiểm tra và chuyển đổi AccountID
                                 if (Guid.TryParse(accountIdString, out Guid accountId))
@@ -362,6 +332,7 @@ namespace PRL.View
                                 cmd.Parameters.AddWithValue("@TotalAmount", quantity);
                                 cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now);
                                 cmd.Parameters.AddWithValue("@UpdatedBy", "system");
+                                cmd.Parameters.AddWithValue("@Note", richTextBox1.Text);
 
                                 if (conn.State == ConnectionState.Closed)
                                 {
@@ -373,6 +344,7 @@ namespace PRL.View
                                 {
                                     conn.Close();
                                 }
+
 
                                 if (rowsAffected > 0)
                                 {
@@ -388,8 +360,36 @@ namespace PRL.View
                                         context.SaveChanges();
                                     }
 
+                                    var acc = new DAL.Models.Activity
+                                    {
+                                        Note = $"{usernameAC} Đã thanh toán Hóa đơn {orderId}, vào lúc {DateTime.Now}",
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now,
+                                        CreatedBy = usernameAC,
+                                        UpdatedBy = usernameAC
+                                    };
+
+
+                                    Context.Activities.Add(acc);
+                                    Context.SaveChanges();
+
                                     // Load lại dữ liệu hóa đơn cụ thể
-                                    LoadDataHD(orderId);
+                                    //LoadDataHD(orderId);
+
+                                    dgvHDC.DataSource = null;
+                                    dgvHDTT.DataSource = null;
+                                    txtMHD.Text = "";
+                                    txtMVC.Text = "";
+                                    txtMNV.Text = "";
+                                    txtSL.Text = "";
+                                    TxtTT.Text = "";
+                                    txtVC.Text = "";
+                                    txtVCG.Text = "";
+                                    txtTTVC.Text = "";
+                                    txtKT.Text = "";
+                                    txtTL.Text = "";
+                                    richTextBox1.Text = "";
+                                    this.Close();
                                     MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                                 else
@@ -445,6 +445,16 @@ namespace PRL.View
         {
             TinhTienTraLai();
 
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            UpdateRichTextBox();
+        }
+
+        private void UpdateRichTextBox()
+        {
+            richTextBox1.Text = $"Tổng tiền = {txtTTVC.Text},\nKhách trả = {txtKT.Text},\nTiền trả lại = {txtTL.Text}";
         }
     }
 

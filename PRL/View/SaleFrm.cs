@@ -27,7 +27,7 @@ namespace PRL.View
 
         private void dgvSPCT_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            
         }
         public void LoadDetails()
         {

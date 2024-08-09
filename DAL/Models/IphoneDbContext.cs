@@ -31,9 +31,7 @@ namespace AppData.Models
         public DbSet<IMEI> iMEIs { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Report> Reports { get; set; }
-        public DbSet<CancelledOrder> CancelledOrders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-        public DbSet<Statistics> Statistics { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Warranty> Warranties { get; set; }

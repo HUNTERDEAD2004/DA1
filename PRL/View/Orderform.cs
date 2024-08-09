@@ -22,6 +22,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.Win32;
 using DocumentFormat.OpenXml.InkML;
 using System.Windows.Controls;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DAL.Config;
 
 namespace PRL.View
 {
@@ -33,11 +35,10 @@ namespace PRL.View
         // Đặt màu chữ cho toàn bộ form
         IphoneDbContext Context;
         private HDCT hdctForm;
-        public Orderform(HDCT hdct)
+        public Orderform()
         {
-            this.hdctForm = hdct;
-            hdctForm = new HDCT();
-            hdctForm.Show();
+            //hdctForm = new HDCT();
+            //hdctForm.Show();
             Context = new IphoneDbContext();
             InitializeComponent();
             btnSearch.Click += new EventHandler(btnSearch_Click);
@@ -198,23 +199,13 @@ namespace PRL.View
         }
         private void LoadComboBoxData()
         {
-            // Lấy danh sách IMEI có Status = 1
             var imei = Context.iMEIs.Where(i => i.Status == 1).ToList();
-
-            // Thêm một mục đầu tiên vào danh sách để người dùng chọn
             imei.Insert(0, new IMEI { ImeiID = "-- Chọn thông tin IMEI --" });
-
-            // Thiết lập DataSource cho ComboBox
             cbImei.DataSource = imei;
             cbImei.ValueMember = "ImeiID";
 
-            // Lấy danh sách IMEI có Status = 1
             var sp = Context.Products.ToList();
-
-            // Thêm một mục đầu tiên vào danh sách để người dùng chọn
             sp.Insert(0, new Product { ProductID = Guid.Empty, ProductName = "" });
-
-            // Thiết lập DataSource cho ComboBox
             cbSPTk.DataSource = sp;
             cbSPTk.ValueMember = "ProductName";
         }
@@ -519,6 +510,8 @@ namespace PRL.View
                         UpdatedBy = "admin"
                     };
 
+
+
                     context.OrderDetails.Add(hdtc);
                     context.SaveChanges();
 
@@ -619,7 +612,6 @@ namespace PRL.View
                         TotalSold = 0,
                         TotalAmount = 0,
                         SuccessfulOrders = 0,
-                        CancelledOrders = 0,
                         PendingOrders = 0,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
@@ -647,25 +639,110 @@ namespace PRL.View
         {
             try
             {
+                //var selectedRow = dgvHD.SelectedRows[0];
+                string sdt = txtSDT.Text.Trim();
+                //int totalPoints = Convert.ToInt32(selectedRow.Cells["OrderID"].Value);
+                Guid? customerId = null;
+
+                // Xử lý số điện thoại khách hàng
+                if (!string.IsNullOrWhiteSpace(sdt))
+                {
+                    var customer = Context.Customers.FirstOrDefault(c => c.PhoneNumber == sdt);
+                    if (customer == null)
+                    {
+                        // Tạo mới khách hàng nếu không tồn tại
+                        customer = new Customer
+                        {
+                            CustomerID = Guid.NewGuid(),
+                            CustomerName = "Khách hàng ảo",
+                            Age = 0,
+                            Email = "fakeemail@example.com",
+                            PhoneNumber = sdt,
+                            Gender = "N/A",
+                            Point = 0, // Điểm khởi tạo bằng số lượng của hóa đơn
+                            Address = "abc",
+                            CreatedAt = DateTime.Now,
+                            UpdatedAt = DateTime.Now,
+                            CreatedBy = "system",
+                            UpdatedBy = "system"
+                        };
+                        Context.Customers.Add(customer);
+                        Context.SaveChanges();
+                    }
+                    
+                    customerId = customer.CustomerID;
+                }
+
+
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                Guid? accountId = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+
+
+                    if (conn.State == ConnectionState.Closed)
+                    {
+                        conn.Open();
+                    }
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Username", tk);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        accountId = reader.GetGuid(0);
+                    }
+                    reader.Close();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        conn.Close();
+                    }
+
+
+                    key.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
                 // Kiểm tra và tạo báo cáo nếu cần, đồng thời lấy ReportID
                 Guid reportId = CheckAndCreateReport();
+                var newOrderID = Guid.NewGuid();
 
                 var newOrder = new Order
                 {
-                    OrderID = Guid.NewGuid(),
-                    CustomerID = Guid.Parse("41c71f03-a71d-4434-b97d-6570c344901c"),
-                    AccountID = Guid.Parse("94f5180e-ab9c-4843-a743-800cfa3ba75b"),
+                    OrderID = newOrderID,
+                    CustomerID = customerId,
+                    AccountID = accountId,
                     IDVoucher = Guid.Parse("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
                     ReportID = reportId,  // Gán ReportID vào đơn hàng
                     TotalAmount = 0,
                     Price = 0,
                     Status = 0,
+                    Note = "empty",
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     CreatedBy = "admin",
                     UpdatedBy = "admin"
                 };
 
+                
+                var acc = new DAL.Models.Activity
+                {
+                    Note = $"{tk} Đã Thêm Hóa đơn {newOrderID}, vào lúc {DateTime.Now}",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CreatedBy = tk,
+                    UpdatedBy = tk
+                };
+
+
+                Context.Activities.Add(acc);
                 Context.Orders.Add(newOrder);
                 Context.SaveChanges();
                 LoadDataHD();
@@ -712,6 +789,38 @@ namespace PRL.View
 
                     transaction.Commit();
                 }
+
+
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Username", tk);
+
+
+                    key.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                var acc = new DAL.Models.Activity
+                {
+                    Note = $"{tk} đã Xóa Hóa đơn {orderID}, vào lúc {DateTime.Now}",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CreatedBy = tk,
+                    UpdatedBy = tk
+                };
+                Context.Activities.Add(acc);
+                Context.SaveChanges();
+
+
 
                 LoadDataHD();
                 MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1049,6 +1158,15 @@ namespace PRL.View
 
             foreach (DataGridViewRow row in dgvHD.SelectedRows)
             {
+
+                var quantityCell = row.Cells["Quantity"];
+                if (quantityCell != null && quantityCell.Value != null && int.TryParse(quantityCell.Value.ToString(), out int quantity) && quantity == 0)
+                {
+                    MessageBox.Show("Không thể chọn hàng có Quantity bằng 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
                 DataRow dataRow = selectedData.NewRow();
                 foreach (DataGridViewCell cell in row.Cells)
                 {
@@ -1057,6 +1175,8 @@ namespace PRL.View
                 selectedData.Rows.Add(dataRow);
             }
 
+            hdctForm = new HDCT();
+            hdctForm.Show();
             hdctForm.ReceiveData(selectedData);
         }
 
@@ -1136,6 +1256,11 @@ namespace PRL.View
                     dgvSP.DataSource = data.ToList();
                 }
             }
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

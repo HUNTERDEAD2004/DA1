@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             Menu = new Panel();
             btnSetting = new FontAwesome.Sharp.IconButton();
             btnDashboard = new FontAwesome.Sharp.IconButton();
@@ -44,11 +45,13 @@
             title = new Label();
             currentIcon = new FontAwesome.Sharp.IconPictureBox();
             panelChange = new Panel();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             Menu.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)currentIcon).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             SuspendLayout();
             // 
             // Menu
@@ -244,6 +247,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(49, 42, 81);
+            panel2.Controls.Add(iconPictureBox1);
             panel2.Controls.Add(btnLogout);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(title);
@@ -257,7 +261,7 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(873, 23);
+            btnLogout.Location = new Point(1242, 22);
             btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(82, 22);
@@ -270,7 +274,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(746, 26);
+            label2.Location = new Point(1115, 25);
             label2.Name = "label2";
             label2.Size = new Size(112, 15);
             label2.TabIndex = 3;
@@ -313,6 +317,24 @@
             panelChange.Size = new Size(1336, 749);
             panelChange.TabIndex = 2;
             // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.FromArgb(49, 42, 81);
+            iconPictureBox1.ErrorImage = (Image)resources.GetObject("iconPictureBox1.ErrorImage");
+            iconPictureBox1.ForeColor = SystemColors.ControlText;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.User;
+            iconPictureBox1.IconColor = SystemColors.ControlText;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 20;
+            iconPictureBox1.InitialImage = (Image)resources.GetObject("iconPictureBox1.InitialImage");
+            iconPictureBox1.Location = new Point(1086, 24);
+            iconPictureBox1.Margin = new Padding(3, 2, 3, 2);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(23, 20);
+            iconPictureBox1.TabIndex = 5;
+            iconPictureBox1.TabStop = false;
+            iconPictureBox1.Click += iconPictureBox1_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -332,6 +354,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)currentIcon).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -352,5 +375,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private PictureBox pictureBox1;
         private Label label1;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
     }
 }

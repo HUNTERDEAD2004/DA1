@@ -219,41 +219,41 @@ namespace PRL.View
                     string.IsNullOrWhiteSpace(cbQuyen.Text) ||
                     (!rbtnam.Checked && !rbtnu.Checked && !rdb_NgungHD.Checked && !rdb_HoatDong.Checked))
                 {
-                    MessageBox.Show("Vui lòng điền đầy đủ thông tin và đảm bảo thông tin hợp lệ. Đập chết mợ bây giờ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin và đảm bảo thông tin hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (cbQuyen.Text == "-- Chọn Quyền --")
                 {
-                    MessageBox.Show("Vui lòng chọn quyền. Lẹ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng chọn quyền.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (Convert.ToDecimal(txtL.Text) <= 1000)
                 {
-                    MessageBox.Show("Vui lòng nhập đúng Lương. Nhập láo là zo nhà đá nhá.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập đúng Lương.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 } else if (Convert.ToDecimal(txtL.Text) > 100000000)
                 {
-                    MessageBox.Show("Có nhập nhầm lương không đấy. Hơi bị chát đấy", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Có nhập nhầm lương không đấy.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (!IsValidEmail(txtemail.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập đúng email. Để spam TN rác", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập đúng email.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (!IsValidPhoneNumber(txtsdt.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập đúng sdt. Để gọi ok", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập đúng sdt.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (!IsValidBirthDate(dateNV.Value))
                 {
-                    MessageBox.Show("Vui lòng nhập đúng ngày sinh. Tý tuổi ranh làm gì. Đập vỡ alo bây giờ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập đúng ngày sinh.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -324,8 +324,17 @@ namespace PRL.View
                     UpdateBy = tk  
                 };
 
+                var acc = new DAL.Models.Activity
+                {
+                    Note = $"{tk} Đã Thêm nhân viên {user.AccountID}, vào lúc {DateTime.Now}",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CreatedBy = tk,
+                    UpdatedBy = tk
+                };
 
                 Context.Accounts.Add(user);
+                Context.Activities.Add(acc);
                 Context.SaveChanges();
                 LoadData();
                 bttCL_Click(sender, e);
@@ -350,25 +359,25 @@ namespace PRL.View
                     string.IsNullOrWhiteSpace(txtMK.Text) ||
                     (!rbtnam.Checked && !rbtnu.Checked && !rdb_NgungHD.Checked && !rdb_HoatDong.Checked))
                 {
-                    MessageBox.Show("Vui lòng điền đầy đủ thông tin và đảm bảo thông tin hợp lệ. Đập hết mợ bây giờ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin và đảm bảo thông tin hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (!IsValidEmail(txtemail.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập đúng email. Để spam TN rác", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập đúng email.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (!IsValidPhoneNumber(txtsdt.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập đúng sdt. Để gọi ok", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập đúng sdt.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (!IsValidBirthDate(dateNV.Value))
                 {
-                    MessageBox.Show("Vui lòng nhập đúng ngày sinh. Tý tuổi ranh làm gì. Đập vỡ alo bây giờ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập đúng ngày sinh.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -440,6 +449,18 @@ namespace PRL.View
                     user.CreateBy = tk;
                     user.UpdateBy = tk;
 
+                    var acc = new DAL.Models.Activity
+                    {
+                        Note = $"{tk} Đã sửa nhân viên {user.AccountID}, vào lúc {DateTime.Now}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = tk,
+                        UpdatedBy = tk
+                    };
+
+
+                    Context.Activities.Add(acc);
+                    Context.SaveChanges();
 
                     Context.SaveChanges();
                     LoadData();
@@ -465,7 +486,36 @@ namespace PRL.View
 
                 if (user != null)
                 {
+
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                    string tk = null;
+                    if (key != null)
+                    {
+                        tk = key.GetValue("Username").ToString();
+                        string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
+
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@Username", tk);
+
+
+                        key.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    var acc = new DAL.Models.Activity
+                    {
+                        Note = $"{tk} Đã Xóa nhân viên {user.AccountID}, vào lúc {DateTime.Now}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = tk,
+                        UpdatedBy = tk
+                    };
+
                     Context.Accounts.Remove(user);
+                    Context.Activities.Add(acc);
                     Context.SaveChanges();
                     LoadData();
                     bttCL_Click(sender, e);
@@ -494,6 +544,7 @@ namespace PRL.View
             txtTK.Text = "";
             txtMK.Text = "";
             txtL.Text = "";
+            cbQuyen.Text = "";
             dateNV.Value = DateTime.Now;
             rbtnam.Checked = false;
             rbtnu.Checked = false;

@@ -21,7 +21,6 @@ namespace DAL.Config
             builder.Property(r => r.TotalSold).IsRequired();
             builder.Property(r => r.TotalAmount).HasColumnType("decimal(18,2)").IsRequired();
             builder.Property(r => r.SuccessfulOrders).IsRequired();
-            builder.Property(r => r.CancelledOrders).IsRequired();
             builder.Property(r => r.PendingOrders).IsRequired();
             builder.Property(r => r.CreatedAt).IsRequired();
             builder.Property(r => r.UpdatedAt).IsRequired();
