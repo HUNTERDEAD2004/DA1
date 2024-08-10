@@ -166,7 +166,7 @@
             BtnSearch.TabIndex = 29;
             BtnSearch.Text = "Search";
             BtnSearch.UseVisualStyleBackColor = true;
-            BtnSearch.Click += BtnSearch_Click;
+            BtnSearch.Click += BtnSearch_Click_1;
             // 
             // SearchingTxt
             // 
@@ -185,7 +185,7 @@
             BtnDelete.TabIndex = 27;
             BtnDelete.Text = "Delete";
             BtnDelete.UseVisualStyleBackColor = true;
-            BtnDelete.Click += BtnDelete_Click;
+            BtnDelete.Click += BtnDelete_Click_1;
             // 
             // BtnUpdate
             // 
@@ -196,7 +196,7 @@
             BtnUpdate.TabIndex = 26;
             BtnUpdate.Text = "Update";
             BtnUpdate.UseVisualStyleBackColor = true;
-            BtnUpdate.Click += BtnUpdate_Click;
+            BtnUpdate.Click += BtnUpdate_Click_1;
             // 
             // BtnAdd
             // 
@@ -207,7 +207,7 @@
             BtnAdd.TabIndex = 25;
             BtnAdd.Text = "Add";
             BtnAdd.UseVisualStyleBackColor = true;
-            BtnAdd.Click += BtnAdd_Click;
+            BtnAdd.Click += BtnAdd_Click_1;
             // 
             // GpuMemoryTxt
             // 

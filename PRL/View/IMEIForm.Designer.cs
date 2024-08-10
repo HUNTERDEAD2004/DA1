@@ -42,13 +42,13 @@
             dgvImei.Location = new Point(12, 12);
             dgvImei.Name = "dgvImei";
             dgvImei.RowTemplate.Height = 25;
-            dgvImei.Size = new Size(243, 96);
+            dgvImei.Size = new Size(244, 96);
             dgvImei.TabIndex = 0;
             dgvImei.CellContentClick += dgvImei_CellContentClick;
             // 
             // txtOK
             // 
-            txtOK.Location = new Point(89, 114);
+            txtOK.Location = new Point(92, 114);
             txtOK.Name = "txtOK";
             txtOK.Size = new Size(75, 23);
             txtOK.TabIndex = 1;
@@ -74,7 +74,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(278, 144);
+            ClientSize = new Size(261, 144);
             Controls.Add(txtOK);
             Controls.Add(dgvImei);
             Name = "IMEIForm";

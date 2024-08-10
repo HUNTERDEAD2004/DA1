@@ -57,7 +57,7 @@ namespace PRL.View
             // Kiểm tra nếu số điện thoại bắt đầu bằng "0"
             if (phoneNumber.StartsWith("0"))
             {
-                // Số điện thoại Việt Nam thường bắt đầu bằng "0" và có 10 chữ số
+                // bằng "0" và có 10 chữ số
                 return phoneNumber.Length == 10;
             }
             else

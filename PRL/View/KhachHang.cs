@@ -15,8 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
 using AppData.Models;
-using Microsoft.Win32;
-using Microsoft.VisualBasic.ApplicationServices;
+using DocumentFormat.OpenXml.InkML;
 
 namespace PRL.View
 {
@@ -32,30 +31,6 @@ namespace PRL.View
         private void KhachHang_Load(object sender, EventArgs e)
         {
             LoadData();
-        }
-
-        public static string? GetAccountIdFromRegistry()
-        {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
-                string tk = null;
-                if (key != null)
-                {
-                    tk = key.GetValue("Username").ToString();               
-                    key.Close();
-                    return tk;
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
         }
         public void LoadData()
         {
@@ -138,6 +113,12 @@ namespace PRL.View
             string gender = radioButton1.Checked ? "Nam" : (radioButton2.Checked ? "Nữ" : "Unspecified");
 
             int tuoi;
+            var item = _dbContext.Customers.FirstOrDefault(kh => kh.PhoneNumber == txtsdt.Text);
+            if (item != null)
+            {
+                MessageBox.Show("sdt đã tồn tại.");
+                return;
+            }
             if (int.TryParse(txtns.Text, out tuoi))
             {
                 // Chuyển đổi thành công
@@ -160,29 +141,12 @@ namespace PRL.View
                 return;
             }
             string sdt = txtsdt.Text;
-            DateTime ngaytao;
-            if (!DateTime.TryParse(dtpngaytao.Text, out ngaytao))
-            {
-                return;
-            }
-            DateTime ngaysua;
-            if (!DateTime.TryParse(dtpngaysua.Text, out ngaysua))
-            {
-                return;
-            }
+
             string nguoitao = txtnguoitao.Text;
             string nguoisua = txtnguoisua.Text;
-
-            string nameAc = KhachHang.GetAccountIdFromRegistry();
-            if (nameAc == null)
-            {
-                return;
-            }
-
-            Guid CustomerIDG = Guid.NewGuid();
             Customer kh = new Customer()
             {
-                CustomerID = CustomerIDG,
+                CustomerID = Guid.NewGuid(),
                 CustomerName = name,
                 Age = tuoi,
                 Email = email,
@@ -190,22 +154,12 @@ namespace PRL.View
                 Gender = gender,
                 PhoneNumber = sdt,
                 Point = diem,
-                CreatedAt = ngaytao,
-                UpdatedAt = ngaysua,
-                CreatedBy = nameAc,
-                UpdatedBy = nameAc
-            };
-            
-            var acc = new DAL.Models.Activity
-            {
-                Note = $"{nameAc} Đã Thêm khách hàng {CustomerIDG}, vào lúc {DateTime.Now}",
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-                CreatedBy = nameAc,
-                UpdatedBy = nameAc
+                CreatedBy = nguoitao,
+                UpdatedBy = nguoisua
             };
             _dbContext.Customers.Add(kh);
-            _dbContext.Activities.Add(acc);
             _dbContext.SaveChanges();
             LoadData();
             MessageBox.Show("+1 sức mạnh");
@@ -230,31 +184,18 @@ namespace PRL.View
 
                 Guid id = Guid.Parse(txt_idkh.Text);
                 Customer cust = _dbContext.Customers.FirstOrDefault(a => a.CustomerID == id);
-
                 cust.CustomerName = txtten.Text;
                 cust.Age = int.Parse(txtns.Text);
                 cust.Email = txtemail.Text;
                 cust.Address = txtdiachi.Text;
                 cust.Gender = radioButton1.Checked ? "Nam" : (radioButton2.Checked ? "Nữ" : "Unspecified");
                 cust.PhoneNumber = txtsdt.Text;
+                cust.Point = int.Parse(txtdiem.Text);
                 cust.CreatedAt = DateTime.Now;
                 cust.UpdatedAt = DateTime.Now;
+                cust.CreatedBy = txtnguoitao.Text;
+                cust.UpdatedBy = txtnguoisua.Text;
 
-                string nameAc = KhachHang.GetAccountIdFromRegistry();
-                if (nameAc == null)
-                {
-                    return;
-                }
-
-                var acc = new DAL.Models.Activity
-                {
-                    Note = $"{nameAc} Đã Sửa khách hàng {txt_idkh.Text}, vào lúc {DateTime.Now}",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    CreatedBy = nameAc,
-                    UpdatedBy = nameAc
-                };
-                _dbContext.Activities.Add(acc);
                 _dbContext.SaveChanges();
                 LoadData();
                 MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -277,21 +218,6 @@ namespace PRL.View
 
                 if (cus != null)
                 {
-                    string nameAc = KhachHang.GetAccountIdFromRegistry();
-                    if (nameAc == null)
-                    {
-                        return;
-                    }
-
-                    var acc = new DAL.Models.Activity
-                    {
-                        Note = $"{nameAc} Đã Xóa khách hàng {cus}, vào lúc {DateTime.Now}",
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                        CreatedBy = nameAc,
-                        UpdatedBy = nameAc
-                    };
-                    _dbContext.Activities.Add(acc);
                     _dbContext.Customers.Remove(cus);
                     _dbContext.SaveChanges();
                     LoadData();

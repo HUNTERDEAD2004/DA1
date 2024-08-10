@@ -1,4 +1,7 @@
 ﻿using AppData.Models;
+using DAL.Models;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -57,6 +60,30 @@ namespace PRL.View
 
             dgvSPCT.DataSource = productDetails;
         }
+        public static string? GetAccountIdFromRegistry()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    key.Close();
+                    return tk;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+        string nameAc = GetAccountIdFromRegistry();
         private List<ProductDetail> searchResults = new List<ProductDetail>();
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -179,7 +206,16 @@ namespace PRL.View
 
             // Lưu thay đổi vào cơ sở dữ liệu
             context.SaveChanges();
-
+            var acc = new Activity
+            {
+                Note = $"{nameAc} Đã thêm mã sale có giá trị {txtValue}%, vào lúc {DateTime.Now}",
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                CreatedBy = nameAc,
+                UpdatedBy = nameAc
+            };
+            context.Activities.Add(acc);
+            context.SaveChanges();
             MessageBox.Show("Đã áp dụng mã sale cho các sản phẩm được chọn hoặc tìm thấy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -200,13 +236,23 @@ namespace PRL.View
                 EndDate = string.IsNullOrEmpty(txtEnd.Text) ? (DateTime?)null : DateTime.Parse(txtEnd.Text),
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-                CreatedBy = "Admin",
-                UpdatedBy = "Admin"
+                CreatedBy = nameAc,
+                UpdatedBy = nameAc
             };
 
             context.Sales.Add(sale);
             context.SaveChanges();
             MessageBox.Show("Thêm mã sale thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var acc = new Activity
+            {
+                Note = $"{nameAc} Đã thêm một mã sale với giá trị {txtValue}, vào lúc {DateTime.Now}",
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                CreatedBy = nameAc,
+                UpdatedBy = nameAc
+            };
+            context.Activities.Add(acc);
+            context.SaveChanges();
             LoadSales();
         }
 
@@ -227,6 +273,16 @@ namespace PRL.View
                     sale.UpdatedBy = "Admin";
 
                     context.Sales.Update(sale);
+                    context.SaveChanges();
+                    var acc = new Activity
+                    {
+                        Note = $"{nameAc} Đã sửa mã sale giá trị {txtValue}%, vào lúc {DateTime.Now}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = nameAc,
+                        UpdatedBy = nameAc
+                    };
+                    context.Activities.Add(acc);
                     context.SaveChanges();
                     LoadSales();
                     MessageBox.Show("Cập nhật mã sale thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -259,8 +315,8 @@ namespace PRL.View
                     // Tự động cập nhật CreatedAt và UpdatedAt
                     txtCreate.Text = sale.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
                     txtUpdate.Text = sale.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss");
-                    txtUpdateBy.Text = "Admin";
-                    txtCreateBy.Text = "Admin";
+                    txtUpdateBy.Text = nameAc;
+                    txtCreateBy.Text = nameAc;
                 }
                 else
                 {

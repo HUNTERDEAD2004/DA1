@@ -91,6 +91,26 @@ namespace PRL.View
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnAdd_Click_1(object sender, EventArgs e)
+        {
             var CreateGPU = MessageBox.Show("Bạn có muốn tạo thêm GPU không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateGPU == DialogResult.Yes)
             {
@@ -128,7 +148,7 @@ namespace PRL.View
             }
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click_1(object sender, EventArgs e)
         {
             var DeleteGPU = MessageBox.Show("Bạn có muốn Xóa GPU không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (DeleteGPU == DialogResult.Yes)
@@ -159,50 +179,7 @@ namespace PRL.View
             }
         }
 
-        private void BtnUpdate_Click(object sender, EventArgs e)
-        {
-            var UpdateGPU = MessageBox.Show("Bạn có muốn sửa GPU không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (UpdateGPU == DialogResult.Yes)
-            {
-                if (string.IsNullOrWhiteSpace(GpuNameTxt.Text) || string.IsNullOrWhiteSpace(GpuMemoryTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
-                {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Kết thúc phương thức nếu có trường rỗng
-                }
-
-                if (string.IsNullOrWhiteSpace(GpuIdTxt.Text) || !Guid.TryParse(GpuIdTxt.Text, out Guid GPUId))
-                {
-                    MessageBox.Show("Vui lòng nhập ID GPU hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Kết thúc phương thức nếu ID không hợp lệ
-                }
-
-                var ExitingGPU = _db.GPUs.FirstOrDefault(r => r.GPUID == GPUId);
-
-                if (ExitingGPU != null)
-                {
-                    ExitingGPU.GPUName = GpuNameTxt.Text;
-                    ExitingGPU.GPUMemory = GpuMemoryTxt.Text;
-                    ExitingGPU.CreatedAt = DateTime.Parse(CATimePicker.Text);
-                    ExitingGPU.CreatedBy = CBTxt.Text;
-                    ExitingGPU.UpdatedAt = DateTime.Parse(CATimePicker.Text);
-                    ExitingGPU.UpdatedBy = UBTxt.Text;
-
-                    _db.SaveChanges();
-                    MessageBox.Show("Sửa Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadData();
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy GPU!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Sửa Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnSearch_Click(object sender, EventArgs e)
+        private void BtnSearch_Click_1(object sender, EventArgs e)
         {
             var searchTerm = SearchingTxt.Text.ToLower();
 
@@ -227,24 +204,47 @@ namespace PRL.View
             DgvGPUShow.DataSource = filteredData;
         }
 
-        private void BtnAdd_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtnUpdate_Click_1(object sender, EventArgs e)
         {
+            var UpdateGPU = MessageBox.Show("Bạn có muốn sửa GPU không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (UpdateGPU == DialogResult.Yes)
+            {
+                if (string.IsNullOrWhiteSpace(GpuNameTxt.Text) || string.IsNullOrWhiteSpace(GpuMemoryTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Kết thúc phương thức nếu có trường rỗng
+                }
 
-        }
+                if (string.IsNullOrWhiteSpace(GpuIdTxt.Text) || !Guid.TryParse(GpuIdTxt.Text, out Guid GPUId))
+                {
+                    MessageBox.Show("Vui lòng nhập ID GPU hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Kết thúc phương thức nếu ID không hợp lệ
+                }
 
-        private void BtnDelete_Click_1(object sender, EventArgs e)
-        {
+                var ExitingGPU = _db.GPUs.FirstOrDefault(r => r.GPUID == GPUId);
 
-        }
+                if (ExitingGPU != null)
+                {
+                    ExitingGPU.GPUName = GpuNameTxt.Text;
+                    ExitingGPU.GPUMemory = GpuMemoryTxt.Text;
+                    ExitingGPU.CreatedAt = DateTime.Now;
+                    ExitingGPU.CreatedBy = CBTxt.Text;
+                    ExitingGPU.UpdatedAt = DateTime.Now;
+                    ExitingGPU.UpdatedBy = UBTxt.Text;
 
-        private void BtnSearch_Click_1(object sender, EventArgs e)
-        {
-
+                    _db.SaveChanges();
+                    MessageBox.Show("Sửa Thành Công 0>0!", "Pass", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy GPU!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sửa Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

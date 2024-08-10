@@ -147,9 +147,9 @@ namespace PRL.View
                 if (ExitingCamSelf != null)
                 {
                     ExitingCamSelf.CameraSelfieDetails = CameraSelfieDetailsTxt.Text;
-                    ExitingCamSelf.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingCamSelf.CreatedAt = DateTime.Now;
                     ExitingCamSelf.CreatedBy = CBTxt.Text;
-                    ExitingCamSelf.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingCamSelf.UpdatedAt = DateTime.Now;
                     ExitingCamSelf.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();

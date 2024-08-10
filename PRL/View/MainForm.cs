@@ -61,7 +61,7 @@ namespace PRL.View
 
             InitializeComponent();
             leftborderBtn = new Panel();
-            leftborderBtn.Size = new Size(7, 60);
+            leftborderBtn.Size = new Size(7, 45);
             Menu.Controls.Add(leftborderBtn);
             btnLogout.Anchor = AnchorStyles.Right;
             label2.Anchor = AnchorStyles.Right;
@@ -263,6 +263,27 @@ namespace PRL.View
         {
             ActivateButton(sender, hover.color5);
             OpenForm(new ReportFrm());
+        }
+
+        private void btnSetting_Click_1(object sender, EventArgs e)
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+            if (key != null)
+            {
+                var role = key.GetValue("Role").ToString();
+                key.Close();
+
+                if (role == "admin")
+                {
+                    ActivateButton(sender, hover.color5);
+                    OpenForm(new VouchersForm());
+                }
+                else if (role == "user")
+                {
+                    MessageBox.Show("Không đủ Quyền");
+                    return;
+                }
+            }
         }
     }
 }

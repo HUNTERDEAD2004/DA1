@@ -141,7 +141,7 @@ namespace PRL.View
                                     OrderDate = o.CreatedAt,
                                     TotalAmount = o.TotalAmount,
                                     Status = o.Status == 0 ? "Chưa thanh toán" : "Đã thanh toán",
-                                    CustomerName = o.Customer.CustomerName // Giả sử bạn có một thuộc tính tên khách hàng
+                                    CustomerName = o.Customer.CustomerName 
                                 })
                                 .ToList();
 
@@ -153,7 +153,7 @@ namespace PRL.View
                 reportTable.Columns.Add("Order Date", typeof(DateTime));
                 reportTable.Columns.Add("Total Amount", typeof(decimal));
                 reportTable.Columns.Add("Status", typeof(string));
-                reportTable.Columns.Add("Customer Name", typeof(string)); // Thêm cột tên khách hàng nếu cần
+                reportTable.Columns.Add("Customer Name", typeof(string)); 
 
                 // Thêm dữ liệu vào DataTable
                 foreach (var order in orders)
@@ -161,7 +161,6 @@ namespace PRL.View
                     reportTable.Rows.Add(order.OrderID, order.OrderDate, order.TotalAmount, order.Status, order.CustomerName);
                 }
 
-                // Cập nhật DataGridView với DataTable
                 dgvHD.DataSource = reportTable;
             }
             else
@@ -172,7 +171,7 @@ namespace PRL.View
 
         private void ReportFrm_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

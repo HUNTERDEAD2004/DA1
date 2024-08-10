@@ -145,9 +145,9 @@ namespace PRL.View
                 if (ExitingRom != null)
                 {
                     ExitingRom.ROMSize = ROMSizeTxt.Text;
-                    ExitingRom.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingRom.CreatedAt = DateTime.Now;
                     ExitingRom.CreatedBy = CBTxt.Text;
-                    ExitingRom.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    ExitingRom.UpdatedAt = DateTime.Now;
                     ExitingRom.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();

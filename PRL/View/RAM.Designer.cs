@@ -166,6 +166,7 @@
             BtnSearch.TabIndex = 43;
             BtnSearch.Text = "Search";
             BtnSearch.UseVisualStyleBackColor = true;
+            BtnSearch.Click += BtnSearch_Click_1;
             // 
             // SearchingTxt
             // 
@@ -184,6 +185,7 @@
             BtnDelete.TabIndex = 41;
             BtnDelete.Text = "Delete";
             BtnDelete.UseVisualStyleBackColor = true;
+            BtnDelete.Click += BtnDelete_Click_1;
             // 
             // BtnUpdate
             // 
@@ -194,6 +196,7 @@
             BtnUpdate.TabIndex = 40;
             BtnUpdate.Text = "Update";
             BtnUpdate.UseVisualStyleBackColor = true;
+            BtnUpdate.Click += BtnUpdate_Click_1;
             // 
             // BtnAdd
             // 

@@ -178,7 +178,6 @@
             txtnguoisua.Location = new Point(572, 195);
             txtnguoisua.Margin = new Padding(3, 2, 3, 2);
             txtnguoisua.Name = "txtnguoisua";
-            txtnguoisua.ReadOnly = true;
             txtnguoisua.Size = new Size(347, 23);
             txtnguoisua.TabIndex = 23;
             // 
@@ -231,7 +230,6 @@
             txtnguoitao.Location = new Point(574, 162);
             txtnguoitao.Margin = new Padding(3, 2, 3, 2);
             txtnguoitao.Name = "txtnguoitao";
-            txtnguoitao.ReadOnly = true;
             txtnguoitao.Size = new Size(347, 23);
             txtnguoitao.TabIndex = 11;
             // 

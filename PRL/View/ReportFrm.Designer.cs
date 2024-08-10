@@ -47,7 +47,7 @@
             panel1.Controls.Add(label1);
             panel1.Location = new Point(-5, -3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1046, 560);
+            panel1.Size = new Size(1547, 839);
             panel1.TabIndex = 0;
             // 
             // btnExport
@@ -56,7 +56,7 @@
             btnExport.IconChar = FontAwesome.Sharp.IconChar.None;
             btnExport.IconColor = Color.Black;
             btnExport.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnExport.Location = new Point(403, 379);
+            btnExport.Location = new Point(688, 414);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(121, 39);
             btnExport.TabIndex = 2;
@@ -67,19 +67,19 @@
             // dgvHD
             // 
             dgvHD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHD.Location = new Point(538, 111);
+            dgvHD.Location = new Point(759, 111);
             dgvHD.Name = "dgvHD";
             dgvHD.RowTemplate.Height = 25;
-            dgvHD.Size = new Size(402, 233);
+            dgvHD.Size = new Size(603, 267);
             dgvHD.TabIndex = 1;
             // 
             // dgvData
             // 
             dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvData.Location = new Point(17, 111);
+            dgvData.Location = new Point(86, 111);
             dgvData.Name = "dgvData";
             dgvData.RowTemplate.Height = 25;
-            dgvData.Size = new Size(402, 233);
+            dgvData.Size = new Size(655, 267);
             dgvData.TabIndex = 1;
             // 
             // label1
@@ -87,7 +87,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(403, 46);
+            label1.Location = new Point(668, 42);
             label1.Name = "label1";
             label1.Size = new Size(141, 50);
             label1.TabIndex = 0;
@@ -97,7 +97,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(947, 488);
+            ClientSize = new Size(1471, 704);
             Controls.Add(panel1);
             Name = "ReportFrm";
             Text = "Report";

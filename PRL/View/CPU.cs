@@ -165,9 +165,9 @@ namespace PRL.View
                     existingCPU.CPUCores = int.Parse(CPUCores.Text);
                     existingCPU.CPUThreads = int.Parse(CPUThreads.Text);
                     existingCPU.CPUClockSpeed = CPUClockSpeed.Text;
-                    existingCPU.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingCPU.CreatedAt = DateTime.Now;
                     existingCPU.CreatedBy = CBTxt.Text;
-                    existingCPU.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingCPU.UpdatedAt = DateTime.Now;
                     existingCPU.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();

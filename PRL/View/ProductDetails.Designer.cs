@@ -48,6 +48,8 @@
             btnUpdate = new Button();
             btnDel = new Button();
             panel1 = new Panel();
+            txtStatus = new TextBox();
+            label16 = new Label();
             btnSearch = new FontAwesome.Sharp.IconButton();
             cbRomSearch = new ComboBox();
             cbRamSearch = new ComboBox();
@@ -59,10 +61,8 @@
             bcBT = new Button();
             bcVer = new Button();
             bcCS = new Button();
-            bcYOM = new Button();
             bcMater = new Button();
             bcOrigin = new Button();
-            bcWght = new Button();
             bcSys = new Button();
             bcRam = new Button();
             bcCpu = new Button();
@@ -283,6 +283,8 @@
             // panel1
             // 
             panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(txtStatus);
+            panel1.Controls.Add(label16);
             panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(cbRomSearch);
             panel1.Controls.Add(cbRamSearch);
@@ -294,10 +296,8 @@
             panel1.Controls.Add(bcBT);
             panel1.Controls.Add(bcVer);
             panel1.Controls.Add(bcCS);
-            panel1.Controls.Add(bcYOM);
             panel1.Controls.Add(bcMater);
             panel1.Controls.Add(bcOrigin);
-            panel1.Controls.Add(bcWght);
             panel1.Controls.Add(bcSys);
             panel1.Controls.Add(bcRam);
             panel1.Controls.Add(bcCpu);
@@ -356,6 +356,23 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1527, 773);
             panel1.TabIndex = 0;
+            // 
+            // txtStatus
+            // 
+            txtStatus.Location = new Point(1025, 191);
+            txtStatus.Name = "txtStatus";
+            txtStatus.Size = new Size(163, 23);
+            txtStatus.TabIndex = 70;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.ForeColor = SystemColors.ButtonHighlight;
+            label16.Location = new Point(949, 194);
+            label16.Name = "label16";
+            label16.Size = new Size(39, 15);
+            label16.TabIndex = 69;
+            label16.Text = "Status";
             // 
             // btnSearch
             // 
@@ -459,16 +476,6 @@
             bcCS.UseVisualStyleBackColor = true;
             bcCS.Click += bcCS_Click;
             // 
-            // bcYOM
-            // 
-            bcYOM.Location = new Point(907, 100);
-            bcYOM.Name = "bcYOM";
-            bcYOM.Size = new Size(27, 23);
-            bcYOM.TabIndex = 57;
-            bcYOM.Text = "+";
-            bcYOM.UseVisualStyleBackColor = true;
-            bcYOM.Click += bcYOM_Click;
-            // 
             // bcMater
             // 
             bcMater.Location = new Point(907, 147);
@@ -488,16 +495,6 @@
             bcOrigin.Text = "+";
             bcOrigin.UseVisualStyleBackColor = true;
             bcOrigin.Click += bcOrigin_Click;
-            // 
-            // bcWght
-            // 
-            bcWght.Location = new Point(907, 247);
-            bcWght.Name = "bcWght";
-            bcWght.Size = new Size(27, 23);
-            bcWght.TabIndex = 54;
-            bcWght.Text = "+";
-            bcWght.UseVisualStyleBackColor = true;
-            bcWght.Click += bcWght_Click;
             // 
             // bcSys
             // 
@@ -587,6 +584,7 @@
             bcColor.TabIndex = 45;
             bcColor.Text = "+";
             bcColor.UseVisualStyleBackColor = true;
+            bcColor.Click += bcColor_Click;
             // 
             // txtImport
             // 
@@ -886,10 +884,8 @@
         private Button bcBT;
         private Button bcVer;
         private Button bcCS;
-        private Button bcYOM;
         private Button bcMater;
         private Button bcOrigin;
-        private Button bcWght;
         private Button bcSys;
         private Button bcRam;
         private Button bcCpu;
@@ -905,5 +901,7 @@
         private ComboBox cbColorSearch;
         private TextBox txtNameSearch;
         private FontAwesome.Sharp.IconButton btnSearch;
+        private TextBox txtStatus;
+        private Label label16;
     }
 }

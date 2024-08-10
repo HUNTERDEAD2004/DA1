@@ -1,5 +1,7 @@
 ﻿using AppData.Models;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,10 +45,6 @@ namespace PRL.View
         {
             txtName.Text = "";
             txtDescription.Text = "";
-            txtUpdateAt.Text = "";
-            txtCreatAt.Text = "";
-            txtCreatBy.Text = "";
-            txtUpdateBy.Text = "";
             txtQuantity.Text = "";
         }
         private bool ValidateForm()
@@ -61,10 +59,6 @@ namespace PRL.View
                 var selectedRow = dgvData.Rows[e.RowIndex];
                 txtName.Text = selectedRow.Cells["ProductName"].Value.ToString();
                 txtDescription.Text = selectedRow.Cells["Description"].Value.ToString();
-                txtCreatAt.Text = selectedRow.Cells["CreatedAt"].Value.ToString();
-                txtUpdateAt.Text = selectedRow.Cells["UpdatedAt"].Value.ToString();
-                txtCreatBy.Text = selectedRow.Cells["CreatedBy"].Value.ToString();
-                txtUpdateBy.Text = selectedRow.Cells["UpdatedBy"].Value.ToString();
             }
         }
 
@@ -127,7 +121,30 @@ namespace PRL.View
         {
             ClearForm();
         }
-
+        public static string? GetAccountIdFromRegistry()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    key.Close();
+                    return tk;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+        string nameAc = GetAccountIdFromRegistry();
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
             var productName = txtName.Text.Trim();
@@ -146,13 +163,28 @@ namespace PRL.View
                 Description = txtDescription.Text,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                CreatedBy = "Apple",
-                UpdatedBy = "Apple"
+                CreatedBy = nameAc,
+                UpdatedBy = nameAc,
             };
             context.Products.Add(product);
             context.SaveChanges();
             LoadData();
             MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (nameAc == null)
+            {
+                return;
+            }
+            var acc = new Activity
+            {
+                Note = $"{nameAc} Đã thêm sản phẩm {txtName.Text}, vào lúc {DateTime.Now}",
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                CreatedBy = nameAc,
+                UpdatedBy = nameAc
+            };
+            context.Activities.Add(acc);
+            context.SaveChanges();
+
         }
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -165,13 +197,19 @@ namespace PRL.View
                     product.ProductName = txtName.Text;
                     product.Description = txtDescription.Text;
                     product.UpdatedAt = DateTime.UtcNow;
-                    product.UpdatedBy = "Apple";
+                    product.UpdatedBy = nameAc;
 
                     context.Products.Update(product);
                     context.SaveChanges();
                     MessageBox.Show("Cập nhật sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadData();
                     ClearForm();
+                    var acc = new Activity
+                    {
+                        Note = $"{nameAc} đã sửa sản phẩm {ProductName}, vào lúc {DateTime.Now}",
+                        UpdatedAt = DateTime.Now,
+                        UpdatedBy = nameAc
+                    };
                 }
             }
         }
@@ -215,6 +253,16 @@ namespace PRL.View
                         // Tải lại dữ liệu và xóa form
                         LoadData();
                         ClearForm();
+                        var acc = new Activity
+                        {
+                            Note = $"{nameAc} Đã xóa sản phẩm {ProductName}, vào lúc {DateTime.Now}",
+                            CreatedAt = DateTime.Now,
+                            UpdatedAt = DateTime.Now,
+                            CreatedBy = nameAc,
+                            UpdatedBy = nameAc
+                        };
+                        context.Activities.Add(acc);
+                        context.SaveChanges();
                     }
                 }
                 else

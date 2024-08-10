@@ -147,9 +147,9 @@ namespace PRL.View
                 if (existingBattery != null)
                 {
                     existingBattery.Capacity =  int.Parse(CapicityTxt.Text);
-                    existingBattery.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingBattery.CreatedAt = DateTime.Now;
                     existingBattery.CreatedBy = CBTxt.Text;
-                    existingBattery.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingBattery.UpdatedAt = DateTime.Now;
                     existingBattery.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();

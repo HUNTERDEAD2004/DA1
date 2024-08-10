@@ -338,7 +338,7 @@ namespace PRL.View
 
                                 dbOrder.Status = order.Status == "Chưa thanh toán" ? 0 : 1;
                                 dbOrder.UpdatedAt = DateTime.Now;
-                                dbOrder.UpdatedBy = "admin"; // Cập nhật với thông tin người dùng hiện tại
+                                dbOrder.UpdatedBy = "system"; 
 
                                 context.SaveChanges();
                             }
@@ -405,7 +405,7 @@ namespace PRL.View
                             dbDetail.Quantity = detail.Quantity;
                             dbDetail.UnitPrice = detail.UnitPrice;
                             dbDetail.UpdatedAt = DateTime.Now;
-                            dbDetail.UpdatedBy = "admin"; // Cập nhật với thông tin người dùng hiện tại
+                            dbDetail.UpdatedBy = "system"; 
 
                             context.SaveChanges();
                         }
@@ -470,9 +470,8 @@ namespace PRL.View
 
                     // Kiểm tra số lượng sản phẩm hiện có
                     int availableQuantity = productDetail.Quantity;
-                    int requiredCount = availableQuantity; // Giới hạn số lượng IMEI bằng số lượng sản phẩm có sẵn
 
-                    IMEIForm form = new IMEIForm(requiredCount);
+                    IMEIForm form = new IMEIForm();
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -566,203 +565,6 @@ namespace PRL.View
 
 
 
-
-
-
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        Guid productId, orderId, productDetailId;
-
-        //        // Check ProductId
-        //        if (!Guid.TryParse(txtMSP.Text, out productId))
-        //        {
-        //            MessageBox.Show("Mã sản phẩm không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-
-        //        // Check OrderID
-        //        if (!Guid.TryParse(txtHDHT.Text, out orderId))
-        //        {
-        //            MessageBox.Show("Mã hóa đơn không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-
-        //        // Check ProductDetailID (IMEI)
-        //        if (!Guid.TryParse(txtSPCT.Text, out productDetailId))
-        //        {
-        //            MessageBox.Show("IMEI không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-
-        //        // Check imei 15 số
-        //        string newImei = cbImei.Text;
-        //        //if (!long.TryParse(newImei, out _) || newImei.Length != 15)
-        //        //{
-        //        //    MessageBox.Show("IMEI phải là số và có đủ 15 số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        //    return;
-        //        //}
-
-        //        int requiredCount = 2;  // Ví dụ số lượng IMEI cần nhập là 5
-        //        IMEIForm form = new IMEIForm(requiredCount);
-
-        //        if (form.ShowDialog() == DialogResult.OK)
-        //        {
-        //            List<string> imeiList = form.ImeiList;
-        //        }
-
-        //        using (var context = new IphoneDbContext())
-        //        {
-        //            // Tìm sản phẩm bằng IMEI
-        //            var productDetail = context.ProductDetails.FirstOrDefault(pd => pd.ProductID == productId || pd.ProductDetailID == productDetailId);
-        //            if (productDetail == null)
-        //            {
-        //                MessageBox.Show("Không tìm thấy sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //                return;
-        //            }
-
-        //            // Giảm số lượng sản phẩm
-        //            if (productDetail.Quantity > 0)
-        //            {
-        //                productDetail.Quantity -= 1;
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Sản phẩm đã hết hàng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //                return;
-        //            }
-
-        //            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
-        //            string tk = null;
-        //            if (key != null)
-        //            {
-        //                tk = key.GetValue("Username").ToString();
-        //                string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
-
-        //                SqlCommand cmd = new SqlCommand(query, conn);
-        //                cmd.Parameters.AddWithValue("@Username", tk);
-
-
-        //                key.Close();
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            }
-
-
-        //            var Imei = context.iMEIs.FirstOrDefault(i => i.ImeiID == newImei);
-        //            if (Imei == null)
-        //            {
-        //                MessageBox.Show("Không tìm thấy sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //                return;
-        //            }
-        //            else
-        //            {
-        //                Imei.Status = 2;
-        //                Imei.UpdatedAt = DateTime.Now;
-        //                Imei.UpdatedBy = tk;
-        //                context.SaveChanges();
-        //            }
-
-
-
-        //            // Lấy giá và các thông tin từ ProductDetails
-        //            decimal unitPrice = productDetail.Price;
-        //            string productName = productDetail.Name;
-
-        //            // Lấy giá trị chiết khấu từ bảng Sales
-        //            var sale = context.Sales.FirstOrDefault(s => s.SaleID == productDetail.SaleID);
-        //            decimal discountValue = sale != null ? sale.DiscountValue : 0;
-
-        //            // Tính toán giá sau chiết khấu
-        //            decimal finalPrice = unitPrice;
-
-        //            if (discountValue > 0 && discountValue < 100)
-        //            {
-        //                // Giảm theo phần trăm
-        //                finalPrice = unitPrice * (1 - (discountValue / 100));
-        //            }
-        //            else if (discountValue > 1000 && discountValue <= unitPrice)
-        //            {
-        //                // Giảm theo giá cố định
-        //                finalPrice = unitPrice - discountValue;
-        //            }
-        //            else if ((discountValue >= 100 && discountValue <= 1000) || discountValue > unitPrice)
-        //            {
-        //                MessageBox.Show("Giá trị chiết khấu không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //                return;
-        //            }
-
-        //            // Tạo OrderDetailID mới
-        //            Guid newOrderDetailId = Guid.NewGuid();
-
-        //            // Check if IMEI already exists
-        //            var existingImei = context.iMEIs.FirstOrDefault(i => i.ImeiID == newImei);
-        //            if (existingImei != null)
-        //            {
-        //                // Cập nhật OrderDetailID cho IMEI đã tồn tại
-        //                existingImei.OrderDetailID = newOrderDetailId;
-        //                existingImei.UpdatedAt = DateTime.Now;
-        //                existingImei.UpdatedBy = "admin";
-        //            }
-        //            else
-        //            {
-        //                // Add new IMEI to IMEIs table
-        //                var newImeiEntry = new IMEI
-        //                {
-        //                    ImeiID = newImei,
-        //                    ProductDetailID = productDetailId,
-        //                    OrderDetailID = newOrderDetailId,
-        //                    Status = 2,
-        //                    CreatedAt = DateTime.Now,
-        //                    UpdatedAt = DateTime.Now,
-        //                    CreatedBy = "admin",
-        //                    UpdatedBy = "admin"
-        //                };
-        //                context.iMEIs.Add(newImeiEntry);
-        //            }
-
-        //            var hdtc = new OrderDetail
-        //            {
-        //                OrderDetailID = newOrderDetailId,
-        //                OrderID = orderId,
-        //                ProductDetailID = productDetailId,
-        //                ProductName = productName,
-        //                Quantity = 1,
-        //                UnitPrice = finalPrice,
-        //                DiscountValue = discountValue,
-        //                CreatedAt = DateTime.Now,
-        //                UpdatedAt = DateTime.Now,
-        //                CreatedBy = "admin",
-        //                UpdatedBy = "admin"
-        //            };
-
-
-
-        //            context.OrderDetails.Add(hdtc);
-        //            context.SaveChanges();
-
-        //            LoadData();
-        //            LoadDataHDCT();
-        //            LoadDataHD();
-
-        //            clear();
-        //            MessageBox.Show("Thêm thành công!, toẹt zời hehehe", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Thêm thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
-
-
-
-
-
         private int currentOrderIndex = 0;
         private List<Guid> orderIds = new List<Guid>();
 
@@ -828,12 +630,12 @@ namespace PRL.View
                 // Lấy ngày hôm nay
                 DateTime today = DateTime.Today;
 
-                // Kiểm tra xem có báo cáo nào đã được tạo hôm nay chưa
+                // Kiểm tra báo cáo được tạo chưa
                 var existingReport = Context.Reports.FirstOrDefault(r => r.ReportDate == today);
 
                 if (existingReport == null)
                 {
-                    // Nếu chưa có, tạo báo cáo mới
+                    // Chưa có, tạo mới
                     var newReport = new Report
                     {
                         ReportID = Guid.NewGuid(),
@@ -851,15 +653,15 @@ namespace PRL.View
                     Context.Reports.Add(newReport);
                     Context.SaveChanges();
 
-                    return newReport.ReportID; // Trả về ReportID của báo cáo mới tạo
+                    return newReport.ReportID; 
                 }
 
-                return existingReport.ReportID; // Trả về ReportID của báo cáo đã tồn tại
+                return existingReport.ReportID; 
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi kiểm tra và tạo báo cáo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return Guid.Empty; // Trả về một Guid rỗng nếu có lỗi
+                return Guid.Empty; 
             }
         }
 
@@ -1036,130 +838,6 @@ namespace PRL.View
         }
 
 
-
-
-
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        //var selectedRow = dgvHD.SelectedRows[0];
-        //        string sdt = txtSDT.Text.Trim();
-        //        //int totalPoints = Convert.ToInt32(selectedRow.Cells["OrderID"].Value);
-        //        Guid? customerId = null;
-
-        //        // Xử lý số điện thoại khách hàng
-        //        if (!string.IsNullOrWhiteSpace(sdt))
-        //        {
-        //            var customer = Context.Customers.FirstOrDefault(c => c.PhoneNumber == sdt);
-        //            if (customer == null)
-        //            {
-        //                // Tạo mới khách hàng nếu không tồn tại
-        //                customer = new Customer
-        //                {
-        //                    CustomerID = Guid.NewGuid(),
-        //                    CustomerName = "Khách hàng ảo",
-        //                    Age = 0,
-        //                    Email = "fakeemail@example.com",
-        //                    PhoneNumber = sdt,
-        //                    Gender = "N/A",
-        //                    Point = 0, // Điểm khởi tạo bằng số lượng của hóa đơn
-        //                    Address = "abc",
-        //                    CreatedAt = DateTime.Now,
-        //                    UpdatedAt = DateTime.Now,
-        //                    CreatedBy = "system",
-        //                    UpdatedBy = "system"
-        //                };
-        //                Context.Customers.Add(customer);
-        //                Context.SaveChanges();
-        //            }
-
-        //            customerId = customer.CustomerID;
-        //        }
-
-
-        //        RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
-        //        string tk = null;
-        //        Guid? accountId = null;
-        //        if (key != null)
-        //        {
-        //            tk = key.GetValue("Username").ToString();
-        //            string query = "SELECT AccountID FROM Accounts WHERE Username = @Username";
-
-
-        //            if (conn.State == ConnectionState.Closed)
-        //            {
-        //                conn.Open();
-        //            }
-        //            SqlCommand cmd = new SqlCommand(query, conn);
-        //            cmd.Parameters.AddWithValue("@Username", tk);
-
-        //            SqlDataReader reader = cmd.ExecuteReader();
-        //            if (reader.Read())
-        //            {
-        //                accountId = reader.GetGuid(0);
-        //            }
-        //            reader.Close();
-        //            if (conn.State == ConnectionState.Open)
-        //            {
-        //                conn.Close();
-        //            }
-
-
-        //            key.Close();
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-
-
-        //        // Kiểm tra và tạo báo cáo nếu cần, đồng thời lấy ReportID
-        //        Guid reportId = CheckAndCreateReport();
-        //        var newOrderID = Guid.NewGuid();
-
-        //        var newOrder = new Order
-        //        {
-        //            OrderID = newOrderID,
-        //            CustomerID = customerId,
-        //            AccountID = accountId,
-        //            IDVoucher = Guid.Parse("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
-        //            ReportID = reportId,  // Gán ReportID vào đơn hàng
-        //            TotalAmount = 0,
-        //            Price = 0,
-        //            Status = 0,
-        //            Note = "empty",
-        //            CreatedAt = DateTime.Now,
-        //            UpdatedAt = DateTime.Now,
-        //            CreatedBy = "admin",
-        //            UpdatedBy = "admin"
-        //        };
-
-
-        //        var acc = new DAL.Models.Activity
-        //        {
-        //            Note = $"{tk} Đã Thêm Hóa đơn {newOrderID}, vào lúc {DateTime.Now}",
-        //            CreatedAt = DateTime.Now,
-        //            UpdatedAt = DateTime.Now,
-        //            CreatedBy = tk,
-        //            UpdatedBy = tk
-        //        };
-
-
-        //        Context.Activities.Add(acc);
-        //        Context.Orders.Add(newOrder);
-        //        Context.SaveChanges();
-        //        LoadDataHD();
-        //        MessageBox.Show("Tạo hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Tạo hóa đơn thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
-
         private void bttHDT_Click(object sender, EventArgs e)
         {
             try
@@ -1179,7 +857,6 @@ namespace PRL.View
                     return;
                 }
 
-                // Mở kết nối cơ sở dữ liệu nếu nó chưa mở
                 if (conn.State == ConnectionState.Closed)
                 {
                     conn.Open();
@@ -1261,7 +938,6 @@ namespace PRL.View
         {
             try
             {
-                // Mở kết nối đến cơ sở dữ liệu nếu nó chưa mở
                 if (conn.State == ConnectionState.Closed)
                 {
                     conn.Open();
@@ -1309,7 +985,6 @@ namespace PRL.View
             }
             finally
             {
-                // Đóng kết nối cơ sở dữ liệu
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
@@ -1340,14 +1015,12 @@ namespace PRL.View
         {
             try
             {
-                // Mở kết nối đến cơ sở dữ liệu nếu nó chưa mở
                 if (conn.State == ConnectionState.Closed)
                 {
                     conn.Open();
                 }
 
                 UpdateOrderDetails();
-                // Câu truy vấn SELECT
                 string sql5 = @"
                 SELECT          
                od.ProductName, 
@@ -1362,12 +1035,9 @@ namespace PRL.View
         JOIN IMEIs i ON od.OrderDetailID = i.OrderDetailID
         WHERE od.OrderID = @OrderID";
 
-                // Khởi tạo SqlCommand
                 SqlCommand cmd = new SqlCommand(sql5, conn);
                 cmd.Parameters.AddWithValue("@OrderID", txtHDHT.Text);
-                // Ẩn cột OrderDetailID trong DataGridView
-
-                // Thực hiện lệnh SELECT
+ 
                 sda = new SqlDataAdapter(cmd);
                 ds = new DataSet();
                 sda.Fill(ds);
@@ -1429,7 +1099,6 @@ namespace PRL.View
             }
             finally
             {
-                // Đóng kết nối cơ sở dữ liệu
                 conn.Close();
             }
         }
@@ -1462,7 +1131,6 @@ namespace PRL.View
                     }
                     else
                     {
-                        // Xóa IMEI khỏi cơ sở dữ liệu
                         Context.iMEIs.Remove(imei);
                     }
 
@@ -1471,7 +1139,7 @@ namespace PRL.View
 
                     if (productDetail != null)
                     {
-                        productDetail.Quantity += 1; // Tăng số lượng sản phẩm sau khi xóa IMEI
+                        productDetail.Quantity += 1; // Tăng lại số lượng khi xóa IMEI
                     }
 
                     // Xóa OrderDetail khỏi cơ sở dữ liệu
@@ -1602,7 +1270,7 @@ namespace PRL.View
                 DataRow dataRow = selectedData.NewRow();
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                    dataRow[cell.OwningColumn.Name] = cell.Value ?? DBNull.Value; // Nếu giá trị là null, chuyển thành DBNull.Value
+                    dataRow[cell.OwningColumn.Name] = cell.Value ?? DBNull.Value; 
                 }
                 selectedData.Rows.Add(dataRow);
             }
@@ -1647,7 +1315,6 @@ namespace PRL.View
             {
                 if (string.IsNullOrWhiteSpace(searchTerm) && string.IsNullOrWhiteSpace(selectedProductName))
                 {
-                    // Gọi lại LoadData nếu không có từ khóa tìm kiếm
                     LoadData();
                 }
                 else

@@ -193,6 +193,7 @@
             // 
             // bttSua
             // 
+            bttSua.Enabled = false;
             bttSua.ForeColor = SystemColors.ActiveCaptionText;
             bttSua.Location = new Point(223, 404);
             bttSua.Name = "bttSua";

@@ -433,7 +433,6 @@ namespace PRL.View
                         MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    // Giả sử user là đối tượng Account đã tồn tại trong cơ sở dữ liệu và bạn muốn cập nhật thông tin của nó
                     user.Name = txtten.Text;
                     user.Adress = txtDC.Text;
                     user.Username = txtTK.Text;

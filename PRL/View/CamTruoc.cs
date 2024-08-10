@@ -147,9 +147,9 @@ namespace PRL.View
                 if (existingCamRear != null)
                 {
                     existingCamRear.RearCameraDetails = RearCameraDetailsTxt.Text;
-                    existingCamRear.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingCamRear.CreatedAt = DateTime.Now;
                     existingCamRear.CreatedBy = CBTxt.Text;
-                    existingCamRear.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingCamRear.UpdatedAt = DateTime.Now;
                     existingCamRear.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();

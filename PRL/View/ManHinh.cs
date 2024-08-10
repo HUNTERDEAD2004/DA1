@@ -1,4 +1,5 @@
 ﻿using AppData.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,30 @@ namespace PRL.View
             _db = new IphoneDbContext();
             InitializeComponent();
         }
-
+        public static string? GetAccountIdFromRegistry()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    key.Close();
+                    return tk;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+        string nameAc = GetAccountIdFromRegistry();
         private void ManHinh_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -80,19 +104,35 @@ namespace PRL.View
                 // Gán dữ liệu từ các ô vào các TextBox tương ứng
                 DisPlayId.Text = row.Cells["DisplayID"].Value.ToString();
                 DisPlayName.Text = row.Cells["DisplayName"].Value.ToString();
-                CATimePicker.Text = row.Cells["CreatedAt"].Value.ToString();
-                CBTxt.Text = row.Cells["CreatedBy"].Value.ToString();
-                UATimePicker.Text = row.Cells["UpdatedAt"].Value.ToString();
-                UBTxt.Text = row.Cells["UpdatedBy"].Value.ToString();
             }
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnAdd_Click_1(object sender, EventArgs e)
+        {
             var CreateDisplay = MessageBox.Show("Bạn có muốn tạo thêm Display không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (CreateDisplay == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(DisPlayName.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(DisPlayName.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -103,9 +143,9 @@ namespace PRL.View
                     DisplayID = Guid.NewGuid(), // Tạo ID mới
                     DisplayName = DisPlayName.Text,
                     CreatedAt = DateTime.Now,
-                    CreatedBy = CBTxt.Text,
+                    CreatedBy = nameAc,
                     UpdatedAt = DateTime.Now,
-                    UpdatedBy = UBTxt.Text
+                    UpdatedBy = nameAc
                 };
 
                 // Thêm vào cơ sở dữ liệu
@@ -120,7 +160,7 @@ namespace PRL.View
             }
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click_1(object sender, EventArgs e)
         {
             var deleteDisplay = MessageBox.Show("Bạn có muốn Xóa Display không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (deleteDisplay == DialogResult.Yes)
@@ -153,7 +193,7 @@ namespace PRL.View
             }
         }
 
-        private void BtnSearch_Click(object sender, EventArgs e)
+        private void BtnSearch_Click_1(object sender, EventArgs e)
         {
             var searchTerm = SearchingTxt.Text.ToLower();
 
@@ -177,12 +217,12 @@ namespace PRL.View
             DgvDIsPlayShow.DataSource = filteredData;
         }
 
-        private void BtnUpdate_Click(object sender, EventArgs e)
+        private void BtnUpdate_Click_1(object sender, EventArgs e)
         {
             var updateDisplay = MessageBox.Show("Bạn có muốn Sửa Display không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (updateDisplay == DialogResult.Yes)
             {
-                if (string.IsNullOrWhiteSpace(DisPlayName.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                if (string.IsNullOrWhiteSpace(DisPlayName.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Kết thúc phương thức nếu có trường rỗng
@@ -199,10 +239,9 @@ namespace PRL.View
                 if (existingDisplay != null)
                 {
                     existingDisplay.DisplayName = DisPlayName.Text;
-                    existingDisplay.CreatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingDisplay.CreatedBy = CBTxt.Text;
-                    existingDisplay.UpdatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingDisplay.UpdatedBy = UBTxt.Text;
+                    existingDisplay.CreatedBy = nameAc;
+                    existingDisplay.UpdatedAt = DateTime.Now;
+                    existingDisplay.UpdatedBy = nameAc;
 
                     _db.SaveChanges();
 
@@ -219,11 +258,6 @@ namespace PRL.View
             {
                 MessageBox.Show("Sửa Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void BtnAdd_Click_1(object sender, EventArgs e)
-        {
-
         }
     }
 }

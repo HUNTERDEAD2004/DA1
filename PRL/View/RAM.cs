@@ -90,111 +90,22 @@ namespace PRL.View
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            var updateRam = MessageBox.Show("Bạn có muốn Sửa RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (updateRam == DialogResult.Yes)
-            {
-                if (string.IsNullOrWhiteSpace(RamTypeTxt.Text) || string.IsNullOrWhiteSpace(RamSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
-                {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Kết thúc phương thức nếu có trường rỗng
-                }
-
-                if (string.IsNullOrWhiteSpace(RamIdTxt.Text) || !Guid.TryParse(RamIdTxt.Text, out Guid RamID))
-                {
-                    MessageBox.Show("Vui lòng nhập ID RAM hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Kết thúc phương thức nếu ID không hợp lệ
-                }
-
-                var existingRam = _db.RAMs.FirstOrDefault(c => c.RAMID == RamID);
-
-                if (existingRam != null)
-                {
-                    existingRam.RAMType = RamTypeTxt.Text;
-                    existingRam.RAMSize = RamSizeTxt.Text;
-                    existingRam.CreatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingRam.CreatedBy = CBTxt.Text;
-                    existingRam.UpdatedAt = DateTime.Parse(CATimePicker.Text);
-                    existingRam.UpdatedBy = UBTxt.Text;
-
-                    _db.SaveChanges();
-
-                    MessageBox.Show("Sửa Thành Công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    LoadData();
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy RAM!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Sửa Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            var deleteRam = MessageBox.Show("Bạn có muốn Xóa RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (deleteRam == DialogResult.Yes)
-            {
-
-                if (string.IsNullOrWhiteSpace(RamIdTxt.Text) || !Guid.TryParse(RamIdTxt.Text, out Guid RamID))
-                {
-                    MessageBox.Show("Vui lòng nhập ID RAM hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Kết thúc phương thức nếu ID không hợp lệ
-                }
-
-                var existingRam = _db.RAMs.FirstOrDefault(c => c.RAMID == RamID);
-
-                if (existingRam != null)
-                {
-                    _db.RAMs.Remove(existingRam);
-                    _db.SaveChanges();
-
-                    MessageBox.Show("Xóa Thành Công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    LoadData();
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy RAM!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xpá Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
         }
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            var searchTerm = SearchingTxt.Text.ToLower();
-
-            var filteredData = _db.RAMs.ToList().Where(c =>
-                c.RAMSize.ToLower().Contains(searchTerm) ||
-                c.RAMType.ToLower().Contains(searchTerm) ||
-                c.CreatedAt.ToString().Contains(searchTerm) ||
-                c.CreatedBy.ToLower().Contains(searchTerm) ||
-                c.UpdatedAt.ToString().Contains(searchTerm) ||
-                c.UpdatedBy.ToLower().Contains(searchTerm)
-            ).Select(c => new
-            {
-                c.RAMID,
-                c.RAMSize,
-                c.RAMType,
-                c.CreatedAt,
-                c.CreatedBy,
-                c.UpdatedAt,
-                c.UpdatedBy,
-            }).ToList();
-
-            DgvRAMShow.DataSource = filteredData;
+            
         }
 
         private void BtnAdd_Click_1(object sender, EventArgs e)
@@ -232,6 +143,110 @@ namespace PRL.View
             else
             {
                 MessageBox.Show("Tạo Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnDelete_Click_1(object sender, EventArgs e)
+        {
+            var deleteRam = MessageBox.Show("Bạn có muốn Xóa RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (deleteRam == DialogResult.Yes)
+            {
+
+                if (string.IsNullOrWhiteSpace(RamIdTxt.Text) || !Guid.TryParse(RamIdTxt.Text, out Guid RamID))
+                {
+                    MessageBox.Show("Vui lòng nhập ID RAM hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Kết thúc phương thức nếu ID không hợp lệ
+                }
+
+                var existingRam = _db.RAMs.FirstOrDefault(c => c.RAMID == RamID);
+
+                if (existingRam != null)
+                {
+                    _db.RAMs.Remove(existingRam);
+                    _db.SaveChanges();
+
+                    MessageBox.Show("Xóa Thành Công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy RAM!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Xpá Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnSearch_Click_1(object sender, EventArgs e)
+        {
+            var searchTerm = SearchingTxt.Text.ToLower();
+
+            var filteredData = _db.RAMs.ToList().Where(c =>
+                c.RAMSize.ToLower().Contains(searchTerm) ||
+                c.RAMType.ToLower().Contains(searchTerm) ||
+                c.CreatedAt.ToString().Contains(searchTerm) ||
+                c.CreatedBy.ToLower().Contains(searchTerm) ||
+                c.UpdatedAt.ToString().Contains(searchTerm) ||
+                c.UpdatedBy.ToLower().Contains(searchTerm)
+            ).Select(c => new
+            {
+                c.RAMID,
+                c.RAMSize,
+                c.RAMType,
+                c.CreatedAt,
+                c.CreatedBy,
+                c.UpdatedAt,
+                c.UpdatedBy,
+            }).ToList();
+
+            DgvRAMShow.DataSource = filteredData;
+        }
+
+        private void BtnUpdate_Click_1(object sender, EventArgs e)
+        {
+            var updateRam = MessageBox.Show("Bạn có muốn Sửa RAM không !?", "Thông báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (updateRam == DialogResult.Yes)
+            {
+                if (string.IsNullOrWhiteSpace(RamTypeTxt.Text) || string.IsNullOrWhiteSpace(RamSizeTxt.Text) || string.IsNullOrWhiteSpace(CBTxt.Text) || string.IsNullOrWhiteSpace(UBTxt.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Kết thúc phương thức nếu có trường rỗng
+                }
+
+                if (string.IsNullOrWhiteSpace(RamIdTxt.Text) || !Guid.TryParse(RamIdTxt.Text, out Guid RamID))
+                {
+                    MessageBox.Show("Vui lòng nhập ID RAM hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Kết thúc phương thức nếu ID không hợp lệ
+                }
+
+                var existingRam = _db.RAMs.FirstOrDefault(c => c.RAMID == RamID);
+
+                if (existingRam != null)
+                {
+                    existingRam.RAMType = RamTypeTxt.Text;
+                    existingRam.RAMSize = RamSizeTxt.Text;
+                    existingRam.CreatedAt = DateTime.Now;
+                    existingRam.CreatedBy = CBTxt.Text;
+                    existingRam.UpdatedAt = DateTime.Now;
+                    existingRam.UpdatedBy = UBTxt.Text;
+
+                    _db.SaveChanges();
+
+                    MessageBox.Show("Sửa Thành Công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy RAM!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sửa Thất Bại *_*?", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

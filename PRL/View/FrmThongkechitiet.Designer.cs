@@ -293,6 +293,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "FrmThongkechitiet";
             Text = "FrmThongkechitiet";
+            Load += FrmThongkechitiet_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -1,8 +1,10 @@
 ﻿using AppData.Models;
 using DAL.Models;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Irony.Parsing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +34,30 @@ namespace PRL.View
             LoadDetails();
             RemoveExpiredSales();
         }
+        public static string? GetAccountIdFromRegistry()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MyApp");
+                string tk = null;
+                if (key != null)
+                {
+                    tk = key.GetValue("Username").ToString();
+                    key.Close();
+                    return tk;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khóa Registry", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truy xuất Registry hoặc cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+        string nameAc = GetAccountIdFromRegistry();
         private void LoadComboBoxData()
         {
             var ramList = context.RAMs.ToList();
@@ -162,6 +188,7 @@ namespace PRL.View
                     {
                         ProductDetailID = pd.ProductDetailID,
                         Name = pd.Name,
+                        Quantity = pd.Quantity,
                         Color = context.Colours.FirstOrDefault(c => c.ColorID == pd.ColorID).ColorName,
                         RAM = context.RAMs.FirstOrDefault(r => r.RAMID == pd.RAMID).RAMSize,
                         Price = pd.Price,
@@ -189,7 +216,9 @@ namespace PRL.View
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if ((Guid)cbRam.SelectedValue == Guid.Empty ||
+            try
+            {
+                if ((Guid)cbRam.SelectedValue == Guid.Empty ||
                 (Guid)cbCpu.SelectedValue == Guid.Empty ||
                 (Guid)cbGPU.SelectedValue == Guid.Empty ||
                 (Guid)cbRom.SelectedValue == Guid.Empty ||
@@ -200,116 +229,128 @@ namespace PRL.View
                 (Guid)cbBattery.SelectedValue == Guid.Empty ||
                 (Guid)cbMaterial.SelectedValue == Guid.Empty
                 )
-            {
-                MessageBox.Show("Vui lòng chọn tất cả các thông tin chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (txtName.Text == "" || txtWeight.Text == "" || txtYear.Text == "" || txtImport.Text == "")
-            {
-                MessageBox.Show("Không được để trống các trường dữ liệu", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            string price = @"^\d+(\.\d+)?$";
-            if (!Regex.IsMatch(txtImport.Text, price) || !Regex.IsMatch(txtPrice.Text, price))
-            {
-                MessageBox.Show("Giá nhập/bán không được nhập chữ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (decimal.Parse(txtPrice.Text) < decimal.Parse(txtImport.Text))
-            {
-                MessageBox.Show("Giá nhập không được lớn hơn giá bán", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (int.Parse(txtQuantity.Text) < 0)
-            {
-                MessageBox.Show("số lượng không hợp lệ. Kiểm tra lại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            // Kiểm tra sản phẩm chi tiết trùng lặp
-            var existingDetail = context.ProductDetails
-                .FirstOrDefault(pd => pd.ProductID == _productID &&
-                                      pd.RAMID == (Guid)cbRam.SelectedValue &&
-                                      pd.ROMID == (Guid)cbRom.SelectedValue &&
-                                      pd.CPUID == (Guid)cbCpu.SelectedValue &&
-                                      pd.GPUID == (Guid)cbGPU.SelectedValue &&
-                                      pd.ColorID == (Guid)cbColor.SelectedValue);
+                {
+                    MessageBox.Show("Vui lòng chọn tất cả các thông tin chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (txtName.Text == "" || txtWeight.Text == "" || txtYear.Text == "" || txtImport.Text == "")
+                {
+                    MessageBox.Show("Không được để trống các trường dữ liệu", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                string price = @"^\d+(\.\d+)?$";
+                if (!Regex.IsMatch(txtImport.Text, price) || !Regex.IsMatch(txtPrice.Text, price))
+                {
+                    MessageBox.Show("Giá nhập/bán không được nhập chữ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (decimal.Parse(txtPrice.Text) < decimal.Parse(txtImport.Text))
+                {
+                    MessageBox.Show("Giá nhập không được lớn hơn giá bán", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (int.Parse(txtQuantity.Text) < 0)
+                {
+                    MessageBox.Show("số lượng không hợp lệ. Kiểm tra lại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                // Kiểm tra sản phẩm chi tiết trùng lặp
+                var existingDetail = context.ProductDetails
+                    .FirstOrDefault(pd => pd.ProductID == _productID &&
+                                          pd.RAMID == (Guid)cbRam.SelectedValue &&
+                                          pd.ROMID == (Guid)cbRom.SelectedValue &&
+                                          pd.CPUID == (Guid)cbCpu.SelectedValue &&
+                                          pd.GPUID == (Guid)cbGPU.SelectedValue &&
+                                          pd.ColorID == (Guid)cbColor.SelectedValue);
 
-            if (existingDetail != null)
-            {
-                MessageBox.Show("Đã tồn tại. Vui lòng kiểm tra lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (existingDetail != null)
+                {
+                    MessageBox.Show("Đã tồn tại. Vui lòng kiểm tra lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // Lấy giá trị từ các combobox
+                string color = cbColor.Text;
+                string ram = cbRam.Text;
+                string cpu = cbCpu.Text;
+                string gpu = cbGPU.Text;
+                string rom = cbRom.Text;
+                string display = cbDisplay.Text;
+
+                // Tạo tên sản phẩm mới bằng cách kết hợp các giá trị combobox
+                string newName = $"{txtName.Text} {color} {ram} {cpu} {gpu} {rom} {display}";
+
+                // Chuyển đổi giá trị nhập liệu
+                decimal prices = decimal.Parse(txtPrice.Text);
+                decimal importPrice = decimal.Parse(txtImport.Text);
+                int quantity = int.Parse(txtQuantity.Text);
+                int weight = int.Parse(txtWeight.Text);
+                int year = int.Parse(txtYear.Text);
+
+                // Kiểm tra điều kiện giá nhập không được lớn hơn giá bán
+                if (importPrice > prices)
+                {
+                    MessageBox.Show("Giá nhập không được lớn hơn giá bán.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Tạo đối tượng ProductDetail
+                var detail = new ProductDetail
+                {
+                    ProductDetailID = Guid.NewGuid(),
+                    ProductID = _productID,
+                    Name = newName,
+                    Price = prices,
+                    importPrice = importPrice,
+                    Quantity = quantity,
+                    Status = 1,
+                    ColorID = (Guid)cbColor.SelectedValue,
+                    RAMID = (Guid)cbRam.SelectedValue,
+                    CPUID = (Guid)cbCpu.SelectedValue,
+                    GPUID = (Guid)cbGPU.SelectedValue,
+                    ROMID = (Guid)cbRom.SelectedValue,
+                    DisplayID = (Guid)cbDisplay.SelectedValue,
+                    SaleID = cbSale.SelectedValue != null && (Guid)cbSale.SelectedValue != Guid.Empty
+                    ? (Guid?)cbSale.SelectedValue
+                    : null,
+                    OSID = (Guid)cbSystem.SelectedValue,
+                    BatteryID = (Guid)cbBattery.SelectedValue,
+                    Weight = weight,
+                    Year = year,
+                    MaterialID = (Guid)cbMaterial.SelectedValue,
+                    OriginID = (Guid)cbOrigin.SelectedValue,
+                    VersionID = (Guid)cbVersion.SelectedValue,
+                    RearCameraID = (Guid)cbRear.SelectedValue,
+                    CameraSelfieID = (Guid)cbSelfie.SelectedValue
+                };
+
+                context.ProductDetails.Add(detail);
+                context.SaveChanges();
+                UpdateProductQuantity(_productID);
+                MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var acc = new Activity
+                {
+                    Note = $"{nameAc} Đã thêm sản phẩm {ProductName} với {cbRam.SelectedValue}, {cbRom.SelectedValue}, {cbColor.SelectedValue}, vào lúc {DateTime.Now}",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CreatedBy = nameAc,
+                    UpdatedBy = nameAc
+                };
+                context.Activities.Add(acc);
+                context.SaveChanges();
+                this.Close();
             }
-            // Lấy giá trị từ các combobox
-            string color = cbColor.Text;
-            string ram = cbRam.Text;
-            string cpu = cbCpu.Text;
-            string gpu = cbGPU.Text;
-            string rom = cbRom.Text;
-            string display = cbDisplay.Text;
-
-            // Tạo tên sản phẩm mới bằng cách kết hợp các giá trị combobox
-            string newName = $"{txtName.Text} {color} {ram} {cpu} {gpu} {rom} {display}";
-
-            // Chuyển đổi giá trị nhập liệu
-            decimal prices = decimal.Parse(txtPrice.Text);
-            decimal importPrice = decimal.Parse(txtImport.Text);
-            int quantity = int.Parse(txtQuantity.Text);
-            int weight = int.Parse(txtWeight.Text);
-            int year = int.Parse(txtYear.Text);
-
-            // Kiểm tra điều kiện giá nhập không được lớn hơn giá bán
-            if (importPrice > prices)
+            catch (Exception ex)
             {
-                MessageBox.Show("Giá nhập không được lớn hơn giá bán.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show("Thêm thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // Tạo đối tượng ProductDetail
-            var detail = new ProductDetail
-            {
-                ProductDetailID = Guid.NewGuid(),
-                ProductID = _productID,
-                Name = newName,
-                Price = prices,
-                importPrice = importPrice,
-                Quantity = quantity,
-                Status = 1,
-                ColorID = (Guid)cbColor.SelectedValue,
-                RAMID = (Guid)cbRam.SelectedValue,
-                CPUID = (Guid)cbCpu.SelectedValue,
-                GPUID = (Guid)cbGPU.SelectedValue,
-                ROMID = (Guid)cbRom.SelectedValue,
-                DisplayID = (Guid)cbDisplay.SelectedValue,
-                SaleID = cbSale.SelectedValue != null && (Guid)cbSale.SelectedValue != Guid.Empty
-                ? (Guid?)cbSale.SelectedValue
-                : null,
-                OSID = (Guid)cbSystem.SelectedValue,
-                BatteryID = (Guid)cbBattery.SelectedValue,
-                Weight = weight,
-                Year = year,
-                MaterialID = (Guid)cbMaterial.SelectedValue,
-                OriginID = (Guid)cbOrigin.SelectedValue,
-                VersionID = (Guid)cbVersion.SelectedValue,
-                RearCameraID = (Guid)cbRear.SelectedValue,
-                CameraSelfieID = (Guid)cbSelfie.SelectedValue
-            };
-
-            context.ProductDetails.Add(detail);
-            context.SaveChanges();
-            UpdateProductQuantity(_productID);
-            MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (dgvDetails.SelectedRows.Count > 0)
             {
-                // Lấy ProductDetailID từ hàng được chọn
                 var productDetailID = (Guid)dgvDetails.SelectedRows[0].Cells["ProductDetailID"].Value;
 
-                // Tìm chi tiết sản phẩm dựa trên ProductDetailID
                 var detail = context.ProductDetails.Find(productDetailID);
 
                 if (detail != null)
                 {
-                    // Xác thực dữ liệu nhập
                     if (string.IsNullOrEmpty(txtName.Text) ||
                         int.Parse(txtWeight.Text) == 0)
 
@@ -339,8 +380,8 @@ namespace PRL.View
                     }
 
                     // Cập nhật các thuộc tính của chi tiết sản phẩm
-                    detail.Name = txtName.Text;
                     detail.Price = decimal.Parse(txtPrice.Text);
+                    detail.Status = int.Parse(txtStatus.Text);
                     detail.importPrice = decimal.Parse(txtImport.Text);
                     detail.Quantity = int.Parse(txtQuantity.Text);
                     detail.ColorID = (Guid)cbColor.SelectedValue;
@@ -359,18 +400,23 @@ namespace PRL.View
                     detail.Weight = int.Parse(txtWeight.Text);
                     detail.Year = int.Parse(txtYear.Text);
 
-                    // Kiểm tra và cập nhật SaleID
                     var saleId = cbSale.SelectedValue != null ? (Guid?)cbSale.SelectedValue : null;
                     detail.SaleID = saleId.HasValue && context.Sales.Any(s => s.SaleID == saleId.Value) ? saleId : null;
 
-                    // Cập nhật chi tiết sản phẩm trong cơ sở dữ liệu
                     context.ProductDetails.Update(detail);
                     context.SaveChanges();
 
-                    // Hiển thị thông báo thành công
                     MessageBox.Show("Cập nhật chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Tải lại dữ liệu
+                    var acc = new Activity
+                    {
+                        Note = $"{nameAc} Đã sửa sản phẩm {ProductName}, vào lúc {DateTime.Now}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = nameAc,
+                        UpdatedBy = nameAc
+                    };
+                    context.Activities.Add(acc);
+                    context.SaveChanges();
                     LoadDetails();
                     ClearForm();
                 }
@@ -412,9 +458,11 @@ namespace PRL.View
 
                         // Cập nhật các giá trị vào các điều khiển
                         txtImport.Text = productDetail.importPrice.ToString("0.00");
+                        txtName.Text = productDetail.Name;
                         txtPrice.Text = productDetail.Price.ToString("0.00");
                         txtYear.Text = productDetail.Year.ToString();
                         txtWeight.Text = productDetail.Weight.ToString();
+                        txtStatus.Text = productDetail.Status.ToString();
                         cbColor.SelectedValue = productDetail.ColorID;
                         cbRam.SelectedValue = productDetail.RAMID;
                         cbCpu.SelectedValue = productDetail.CPUID;
@@ -456,17 +504,29 @@ namespace PRL.View
                 {
                     var productId = detail.ProductID;
 
-                    // Xóa chi tiết sản phẩm
-                    context.ProductDetails.Remove(detail);
+                    // Thay vì xóa, đặt số lượng về 0 và Status = 0
+                    detail.Quantity = 0;
+                    detail.Status = 0;
+
                     context.SaveChanges();
 
-                    // Cập nhật số lượng sản phẩm (nếu cần)
                     UpdateProductQuantity(productId);
 
-                    // Hiển thị thông báo thành công
-                    MessageBox.Show("Xóa chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Đã Xóa chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Tải lại dữ liệu và làm sạch form
+                    // Ghi lại hoạt động
+                    var acc = new Activity
+                    {
+                        Note = $"{nameAc} Đã Xóa sản phẩm {detail.Name}, đặt số lượng về 0 và Status thành 0, vào lúc {DateTime.Now}",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CreatedBy = nameAc,
+                        UpdatedBy = nameAc
+                    };
+                    context.Activities.Add(acc);
+                    context.SaveChanges();
+
+                    // Tải lại chi tiết sản phẩm
                     LoadDetails();
                     ClearForm();
                 }
@@ -477,9 +537,10 @@ namespace PRL.View
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một chi tiết sản phẩm để xóa", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn một chi tiết sản phẩm để cập nhật", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void ClearForm()
         {
@@ -502,7 +563,9 @@ namespace PRL.View
             cbSystem.SelectedValue = "";
             cbMaterial.SelectedValue = "";
             txtWeight.Text = "";
-            txtYear.SelectedValue = "";
+            txtYear.Text = "";
+            txtImport.Text = "";
+            txtProductID.Text = "";
             cbOrigin.SelectedValue = "";
         }
 
@@ -626,6 +689,7 @@ namespace PRL.View
             LoadComboBoxData();
             LoadProduct();
             LoadDetails();
+            ClearForm();
         }
 
         private void btnImei_Click(object sender, EventArgs e)
@@ -708,5 +772,10 @@ namespace PRL.View
             dgvDetails.DataSource = productDetails;
         }
 
+        private void bcColor_Click(object sender, EventArgs e)
+        {
+            MauSac ms = new MauSac();
+            ms.Show();
+        }
     }
 }

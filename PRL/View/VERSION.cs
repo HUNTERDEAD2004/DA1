@@ -34,10 +34,8 @@ namespace PRL.View
         {
             try
             {
-                // Đảm bảo rằng AutoGenerateColumns được đặt thành true
                 DgvVersionShow.AutoGenerateColumns = true;
 
-                // Lấy dữ liệu từ cơ sở dữ liệu và chọn các cột cần thiết
                 var VersionData = _db.Versions.ToList().Select(c => new
                 {
                     c.VersionID,
@@ -100,7 +98,7 @@ namespace PRL.View
                 var existed = _db.Versions.FirstOrDefault(r => r.VersionName == VerNameTxt.Text);
                 if (existed != null)
                 {
-                    MessageBox.Show("Kích thước RAM này đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 var newWeight = new DAL.Models.Versions
@@ -147,9 +145,9 @@ namespace PRL.View
                 if (existingVersion != null)
                 {
                     existingVersion.VersionName = VerNameTxt.Text;
-                    existingVersion.CreatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingVersion.CreatedAt = DateTime.Now;
                     existingVersion.CreatedBy = CBTxt.Text;
-                    existingVersion.UpdatedAt = DateTime.Parse(CATimePicker.Text);
+                    existingVersion.UpdatedAt = DateTime.Now;
                     existingVersion.UpdatedBy = UBTxt.Text;
 
                     _db.SaveChanges();

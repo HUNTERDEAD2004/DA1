@@ -210,5 +210,10 @@ namespace PRL.View
                 MessageBox.Show($"Đã xảy ra lỗi khi lưu hóa đơn: {ex.Message}\n{ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void FrmThongkechitiet_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

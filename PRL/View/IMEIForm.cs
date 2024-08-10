@@ -16,14 +16,15 @@ namespace PRL.View
     {
         public List<string> ImeiList { get; private set; } = new List<string>();
         private int requiredCount;
-        public IMEIForm(int requiredCount)
+
+        public IMEIForm()
         {
             InitializeComponent();
+            dgvImei.RowPostPaint += new DataGridViewRowPostPaintEventHandler(dgvImei_RowPostPaint);
         }
 
         private void dgvImei_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Kiểm tra nếu cột được nhấp vào là cột "Delete"
             if (e.ColumnIndex == dgvImei.Columns["Delete"].Index && e.RowIndex >= 0)
             {
                 // Xóa dòng tương ứng
@@ -37,7 +38,7 @@ namespace PRL.View
 
         private void txtOK_Click(object sender, EventArgs e)
         {
-            // Kiểm tra nếu không có dòng nào trong DataGridView hoặc tất cả các dòng đều trống
+            // Kiểm tra nhập chưa
             bool hasImei = false;
 
             foreach (DataGridViewRow row in dgvImei.Rows)
@@ -64,20 +65,27 @@ namespace PRL.View
                 return;
             }
 
-            if (ImeiList.Count >= requiredCount)
-            {
+            
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-            }
-            else
+            
+        }
+
+        private void dgvImei_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // Vẽ số thứ tự
+            using (SolidBrush b = new SolidBrush(dgvImei.RowHeadersDefaultCellStyle.ForeColor))
             {
-                MessageBox.Show($"Bạn cần nhập đủ {requiredCount} IMEI.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string stt = (e.RowIndex + 1).ToString();
+                e.Graphics.DrawString(stt, dgvImei.DefaultCellStyle.Font, b, e.RowBounds.Location.X + 5, e.RowBounds.Location.Y + 4);
             }
         }
 
         private void IMEIForm_Load(object sender, EventArgs e)
         {
-
+            // Gắn sự kiện RowPostPaint cho DataGridView
+            dgvImei.RowPostPaint += new DataGridViewRowPostPaintEventHandler(dgvImei_RowPostPaint);
         }
+
     }
 }

@@ -289,7 +289,6 @@ namespace PRL.View
                     if (orderIdCell != null && Guid.TryParse(orderIdCell.ToString(), out Guid orderId) &&
                         reportIdCell != null && Guid.TryParse(reportIdCell.ToString(), out Guid reportId))
                     {
-                        // Hiển thị thông báo xác nhận trước khi thanh toán
                         var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn thanh toán hóa đơn này không?", "Xác nhận thanh toán", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (confirmResult == DialogResult.Yes)
@@ -450,7 +449,7 @@ namespace PRL.View
                                                         UpdatedBy = usernameAC
                                                     };
                                                     context.Warranties.Add(warranty);
-                                                    context.SaveChanges(); // Lưu từng bản ghi bảo hành sau khi thêm
+                                                    context.SaveChanges(); 
                                                 }
                                                 else
                                                 {
